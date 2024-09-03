@@ -1,0 +1,1305 @@
+{
+  "version": "0.1.0",
+  "name": "solana_clubhouse",
+  "instructions": [
+	{
+	  "name": "createClub",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "memberMetadataAccount",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "signerPaymentAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "adminTokenAccount",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "clubAdminMint",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "adminMetadataAccount",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "house",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "houseVault",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardMint",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": [
+		{
+		  "name": "collectionId",
+		  "type": "publicKey"
+		}
+	  ]
+	},
+	{
+	  "name": "updateClub",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": false,
+		  "isSigner": true
+		},
+		{
+		  "name": "nftTokenAccount",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		}
+	  ],
+	  "args": [
+		{
+		  "name": "trainingConfig",
+		  "type": {
+			"option": {
+			  "defined": "TrainingConfig"
+			}
+		  }
+		},
+		{
+		  "name": "matchConfig",
+		  "type": {
+			"option": {
+			  "defined": "MatchConfig"
+			}
+		  }
+		}
+	  ]
+	},
+	{
+	  "name": "deleteClub",
+	  "accounts": [
+		{
+		  "name": "programAdmin",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "programAdminProof",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": []
+	},
+	{
+	  "name": "createHouse",
+	  "accounts": [
+		{
+		  "name": "programAdmin",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "programAdminProof",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "house",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "houseAdmin",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "houseCurrencyMint",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "defaultVault",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": [
+		{
+		  "name": "identifier",
+		  "type": {
+			"defined": "CollectionIdentifier"
+		  }
+		},
+		{
+		  "name": "houseConfig",
+		  "type": {
+			"defined": "HouseConfig"
+		  }
+		},
+		{
+		  "name": "houseName",
+		  "type": {
+			"array": [
+			  "u8",
+			  32
+			]
+		  }
+		}
+	  ]
+	},
+	{
+	  "name": "updateHouse",
+	  "accounts": [
+		{
+		  "name": "houseAdmin",
+		  "isMut": false,
+		  "isSigner": true
+		},
+		{
+		  "name": "house",
+		  "isMut": true,
+		  "isSigner": false
+		}
+	  ],
+	  "args": [
+		{
+		  "name": "houseConfig",
+		  "type": {
+			"defined": "HouseConfig"
+		  }
+		}
+	  ]
+	},
+	{
+	  "name": "fundClub",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": false,
+		  "isSigner": true
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "sourceTokenAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardMint",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": [
+		{
+		  "name": "amount",
+		  "type": "u64"
+		}
+	  ]
+	},
+	{
+	  "name": "withdrawFunds",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "nftTokenAccount",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "adminTokenAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardMint",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "associatedTokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": []
+	},
+	{
+	  "name": "setMetadataMint",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": false,
+		  "isSigner": true
+		},
+		{
+		  "name": "nftTokenAccount",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "clubAdminMint",
+		  "isMut": false,
+		  "isSigner": false,
+		  "docs": [
+			"admin mint"
+		  ]
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "mint",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": []
+	},
+	{
+	  "name": "startTraining",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "nftTokenAccount",
+		  "isMut": false,
+		  "isSigner": false,
+		  "docs": [
+			"We don't need to see if the mint is in an ATA"
+		  ]
+		},
+		{
+		  "name": "metadataAccount",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "clubMember",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "house",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "training",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardMint",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "clubMemberEscrow",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": []
+	},
+	{
+	  "name": "completeTraining",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "player",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "payoutAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "nftTokenAccount",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "clubMember",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "house",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "training",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardMint",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "clubMemberEscrow",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "associatedTokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": [
+		{
+		  "name": "tokens",
+		  "type": "u64"
+		}
+	  ]
+	},
+	{
+	  "name": "addProgramAdmin",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "programAdmin",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "programAdminProof",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "programData",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": []
+	},
+	{
+	  "name": "removeProgramAdmin",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "programAdmin",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "programAdminProof",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "programData",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": []
+	},
+	{
+	  "name": "joinDuel",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "nftTokenAccount",
+		  "isMut": false,
+		  "isSigner": false,
+		  "docs": [
+			"We don't need to see if the mint is in an ATA"
+		  ]
+		},
+		{
+		  "name": "metadataAccount",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "clubMember",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "opponentMetadata",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "opponentClubMember",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardMint",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "signerTokenAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "house",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "duel",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "pot",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": [
+		{
+		  "name": "wager",
+		  "type": "u64"
+		},
+		{
+		  "name": "playerA",
+		  "type": "publicKey"
+		},
+		{
+		  "name": "playerB",
+		  "type": "publicKey"
+		}
+	  ]
+	},
+	{
+	  "name": "resolveDuel",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "winner",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "winnerNftTokenAccount",
+		  "isMut": false,
+		  "isSigner": false,
+		  "docs": [
+			"We don't need to see if the mint is in an ATA"
+		  ]
+		},
+		{
+		  "name": "winnerClubMember",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "loserClubMember",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "club",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "rewardMint",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "payoutAccount",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "house",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "duel",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "pot",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "associatedTokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": []
+	}
+  ],
+  "accounts": [
+	{
+	  "name": "ProgramAdminProof",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "admin",
+			"type": "publicKey"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Club",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "house",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "clubAdminMint",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "collectionIdentifier",
+			"type": {
+			  "defined": "CollectionIdentifier"
+			}
+		  },
+		  {
+			"name": "metadataMint",
+			"type": {
+			  "option": "publicKey"
+			}
+		  },
+		  {
+			"name": "rewardMint",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "rewardMintDecimals",
+			"type": "u8"
+		  },
+		  {
+			"name": "isActive",
+			"type": "bool"
+		  },
+		  {
+			"name": "memberCount",
+			"type": "u32"
+		  },
+		  {
+			"name": "activeTrainings",
+			"type": "u32"
+		  },
+		  {
+			"name": "activeMatches",
+			"type": "u32"
+		  },
+		  {
+			"name": "reserved",
+			"type": {
+			  "array": [
+				"u8",
+				128
+			  ]
+			}
+		  },
+		  {
+			"name": "trainingConfig",
+			"type": {
+			  "defined": "TrainingConfig"
+			}
+		  },
+		  {
+			"name": "reservedTraining",
+			"type": {
+			  "array": [
+				"u8",
+				64
+			  ]
+			}
+		  },
+		  {
+			"name": "matchConfig",
+			"type": {
+			  "defined": "MatchConfig"
+			}
+		  },
+		  {
+			"name": "reservedMatch",
+			"type": {
+			  "array": [
+				"u8",
+				64
+			  ]
+			}
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Training",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "club",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "clubMember",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "player",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "startTime",
+			"type": "i64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Match",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "club",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "membersJoined",
+			"type": "u8"
+		  },
+		  {
+			"name": "wager",
+			"type": "u64"
+		  },
+		  {
+			"name": "startTime",
+			"type": "i64"
+		  },
+		  {
+			"name": "reserved",
+			"type": {
+			  "array": [
+				"u8",
+				64
+			  ]
+			}
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Duel",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "bump",
+			"type": "u8"
+		  },
+		  {
+			"name": "clubMemberA",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "aIsReady",
+			"type": "bool"
+		  },
+		  {
+			"name": "clubMemberB",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "bIsReady",
+			"type": "bool"
+		  },
+		  {
+			"name": "wager",
+			"type": "u64"
+		  },
+		  {
+			"name": "startTime",
+			"type": "i64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "MatchConnection",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "gameMatch",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "clubMember",
+			"type": "publicKey"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "House",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "houseId",
+			"type": {
+			  "array": [
+				"u8",
+				32
+			  ]
+			}
+		  },
+		  {
+			"name": "houseAdmin",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "clubAdminCollection",
+			"type": {
+			  "defined": "CollectionIdentifier"
+			}
+		  },
+		  {
+			"name": "houseCurrency",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "clubsCreated",
+			"type": "u16"
+		  },
+		  {
+			"name": "memberCount",
+			"type": "u32"
+		  },
+		  {
+			"name": "config",
+			"type": {
+			  "defined": "HouseConfig"
+			}
+		  },
+		  {
+			"name": "houseCurrencyDecimals",
+			"type": "u8"
+		  },
+		  {
+			"name": "membersPerMatch",
+			"type": {
+			  "option": "u8"
+			}
+		  },
+		  {
+			"name": "reserved3",
+			"type": {
+			  "array": [
+				"u8",
+				24
+			  ]
+			}
+		  },
+		  {
+			"name": "reserved2",
+			"type": {
+			  "array": [
+				"u8",
+				32
+			  ]
+			}
+		  },
+		  {
+			"name": "reserved",
+			"type": {
+			  "array": [
+				"u8",
+				256
+			  ]
+			}
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "ClubMember",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "mint",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "club",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "energy",
+			"type": "u8"
+		  },
+		  {
+			"name": "rechargeStartTime",
+			"type": "i64"
+		  },
+		  {
+			"name": "trainingsPlayed",
+			"type": "u32"
+		  },
+		  {
+			"name": "matchesPlayed",
+			"type": "u32"
+		  },
+		  {
+			"name": "inTraining",
+			"type": "bool"
+		  },
+		  {
+			"name": "inMatch",
+			"type": "bool"
+		  },
+		  {
+			"name": "currentActivity",
+			"type": {
+			  "option": "publicKey"
+			}
+		  },
+		  {
+			"name": "reserved",
+			"type": {
+			  "array": [
+				"u8",
+				32
+			  ]
+			}
+		  }
+		]
+	  }
+	}
+  ],
+  "types": [
+	{
+	  "name": "TrainingConfig",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "maxRewardsPerTraining",
+			"type": "u64"
+		  },
+		  {
+			"name": "maxClubMemberEnergy",
+			"type": "u8"
+		  },
+		  {
+			"name": "energyRechargeMinutes",
+			"type": "i64"
+		  },
+		  {
+			"name": "burnRemainingTokens",
+			"type": "bool"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "HouseConfig",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "resolverOracle",
+			"docs": [
+			  "The signer for game results"
+			],
+			"type": {
+			  "option": "publicKey"
+			}
+		  },
+		  {
+			"name": "trainingFallbackActive",
+			"type": "bool"
+		  },
+		  {
+			"name": "clubTaxBasisPoints",
+			"type": "u64"
+		  },
+		  {
+			"name": "clubCreationFee",
+			"type": "u64"
+		  },
+		  {
+			"name": "matchTimeLimitSeconds",
+			"type": "i64"
+		  },
+		  {
+			"name": "trainingTimeLimitSeconds",
+			"type": "i64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "MatchConfig",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "winTaxBasisPoints",
+			"type": "u64"
+		  },
+		  {
+			"name": "matchMinDeposit",
+			"type": "u64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "CollectionIdentifier",
+	  "docs": [
+		"Identifier of the collection"
+	  ],
+	  "type": {
+		"kind": "enum",
+		"variants": [
+		  {
+			"name": "Collection",
+			"fields": [
+			  {
+				"name": "pubkey",
+				"type": "publicKey"
+			  }
+			]
+		  },
+		  {
+			"name": "Creator",
+			"fields": [
+			  {
+				"name": "pubkey",
+				"type": "publicKey"
+			  }
+			]
+		  }
+		]
+	  }
+	}
+  ],
+  "errors": [
+	{
+	  "code": 6000,
+	  "name": "ProgramAuthorityMismatch",
+	  "msg": "Signer does not match program authority"
+	},
+	{
+	  "code": 6001,
+	  "name": "CollectionProofInvalid",
+	  "msg": "Collection Proof is invalid"
+	},
+	{
+	  "code": 6002,
+	  "name": "CollectionKeyMismatch",
+	  "msg": "Collection Key Mismatch"
+	},
+	{
+	  "code": 6003,
+	  "name": "TokenOwnerMismatch",
+	  "msg": "Caller does not own the token account"
+	},
+	{
+	  "code": 6004,
+	  "name": "OwnerBalanceMismatch",
+	  "msg": "Caller does not own the NFT"
+	},
+	{
+	  "code": 6005,
+	  "name": "MintNotNft",
+	  "msg": "Mint is not an NFT"
+	},
+	{
+	  "code": 6006,
+	  "name": "OutOfEnergy",
+	  "msg": "Energy depleted"
+	},
+	{
+	  "code": 6007,
+	  "name": "EnergyCalculationFailed",
+	  "msg": "Energy calculation failed"
+	},
+	{
+	  "code": 6008,
+	  "name": "ClubInactive",
+	  "msg": "Club inactive"
+	},
+	{
+	  "code": 6009,
+	  "name": "InvalidInput",
+	  "msg": "Invalid input"
+	},
+	{
+	  "code": 6010,
+	  "name": "MetadataMismatch",
+	  "msg": "Metadata does not match mint"
+	},
+	{
+	  "code": 6011,
+	  "name": "TaxTooHigh",
+	  "msg": "Tax above 100%"
+	},
+	{
+	  "code": 6012,
+	  "name": "InsufficientFunds",
+	  "msg": "Insufficient funds"
+	},
+	{
+	  "code": 6013,
+	  "name": "NotClubAdmin",
+	  "msg": "No Authority"
+	},
+	{
+	  "code": 6014,
+	  "name": "PlayerAlreadyInMatch",
+	  "msg": "Player already in a match"
+	},
+	{
+	  "code": 6015,
+	  "name": "TooLowWager",
+	  "msg": "Too low wager"
+	}
+  ],
+  "metadata": {
+	"address": "CLUBHBUKuKxWmRpJkAZEWqadeu9A8FB5TdzzKRJiEdXq"
+  }
+}

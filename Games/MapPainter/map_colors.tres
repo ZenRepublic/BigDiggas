@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="MapColors" load_steps=2 format=3 uid="uid://dwb3oc0e3ll2x"]
+
+[ext_resource type="Script" path="res://Games/MapPainter/map_colors.gd" id="1_4fhom"]
+
+
+[resource]
+script = ExtResource("1_4fhom")
+terrain_colors = {
+"Ground Level": Color(0.737255, 0.737255, 0.737255, 1),
+"Level -1": Color(0.929412, 0.929412, 0.929412, 1),
+"Level -2": Color(0.952941, 0.964706, 0.956863, 1),
+"Level -3": Color(1, 1, 1, 1),
+"Level 1": Color(0.6, 0.6, 0.6, 1),
+"Level 2": Color(0.356863, 0.356863, 0.356863, 1),
+"Level 3": Color(0.266667, 0.266667, 0.266667, 1),
+"Level 4": Color(0, 0, 0, 1),
+"Road": Color(0.501961, 0.392157, 0.337255, 1)
+}
+asset_colors = {
+"Fence": Color(1, 0.984314, 0.4, 1),
+"House": Color(0.513726, 0.164706, 0.137255, 1),
+"Stairs": Color(1, 0.729412, 0.4, 1)
+}

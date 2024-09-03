@@ -1,0 +1,48 @@
+[gd_resource type="CandyGuardAccessList" load_steps=8 format=3 uid="uid://cmkeb8th70j6r"]
+
+[sub_resource type="Pubkey" id="Pubkey_hpq5o"]
+type = "CUSTOM"
+value = "rbyDXhzsM2xXtV3t9aayYR3md9rY6gyBxbQBeLThtSC"
+bytes = PackedByteArray(12, 180, 255, 222, 188, 141, 204, 151, 145, 150, 177, 82, 38, 50, 225, 82, 227, 44, 35, 231, 190, 105, 164, 74, 5, 182, 151, 79, 31, 147, 143, 225)
+
+[sub_resource type="CandyGuardAccessList" id="CandyGuardAccessList_row8t"]
+top_level = false
+label = "open"
+enable_sol_payment = true
+sol_payment_lamports = 2000000000
+sol_payment_destination = SubResource("Pubkey_hpq5o")
+
+[sub_resource type="Pubkey" id="Pubkey_joo3k"]
+type = "CUSTOM"
+value = "ESyHCUfKeT1ffLNRfCsjyHzNL4qN22kruVr8vYkPDR5r"
+bytes = PackedByteArray(199, 207, 21, 223, 221, 130, 124, 144, 155, 143, 57, 3, 55, 78, 115, 81, 75, 168, 43, 204, 77, 22, 133, 161, 236, 80, 26, 81, 153, 141, 70, 217)
+
+[sub_resource type="CandyGuardAccessList" id="CandyGuardAccessList_nnbf0"]
+top_level = false
+label = "token"
+enable_token_burn = true
+token_burn_amount = 1
+token_burn_mint = SubResource("Pubkey_joo3k")
+
+[sub_resource type="Pubkey" id="Pubkey_4tk38"]
+type = "CUSTOM"
+value = "rbyDXhzsM2xXtV3t9aayYR3md9rY6gyBxbQBeLThtSC"
+bytes = PackedByteArray(12, 180, 255, 222, 188, 141, 204, 151, 145, 150, 177, 82, 38, 50, 225, 82, 227, 44, 35, 231, 190, 105, 164, 74, 5, 182, 151, 79, 31, 147, 143, 225)
+
+[sub_resource type="Pubkey" id="Pubkey_vixub"]
+type = "CUSTOM"
+value = "2jVEPco6pMAzKG4RijGyarXZcJGuDNZ2ATAjve9dbKc1"
+bytes = PackedByteArray(25, 190, 0, 107, 190, 163, 19, 135, 15, 170, 127, 152, 156, 113, 44, 221, 189, 159, 132, 12, 231, 65, 49, 77, 66, 181, 85, 45, 59, 167, 24, 198)
+
+[sub_resource type="CandyGuardAccessList" id="CandyGuardAccessList_75bwu"]
+top_level = false
+label = "coupon"
+enable_sol_payment = true
+sol_payment_lamports = 1500000000
+sol_payment_destination = SubResource("Pubkey_4tk38")
+enable_token_burn = true
+token_burn_amount = 1
+token_burn_mint = SubResource("Pubkey_vixub")
+
+[resource]
+groups = Array[CandyGuardAccessList]([SubResource("CandyGuardAccessList_row8t"), SubResource("CandyGuardAccessList_nnbf0"), SubResource("CandyGuardAccessList_75bwu")])

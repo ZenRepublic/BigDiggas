@@ -1,0 +1,193 @@
+extends Node2D
+class_name MapManager
+
+@export var map_width:int = 13
+@export var map_height:int = 10
+
+@export_category("Tile Noise Settings")
+@export var tile_noise:FastNoiseLite
+@export var tile_depth_offset_curve:Curve
+@export var tile_frequency_curve:Curve
+var depth_offset:float
+
+@export_category("Obstacle Noise Settings")
+@export var obstacle_noise:FastNoiseLite
+@export var obs_frequency_curve:Curve
+@export var obs_threshold_curve:Curve
+
+@export_category("Map Resources")
+
+@export var floor_resources:Array[FloorData]
+@export var floor_scn:PackedScene
+
+@export var hover_indication_scn:PackedScene
+
+@export var border_scn:PackedScene
+
+var floors:Array[FloorGenerator]
+var hover_indications:Dictionary
+var map_boundaries:Rect2
+
+func _init():
+	add_to_group("MapManager")
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	for floor_resource in floor_resources:
+		var floor_generator:FloorGenerator = floor_scn.instantiate()
+		add_child(floor_generator)
+		move_child(floor_generator,0)
+		floor_generator.floor_data = floor_resource
+		floors.append(floor_generator)
+		
+	randomize_noise()
+	
+	for tile_floor in floors:
+		tile_floor.generate_tiles(tile_floor.floor_data,tile_noise)
+	
+	#now all the tiles will have the colliders off. go through each grid position and activate topmost
+	for x in map_width:
+		for y in map_height:
+			var topmost_tile:MineTile = get_topmost_active_tile_at_position(Vector2(x,y))
+			topmost_tile.activate()
+			
+	generate_indications()
+	calculate_map_boundaries()
+	
+	var border_generator:BorderGenerator = border_scn.instantiate()
+	add_child(border_generator)
+	border_generator.generate_borders(map_width,map_height)
+	pass # Replace with function body.
+	
+func randomize_noise() -> void:
+	tile_noise.seed = randi_range(0,65000)
+	tile_noise.frequency = tile_frequency_curve.sample(randf_range(0.0,1.0))
+	#print("Tile frequency: ",tile_noise.frequency)
+	depth_offset = tile_depth_offset_curve.sample(randf_range(0.0,1.0))
+	#print("Depth: ",depth_offset)
+	
+	obstacle_noise.seed = randi_range(0,65000)
+	obstacle_noise.frequency = obs_frequency_curve.sample(randf_range(0.0,1.0))
+	#print("Obstacle frequency: ",obstacle_noise.frequency)
+
+
+func get_center_position() -> Vector2:
+	var sum_position = Vector2()
+	for pos in floors[0].tiles.keys():
+		sum_position += pos
+	var middle_tile:MineTile = floors[0].tiles[floor(sum_position / floors[0].tiles.size())]
+	return middle_tile.global_position
+	
+func generate_indications() -> void:
+	var indications_parent:Node2D = Node2D.new()
+	indications_parent.name = "Indications"
+	add_child(indications_parent)
+	
+	for y in range(map_height):
+		for x in range(map_width):
+			var indication:HoverIndication = hover_indication_scn.instantiate()
+			indications_parent.add_child(indication)
+			hover_indications[Vector2(x,y)] = indication
+			indication.setup(Vector2(x,y))
+			
+
+func calculate_map_boundaries() -> void:
+#first, get min and max points for both x and y
+	var min_x:int = 10000
+	var max_x:int = 0
+	var min_y:int = 10000
+	var max_y:int = 0
+	
+	for cell in floors[0].tiles.keys():
+		var tile:MineTile = floors[0].tiles[cell]
+		
+		if tile.global_position.x < min_x:
+			min_x = floor(tile.global_position.x)
+		if tile.global_position.x > max_x:
+			max_x = floor(tile.global_position.x)
+		
+		if tile.global_position.y < min_y:
+			min_y = floor(tile.global_position.y)
+		if tile.global_position.y > max_y:
+			max_y = floor(tile.global_position.y)
+			
+	map_boundaries = Rect2(Vector2(min_x, min_y), Vector2(max_x - min_x, max_y - min_y))
+	
+func get_map_boundaries() -> Rect2:
+	return map_boundaries
+	
+func is_in_bounds(grid_position:Vector2) -> bool:
+	return grid_position.x >= 0 && grid_position.x < map_width && grid_position.y >= 0 && grid_position.y < map_height
+	
+func apply_depth_offset(noise_value:float) -> float:
+	noise_value = 1-noise_value
+	return clamp(noise_value-depth_offset,0.0,1.0)
+	
+func get_noise_value(noise:FastNoiseLite,point:Vector2) -> float:
+	var noise_value:float = noise.get_noise_2d(point.x,point.y)
+	#at this point, noise value will range from -1 to 1, so we gotta remap it
+	noise_value = (noise_value+1.0) / 2.0
+	noise_value = clamp(noise_value,0.0,1.0)
+	return noise_value
+
+func get_noise_strength(noise_value:float, use_tile_layers:bool=false) -> int:
+	var total_layers:int = 0
+	
+	if !use_tile_layers:
+		total_layers = floors.size()
+	else:
+		for tile_floor in floors:
+			total_layers += tile_floor.floor_data.layers.size()
+			
+	var noise_threshold = 1.0 / total_layers
+	
+	var noise_strength:int = 0
+	for i in range(total_layers-1):
+		if noise_value > (i+1)*noise_threshold:
+			noise_strength += 1
+
+	return noise_strength
+	
+func get_tile_layer_depth(floor_level:int,layer_id:int)->int:
+	var layer_depth:int=0
+	for i in range(floors.size()):
+		for j in range(floors[i].floor_data.layers.size()):
+			if i == floor_level && j == layer_id:
+				break
+			layer_depth += 1
+			
+		if i == floor_level:
+			break
+	
+	return layer_depth
+	
+#go layer by layer to find the first active tile
+func get_topmost_active_tile_at_position(pos_in_grid:Vector2) -> MineTile:
+	for tile_floor in floors:
+		var tile:MineTile = tile_floor.get_tile_by_pos(pos_in_grid)
+		if tile == null:
+			continue
+		if !tile.destroyed:
+			return tile
+			
+	return null
+	
+func get_tile_on_floor(floor_level:int,pos_in_grid:Vector2) -> MineTile:
+	var floor_generator:FloorGenerator
+	
+	for tile_floor in floors:
+		if tile_floor.floor_data.floor_level == floor_level:
+			floor_generator = tile_floor
+			
+	if floor_generator == null:
+		push_error("COULDNT FIND TILE ON FLOOR!")
+		return
+	
+	return floor_generator.get_tile_by_pos(pos_in_grid)
+	
+func get_treasures_remaining() -> int:
+	var treasures_remaining:int=0
+	for tile_floor in floors:
+		var floor_treasures:Array = tile_floor.item_generator.get_active_items_of_type(MineItem.ItemType.TREASURE)
+		treasures_remaining += floor_treasures.size()
+	return treasures_remaining

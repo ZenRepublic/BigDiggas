@@ -1,0 +1,194 @@
+[gd_scene load_steps=20 format=3 uid="uid://cajq4ulytq68w"]
+
+[ext_resource type="Texture2D" uid="uid://c1n5v01a7aelb" path="res://Games/MiningMinigame/textures/Particles/rock_variations.png" id="1_hc605"]
+[ext_resource type="Texture2D" uid="uid://bn1xdta17wo4q" path="res://Games/MiningMinigame/textures/Particles/dust.png" id="2_sv48i"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hx68v"]
+resource_local_to_scene = true
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_fvq6h"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.329412, 0.989362), 0.0, 0.0, 0, 0, Vector2(0.87451, 0.0106384), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_6iivy"]
+curve = SubResource("Curve_fvq6h")
+
+[sub_resource type="CurveTexture" id="CurveTexture_16xlx"]
+
+[sub_resource type="Curve" id="Curve_bfbs5"]
+_data = [Vector2(0, 0.723404), 0.0, 0.0, 0, 0, Vector2(0.054902, 1), 0.0, 0.0, 0, 0, Vector2(0.34902, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_i24aj"]
+curve = SubResource("Curve_bfbs5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ppo6a"]
+resource_local_to_scene = true
+lifetime_randomness = 0.6
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 0)
+emission_ring_height = 1.0
+emission_ring_radius = 60.0
+emission_ring_inner_radius = 50.0
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 500.0
+angular_velocity_min = -1200.0
+angular_velocity_max = 1200.0
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = -2.23517e-05
+gravity = Vector3(0, 3000, 0)
+linear_accel_min = -2.23517e-06
+linear_accel_max = -2.23517e-06
+scale_min = 1.2
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_i24aj")
+color = Color(0.481721, 0.259474, 0.346815, 1)
+alpha_curve = SubResource("CurveTexture_6iivy")
+emission_curve = SubResource("CurveTexture_16xlx")
+anim_offset_max = 1.0
+
+[sub_resource type="Curve" id="Curve_r1541"]
+_data = [Vector2(0, 0.39), 0.0, 0.0, 0, 0, Vector2(0.104478, 0.82), 0.0, -0.202539, 0, 0, Vector2(0.994382, 0), 0.066182, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lueu2"]
+curve = SubResource("Curve_r1541")
+
+[sub_resource type="Curve" id="Curve_s722y"]
+_data = [Vector2(0.00746269, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.89158, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_g08ue"]
+curve = SubResource("Curve_s722y")
+
+[sub_resource type="Curve" id="Curve_tvvrh"]
+_data = [Vector2(0, 0.7), 0.0, 0.0, 0, 0, Vector2(1, 0.99), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_30djl"]
+curve = SubResource("Curve_tvvrh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1yacf"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, 0, 0)
+angular_velocity_min = 20.0
+angular_velocity_max = 50.0
+angular_velocity_curve = SubResource("CurveTexture_g08ue")
+gravity = Vector3(0, 30, 0)
+scale_min = 8.0
+scale_max = 11.0
+scale_curve = SubResource("CurveTexture_30djl")
+color = Color(0.62661, 0.617964, 0.58784, 1)
+alpha_curve = SubResource("CurveTexture_lueu2")
+
+[sub_resource type="Animation" id="Animation_ulxab"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Rocks:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Dust:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_4pwcx"]
+resource_name = "default"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rocks:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Dust:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w2hvi"]
+_data = {
+"RESET": SubResource("Animation_ulxab"),
+"default": SubResource("Animation_4pwcx")
+}
+
+[node name="RockParticles" type="Node2D"]
+
+[node name="Rocks" type="GPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_hx68v")
+emitting = false
+amount = 4
+amount_ratio = 0.5
+process_material = SubResource("ParticleProcessMaterial_ppo6a")
+texture = ExtResource("1_hc605")
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+
+[node name="Dust" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_1yacf")
+texture = ExtResource("2_sv48i")
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_w2hvi")
+}
+autoplay = "default"

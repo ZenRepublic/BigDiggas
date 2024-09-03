@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4pwoxcejmqq8"]
+
+[ext_resource type="Texture2D" uid="uid://dwww6880ynas2" path="res://Games/MiningMinigame/textures/Particles/flare_2.png" id="1_qku8p"]
+
+[sub_resource type="Curve" id="Curve_uproo"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), -4.83161, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_n3pbe"]
+curve = SubResource("Curve_uproo")
+
+[sub_resource type="Curve" id="Curve_og3jk"]
+_data = [Vector2(0, 0.582418), 0.0, 0.0, 0, 0, Vector2(0.350993, 1), 0.0, 0.0, 0, 0, Vector2(0.986755, 0.021978), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_ip8qa"]
+curve = SubResource("Curve_og3jk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qx26y"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(64, 64, 0)
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+angular_velocity_curve = SubResource("CurveTexture_n3pbe")
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_ip8qa")
+
+[node name="Sparkles" type="GPUParticles2D"]
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_qx26y")
+texture = ExtResource("1_qku8p")
+lifetime = 0.5
+one_shot = true
+fixed_fps = 0
+draw_order = 0

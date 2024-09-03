@@ -1,0 +1,815 @@
+[gd_scene load_steps=69 format=3 uid="uid://bij2iptygj5u7"]
+
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/game_manager.gd" id="1_h8t7s"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Generation/map_manager.gd" id="1_u2155"]
+[ext_resource type="PackedScene" uid="uid://b2p3ftmd6saqb" path="res://Games/MiningMinigame/Assets/TileFloor.tscn" id="2_3bivc"]
+[ext_resource type="Resource" uid="uid://blyg2se3dp80w" path="res://Games/MiningMinigame/Scripts/Floors/Redstone.tres" id="2_ffhpp"]
+[ext_resource type="Resource" uid="uid://cgmff2m63msfm" path="res://Games/MiningMinigame/Scripts/Floors/Greyrock.tres" id="3_gbrxm"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Floors/floor_data.gd" id="3_xe3v7"]
+[ext_resource type="Resource" uid="uid://ckna4nnfn2lo5" path="res://Games/MiningMinigame/Scripts/Floors/Cement.tres" id="4_g8tif"]
+[ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="4_pr5qo"]
+[ext_resource type="Resource" uid="uid://fe6ymwfm33uw" path="res://Games/MiningMinigame/Scripts/Floors/Bedrock.tres" id="5_plwm5"]
+[ext_resource type="Texture2D" uid="uid://b8a6to5kpmyjt" path="res://Games/MiningMinigame/textures/TransitionPatterns/tiling website bg (222).jpg" id="5_tgysq"]
+[ext_resource type="FastNoiseLite" uid="uid://b2i78f4jnoud4" path="res://Games/MiningMinigame/Noise/TileNoise.tres" id="6_y2be6"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Player/player_manager.gd" id="8_741nu"]
+[ext_resource type="PackedScene" uid="uid://rwr2j5e8kpf8" path="res://Games/MiningMinigame/Assets/BorderGenerator.tscn" id="9_2kemc"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Player/player_hud.gd" id="11_lf0ou"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Player/player_input.gd" id="12_1004c"]
+[ext_resource type="PackedScene" uid="uid://dkkonekh61r3p" path="res://Games/MiningMinigame/Assets/Tools/Chisel.tscn" id="13_3k81u"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Player/player_cam.gd" id="13_6pi4s"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/energy_wire.gd" id="13_a3uqa"]
+[ext_resource type="Texture2D" uid="uid://cywvh8lo5b1r0" path="res://Games/MiningMinigame/textures/wire.png" id="13_phyqh"]
+[ext_resource type="PackedScene" uid="uid://bd3myq30o28rj" path="res://Games/MiningMinigame/Assets/Tools/Pickaxe.tscn" id="14_0u77f"]
+[ext_resource type="PackedScene" uid="uid://b65xh0h3bgesy" path="res://Games/MiningMinigame/Assets/HoverIndication.tscn" id="14_7nos0"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Player/player_stats.gd" id="14_8axdo"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/tool_manager.gd" id="15_bwuk4"]
+[ext_resource type="PackedScene" uid="uid://e084pcmlxrl6" path="res://Games/MiningMinigame/Assets/Tools/Hammer.tscn" id="15_v6h44"]
+[ext_resource type="Texture2D" uid="uid://dqc2ujfbqobf4" path="res://Textures/Cursor/CursorNeutral.PNG" id="16_fht8l"]
+[ext_resource type="Texture2D" uid="uid://vc1vu8tqv62c" path="res://Textures/Cursor/CursorPressed.PNG" id="17_gmeqy"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Player/player_inventory.gd" id="20_arik6"]
+[ext_resource type="Script" path="res://addons/advanced_radial_menu/radial_menu_class.gd" id="22_6sshj"]
+[ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/shock_wave_circle.gdshader" id="22_32mks"]
+[ext_resource type="Texture2D" uid="uid://c1eq1lpk55qpp" path="res://Games/MiningMinigame/textures/Tools/T_hammer_menu.png" id="23_862k3"]
+[ext_resource type="Texture2D" uid="uid://vawply1xlb1k" path="res://Games/MiningMinigame/textures/Tools/T_Pickaxe_menu.png" id="24_7rlxl"]
+[ext_resource type="Texture2D" uid="uid://s2nxe65ha2wt" path="res://Games/MiningMinigame/textures/Tools/T_chisel_menu.png" id="25_mrug7"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/shockwave.gd" id="25_wxkar"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/powerbank.gd" id="27_ewvs1"]
+[ext_resource type="PackedScene" uid="uid://b4su1b8w4c8w8" path="res://Games/MiningMinigame/ParticleEffects/Dust.tscn" id="30_ek532"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/inventory.gd" id="30_jjnr2"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/toolbelt.gd" id="31_gdb18"]
+[ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/wave_progress.gdshader" id="32_j6xqt"]
+[ext_resource type="PackedScene" uid="uid://bsvw53lakv2lb" path="res://Games/MiningMinigame/Assets/InventorySlot.tscn" id="32_jit1v"]
+[ext_resource type="Texture2D" uid="uid://kvai085crm7c" path="res://Games/MiningMinigame/textures/PowerBank.PNG" id="34_w2hqv"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="36_lgwgq"]
+[ext_resource type="Texture2D" uid="uid://c0a2xkqrpbp22" path="res://Games/MiningMinigame/textures/GUI/StoreCoreBot.png" id="37_wgp6g"]
+[ext_resource type="Texture2D" uid="uid://l8q6otup8pp2" path="res://Games/MiningMinigame/textures/GUI/StoreCoreTop.png" id="38_uwq7y"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/pause_ui.gd" id="44_7ed4m"]
+[ext_resource type="PackedScene" uid="uid://bd2lr00a7wwps" path="res://Games/MiningMinigame/Scenes/ScoreCalculatorUI.tscn" id="44_ryjad"]
+[ext_resource type="Texture2D" uid="uid://cic6ilj6c0gbn" path="res://Games/MiningMinigame/textures/GUI/LinePattern.png" id="44_ut1d8"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/panel_popper.gd" id="46_fso72"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/game_settings.gd" id="47_ir0rj"]
+[ext_resource type="Texture2D" uid="uid://cta44sqrw538o" path="res://Games/MiningMinigame/textures/Art/PantingRubianTransparent.png" id="49_8fgul"]
+[ext_resource type="Texture2D" uid="uid://o5rv54frq23a" path="res://Games/MiningMinigame/textures/Art/LuckyRubianTransparent.png" id="50_mui0o"]
+
+[sub_resource type="Environment" id="Environment_wroa2"]
+glow_enabled = true
+glow_intensity = 1.5
+glow_hdr_threshold = 0.8
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ugoph"]
+shader = ExtResource("4_pr5qo")
+shader_parameter/scroll_speed = 0.02
+shader_parameter/angle_degrees = 60.0
+shader_parameter/tiling = Vector2(2, 1.6)
+shader_parameter/tint = Color(0.917647, 0.384314, 0.384314, 0.184314)
+
+[sub_resource type="Curve" id="Curve_synys"]
+min_value = 0.05
+max_value = 0.25
+_data = [Vector2(0.0711611, 0.0691654), 0.0, -0.0685044, 0, 0, Vector2(0.501873, 0.25), 0.0, 0.0, 0, 0, Vector2(0.906367, 0.0807692), 0.0934833, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_q122h"]
+min_value = 0.11
+max_value = 0.21
+_data = [Vector2(0, 0.11), 0.0, 0.0, 0, 0, Vector2(0.498127, 0.21), 0.0, 0.0, 0, 0, Vector2(1, 0.11), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ff01d"]
+noise_type = 3
+seed = 36600
+frequency = 0.085
+fractal_type = 0
+fractal_lacunarity = 19.24
+fractal_gain = 7.33
+fractal_ping_pong_strength = 1.395
+cellular_distance_function = 3
+cellular_jitter = 1.735
+cellular_return_type = 3
+domain_warp_enabled = true
+domain_warp_amplitude = 14.7
+domain_warp_frequency = 28.285
+domain_warp_fractal_type = 2
+domain_warp_fractal_octaves = 8
+domain_warp_fractal_lacunarity = 0.365
+domain_warp_fractal_gain = 3.7
+
+[sub_resource type="Curve" id="Curve_drkpc"]
+min_value = 0.12
+max_value = 0.19
+_data = [Vector2(0, 0.12), 0.0, 0.0, 0, 0, Vector2(0.363296, 0.19), 0.0, 0.0, 0, 0, Vector2(1, 0.12), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_jeu03"]
+_data = [Vector2(0.59176, 0), 0.0, 2.46939, 0, 0, Vector2(0.816479, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_fp1qu"]
+offsets = PackedFloat32Array(0, 0.716129)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nf01p"]
+gradient = SubResource("Gradient_fp1qu")
+width = 2048
+height = 2048
+use_hdr = true
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5gq1i"]
+shader = ExtResource("22_32mks")
+shader_parameter/center = Vector2(0.5, 0.5)
+shader_parameter/force = 0.0
+shader_parameter/size = 0.0
+shader_parameter/thickness = 0.04
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1v5v0"]
+resource_local_to_scene = true
+shader = ExtResource("32_j6xqt")
+shader_parameter/progress = 1.0
+shader_parameter/wave_1_color = Color(0.356863, 0.65098, 0.458824, 1)
+shader_parameter/wave_1_amplitude = 0.045
+shader_parameter/wave_1_frequency = 4.2
+shader_parameter/wave_1_speed = -0.75
+shader_parameter/wave_2_color = Color(0.419608, 0.788235, 0.423529, 1)
+shader_parameter/wave_2_amplitude = 0.03
+shader_parameter/wave_2_frequency = 4.0
+shader_parameter/wave_2_speed = 0.5
+shader_parameter/wave_2_shift = 0.5
+shader_parameter/bg_color = Color(0.72549, 0.72549, 0.72549, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cieca"]
+bg_color = Color(0.458824, 0.0901961, 0.337255, 0.505882)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0m0s0"]
+bg_color = Color(0.223529, 0.0352941, 0.278431, 0.752941)
+
+[sub_resource type="Animation" id="Animation_g2db7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolMenu:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fsn4f"]
+resource_name = "Appear"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ToolMenu:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1.5, 0.5), Vector2(0.5, 1.7), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1brrf"]
+_data = {
+"RESET": SubResource("Animation_g2db7"),
+"ToolbeltAppear": SubResource("Animation_fsn4f")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xiyhv"]
+bg_color = Color(0.223529, 0.0352941, 0.278431, 0.745098)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ivj8u"]
+shader = ExtResource("4_pr5qo")
+shader_parameter/scroll_speed = 0.3
+shader_parameter/angle_degrees = 90.0
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/tint = Color(1, 1, 1, 1)
+
+[node name="MiningMinigame" type="Node2D" node_paths=PackedStringArray("map_manager", "shockwave_manager", "panel_popper")]
+script = ExtResource("1_h8t7s")
+score_calculator_scn = ExtResource("44_ryjad")
+map_manager = NodePath("MapManager")
+shockwave_manager = NodePath("ShockwaveEffect")
+panel_popper = NodePath("GUI/PanelPopperUI")
+menu_scene_path = "res://Games/MiningMinigame/Scenes/MainMenu.tscn"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_wroa2")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -2
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.223529, 0.0352941, 0.278431, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Background"]
+material = SubResource("ShaderMaterial_ugoph")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_tgysq")
+
+[node name="MapManager" type="Node2D" parent="."]
+script = ExtResource("1_u2155")
+map_width = 15
+tile_noise = ExtResource("6_y2be6")
+tile_depth_offset_curve = SubResource("Curve_synys")
+tile_frequency_curve = SubResource("Curve_q122h")
+obstacle_noise = SubResource("FastNoiseLite_ff01d")
+obs_frequency_curve = SubResource("Curve_drkpc")
+obs_threshold_curve = SubResource("Curve_jeu03")
+floor_resources = Array[ExtResource("3_xe3v7")]([ExtResource("2_ffhpp"), ExtResource("4_g8tif"), ExtResource("3_gbrxm"), ExtResource("5_plwm5")])
+floor_scn = ExtResource("2_3bivc")
+hover_indication_scn = ExtResource("14_7nos0")
+border_scn = ExtResource("9_2kemc")
+
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("input_handler", "tool_manager")]
+script = ExtResource("8_741nu")
+input_handler = NodePath("PlayerInput")
+tool_manager = NodePath("ToolManager")
+movement_padding = -160.0
+
+[node name="PlayerInput" type="Node" parent="Player"]
+script = ExtResource("12_1004c")
+mouse_sensitivity = 1.5
+neutral_cursor = ExtResource("16_fht8l")
+pressed_cursor = ExtResource("17_gmeqy")
+cursor_hotspot = Vector2(5, 13)
+
+[node name="Stats" type="Node" parent="Player"]
+script = ExtResource("14_8axdo")
+
+[node name="HUD" type="Node" parent="Player" node_paths=PackedStringArray("toolbelt", "powerbank", "inventory")]
+script = ExtResource("11_lf0ou")
+toolbelt = NodePath("../../GUI/Toolbelt")
+powerbank = NodePath("../../PowerBank/PowerBank")
+inventory = NodePath("../../GUI/Inventory")
+
+[node name="Inventory" type="Node" parent="Player"]
+script = ExtResource("20_arik6")
+
+[node name="EnergyWire" type="Line2D" parent="Player" node_paths=PackedStringArray("tool_manager", "wire_origin")]
+width = 16.0
+texture = ExtResource("13_phyqh")
+texture_mode = 1
+joint_mode = 1
+end_cap_mode = 2
+script = ExtResource("13_a3uqa")
+tool_manager = NodePath("../ToolManager")
+wire_origin = NodePath("../../PowerBank/PowerBank/WirePoint")
+constrain = 1.5
+dampening = 0.5
+noise_strength = 30.0
+noisiness = 0.0
+
+[node name="ToolManager" type="Node2D" parent="Player" node_paths=PackedStringArray("cam", "input", "mining_tools")]
+script = ExtResource("15_bwuk4")
+cam = NodePath("../Cam")
+input = NodePath("../PlayerInput")
+speed = 200.0
+stiffness = 600.0
+damping = 19.0
+min_light_strength = 0.06
+max_light_strength = 0.17
+damage_colors = {
+1: Color(1, 0.721569, 0.47451, 1),
+2: Color(0.917647, 0.384314, 0.384314, 1)
+}
+mining_tools = [NodePath("Chisel"), NodePath("Hammer"), NodePath("Pickaxe")]
+
+[node name="Chisel" parent="Player/ToolManager" instance=ExtResource("13_3k81u")]
+visible = false
+
+[node name="Pickaxe" parent="Player/ToolManager" instance=ExtResource("14_0u77f")]
+visible = false
+
+[node name="Hammer" parent="Player/ToolManager" instance=ExtResource("15_v6h44")]
+visible = false
+
+[node name="Light" type="PointLight2D" parent="Player/ToolManager"]
+color = Color(1, 0.964706, 0.658824, 1)
+energy = 0.15
+texture = SubResource("GradientTexture2D_nf01p")
+
+[node name="Cam" type="Camera2D" parent="Player" node_paths=PackedStringArray("input_handler")]
+zoom = Vector2(0.45, 0.45)
+script = ExtResource("13_6pi4s")
+min_zoom = 0.45
+max_zoom = 0.85
+input_handler = NodePath("../PlayerInput")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+visible = false
+color = Color(0.783846, 0.650935, 0.537638, 1)
+
+[node name="ShockwaveEffect" type="CanvasLayer" parent="."]
+layer = 2
+script = ExtResource("25_wxkar")
+default_size = 0.6
+default_thickness = 0.06
+
+[node name="ColorRect" type="ColorRect" parent="ShockwaveEffect"]
+material = SubResource("ShaderMaterial_5gq1i")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ParticlesLayer" type="CanvasLayer" parent="."]
+layer = 3
+follow_viewport_enabled = true
+
+[node name="Dust" parent="ParticlesLayer" instance=ExtResource("30_ek532")]
+
+[node name="PowerBank" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="PowerBank" type="Control" parent="PowerBank"]
+layout_mode = 3
+anchor_left = 0.887
+anchor_top = 0.376
+anchor_right = 1.003
+anchor_bottom = 0.946
+offset_left = 0.640015
+offset_top = 0.279999
+offset_right = -0.120117
+offset_bottom = -0.152039
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("27_ewvs1")
+
+[node name="Fluid" type="ColorRect" parent="PowerBank/PowerBank"]
+material = SubResource("ShaderMaterial_1v5v0")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = 75.0
+offset_right = -49.72
+offset_bottom = -142.968
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.367683, 0.57416, 0.163021, 1)
+
+[node name="Visual" type="TextureRect" parent="PowerBank/PowerBank"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.805
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 4.0
+offset_right = -67.065
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("34_w2hqv")
+expand_mode = 1
+
+[node name="WirePoint" type="Control" parent="PowerBank/PowerBank"]
+anchors_preset = 0
+offset_left = 60.0
+offset_top = 369.0
+offset_right = 100.0
+offset_bottom = 409.0
+
+[node name="BatteryPoint" type="Control" parent="PowerBank/PowerBank"]
+anchors_preset = 0
+offset_left = 62.0
+offset_top = -18.0
+offset_right = 102.0
+offset_bottom = 22.0
+
+[node name="GUI" type="CanvasLayer" parent="."]
+layer = 4
+
+[node name="Inventory" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("30_jjnr2")
+inv_slot_scene = ExtResource("32_jit1v")
+
+[node name="InventoryBox" type="PanelContainer" parent="GUI/Inventory"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 53.0
+offset_top = 46.0
+offset_right = 181.0
+offset_bottom = 83.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cieca")
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Inventory/InventoryBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Inventory/InventoryBox/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="InventoryContent" type="VBoxContainer" parent="GUI/Inventory/InventoryBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BottomHandler" type="PanelContainer" parent="GUI/Inventory/InventoryBox/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="BottomControl" type="Control" parent="GUI/Inventory/InventoryBox/MarginContainer/VBoxContainer/BottomHandler"]
+layout_mode = 2
+
+[node name="BottomPart" type="TextureRect" parent="GUI/Inventory/InventoryBox/MarginContainer/VBoxContainer/BottomHandler/BottomControl"]
+texture_filter = 1
+layout_mode = 2
+offset_left = -37.0
+offset_top = -20.0
+offset_right = 123.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(80, 25)
+texture = ExtResource("37_wgp6g")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="TopPart" type="TextureRect" parent="GUI/Inventory"]
+texture_filter = 1
+layout_mode = 1
+offset_top = -12.0
+offset_right = 203.0
+offset_bottom = 81.0
+texture = ExtResource("38_uwq7y")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="GUI/Inventory/TopPart"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.5
+offset_top = -16.5
+offset_right = 87.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("36_lgwgq")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 18
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="GUI/Inventory"]
+
+[node name="Toolbelt" type="Control" parent="GUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("31_gdb18")
+
+[node name="Background" type="Panel" parent="GUI/Toolbelt"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0m0s0")
+
+[node name="ToolMenu" type="Control" parent="GUI/Toolbelt"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("22_6sshj")
+select_action_name = "MouseClick"
+action_released = true
+auto_sizing = false
+color = Color(0.517647, 0.396078, 0.92549, 0.6)
+circle_radius = 128
+arc_color = Color(0.290196, 0.188235, 0.321569, 1)
+arc_inner_radius = 37
+arc_start_angle = -0.000185307
+arc_end_angle = 6.28
+arc_line_width = 4
+line_color = Color(0.290196, 0.188235, 0.321569, 1)
+line_width = 4
+children_size = 69
+hover_color = Color(0.427451, 0.501961, 0.980392, 1)
+stroke_enabled = true
+stroke_color = Color(0.552941, 0.717647, 1, 1)
+animated_pulse_enabled = true
+animated_pulse_offset = -6
+animated_pulse_speed = 8
+animated_pulse_color = Color(0.427451, 0.501961, 0.980392, 1)
+
+[node name="Hammer" type="TextureRect" parent="GUI/Toolbelt/ToolMenu"]
+layout_mode = 0
+offset_left = 56.9471
+offset_top = -55.75
+offset_right = 125.947
+offset_bottom = 13.25
+pivot_offset = Vector2(34.4999, 34.5)
+texture = ExtResource("23_862k3")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Pickaxe" type="TextureRect" parent="GUI/Toolbelt/ToolMenu"]
+layout_mode = 0
+offset_left = -85.9471
+offset_top = -55.75
+offset_right = -16.9471
+offset_bottom = 13.25
+pivot_offset = Vector2(34.5, 34.5)
+texture = ExtResource("24_7rlxl")
+expand_mode = 5
+stretch_mode = 6
+
+[node name="Chisel" type="TextureRect" parent="GUI/Toolbelt/ToolMenu"]
+layout_mode = 0
+offset_left = -14.5
+offset_top = 68.0
+offset_right = 54.5
+offset_bottom = 137.0
+pivot_offset = Vector2(34.5, 34.5)
+texture = ExtResource("25_mrug7")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/Toolbelt"]
+libraries = {
+"": SubResource("AnimationLibrary_1brrf")
+}
+
+[node name="PauseUI" type="Control" parent="GUI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("44_7ed4m")
+
+[node name="Content" type="PanelContainer" parent="GUI/PauseUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xiyhv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/PauseUI/Content"]
+layout_mode = 2
+theme_override_constants/separation = 75
+
+[node name="DiamondStripTop" type="TextureRect" parent="GUI/PauseUI/Content/HBoxContainer"]
+material = SubResource("ShaderMaterial_ivj8u")
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("44_ut1d8")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Content" type="VBoxContainer" parent="GUI/PauseUI/Content/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="RunPaused" type="Label" parent="GUI/PauseUI/Content/HBoxContainer/Content"]
+layout_mode = 2
+theme = ExtResource("36_lgwgq")
+theme_type_variation = &"HeaderMedium"
+text = "RUN PAUSED"
+
+[node name="Settings" type="VBoxContainer" parent="GUI/PauseUI/Content/HBoxContainer/Content" node_paths=PackedStringArray("music_slider", "sfx_slider")]
+layout_mode = 2
+script = ExtResource("47_ir0rj")
+music_slider = NodePath("MusicSlider")
+sfx_slider = NodePath("SoundsSlider")
+
+[node name="MusicLabel" type="Label" parent="GUI/PauseUI/Content/HBoxContainer/Content/Settings"]
+layout_mode = 2
+theme = ExtResource("36_lgwgq")
+theme_override_font_sizes/font_size = 35
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicSlider" type="HSlider" parent="GUI/PauseUI/Content/HBoxContainer/Content/Settings"]
+layout_mode = 2
+theme = ExtResource("36_lgwgq")
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="Sound FX" type="Label" parent="GUI/PauseUI/Content/HBoxContainer/Content/Settings"]
+layout_mode = 2
+theme = ExtResource("36_lgwgq")
+theme_override_font_sizes/font_size = 35
+text = "SounD FX"
+horizontal_alignment = 1
+
+[node name="SoundsSlider" type="HSlider" parent="GUI/PauseUI/Content/HBoxContainer/Content/Settings"]
+layout_mode = 2
+theme = ExtResource("36_lgwgq")
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="Buttons" type="VBoxContainer" parent="GUI/PauseUI/Content/HBoxContainer/Content"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ResumeButton" type="Button" parent="GUI/PauseUI/Content/HBoxContainer/Content/Buttons"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("36_lgwgq")
+theme_type_variation = &"SimpleButton"
+text = "Resume"
+
+[node name="EndRunButton" type="Button" parent="GUI/PauseUI/Content/HBoxContainer/Content/Buttons"]
+custom_minimum_size = Vector2(300, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("36_lgwgq")
+theme_type_variation = &"SimpleButtonAlt"
+text = "End Run"
+
+[node name="DiamondStripTop2" type="TextureRect" parent="GUI/PauseUI/Content/HBoxContainer"]
+material = SubResource("ShaderMaterial_ivj8u")
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("44_ut1d8")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="PanelPopperUI" type="Control" parent="GUI" node_paths=PackedStringArray("panels")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("46_fso72")
+panels = [NodePath("OutOfEnergyPanel"), NodePath("AllDugUpPanel")]
+
+[node name="OutOfEnergyPanel" type="PanelContainer" parent="GUI/PanelPopperUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -373.0
+offset_top = -150.5
+offset_right = 373.0
+offset_bottom = 150.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("36_lgwgq")
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/PanelPopperUI/OutOfEnergyPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/PanelPopperUI/OutOfEnergyPanel/MarginContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="RunEnded" type="Label" parent="GUI/PanelPopperUI/OutOfEnergyPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("36_lgwgq")
+theme_type_variation = &"HeaderMedium"
+text = "Mine OVer!"
+vertical_alignment = 1
+
+[node name="OutOfEnergy" type="Label" parent="GUI/PanelPopperUI/OutOfEnergyPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("36_lgwgq")
+text = "You have run out of energy..."
+autowrap_mode = 2
+
+[node name="ImageControl" type="Control" parent="GUI/PanelPopperUI/OutOfEnergyPanel"]
+layout_mode = 2
+
+[node name="ConceptVisual" type="TextureRect" parent="GUI/PanelPopperUI/OutOfEnergyPanel/ImageControl"]
+layout_mode = 2
+offset_left = 320.0
+offset_top = -122.5
+offset_right = 844.0
+offset_bottom = 289.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("49_8fgul")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="AllDugUpPanel" type="PanelContainer" parent="GUI/PanelPopperUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -373.0
+offset_top = -150.5
+offset_right = 373.0
+offset_bottom = 150.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("36_lgwgq")
+
+[node name="MarginContainer" type="MarginContainer" parent="GUI/PanelPopperUI/AllDugUpPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/PanelPopperUI/AllDugUpPanel/MarginContainer"]
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="RunEnded" type="Label" parent="GUI/PanelPopperUI/AllDugUpPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("36_lgwgq")
+theme_type_variation = &"HeaderMedium"
+text = "All Dug Up"
+vertical_alignment = 1
+
+[node name="OutOfEnergy" type="Label" parent="GUI/PanelPopperUI/AllDugUpPanel/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_vertical = 6
+theme = ExtResource("36_lgwgq")
+text = "You have uncovered 
+all the treasures!"
+autowrap_mode = 2
+
+[node name="ImageControl" type="Control" parent="GUI/PanelPopperUI/AllDugUpPanel"]
+layout_mode = 2
+
+[node name="ConceptVisual" type="TextureRect" parent="GUI/PanelPopperUI/AllDugUpPanel/ImageControl"]
+layout_mode = 2
+offset_left = 320.0
+offset_top = -122.5
+offset_right = 844.0
+offset_bottom = 289.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("50_mui0o")
+expand_mode = 3
+stretch_mode = 5
+
+[connection signal="pressed" from="GUI/PauseUI/Content/HBoxContainer/Content/Buttons/ResumeButton" to="GUI/PauseUI" method="resume_game"]
+[connection signal="pressed" from="GUI/PauseUI/Content/HBoxContainer/Content/Buttons/EndRunButton" to="GUI/PauseUI" method="end_run"]

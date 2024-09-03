@@ -1,0 +1,490 @@
+[gd_scene load_steps=23 format=3 uid="uid://bd2lr00a7wwps"]
+
+[ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_3jlna"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/score_calculator_ui.gd" id="1_s1cof"]
+[ext_resource type="Texture2D" uid="uid://cw85bwvi0gc2y" path="res://Games/MiningMinigame/textures/TransitionPatterns/7b3e59e05e95ba4773523f830a0c5c6e.jpg" id="2_x0k25"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/item_pedestal.gd" id="3_ued32"]
+[ext_resource type="PackedScene" uid="uid://bg6rqhp24pucy" path="res://Games/MiningMinigame/Assets/ShowcaseGem.tscn" id="4_687vs"]
+[ext_resource type="Texture2D" uid="uid://d372tpo1l0sxm" path="res://Games/MiningMinigame/textures/GUI/ItemPedestal.png" id="5_ggqo1"]
+[ext_resource type="Texture2D" uid="uid://bmv48a4sv7vre" path="res://Games/MiningMinigame/textures/GUI/UI_Paper_Banner_01_Upward.png" id="6_gj0kk"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="7_x3axi"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/bill_creator.gd" id="8_8sjun"]
+[ext_resource type="PackedScene" uid="uid://cq2b8v1v3u2fm" path="res://Games/MiningMinigame/Assets/BillSlot.tscn" id="9_153da"]
+[ext_resource type="Texture2D" uid="uid://crkoovodnwd7g" path="res://Games/MiningMinigame/textures/GUI/collectible_coin_big_idle_1.png" id="10_svpuf"]
+[ext_resource type="AudioStream" uid="uid://gia20kjit3e0" path="res://Games/MiningMinigame/Sounds/UI/calculatepoints.mp3" id="12_ytlle"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w0jn3"]
+shader = ExtResource("1_3jlna")
+shader_parameter/scroll_speed = 0.04
+shader_parameter/angle_degrees = 90.0
+shader_parameter/tiling = Vector2(2, 1.6)
+shader_parameter/tint = Color(0.72549, 0.54902, 0.301961, 0.2)
+
+[sub_resource type="Animation" id="Animation_gh20a"]
+resource_name = "Pulsate"
+length = 2.0
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OuterLight:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 1, 1.2, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OuterLight:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 1, 1.2, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 0.8, 0.282353), Color(1, 1, 0.8, 0.282353), Color(1, 1, 0.8, 0.176471), Color(1, 1, 0.8, 0.176471), Color(1, 1, 0.8, 0.282353)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("InnerLight:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.8, 1, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 0.890196, 0.666667), Color(1, 1, 0.929412, 0.470588), Color(1, 1, 0.929412, 0.470588), Color(1, 1, 0.929412, 0.666667), Color(1, 1, 0.929412, 0.666667)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("InnerLight:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.8, 1, 1.8, 2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.2, 1.2), Vector2(1, 1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4j5b4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("OuterLight:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("OuterLight:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.999998, 0.998152, 0.800235, 0.533333)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("InnerLight:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 0.929412, 0.67451)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("InnerLight:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jh41m"]
+_data = {
+"Pulsate": SubResource("Animation_gh20a"),
+"RESET": SubResource("Animation_4j5b4")
+}
+
+[sub_resource type="Animation" id="Animation_38ky3"]
+resource_name = "Appear"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-83, -45), Vector2(-83, 31)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Frame:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PedestalLight:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.266667, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_rpxix"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frame:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-83, 31)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Frame:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0.545098)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PedestalLight:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_isylm"]
+_data = {
+"Appear": SubResource("Animation_38ky3"),
+"RESET": SubResource("Animation_rpxix")
+}
+
+[sub_resource type="Animation" id="Animation_klk3e"]
+resource_name = "FadeIn"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.466667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.309804, 0.168627, 0.0823529, 0), Color(0.121569, 0.0627451, 0.164706, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background:material:shader_parameter/tint")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.72549, 0.54902, 0.301961, 0), Color(1, 0.764706, 0.94902, 0.231373)]
+}
+
+[sub_resource type="Animation" id="Animation_7mbpd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.308519, 0.167811, 0.0831022, 0.901961)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Background:material:shader_parameter/tint")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.72549, 0.54902, 0.301961, 0.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_q2hq4"]
+_data = {
+"FadeIn": SubResource("Animation_klk3e"),
+"RESET": SubResource("Animation_7mbpd")
+}
+
+[node name="ScoreCalculatorUI" type="CanvasLayer"]
+layer = 5
+script = ExtResource("1_s1cof")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.308519, 0.167811, 0.0831022, 0.901961)
+
+[node name="Background" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_w0jn3")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_x0k25")
+
+[node name="Pedestal" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 767.0
+grow_vertical = 2
+script = ExtResource("3_ued32")
+showcase_item_scn = ExtResource("4_687vs")
+
+[node name="PedestalLight" type="Control" parent="Pedestal"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -381.5
+offset_top = -389.0
+offset_right = 548.5
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+
+[node name="OuterLight" type="TextureRect" parent="Pedestal/PedestalLight"]
+modulate = Color(0.999998, 0.998152, 0.800235, 0.533333)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -560.0
+offset_top = -297.0
+offset_right = 560.0
+offset_bottom = 297.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(560, 297)
+texture = ExtResource("5_ggqo1")
+
+[node name="InnerLight" type="TextureRect" parent="Pedestal/PedestalLight"]
+modulate = Color(1, 1, 0.929412, 0.67451)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -315.0
+offset_top = -167.0
+offset_right = 315.0
+offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(315, 167)
+texture = ExtResource("5_ggqo1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pedestal/PedestalLight"]
+libraries = {
+"": SubResource("AnimationLibrary_jh41m")
+}
+
+[node name="Container" type="HBoxContainer" parent="Pedestal"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 146.0
+offset_right = -21.0
+offset_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = -80
+alignment = 1
+
+[node name="Frame" type="TextureRect" parent="Pedestal"]
+modulate = Color(0, 0, 0, 0.545098)
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -466.5
+offset_top = 31.0
+offset_right = 467.5
+offset_bottom = 289.0
+grow_horizontal = 2
+texture = ExtResource("6_gj0kk")
+
+[node name="Label" type="Label" parent="Pedestal/Frame"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -267.0
+offset_top = -66.0
+offset_right = 261.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("7_x3axi")
+theme_type_variation = &"HeaderLarge"
+text = "Your Loot"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Pedestal"]
+libraries = {
+"": SubResource("AnimationLibrary_isylm")
+}
+
+[node name="BillCreator" type="VBoxContainer" parent="."]
+offset_left = 784.0
+offset_top = 52.0
+offset_right = 1236.0
+offset_bottom = 673.0
+theme_override_constants/separation = 15
+alignment = 1
+script = ExtResource("8_8sjun")
+bill_slot_scn = ExtResource("9_153da")
+
+[node name="BillContainer" type="VBoxContainer" parent="BillCreator"]
+layout_mode = 2
+
+[node name="Spacer" type="HBoxContainer" parent="BillCreator"]
+layout_mode = 2
+alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="BillCreator/Spacer"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="BillCreator/Spacer"]
+custom_minimum_size = Vector2(5.695, 4)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="ColorRect3" type="ColorRect" parent="BillCreator/Spacer"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+
+[node name="ClaimContainer" type="BoxContainer" parent="BillCreator"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="BillCreator/ClaimContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActionButton" type="Button" parent="BillCreator/ClaimContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 10.0
+theme = ExtResource("7_x3axi")
+theme_override_font_sizes/font_size = 40
+text = "Claim!"
+
+[node name="MarginContainer" type="MarginContainer" parent="BillCreator/ClaimContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="FinalPrice" type="Label" parent="BillCreator/ClaimContainer"]
+layout_mode = 2
+theme = ExtResource("7_x3axi")
+theme_override_font_sizes/font_size = 60
+text = "500"
+vertical_alignment = 1
+
+[node name="Visual" type="TextureRect" parent="BillCreator/ClaimContainer"]
+texture_filter = 1
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+texture = ExtResource("10_svpuf")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="BillCreator"]
+stream = ExtResource("12_ytlle")
+max_polyphony = 4
+bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_q2hq4")
+}

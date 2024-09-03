@@ -1,0 +1,2515 @@
+[gd_scene load_steps=69 format=3 uid="uid://dmdb8dbmov2cl"]
+
+[ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_b88w7"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_manager.gd" id="1_yvyci"]
+[ext_resource type="Texture2D" uid="uid://b8i1obr6qaasa" path="res://Games/MiningMinigame/textures/GUI/BoxPattern.png" id="2_whdnv"]
+[ext_resource type="Script" path="res://Scripts/Utility/screen_manager.gd" id="2_xsafj"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_panel.gd" id="4_0qwoq"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="4_d1tk4"]
+[ext_resource type="Texture2D" uid="uid://dm7iln4hubqck" path="res://Games/MiningMinigame/textures/GUI/MenuSidePanel.png" id="5_dl1ut"]
+[ext_resource type="Texture2D" uid="uid://duj7xntofu70d" path="res://Games/MiningMinigame/textures/GUI/treasure_pattern.png" id="6_de3vm"]
+[ext_resource type="Texture2D" uid="uid://bouy62vdktsrh" path="res://Textures/Socials/Twittericon.png" id="8_d52xv"]
+[ext_resource type="Texture2D" uid="uid://bcc0delvuoilo" path="res://Games/MiningMinigame/textures/Art/Logos/Logo small transparent.png" id="8_wgjy1"]
+[ext_resource type="Script" path="res://Scripts/Utility/linked_button.gd" id="9_cywxi"]
+[ext_resource type="Texture2D" uid="uid://cidquspubtjjb" path="res://Textures/Socials/webicon.png" id="9_g3w0q"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/game_settings.gd" id="9_lyso5"]
+[ext_resource type="Texture2D" uid="uid://br8u2jj3e2hqp" path="res://Textures/Socials/DiscordIcon.png" id="10_esn2c"]
+[ext_resource type="Texture2D" uid="uid://dchy7ed3ybfi1" path="res://Textures/Tokens/Zenny token.PNG" id="12_6oue8"]
+[ext_resource type="Texture2D" uid="uid://cjj7met13ao3m" path="res://Games/MiningMinigame/textures/pfp.png" id="13_maxm8"]
+[ext_resource type="AudioStream" uid="uid://cojs82uu73ctv" path="res://Games/MiningMinigame/Sounds/UI/buttonpress.mp3" id="14_3shno"]
+[ext_resource type="Texture2D" uid="uid://gptwby1tvc0b" path="res://Games/MiningMinigame/textures/Icons/Arrow.png" id="15_c33lj"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field.gd" id="15_cwt4b"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/mine_manager.gd" id="16_lhc84"]
+[ext_resource type="Script" path="res://addons/texture_button_colored/texture_button_colored.gd" id="16_tnflq"]
+[ext_resource type="Texture2D" uid="uid://cmjf6jjfcxgr5" path="res://Textures/BrandingAssets/Rubians sand.PNG" id="19_jq644"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/rubian_mint_manager.gd" id="20_1cknd"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/checkbox_lock.gd" id="20_cfq0y"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/token_button_lock.gd" id="23_i3ydu"]
+[ext_resource type="PackedScene" uid="uid://btmj6a3kagg46" path="res://Games/MiningMinigame/Assets/UI/DisplayableNFTButton.tscn" id="25_040nb"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_creator.gd" id="25_g7mfu"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field_system.gd" id="26_6s5lj"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/nft_selector.gd" id="27_01mht"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/mint_display.gd" id="27_a1nqh"]
+[ext_resource type="Texture2D" uid="uid://b6ditanjl5jng" path="res://Games/MiningMinigame/textures/Art/Meditation/Meditating rubian BG.png" id="27_bup1p"]
+[ext_resource type="Texture2D" uid="uid://bpt1e8u1buonk" path="res://Textures/BrandingAssets/whosthatrubian.png" id="27_onooq"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_nft.gd" id="28_6k1tr"]
+[ext_resource type="Texture2D" uid="uid://5d4lrsf4xvb3" path="res://Games/MiningMinigame/textures/Art/Meditation/Meditating rubian.png" id="28_aocwv"]
+[ext_resource type="Texture2D" uid="uid://bk67w02eegc4j" path="res://Games/MiningMinigame/textures/GUI/solscanlogo.png" id="28_cm551"]
+[ext_resource type="Texture2D" uid="uid://gct6yxwxfabu" path="res://Textures/BrandingAssets/Twt banner 2rubies.PNG" id="30_vx2kd"]
+[ext_resource type="CandyGuardAccessList" uid="uid://cmkeb8th70j6r" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/GuardSettings/rubians_mainnet.tres" id="31_k7knv"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/button_lock_manager.gd" id="38_ykcbo"]
+[ext_resource type="AudioStream" uid="uid://bta85g154ui34" path="res://Games/MiningMinigame/Sounds/UI/button_press_rich.mp3" id="40_7n6mh"]
+[ext_resource type="PackedScene" uid="uid://lgukfb417wvu" path="res://Games/MiningMinigame/Assets/UI/NFTSelectionDisplay.tscn" id="40_chyj7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8eq28"]
+shader = ExtResource("1_b88w7")
+shader_parameter/scroll_speed = 0.12
+shader_parameter/angle_degrees = 45.0
+shader_parameter/tiling = Vector2(0.8, 0.8)
+shader_parameter/tint = Color(0.223529, 0.0352941, 0.278431, 0.431373)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3hnhv"]
+bg_color = Color(0.458824, 0.0901961, 0.337255, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v3ojb"]
+shader = ExtResource("1_b88w7")
+shader_parameter/scroll_speed = 0.2
+shader_parameter/angle_degrees = 0.0
+shader_parameter/tiling = Vector2(1, 1)
+shader_parameter/tint = Color(0.8, 0.258824, 0.368627, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nagj0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l4xl"]
+bg_color = Color(0.121569, 0.0627451, 0.164706, 0.717647)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yce1"]
+bg_color = Color(1, 1, 1, 1)
+skew = Vector2(0.56, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqkck"]
+bg_color = Color(0.639216, 0.156863, 0.345098, 1)
+border_width_left = 40
+border_color = Color(0.8, 0.258824, 0.368627, 1)
+corner_radius_top_left = 30
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2pdf"]
+bg_color = Color(0.290196, 0.188235, 0.321569, 1)
+border_color = Color(0.8, 0.258824, 0.368627, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qo2jl"]
+bg_color = Color(0.639216, 0.156863, 0.345098, 1)
+border_width_left = 35
+border_color = Color(0.8, 0.258824, 0.368627, 1)
+corner_radius_bottom_left = 30
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vuurv"]
+bg_color = Color(0.639216, 0.156863, 0.345098, 1)
+border_width_bottom = 15
+border_color = Color(0.8, 0.258824, 0.368627, 1)
+corner_detail = 1
+shadow_color = Color(0, 0, 0, 0.368627)
+shadow_size = 5
+shadow_offset = Vector2(3, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mul17"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3n63b"]
+bg_color = Color(0.121569, 0.0627451, 0.164706, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1s1dl"]
+
+[sub_resource type="Gradient" id="Gradient_ioqld"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sxyrd"]
+gradient = SubResource("Gradient_ioqld")
+width = 32
+height = 32
+
+[sub_resource type="Gradient" id="Gradient_pppir"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4le4l"]
+gradient = SubResource("Gradient_pppir")
+width = 32
+height = 32
+
+[sub_resource type="Gradient" id="Gradient_vosm3"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ptf3b"]
+gradient = SubResource("Gradient_vosm3")
+width = 32
+height = 32
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0os1"]
+bg_color = Color(0.639216, 0.156863, 0.345098, 1)
+
+[sub_resource type="GDScript" id="GDScript_6frg7"]
+resource_local_to_scene = true
+resource_name = "mint_header"
+script/source = "extends PanelContainer
+
+@onready var back_button:BaseButton = $HBoxContainer/MarginContainer/BackButton
+# Called when the node enters the scene tree for the first time.
+
+func _on_rubian_mint_screen_on_nft_mint_started() -> void:
+	back_button.disabled=true
+
+func _on_rubian_mint_screen_on_nft_minted(_nft_account: Pubkey) -> void:
+	back_button.disabled=false
+	
+func _on_rubian_mint_screen_on_nft_mint_failed() -> void:
+	back_button.disabled=false
+"
+
+[sub_resource type="GDScript" id="GDScript_28bmg"]
+script/source = "extends PanelContainer
+
+@onready var rubian:TextureRect = $VBoxContainer/Visual/RubianMeditation
+@onready var animator:AnimationPlayer = $AnimationPlayer
+
+var rubian_position_values:Array[Vector2] = [Vector2(0,35),Vector2(0,-35)]
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	animator.play(\"MeditationText\")
+	await get_tree().process_frame
+	meditate_tween()
+
+func meditate_tween() -> void:
+	var tween:Tween = get_tree().create_tween()
+	tween.tween_property(rubian,\"position\",rubian_position_values[0],1.0).set_trans(Tween.TRANS_SINE)
+	await tween.finished
+	
+	rubian_position_values.reverse()
+	meditate_tween()
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mbux8"]
+
+[sub_resource type="Animation" id="Animation_mfev3"]
+resource_name = "Meditation"
+
+[sub_resource type="Animation" id="Animation_ljfxe"]
+resource_name = "MeditationText"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/Text:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Minting in progress", "Minting in progress.", "Minting in progress..", "Minting in progress..."]
+}
+
+[sub_resource type="Animation" id="Animation_pto2t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/Text:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Minting in progress"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5wofc"]
+_data = {
+"Meditation": SubResource("Animation_mfev3"),
+"MeditationText": SubResource("Animation_ljfxe"),
+"RESET": SubResource("Animation_pto2t")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmax6"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Menu" type="Control"]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yvyci")
+game_scene_path = "res://Games/MiningMinigame/Scenes/MiningMinigame.tscn"
+
+[node name="ScreenManager" type="Node" parent="." node_paths=PackedStringArray("starting_panel", "screens")]
+script = ExtResource("2_xsafj")
+starting_panel = NodePath("../MainScreen")
+screens = [NodePath("../MainScreen"), NodePath("../MineManagerScreen"), NodePath("../RubianMintScreen")]
+
+[node name="BackgroundColor" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.482353, 0.329412, 0.501961, 1)
+
+[node name="BackgroundTexture" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_8eq28")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_whdnv")
+stretch_mode = 1
+
+[node name="MainScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuPanel" type="Control" parent="MainScreen"]
+layout_mode = 1
+anchor_right = 0.391
+anchor_bottom = 1.0
+offset_right = -0.480042
+script = ExtResource("4_0qwoq")
+
+[node name="PanelBG" type="TextureRect" parent="MainScreen/MenuPanel"]
+self_modulate = Color(0.121569, 0.0627451, 0.164706, 1)
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 499.0
+grow_vertical = 2
+texture = ExtResource("5_dl1ut")
+
+[node name="SidePanel" type="Control" parent="MainScreen/MenuPanel"]
+clip_contents = true
+layout_mode = 1
+anchor_left = 0.009
+anchor_top = -0.826542
+anchor_right = 1.46564
+anchor_bottom = -0.823
+offset_left = 109.5
+offset_top = 1948.11
+offset_right = 1424.18
+offset_bottom = 2010.56
+rotation = -1.29503
+metadata/_edit_use_anchors_ = true
+
+[node name="SideScrollerBG" type="Panel" parent="MainScreen/MenuPanel/SidePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3hnhv")
+
+[node name="SideScroller" type="TextureRect" parent="MainScreen/MenuPanel/SidePanel"]
+material = SubResource("ShaderMaterial_v3ojb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 10.0
+offset_right = -1.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("6_de3vm")
+stretch_mode = 1
+
+[node name="Logo" type="TextureRect" parent="MainScreen/MenuPanel"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 190.0
+offset_bottom = 115.0
+texture = ExtResource("8_wgjy1")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="AddressLabel" type="Label" parent="MainScreen/MenuPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -200.0
+offset_top = 119.0
+offset_right = -55.0
+offset_bottom = 160.0
+grow_horizontal = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+text = "Welcome,"
+vertical_alignment = 1
+
+[node name="UserAddress" type="Label" parent="MainScreen/MenuPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -67.0
+offset_top = 116.0
+offset_right = 149.0
+offset_bottom = 160.0
+grow_horizontal = 2
+theme = ExtResource("4_d1tk4")
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 38
+text = "84pL...cEe9"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ManageButton" type="Button" parent="MainScreen/MenuPanel"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 189.0
+offset_right = 380.0
+offset_bottom = 252.0
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+theme_override_font_sizes/font_size = 30
+text = "Mine Manager"
+
+[node name="TrainingButton" type="Button" parent="MainScreen/MenuPanel"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 282.0
+offset_right = 312.0
+offset_bottom = 345.0
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+theme_override_font_sizes/font_size = 30
+text = "Training"
+
+[node name="MintButton" type="Button" parent="MainScreen/MenuPanel"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 371.0
+offset_right = 193.0
+offset_bottom = 434.0
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButtonAlt"
+theme_override_font_sizes/font_size = 30
+text = "mint"
+
+[node name="Settings" type="Control" parent="MainScreen/MenuPanel" node_paths=PackedStringArray("music_slider", "sfx_slider")]
+anchors_preset = 0
+offset_left = 33.0
+offset_top = 466.0
+offset_right = 279.0
+offset_bottom = 587.0
+script = ExtResource("9_lyso5")
+music_slider = NodePath("MusicSlider")
+sfx_slider = NodePath("SoundsSlider")
+
+[node name="MusicLabel" type="Label" parent="MainScreen/MenuPanel/Settings"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 30.0
+grow_horizontal = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="MainScreen/MenuPanel/Settings"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 35.0
+offset_bottom = 51.0
+grow_horizontal = 2
+theme = ExtResource("4_d1tk4")
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="Sound FX" type="Label" parent="MainScreen/MenuPanel/Settings"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -3.5
+offset_bottom = 26.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+text = "SounD FX"
+
+[node name="SoundsSlider" type="HSlider" parent="MainScreen/MenuPanel/Settings"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 29.5
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_d1tk4")
+max_value = 1.0
+step = 0.05
+value = 1.0
+
+[node name="Socials" type="HBoxContainer" parent="MainScreen/MenuPanel"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 611.0
+offset_right = 1309.0
+offset_bottom = 833.0
+scale = Vector2(0.2, 0.2)
+theme_override_constants/separation = 190
+alignment = 1
+
+[node name="Twitter" type="PanelContainer" parent="MainScreen/MenuPanel/Socials" node_paths=PackedStringArray("button")]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_nagj0")
+script = ExtResource("9_cywxi")
+button = NodePath("Button")
+link = "https://x.com/RubiansVR"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MainScreen/MenuPanel/Socials/Twitter"]
+stream = ExtResource("14_3shno")
+
+[node name="Button" type="TextureButton" parent="MainScreen/MenuPanel/Socials/Twitter"]
+self_modulate = Color(0.639216, 0.156863, 0.345098, 1)
+layout_mode = 2
+texture_normal = ExtResource("8_d52xv")
+stretch_mode = 5
+script = ExtResource("16_tnflq")
+theme_override_colors/icon_normal_color = Color(0.639216, 0.156863, 0.345098, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(0.8, 0.258824, 0.368627, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(0.380392, 0.0941176, 0.317647, 0.6)
+
+[node name="Web" type="PanelContainer" parent="MainScreen/MenuPanel/Socials" node_paths=PackedStringArray("button")]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_nagj0")
+script = ExtResource("9_cywxi")
+button = NodePath("Button")
+link = "https://www.bento.me/rubians"
+
+[node name="Button" type="TextureButton" parent="MainScreen/MenuPanel/Socials/Web"]
+self_modulate = Color(0.639216, 0.156863, 0.345098, 1)
+layout_mode = 2
+texture_normal = ExtResource("9_g3w0q")
+stretch_mode = 5
+script = ExtResource("16_tnflq")
+theme_override_colors/icon_normal_color = Color(0.639216, 0.156863, 0.345098, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(0.8, 0.258824, 0.368627, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(0.380392, 0.0941176, 0.317647, 0.6)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MainScreen/MenuPanel/Socials/Web"]
+stream = ExtResource("14_3shno")
+
+[node name="Discord" type="PanelContainer" parent="MainScreen/MenuPanel/Socials" node_paths=PackedStringArray("button")]
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_nagj0")
+script = ExtResource("9_cywxi")
+button = NodePath("Button")
+link = "https://discord.gg/ZfBrN3GA5F"
+
+[node name="Button" type="TextureButton" parent="MainScreen/MenuPanel/Socials/Discord"]
+self_modulate = Color(0.639216, 0.156863, 0.345098, 1)
+layout_mode = 2
+texture_normal = ExtResource("10_esn2c")
+stretch_mode = 5
+script = ExtResource("16_tnflq")
+theme_override_colors/icon_normal_color = Color(0.639216, 0.156863, 0.345098, 1)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_hover_color = Color(0.8, 0.258824, 0.368627, 1)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_disabled_color = Color(0.380392, 0.0941176, 0.317647, 0.6)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MainScreen/MenuPanel/Socials/Discord"]
+stream = ExtResource("14_3shno")
+
+[node name="VersionLabel" type="Label" parent="MainScreen/MenuPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -177.0
+offset_top = -54.0
+offset_right = 8.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_d1tk4")
+theme_override_colors/font_color = Color(0.65098, 0.521569, 0.623529, 1)
+theme_override_font_sizes/font_size = 26
+text = "v0.0.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContentPanel" type="Control" parent="MainScreen"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 284.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MineSelection" type="Control" parent="MainScreen/ContentPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Step1" type="Label" parent="MainScreen/ContentPanel/MineSelection"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 53.0
+offset_top = 76.0
+offset_right = 365.0
+offset_bottom = 126.0
+grow_horizontal = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 40
+text = "step 1:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SelectMine" type="Label" parent="MainScreen/ContentPanel/MineSelection"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.0
+offset_top = 138.0
+offset_right = 441.0
+offset_bottom = 219.0
+grow_horizontal = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 55
+text = "Select mine"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MainScreen/ContentPanel/MineSelection"]
+layout_mode = 0
+offset_left = 258.0
+offset_top = 247.0
+offset_right = 934.0
+offset_bottom = 654.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2l4xl")
+
+[node name="MineList" type="ScrollContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer"]
+visible = false
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+follow_focus = true
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="MineEntry" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"ListEntryButton"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry"]
+layout_mode = 2
+offset_right = 676.0
+offset_bottom = 45.0
+
+[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
+custom_minimum_size = Vector2(23.985, 0)
+layout_mode = 2
+
+[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 30
+text = "Steel Ball Mine LFG BROSKIS"
+vertical_alignment = 1
+
+[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer/Divider"]
+custom_minimum_size = Vector2(4.97, 0)
+layout_mode = 2
+offset_left = 19.0
+offset_right = 23.97
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+
+[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_6oue8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "$MOTHER"
+vertical_alignment = 1
+
+[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MineEntry2" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"ListEntryButton"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2"]
+layout_mode = 2
+offset_right = 676.0
+offset_bottom = 45.0
+
+[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
+custom_minimum_size = Vector2(23.985, 0)
+layout_mode = 2
+
+[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 30
+text = "Steel Ball Mine LFG BROSKIS"
+vertical_alignment = 1
+
+[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer/Divider"]
+custom_minimum_size = Vector2(4.97, 0)
+layout_mode = 2
+offset_left = 19.0
+offset_right = 23.97
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+
+[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_6oue8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "$MOTHER"
+vertical_alignment = 1
+
+[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MineEntry3" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"ListEntryButton"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3"]
+layout_mode = 2
+offset_right = 676.0
+offset_bottom = 45.0
+
+[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
+custom_minimum_size = Vector2(23.985, 0)
+layout_mode = 2
+
+[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 30
+text = "Steel Ball Mine LFG BROSKIS"
+vertical_alignment = 1
+
+[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer/Divider"]
+custom_minimum_size = Vector2(4.97, 0)
+layout_mode = 2
+offset_left = 19.0
+offset_right = 23.97
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+
+[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_6oue8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "$MOTHER"
+vertical_alignment = 1
+
+[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MineEntry4" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"ListEntryButton"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4"]
+layout_mode = 2
+offset_right = 676.0
+offset_bottom = 45.0
+
+[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
+custom_minimum_size = Vector2(23.985, 0)
+layout_mode = 2
+
+[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 30
+text = "Steel Ball Mine LFG BROSKIS"
+vertical_alignment = 1
+
+[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer/Divider"]
+custom_minimum_size = Vector2(4.97, 0)
+layout_mode = 2
+offset_left = 19.0
+offset_right = 23.97
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+
+[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_6oue8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "$MOTHER"
+vertical_alignment = 1
+
+[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MineEntry5" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"ListEntryButton"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5"]
+layout_mode = 2
+offset_right = 676.0
+offset_bottom = 45.0
+
+[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
+custom_minimum_size = Vector2(23.985, 0)
+layout_mode = 2
+
+[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 30
+text = "Steel Ball Mine LFG BROSKIS"
+vertical_alignment = 1
+
+[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
+custom_minimum_size = Vector2(15, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer/Divider"]
+custom_minimum_size = Vector2(4.97, 0)
+layout_mode = 2
+offset_left = 19.0
+offset_right = 23.97
+offset_bottom = 45.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
+
+[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+
+[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("12_6oue8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "$MOTHER"
+vertical_alignment = 1
+
+[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
+custom_minimum_size = Vector2(11.925, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+text = "No active mines found..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CharacterSelection" type="Control" parent="MainScreen/ContentPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MineDetails" type="Label" parent="MainScreen/ContentPanel/CharacterSelection"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -62.0
+offset_top = 34.0
+offset_right = 337.0
+offset_bottom = 87.0
+grow_horizontal = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 45
+text = "Mine Details"
+vertical_alignment = 1
+
+[node name="MineCard" type="VBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection"]
+layout_mode = 0
+offset_left = 309.0
+offset_top = 104.0
+offset_right = 849.0
+offset_bottom = 439.0
+theme_override_constants/separation = 0
+
+[node name="NameContainer" type="PanelContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard"]
+custom_minimum_size = Vector2(0, 45)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_eqkck")
+
+[node name="Label" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/NameContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderSmall"
+theme_override_font_sizes/font_size = 28
+text = "Steel Ball Mine LFG BROSKIS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MineDetails" type="PanelContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_j2pdf")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CollectionVisual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("19_jq644")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Spacer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(12.935, 0)
+layout_mode = 2
+
+[node name="MainDetailsContainer" type="VBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MinerCollection" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/MainDetailsContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 16
+text = "Miner Collection:"
+
+[node name="CollectionName" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/MainDetailsContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 16
+text = "RUBIANS"
+
+[node name="Spacer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/MainDetailsContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="TokensInTreasury" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/MainDetailsContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 16
+text = "Tokens in Treasury:"
+
+[node name="TreasuryContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/MainDetailsContainer"]
+layout_mode = 2
+
+[node name="TokenVisual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/MainDetailsContainer/TreasuryContainer"]
+layout_mode = 2
+texture = ExtResource("12_6oue8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TokensLabel" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/MainDetailsContainer/TreasuryContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 30
+text = "100M"
+
+[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(12.935, 0)
+layout_mode = 2
+
+[node name="ExtraDetailsContainer" type="VBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MineOwner" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/ExtraDetailsContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 16
+text = "Mine Owner:"
+
+[node name="CollectionName" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/ExtraDetailsContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 16
+text = "Rubian #420"
+
+[node name="Spacer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/ExtraDetailsContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="RewardCap" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/ExtraDetailsContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 16
+text = "Reward Cap:"
+
+[node name="RewardContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/ExtraDetailsContainer"]
+layout_mode = 2
+
+[node name="TokenVisual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/ExtraDetailsContainer/RewardContainer"]
+layout_mode = 2
+texture = ExtResource("12_6oue8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RewardLabel" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/ExtraDetailsContainer/RewardContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 30
+text = "5k"
+
+[node name="CampaignDuration" type="HBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="CampaingTime" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/CampaignDuration"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Mine Closes In:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/CampaignDuration"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(1, 0.721569, 0.47451, 1)
+theme_override_font_sizes/font_size = 25
+text = "5h 30min"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CharacterSelection" type="PanelContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_qo2jl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/CharacterSelection"]
+layout_mode = 2
+
+[node name="PanelContainer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/CharacterSelection/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 30
+
+[node name="Label" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/CharacterSelection/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 22
+text = "Available
+Miners:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/CharacterSelection/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/CharacterSelection/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MineCardNFTDisplay" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/CharacterSelection/HBoxContainer/ScrollContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Visual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/CharacterSelection/HBoxContainer/ScrollContainer/HBoxContainer/MineCardNFTDisplay"]
+layout_mode = 2
+texture = ExtResource("13_maxm8")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/CharacterSelection/HBoxContainer/ScrollContainer/HBoxContainer/MineCardNFTDisplay/Visual"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"InvisibleButton"
+
+[node name="MinerOverview" type="Label" parent="MainScreen/ContentPanel/CharacterSelection"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 41.0
+offset_top = 475.0
+offset_right = 371.0
+offset_bottom = 511.0
+grow_horizontal = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 30
+text = "Miner Overview"
+vertical_alignment = 1
+
+[node name="CharacterDetails" type="PanelContainer" parent="MainScreen/ContentPanel/CharacterSelection"]
+layout_mode = 0
+offset_left = 310.0
+offset_top = 520.0
+offset_right = 888.0
+offset_bottom = 679.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vuurv")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails"]
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer"]
+layout_mode = 2
+
+[node name="MinerVisualContainer" type="PanelContainer" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mul17")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer/MinerVisualContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Visual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer/MinerVisualContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("13_maxm8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Spacer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(6.395, 0)
+layout_mode = 2
+
+[node name="MinerDetails" type="VBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+alignment = 1
+
+[node name="NFTNameLabel" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer/MinerDetails"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 16
+text = "Rubian #456"
+vertical_alignment = 1
+
+[node name="EnergyBar" type="ProgressBar" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer/MinerDetails"]
+custom_minimum_size = Vector2(0, 43.72)
+layout_mode = 2
+size_flags_vertical = 2
+theme = ExtResource("4_d1tk4")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer/MinerDetails/EnergyBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -10.885
+offset_right = 20.0
+offset_bottom = 12.115
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 25
+text = "5/5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_right = 15
+
+[node name="EnterMineButton" type="Button" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+text = "ENTER 
+MINE!"
+
+[node name="MineManagerScreen" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+script = ExtResource("16_lhc84")
+rubian_displayble_scn = ExtResource("25_040nb")
+
+[node name="ScreenManager" type="Node" parent="MineManagerScreen" node_paths=PackedStringArray("starting_panel", "screens")]
+script = ExtResource("2_xsafj")
+starting_panel = NodePath("../MainContent/MineManagement")
+screens = [NodePath("../MainContent/LoadingPanel"), NodePath("../MainContent/MineManagement")]
+
+[node name="MenuBanner" type="PanelContainer" parent="MineManagerScreen"]
+custom_minimum_size = Vector2(0, 115.39)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3n63b")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MineManagerScreen/MenuBanner"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MineManagerScreen/MenuBanner/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="BackButton" type="TextureButton" parent="MineManagerScreen/MenuBanner/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(140, 100)
+layout_mode = 2
+texture_normal = ExtResource("15_c33lj")
+ignore_texture_size = true
+stretch_mode = 5
+flip_h = true
+script = ExtResource("16_tnflq")
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.682353, 0.886275, 1, 1)
+theme_override_colors/icon_hover_color = Color(0.427451, 0.501961, 0.980392, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.682353, 0.886275, 1, 1)
+theme_override_colors/icon_disabled_color = Color(0.881937, 0.881937, 0.881937, 0.352941)
+
+[node name="HeaderLabel" type="Label" parent="MineManagerScreen/MenuBanner/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderLarge"
+text = "MINE MANAGER"
+
+[node name="SideScroller" type="Control" parent="MineManagerScreen"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 64.035)
+layout_mode = 2
+
+[node name="SideScrollerBG" type="Panel" parent="MineManagerScreen/SideScroller"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3hnhv")
+
+[node name="SideScroller" type="TextureRect" parent="MineManagerScreen/SideScroller"]
+material = SubResource("ShaderMaterial_v3ojb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 10.0
+offset_right = -1.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("6_de3vm")
+stretch_mode = 1
+
+[node name="MainContent" type="MarginContainer" parent="MineManagerScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="LoadingPanel" type="PanelContainer" parent="MineManagerScreen/MainContent"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/LoadingPanel"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 50
+text = "Loading, hang on..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MineManagement" type="HBoxContainer" parent="MineManagerScreen/MainContent"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 30
+
+[node name="YourMinesContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+text = "Your Mines"
+
+[node name="ActiveMinesContainer" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("4_d1tk4")
+
+[node name="MarginContainer" type="MarginContainer" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer/ActiveMinesContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer/ActiveMinesContainer/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer/ActiveMinesContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Button" type="Button" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer/ActiveMinesContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"ListButton"
+text = "Sick Mine For Mad Lads"
+
+[node name="CreateNewButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer/ActiveMinesContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"ListButtonAlt"
+disabled = true
+text = "Create new..."
+
+[node name="ScreenManager" type="Node" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("starting_panel", "screens")]
+script = ExtResource("2_xsafj")
+starting_panel = NodePath("../ComingSoon")
+screens = [NodePath("../MineDetailsContainer"), NodePath("../CreateMineContainer"), NodePath("../ComingSoon")]
+
+[node name="MineDetailsContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="MineName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderSmall"
+theme_override_font_sizes/font_size = 50
+text = "EPIC RUBIANS MINE"
+horizontal_alignment = 1
+
+[node name="MineDetails" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 0.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_j2pdf")
+
+[node name="MarginContainer" type="MarginContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="MainDetails" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="CollectionVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails"]
+layout_mode = 2
+texture = ExtResource("19_jq644")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="MainDetailsContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="MineCollection" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MinerCollection" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineCollection"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 16
+text = "Miner Collection:"
+
+[node name="CollectionName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineCollection"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 16
+text = "RUBIANS"
+
+[node name="MineManager" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MineOwner" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineManager"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 16
+text = "Mine Manager:"
+
+[node name="CollectionName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineManager"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 16
+text = "Rubian #420"
+
+[node name="TokensInTreasury" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 16
+text = "Tokens left:"
+
+[node name="TreasuryContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TokenVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TreasuryContainer"]
+layout_mode = 2
+texture = ExtResource("12_6oue8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TokensLabel" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TreasuryContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 30
+text = "96,568,555"
+vertical_alignment = 1
+
+[node name="ExtraDetailsContainer" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="MinerEnergy" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/MinerEnergy"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "MINER ENERGY"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TokensLabel2" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/MinerEnergy"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 30
+text = "5"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CampaignDuration" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/CampaignDuration"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "Campaign Length"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TokensLabel2" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/CampaignDuration"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 30
+text = "48h"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RewardCap" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/RewardCap"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "Reward Cap"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TokensLabel2" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/RewardCap"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 30
+text = "5k"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FeesCollectedContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/FeesCollectedContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Fees Collected:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="FeesCollected" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/FeesCollectedContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.419608, 0.788235, 0.423529, 1)
+theme_override_font_sizes/font_size = 25
+text = "0.0735 SOL"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="CloseMineButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+disabled = true
+text = "Close in 5h 30min"
+
+[node name="ComingSoon" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/ComingSoon"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/ComingSoon/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 50
+text = "Coming soon!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MineManagerScreen/MainContent/MineManagement/ComingSoon/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 28
+text = "This is gonna be epic, my diggas"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("token_selection", "collection_selection")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 50
+script = ExtResource("25_g7mfu")
+token_selection = NodePath("MineDetailsContainer/TokenSelector")
+collection_selection = NodePath("MineDetailsContainer/NFTMinerSettings/CollectionSelector")
+
+[node name="MineDetailsContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer" node_paths=PackedStringArray("confirm_button")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+script = ExtResource("26_6s5lj")
+confirm_button = NodePath("../PaymentSettings/CreateMineButton")
+
+[node name="NameBar" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+layout_mode = 2
+
+[node name="NameDetails" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NameBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MineNameInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NameBar/NameDetails"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
+theme_override_font_sizes/font_size = 28
+placeholder_text = "Enter Mine Name..."
+max_length = 28
+script = ExtResource("15_cwt4b")
+min_length = 4
+
+[node name="MineToken" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Mine Token"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TokenSelector" type="OptionButton" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+layout_mode = 2
+allow_reselect = true
+item_count = 1
+popup/item_0/text = "$ZENY - Zenny Coin"
+popup/item_0/icon = SubResource("GradientTexture2D_sxyrd")
+
+[node name="FundAmountContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="FundInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/FundAmountContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Enter Fund Amount..."
+alignment = 1
+script = ExtResource("15_cwt4b")
+max_value = -1.0
+
+[node name="FundButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/FundAmountContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+theme_override_font_sizes/font_size = 20
+text = "max"
+
+[node name="MinerType" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Miner Type"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="MinerTypeContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="NFTMinersButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/MinerTypeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+theme_override_font_sizes/font_size = 20
+text = "NFT"
+
+[node name="TokenMinersButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/MinerTypeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+theme_override_font_sizes/font_size = 20
+disabled = true
+text = "TOKEN"
+
+[node name="NFTMinerSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="MinerCollection" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Miner Collection"
+
+[node name="CollectionSelector" type="OptionButton" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
+layout_mode = 2
+allow_reselect = true
+item_count = 2
+popup/item_0/text = "Mad Lads"
+popup/item_0/icon = SubResource("GradientTexture2D_4le4l")
+popup/item_1/text = "Famous Fox Federation"
+popup/item_1/icon = SubResource("GradientTexture2D_ptf3b")
+popup/item_1/id = 1
+
+[node name="CustomizationSettings" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="MinerEnergyContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings"]
+layout_mode = 2
+
+[node name="EnergyCap" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/MinerEnergyContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Miner Energy"
+
+[node name="EnergyCapInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/MinerEnergyContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+text = "5"
+alignment = 1
+max_length = 9
+script = ExtResource("15_cwt4b")
+input_type = 1
+min_value = 3.0
+max_value = 10.0
+
+[node name="CampaignLengthContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings"]
+layout_mode = 2
+
+[node name="CampaignLength" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/CampaignLengthContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Campaign length
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/CampaignLengthContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CampaignLengthInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/CampaignLengthContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+text = "48"
+alignment = 1
+max_length = 3
+script = ExtResource("15_cwt4b")
+input_type = 1
+min_length = 1
+min_value = 1.0
+max_value = 168.0
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/CampaignLengthContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Hours"
+
+[node name="PayoutLimit" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Payout Limit "
+
+[node name="PayoutLimitContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
+layout_mode = 2
+
+[node name="TokenVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/PayoutLimitContainer"]
+layout_mode = 2
+texture = ExtResource("12_6oue8")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PayoutLimitInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/PayoutLimitContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "5000"
+alignment = 1
+script = ExtResource("15_cwt4b")
+input_type = 2
+min_length = 1
+max_value = -1.0
+
+[node name="PaymentSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="ManagerSelection" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings" node_paths=PackedStringArray("selectable_nft", "display_system")]
+layout_mode = 2
+theme_override_constants/separation = 5
+script = ExtResource("27_01mht")
+selectable_nft = NodePath("VisualContainer/DisplayableNFTButton")
+display_system = NodePath("../../../../../../NFTSelectionDisplay")
+default_visual = ExtResource("27_onooq")
+default_name = "ANON"
+
+[node name="SelectManager" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+text = "Select Manager"
+
+[node name="VisualContainer" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_w0os1")
+
+[node name="DisplayableNFTButton" type="MarginContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer" node_paths=PackedStringArray("visual", "name_label", "button")]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("28_6k1tr")
+visual = NodePath("Visual")
+image_size = 128
+name_label = NodePath("../../ManagerName")
+button = NodePath("Visual/Button")
+
+[node name="Visual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer/DisplayableNFTButton"]
+custom_minimum_size = Vector2(256, 256)
+layout_mode = 2
+texture = ExtResource("27_onooq")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Button" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer/DisplayableNFTButton/Visual"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"InvisibleButton"
+
+[node name="ManagerName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 32
+text = "ANON"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PriceContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings"]
+layout_mode = 2
+alignment = 1
+
+[node name="Cost" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/PriceContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+text = "Cost:"
+
+[node name="ClubCreationFee" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/PriceContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 40
+text = "0.1 SOL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreateMineButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButtonAlt"
+text = "Create Mine"
+
+[node name="RubianMintScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("minted_amount", "progress_bar", "price_label", "mint_button", "checkbox_locks")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+script = ExtResource("20_1cknd")
+candy_machine_id = "CiAnxgxAtM1pTdNoeZ8nqeTYBM5mPEdQHdwhXfqeS3Th"
+candy_guard_id = "9JinvCj9dAESDfErBHLuybEBxy3gpZgEdw72sBS6VJf6"
+minted_amount = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/AmountMinted")
+progress_bar = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/MintedProgressBar")
+price_label = NodePath("ContentContainer/MintContainer/MintDetails/PriceContainer/PriceLabel")
+guard_settings = ExtResource("31_k7knv")
+start_mint_group = "open"
+mint_button = NodePath("ContentContainer/MintContainer/MintDetails/MintButton")
+checkbox_locks = [NodePath("ContentContainer/MintContainer/MintDetails/CouponContainer/CheckboxContainer/Checkbox"), NodePath("ContentContainer/MintContainer/MintDetails/VoucherContainer/CheckboxContainer/Checkbox")]
+box_mint_groups = Array[String](["coupon", "token"])
+
+[node name="ScreenManager" type="Node" parent="RubianMintScreen" node_paths=PackedStringArray("starting_panel", "screens")]
+script = ExtResource("2_xsafj")
+starting_panel = NodePath("../ContentContainer/MintContainer")
+screens = [NodePath("../ContentContainer/LoadingPanel"), NodePath("../ContentContainer/MintContainer"), NodePath("../ContentContainer/MintingInProgress"), NodePath("../ContentContainer/MintSuccessScreen")]
+
+[node name="MenuBanner" type="PanelContainer" parent="RubianMintScreen"]
+custom_minimum_size = Vector2(0, 115.39)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3n63b")
+script = SubResource("GDScript_6frg7")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RubianMintScreen/MenuBanner"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RubianMintScreen/MenuBanner/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="BackButton" type="TextureButton" parent="RubianMintScreen/MenuBanner/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(140, 100)
+layout_mode = 2
+texture_normal = ExtResource("15_c33lj")
+ignore_texture_size = true
+stretch_mode = 5
+flip_h = true
+script = ExtResource("16_tnflq")
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.682353, 0.886275, 1, 1)
+theme_override_colors/icon_hover_color = Color(0.427451, 0.501961, 0.980392, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.682353, 0.886275, 1, 1)
+theme_override_colors/icon_disabled_color = Color(0.881937, 0.881937, 0.881937, 0.352941)
+
+[node name="HeaderLabel" type="Label" parent="RubianMintScreen/MenuBanner/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderLarge"
+text = "Mint a Rubian!"
+
+[node name="SideScroller" type="Control" parent="RubianMintScreen"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 64.035)
+layout_mode = 2
+
+[node name="SideScrollerBG" type="Panel" parent="RubianMintScreen/SideScroller"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3hnhv")
+
+[node name="SideScroller" type="TextureRect" parent="RubianMintScreen/SideScroller"]
+material = SubResource("ShaderMaterial_v3ojb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 10.0
+offset_right = -1.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("6_de3vm")
+stretch_mode = 1
+
+[node name="ContentContainer" type="MarginContainer" parent="RubianMintScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 50
+
+[node name="LoadingPanel" type="PanelContainer" parent="RubianMintScreen/ContentContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
+
+[node name="Label" type="Label" parent="RubianMintScreen/ContentContainer/LoadingPanel"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 50
+text = "Loading, hang on..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MintContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Intro" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="Rubians" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/Intro"]
+custom_minimum_size = Vector2(300, 115)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 30
+text = "Mint a Rubian, become a Toil Mines manager and Gamify your favorite token!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="BannerMargin" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="BannerContainer" type="PanelContainer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro/BannerMargin"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_w0os1")
+
+[node name="MarginContainer" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro/BannerMargin/BannerContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="OwnerVisual" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/Intro/BannerMargin/BannerContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("30_vx2kd")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Actions" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro"]
+layout_mode = 2
+
+[node name="LearnMoreButton" type="Button" parent="RubianMintScreen/ContentContainer/MintContainer/Intro/Actions" node_paths=PackedStringArray("button")]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+theme_override_font_sizes/font_size = 22
+text = "Learn more"
+script = ExtResource("9_cywxi")
+button = NodePath(".")
+link = "https://www.bento.me/rubians"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro/Actions/LearnMoreButton"]
+stream = ExtResource("14_3shno")
+
+[node name="Spacer" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro/Actions"]
+layout_mode = 2
+theme_override_constants/margin_right = 30
+
+[node name="MintDetails" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AmountMinted" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/Intro/Actions/MintDetails"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 25
+text = "150/720 Minted"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MintedProgressBar" type="ProgressBar" parent="RubianMintScreen/ContentContainer/MintContainer/Intro/Actions/MintDetails"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+max_value = 1.0
+value = 1.0
+
+[node name="MintDetails" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PriceContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+layout_mode = 2
+
+[node name="MintPrice" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/PriceContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 30
+text = "MINT PRICE:"
+
+[node name="PriceLabel" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/PriceContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 35
+text = "1.5 SOL"
+
+[node name="CouponContainer" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+layout_mode = 2
+
+[node name="CheckboxContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/CouponContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Checkbox" type="CheckBox" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/CouponContainer/CheckboxContainer" node_paths=PackedStringArray("available_label")]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+alignment = 1
+script = ExtResource("20_cfq0y")
+token_address = "2jVEPco6pMAzKG4RijGyarXZcJGuDNZ2ATAjve9dbKc1"
+unlock_amount = 1.0
+available_label = NodePath("../VBoxContainer/TokensAvailable")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/CouponContainer/CheckboxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/CouponContainer/CheckboxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+text = "Apply 25% off Coupon"
+
+[node name="TokensAvailable" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/CouponContainer/CheckboxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderSmall"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 22
+text = "3 available"
+vertical_alignment = 1
+
+[node name="VoucherContainer" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+layout_mode = 2
+
+[node name="CheckboxContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/VoucherContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Checkbox" type="CheckBox" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/VoucherContainer/CheckboxContainer" node_paths=PackedStringArray("available_label")]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+alignment = 1
+script = ExtResource("20_cfq0y")
+token_address = "ESyHCUfKeT1ffLNRfCsjyHzNL4qN22kruVr8vYkPDR5r"
+unlock_amount = 1.0
+available_label = NodePath("../VBoxContainer/TokensAvailable")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/VoucherContainer/CheckboxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/VoucherContainer/CheckboxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+text = "Use free Mint Voucher"
+
+[node name="TokensAvailable" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/VoucherContainer/CheckboxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderSmall"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 22
+text = "3 available"
+vertical_alignment = 1
+
+[node name="MintButton" type="Button" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButtonAlt"
+text = "MINT NOW!"
+script = ExtResource("23_i3ydu")
+
+[node name="MintingInProgress" type="PanelContainer" parent="RubianMintScreen/ContentContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
+script = SubResource("GDScript_28bmg")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintingInProgress"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Text" type="Label" parent="RubianMintScreen/ContentContainer/MintingInProgress/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 40
+text = "Minting in progress"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Visual" type="PanelContainer" parent="RubianMintScreen/ContentContainer/MintingInProgress/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_mbux8")
+
+[node name="Background" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintingInProgress/VBoxContainer/Visual"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("27_bup1p")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="RubianMeditation" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintingInProgress/VBoxContainer/Visual"]
+custom_minimum_size = Vector2(320, 320)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("28_aocwv")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RubianMintScreen/ContentContainer/MintingInProgress"]
+libraries = {
+"": SubResource("AnimationLibrary_5wofc")
+}
+
+[node name="MintSuccessScreen" type="VBoxContainer" parent="RubianMintScreen/ContentContainer" node_paths=PackedStringArray("nft_displayer", "inspect_button", "screen_manager")]
+visible = false
+layout_mode = 2
+script = ExtResource("27_a1nqh")
+nft_displayer = NodePath("RubianDetails")
+inspect_button = NodePath("RubianDetails/Body/RubianName/InspectButton")
+screen_manager = NodePath("../../ScreenManager")
+
+[node name="Header" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/Header"]
+layout_mode = 2
+theme_override_constants/margin_right = 30
+
+[node name="NewRubianMinted" type="Label" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+text = "New Rubian Minted!"
+
+[node name="MarginContainer" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 30
+
+[node name="RubianDetails" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen" node_paths=PackedStringArray("visual", "name_label", "button")]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource("28_6k1tr")
+visual = NodePath("RubianVisual/MarginContainer/Visual")
+name_label = NodePath("Body/RubianName/NameLabel")
+button = NodePath("RubianVisual/TextureButton")
+
+[node name="RubianVisual" type="PanelContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fmax6")
+
+[node name="MarginContainer" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/RubianVisual"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Visual" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/RubianVisual/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("27_onooq")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TextureButton" type="TextureButton" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/RubianVisual"]
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("9_g3w0q")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails"]
+layout_mode = 2
+theme_override_constants/margin_right = 30
+
+[node name="Body" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails"]
+layout_mode = 2
+
+[node name="RubianName" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body"]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/RubianName"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderSmall"
+theme_override_font_sizes/font_size = 80
+text = "Rubian #560"
+
+[node name="Spacer" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/RubianName"]
+layout_mode = 2
+theme_override_constants/margin_right = 10
+
+[node name="InspectButton" type="TextureButton" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/RubianName" node_paths=PackedStringArray("button")]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("28_cm551")
+ignore_texture_size = true
+stretch_mode = 5
+script = ExtResource("9_cywxi")
+button = NodePath(".")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/RubianName/InspectButton"]
+stream = ExtResource("14_3shno")
+
+[node name="Spacer" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="Description" type="Label" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Looking good, legend! as a rubian, you will soon be able to create your very own toil mine."
+autowrap_mode = 2
+
+[node name="CreateMine" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 30
+
+[node name="CreateMineButton" type="Button" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/CreateMine"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+disabled = true
+text = "Create Mine"
+
+[node name="CommunityAction" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body"]
+layout_mode = 2
+
+[node name="Description2" type="Label" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/CommunityAction"]
+custom_minimum_size = Vector2(347.035, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Join our discord server to learn about other perks and meet fellow rubians!"
+autowrap_mode = 2
+
+[node name="JoinDiscordButton" type="Button" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/CommunityAction" node_paths=PackedStringArray("button")]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButtonAlt"
+text = "Join Now!"
+script = ExtResource("9_cywxi")
+button = NodePath(".")
+link = "https://discord.gg/ZfBrN3GA5F"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/CommunityAction/JoinDiscordButton"]
+stream = ExtResource("40_7n6mh")
+
+[node name="ButtonLockManager" type="Node" parent="." node_paths=PackedStringArray("button_locks")]
+script = ExtResource("38_ykcbo")
+button_locks = [null]
+
+[node name="NFTSelectionDisplay" parent="." instance=ExtResource("40_chyj7")]
+visible = false
+layout_mode = 1
+load_all = true
+
+[connection signal="pressed" from="MainScreen/MenuPanel/ManageButton" to="." method="_on_mint_manager_button_pressed"]
+[connection signal="pressed" from="MainScreen/MenuPanel/TrainingButton" to="." method="_on_training_button_pressed"]
+[connection signal="pressed" from="MainScreen/MenuPanel/MintButton" to="." method="_on_mint_button_pressed"]
+[connection signal="pressed" from="MineManagerScreen/MenuBanner/HBoxContainer/MarginContainer/BackButton" to="." method="play_ui_sound" binds= ["Return"]]
+[connection signal="pressed" from="MineManagerScreen/MenuBanner/HBoxContainer/MarginContainer/BackButton" to="ScreenManager" method="switch_active_panel" binds= [0]]
+[connection signal="on_nft_mint_failed" from="RubianMintScreen" to="RubianMintScreen/MenuBanner" method="_on_rubian_mint_screen_on_nft_mint_failed"]
+[connection signal="on_nft_mint_failed" from="RubianMintScreen" to="RubianMintScreen/ScreenManager" method="switch_active_panel" binds= [1]]
+[connection signal="on_nft_mint_started" from="RubianMintScreen" to="RubianMintScreen/MenuBanner" method="_on_rubian_mint_screen_on_nft_mint_started"]
+[connection signal="on_nft_mint_started" from="RubianMintScreen" to="RubianMintScreen/ScreenManager" method="switch_active_panel" binds= [2]]
+[connection signal="on_nft_minted" from="RubianMintScreen" to="RubianMintScreen/MenuBanner" method="_on_rubian_mint_screen_on_nft_minted"]
+[connection signal="on_nft_minted" from="RubianMintScreen" to="RubianMintScreen/ContentContainer/MintSuccessScreen" method="display_minted_nft"]
+[connection signal="pressed" from="RubianMintScreen/MenuBanner/HBoxContainer/MarginContainer/BackButton" to="." method="play_ui_sound" binds= ["Return"]]
+[connection signal="pressed" from="RubianMintScreen/MenuBanner/HBoxContainer/MarginContainer/BackButton" to="ScreenManager" method="switch_active_panel" binds= [0]]
+[connection signal="pressed" from="RubianMintScreen/ContentContainer/MintContainer/MintDetails/CouponContainer/CheckboxContainer/Checkbox" to="." method="play_ui_sound" binds= ["Checkbox"]]
+[connection signal="pressed" from="RubianMintScreen/ContentContainer/MintContainer/MintDetails/VoucherContainer/CheckboxContainer/Checkbox" to="." method="play_ui_sound" binds= ["Checkbox"]]
+[connection signal="pressed" from="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/CreateMine/CreateMineButton" to="ScreenManager" method="switch_active_panel" binds= [1]]

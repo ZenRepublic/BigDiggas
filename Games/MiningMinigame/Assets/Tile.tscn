@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://brb5vgwsfgl18"]
+
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/mine_tile.gd" id="2_p2cu8"]
+[ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/mouse_reveal.gdshader" id="2_qlwgt"]
+[ext_resource type="Texture2D" uid="uid://sgkd1tkrnh7f" path="res://Games/MiningMinigame/textures/Tiles/Cement/Cement CE.PNG" id="3_8wj0s"]
+[ext_resource type="PackedScene" uid="uid://cajq4ulytq68w" path="res://Games/MiningMinigame/ParticleEffects/RockParticles.tscn" id="4_nu7wb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_csgka"]
+resource_local_to_scene = true
+shader = ExtResource("2_qlwgt")
+shader_parameter/radius = 0.5
+shader_parameter/feather = 2.5
+shader_parameter/center = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_e0bpr"]
+colors = PackedColorArray(0, 0, 0, 0.745098, 0, 0, 0, 0.745098)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kr6la"]
+gradient = SubResource("Gradient_e0bpr")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mhtmr"]
+size = Vector2(128, 128)
+
+[node name="Tile" type="Area2D" node_paths=PackedStringArray("visual")]
+script = ExtResource("2_p2cu8")
+visual = NodePath("Visual")
+rock_particles_scn = ExtResource("4_nu7wb")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_csgka")
+position = Vector2(1.90735e-06, 1.90735e-06)
+scale = Vector2(2, 2)
+texture = SubResource("GradientTexture2D_kr6la")
+
+[node name="Visual" type="Sprite2D" parent="."]
+texture = ExtResource("3_8wj0s")
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mhtmr")
+disabled = true
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

@@ -1,0 +1,138 @@
+[gd_scene load_steps=8 format=3 uid="uid://cktjn70rmfn38"]
+
+[ext_resource type="Script" path="res://Games/MapPainter/painter_manager.gd" id="1_keos3"]
+[ext_resource type="Script" path="res://Games/MapPainter/grid_overlay.gd" id="2_kcjvv"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field.gd" id="3_b51id"]
+[ext_resource type="Script" path="res://Games/MapPainter/color_picker.gd" id="4_k31ai"]
+[ext_resource type="Resource" uid="uid://dwb3oc0e3ll2x" path="res://Games/MapPainter/map_colors.tres" id="5_lvpx4"]
+[ext_resource type="Script" path="res://Games/MapPainter/painter_input.gd" id="6_dgnsr"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_qilgl"]
+
+[node name="MapPainter" type="Node"]
+
+[node name="OverlayUI" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="PainterManager" type="Control" parent="OverlayUI" node_paths=PackedStringArray("canvas", "overlay_grid")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("1_keos3")
+canvas = NodePath("../../Canvas/MapCanvas")
+map_dimensions = Vector2(32, 32)
+pixel_resolution = 20
+overlay_grid = NodePath("../../Canvas/OverlayGrid")
+export_path = "C:\\Users\\Thomas\\Desktop\\GodotProjects\\RubyRiders\\Scripts\\ZenRepublicSystems\\TownGenerator\\MapPainter\\Maps"
+
+[node name="SizeLabel" type="Label" parent="OverlayUI/PainterManager"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 564.0
+offset_right = 283.0
+offset_bottom = 601.0
+theme_override_font_sizes/font_size = 25
+text = "Brush Size"
+
+[node name="BrushSizeSlider" type="HSlider" parent="OverlayUI/PainterManager"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 26.0
+offset_top = -50.0
+offset_right = 226.0
+offset_bottom = -14.0
+grow_vertical = 0
+min_value = 1.0
+max_value = 8.0
+value = 1.0
+scrollable = false
+tick_count = 8
+ticks_on_borders = true
+
+[node name="MapNameInputField\\" type="LineEdit" parent="OverlayUI/PainterManager"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -174.0
+offset_top = -90.0
+offset_right = -35.0
+offset_bottom = -59.0
+grow_horizontal = 0
+grow_vertical = 0
+placeholder_text = "map name..."
+script = ExtResource("3_b51id")
+
+[node name="ExportButton" type="Button" parent="OverlayUI/PainterManager"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -141.0
+offset_top = -44.0
+offset_right = -39.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Export"
+
+[node name="ColorPickerLabel" type="Label" parent="OverlayUI/PainterManager"]
+layout_mode = 1
+offset_left = 4.0
+offset_top = 2.0
+offset_right = 177.0
+offset_bottom = 31.0
+theme_override_font_sizes/font_size = 20
+text = "Active Color"
+
+[node name="MapColorPicker" type="OptionButton" parent="OverlayUI/PainterManager"]
+layout_mode = 1
+offset_top = 34.0
+offset_right = 176.0
+offset_bottom = 54.0
+script = ExtResource("4_k31ai")
+map_colors = ExtResource("5_lvpx4")
+
+[node name="Canvas" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MapCanvas" type="TextureRect" parent="Canvas"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 258.0
+offset_top = -17.0
+offset_right = 322.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_qilgl")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="OverlayGrid" type="Control" parent="Canvas"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_kcjvv")
+grid_color = Color(0.937255, 0.356863, 0.0823529, 0.372549)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("6_dgnsr")
+
+[connection signal="pressed" from="OverlayUI/PainterManager/ExportButton" to="OverlayUI/PainterManager" method="export_map"]
+[connection signal="item_selected" from="OverlayUI/PainterManager/MapColorPicker" to="OverlayUI/PainterManager/MapColorPicker" method="_on_item_selected"]
