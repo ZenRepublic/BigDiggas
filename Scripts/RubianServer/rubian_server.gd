@@ -28,6 +28,11 @@ func get_verified_tokens() -> Array:
 	var response:Dictionary = await send_get_request(SERVER_LINK+"verified/tokens")
 	print(response)
 	return response["tokens"]
+	
+func get_mine_manager_data() -> Dictionary:
+	var response:Dictionary = await send_get_request(SERVER_LINK+"minemanager")
+	print(response)
+	return response
 
 func send_get_request(request_link:String) -> Dictionary:
 	var http_request = HTTPRequest.new()

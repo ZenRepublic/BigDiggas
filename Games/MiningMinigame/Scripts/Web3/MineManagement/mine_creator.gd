@@ -5,6 +5,7 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	await RubianServer.get_mine_manager_data()
 	#if token_selection.item_count == 0:
 	fill_tokens()
 	#if collection_selection.item_count == 0:
