@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://dmdb8dbmov2cl"]
+[gd_scene load_steps=66 format=3 uid="uid://dmdb8dbmov2cl"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_b88w7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_manager.gd" id="1_yvyci"]
@@ -15,22 +15,25 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/game_settings.gd" id="9_lyso5"]
 [ext_resource type="Texture2D" uid="uid://br8u2jj3e2hqp" path="res://Textures/Socials/DiscordIcon.png" id="10_esn2c"]
 [ext_resource type="Texture2D" uid="uid://dchy7ed3ybfi1" path="res://Textures/Tokens/Zenny token.PNG" id="12_6oue8"]
-[ext_resource type="Texture2D" uid="uid://cjj7met13ao3m" path="res://Games/MiningMinigame/textures/pfp.png" id="13_maxm8"]
 [ext_resource type="AudioStream" uid="uid://cojs82uu73ctv" path="res://Games/MiningMinigame/Sounds/UI/buttonpress.mp3" id="14_3shno"]
 [ext_resource type="Texture2D" uid="uid://gptwby1tvc0b" path="res://Games/MiningMinigame/textures/Icons/Arrow.png" id="15_c33lj"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field.gd" id="15_cwt4b"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/mine_manager.gd" id="16_lhc84"]
 [ext_resource type="Script" path="res://addons/texture_button_colored/texture_button_colored.gd" id="16_tnflq"]
+[ext_resource type="Texture2D" uid="uid://8y8gq03rslv8" path="res://Textures/Tokens/madlads.jpg" id="18_oxyad"]
 [ext_resource type="Texture2D" uid="uid://cmjf6jjfcxgr5" path="res://Textures/BrandingAssets/Rubians sand.PNG" id="19_jq644"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/rubian_mint_manager.gd" id="20_1cknd"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/checkbox_lock.gd" id="20_cfq0y"]
+[ext_resource type="Texture2D" uid="uid://csxntm0i2aw6m" path="res://Textures/Tokens/unnamed (6).png" id="20_lsgje"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/token_button_lock.gd" id="23_i3ydu"]
 [ext_resource type="PackedScene" uid="uid://btmj6a3kagg46" path="res://Games/MiningMinigame/Assets/UI/DisplayableNFTButton.tscn" id="25_040nb"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_creator.gd" id="25_g7mfu"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field_system.gd" id="26_6s5lj"]
+[ext_resource type="Texture2D" uid="uid://cqad321mes0x8" path="res://Textures/Tokens/BonkLogo.png" id="26_7eifw"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/nft_selector.gd" id="27_01mht"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/mint_display.gd" id="27_a1nqh"]
 [ext_resource type="Texture2D" uid="uid://b6ditanjl5jng" path="res://Games/MiningMinigame/textures/Art/Meditation/Meditating rubian BG.png" id="27_bup1p"]
+[ext_resource type="Texture2D" uid="uid://dojiow5rpog3p" path="res://Textures/Tokens/28d69f0d-4a98-443b-908f-2906126efac7.jpg" id="27_og57w"]
 [ext_resource type="Texture2D" uid="uid://bpt1e8u1buonk" path="res://Textures/BrandingAssets/whosthatrubian.png" id="27_onooq"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_nft.gd" id="28_6k1tr"]
 [ext_resource type="Texture2D" uid="uid://5d4lrsf4xvb3" path="res://Games/MiningMinigame/textures/Art/Meditation/Meditating rubian.png" id="28_aocwv"]
@@ -102,27 +105,6 @@ bg_color = Color(1, 1, 1, 1)
 bg_color = Color(0.121569, 0.0627451, 0.164706, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1s1dl"]
-
-[sub_resource type="Gradient" id="Gradient_ioqld"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_sxyrd"]
-gradient = SubResource("Gradient_ioqld")
-width = 32
-height = 32
-
-[sub_resource type="Gradient" id="Gradient_pppir"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4le4l"]
-gradient = SubResource("Gradient_pppir")
-width = 32
-height = 32
-
-[sub_resource type="Gradient" id="Gradient_vosm3"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_ptf3b"]
-gradient = SubResource("Gradient_vosm3")
-width = 32
-height = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0os1"]
 bg_color = Color(0.639216, 0.156863, 0.345098, 1)
@@ -251,6 +233,7 @@ texture = ExtResource("2_whdnv")
 stretch_mode = 1
 
 [node name="MainScreen" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -979,7 +962,7 @@ layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderSmall"
 theme_override_font_sizes/font_size = 28
-text = "Steel Ball Mine LFG BROSKIS"
+text = "BONK MINE FOR MAD LADS!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1004,7 +987,7 @@ layout_mode = 2
 
 [node name="CollectionVisual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("19_jq644")
+texture = ExtResource("18_oxyad")
 expand_mode = 3
 stretch_mode = 5
 
@@ -1026,7 +1009,7 @@ layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_font_sizes/font_size = 16
-text = "RUBIANS"
+text = "MADLADS"
 
 [node name="Spacer" type="MarginContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/MainDetailsContainer"]
 custom_minimum_size = Vector2(0, 15)
@@ -1043,7 +1026,7 @@ layout_mode = 2
 
 [node name="TokenVisual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/MainDetailsContainer/TreasuryContainer"]
 layout_mode = 2
-texture = ExtResource("12_6oue8")
+texture = ExtResource("26_7eifw")
 expand_mode = 3
 stretch_mode = 5
 
@@ -1090,7 +1073,7 @@ layout_mode = 2
 
 [node name="TokenVisual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer/HBoxContainer/ExtraDetailsContainer/RewardContainer"]
 layout_mode = 2
-texture = ExtResource("12_6oue8")
+texture = ExtResource("26_7eifw")
 expand_mode = 3
 stretch_mode = 5
 
@@ -1100,7 +1083,7 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 30
-text = "5k"
+text = "50k"
 
 [node name="CampaignDuration" type="HBoxContainer" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/MineDetails/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -1169,7 +1152,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="Visual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/MineCard/CharacterSelection/HBoxContainer/ScrollContainer/HBoxContainer/MineCardNFTDisplay"]
 layout_mode = 2
-texture = ExtResource("13_maxm8")
+texture = ExtResource("20_lsgje")
 expand_mode = 2
 stretch_mode = 5
 
@@ -1230,7 +1213,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="Visual" type="TextureRect" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer/MinerVisualContainer/MarginContainer"]
 layout_mode = 2
-texture = ExtResource("13_maxm8")
+texture = ExtResource("20_lsgje")
 expand_mode = 3
 stretch_mode = 5
 
@@ -1249,7 +1232,7 @@ layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_font_sizes/font_size = 16
-text = "Rubian #456"
+text = "Madlad #5124"
 vertical_alignment = 1
 
 [node name="EnergyBar" type="ProgressBar" parent="MainScreen/ContentPanel/CharacterSelection/CharacterDetails/MarginContainer/HBoxContainer/MinerDetails"]
@@ -1297,7 +1280,6 @@ text = "ENTER
 MINE!"
 
 [node name="MineManagerScreen" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1705,29 +1687,43 @@ text = "This is gonna be epic, my diggas"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("token_selection", "collection_selection")]
+[node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("general_input_field_system", "token_selection", "fund_input_field", "max_fund_button", "token_visuals", "manager_selector", "creation_fee_label", "create_mine_button", "nft_input_field_system", "collection_selection")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 50
 script = ExtResource("25_g7mfu")
-token_selection = NodePath("MineDetailsContainer/TokenSelector")
+general_input_field_system = NodePath("GeneralInputFieldSystem")
+token_selection = NodePath("MineDetailsContainer/TokenSettings/TokenSelector")
+fund_input_field = NodePath("MineDetailsContainer/TokenSettings/FundAmountContainer/FundInputField")
+max_fund_button = NodePath("MineDetailsContainer/TokenSettings/FundAmountContainer/MaxFundButton")
+token_visuals = [NodePath("MineDetailsContainer/TokenSettings/FundAmountContainer/FundTokenVisual"), NodePath("MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer/TokenVisual")]
+manager_selector = NodePath("PaymentSettings/ManagerSelection")
+creation_fee_label = NodePath("PaymentSettings/PriceContainer/ClubCreationFee")
+create_mine_button = NodePath("PaymentSettings/CreateMineButton")
+nft_input_field_system = NodePath("MineDetailsContainer/NFTMinerSettings/NFTInputFieldSystem")
 collection_selection = NodePath("MineDetailsContainer/NFTMinerSettings/CollectionSelector")
 
-[node name="MineDetailsContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer" node_paths=PackedStringArray("confirm_button")]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 8
+[node name="GeneralInputFieldSystem" type="Node" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer" node_paths=PackedStringArray("input_fields")]
 script = ExtResource("26_6s5lj")
-confirm_button = NodePath("../PaymentSettings/CreateMineButton")
+input_fields = [NodePath("../MineDetailsContainer/GeneralSettings/NameBar/NameDetails/MineNameInputField"), NodePath("../MineDetailsContainer/GeneralSettings/CampaignLength/CampaignLengthInputField"), NodePath("../MineDetailsContainer/TokenSettings/FundAmountContainer/FundInputField")]
 
-[node name="NameBar" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+[node name="MineDetailsContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+script = ExtResource("26_6s5lj")
+
+[node name="GeneralSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
 layout_mode = 2
 
-[node name="NameDetails" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NameBar"]
+[node name="NameBar" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings"]
+layout_mode = 2
+
+[node name="NameDetails" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings/NameBar"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MineNameInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NameBar/NameDetails"]
+[node name="MineNameInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings/NameBar/NameDetails"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
@@ -1737,7 +1733,41 @@ max_length = 28
 script = ExtResource("15_cwt4b")
 min_length = 4
 
-[node name="MineToken" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+[node name="CampaignLength" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="CampaignLength" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings/CampaignLength"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 28
+text = "Campaign length
+"
+
+[node name="CampaignLengthInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings/CampaignLength"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+text = "48"
+alignment = 1
+max_length = 3
+script = ExtResource("15_cwt4b")
+input_type = 1
+min_length = 1
+min_value = 1.0
+max_value = 168.0
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings/CampaignLength"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Hours"
+vertical_alignment = 1
+
+[node name="TokenSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+layout_mode = 2
+
+[node name="MineToken" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
@@ -1746,35 +1776,47 @@ text = "Mine Token"
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="TokenSelector" type="OptionButton" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+[node name="TokenSelector" type="OptionButton" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings"]
 layout_mode = 2
 allow_reselect = true
 item_count = 1
-popup/item_0/text = "$ZENY - Zenny Coin"
-popup/item_0/icon = SubResource("GradientTexture2D_sxyrd")
+popup/item_0/text = "$BONK - Bonk Coin"
+popup/item_0/icon = ExtResource("26_7eifw")
 
-[node name="FundAmountContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+[node name="FundAmountContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings"]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 10
 
-[node name="FundInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/FundAmountContainer"]
+[node name="FundTokenVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings/FundAmountContainer"]
+layout_mode = 2
+texture = ExtResource("26_7eifw")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="FundInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings/FundAmountContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 25
 placeholder_text = "Enter Fund Amount..."
 alignment = 1
+max_length = 15
 script = ExtResource("15_cwt4b")
+input_type = 2
 max_value = -1.0
+allow_zero = false
 
-[node name="FundButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/FundAmountContainer"]
+[node name="MaxFundButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings/FundAmountContainer"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButton"
 theme_override_font_sizes/font_size = 20
 text = "max"
 
-[node name="MinerType" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+[node name="MinerTypeSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+layout_mode = 2
+
+[node name="MinerType" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/MinerTypeSettings"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
@@ -1783,12 +1825,12 @@ text = "Miner Type"
 vertical_alignment = 1
 autowrap_mode = 3
 
-[node name="MinerTypeContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
+[node name="MinerTypeContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/MinerTypeSettings"]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="NFTMinersButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/MinerTypeContainer"]
+[node name="NFTMinersButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/MinerTypeSettings/MinerTypeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
@@ -1796,7 +1838,7 @@ theme_type_variation = &"SimpleButton"
 theme_override_font_sizes/font_size = 20
 text = "NFT"
 
-[node name="TokenMinersButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/MinerTypeContainer"]
+[node name="TokenMinersButton" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/MinerTypeSettings/MinerTypeContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
@@ -1808,7 +1850,13 @@ text = "TOKEN"
 [node name="NFTMinerSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 8
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="NFTInputFieldSystem" type="Node" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings" node_paths=PackedStringArray("input_fields")]
+script = ExtResource("26_6s5lj")
+input_fields = [NodePath("../CustomizationSettings/MinerEnergyContainer/EnergyCapInputField"), NodePath("../CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer/PayoutLimitInputField")]
 
 [node name="MinerCollection" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
 layout_mode = 2
@@ -1819,12 +1867,9 @@ text = "Miner Collection"
 [node name="CollectionSelector" type="OptionButton" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
 layout_mode = 2
 allow_reselect = true
-item_count = 2
+item_count = 1
 popup/item_0/text = "Mad Lads"
-popup/item_0/icon = SubResource("GradientTexture2D_4le4l")
-popup/item_1/text = "Famous Fox Federation"
-popup/item_1/icon = SubResource("GradientTexture2D_ptf3b")
-popup/item_1/id = 1
+popup/item_0/icon = ExtResource("27_og57w")
 
 [node name="CustomizationSettings" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
 layout_mode = 2
@@ -1845,83 +1890,53 @@ theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 25
 text = "5"
 alignment = 1
-max_length = 9
+max_length = 2
 script = ExtResource("15_cwt4b")
 input_type = 1
 min_value = 3.0
 max_value = 10.0
 
-[node name="CampaignLengthContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings"]
+[node name="PayoutLimitContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings"]
 layout_mode = 2
 
-[node name="CampaignLength" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/CampaignLengthContainer"]
+[node name="PayoutLimit" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "Campaign length
-"
+text = "MAX REWARD PER RUN"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/CampaignLengthContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="CampaignLengthInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/CampaignLengthContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 25
-text = "48"
-alignment = 1
-max_length = 3
-script = ExtResource("15_cwt4b")
-input_type = 1
-min_length = 1
-min_value = 1.0
-max_value = 168.0
-
-[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/CampaignLengthContainer/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 22
-text = "Hours"
-
-[node name="PayoutLimit" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 22
-text = "Payout Limit "
-
-[node name="PayoutLimitContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
+[node name="PayoutLimitContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer"]
 layout_mode = 2
 
-[node name="TokenVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/PayoutLimitContainer"]
+[node name="TokenVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer"]
 layout_mode = 2
-texture = ExtResource("12_6oue8")
+texture = ExtResource("26_7eifw")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="PayoutLimitInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/PayoutLimitContainer"]
+[node name="PayoutLimitInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "5000"
+placeholder_text = "Enter amount..."
 alignment = 1
+max_length = 12
 script = ExtResource("15_cwt4b")
 input_type = 2
-min_length = 1
 max_value = -1.0
+allow_zero = false
 
 [node name="PaymentSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="ManagerSelection" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings" node_paths=PackedStringArray("selectable_nft", "display_system")]
+[node name="ManagerSelection" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings" node_paths=PackedStringArray("displayable_nft", "display_system")]
 layout_mode = 2
 theme_override_constants/separation = 5
 script = ExtResource("27_01mht")
-selectable_nft = NodePath("VisualContainer/DisplayableNFTButton")
+displayable_nft = NodePath("VisualContainer/DisplayableNFTButton")
 display_system = NodePath("../../../../../../NFTSelectionDisplay")
 default_visual = ExtResource("27_onooq")
 default_name = "ANON"
@@ -1933,6 +1948,7 @@ text = "Select Manager"
 
 [node name="VisualContainer" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection"]
 layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_w0os1")
 
@@ -1944,7 +1960,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("28_6k1tr")
 visual = NodePath("Visual")
-image_size = 128
+image_size = 256
 name_label = NodePath("../../ManagerName")
 button = NodePath("Visual/Button")
 

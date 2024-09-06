@@ -3,12 +3,23 @@ enum TokenType{SOL, SPL}
 
 @export var input_field_system:InputFieldSystem
 @export var token_type:TokenType
+@export var send_button:Button
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	input_field_system.connect("on_input_submit", transfer_tokens)
+	send_button.disabled=true
+	input_field_system.on_fields_updated.connect(update_button_state)
+	send_button.pressed.connect(transfer_tokens)
 	
-func transfer_tokens(input_data:Array[String]) -> void:
+func update_button_state() -> void:
+	send_button.disabled = !input_field_system.get_inputs_valid()
+	
+func transfer_tokens() -> void:
+	if !input_field_system.get_inputs_valid():
+		return
+		
+	var input_data:Array[String] = input_field_system.get_fields_data()
+	
 	match token_type:
 		TokenType.SOL:
 			var receiver = input_data[0]

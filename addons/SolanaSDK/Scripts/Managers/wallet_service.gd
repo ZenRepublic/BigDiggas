@@ -43,7 +43,6 @@ func login_game_wallet() -> void:
 	log_in_success()
 
 func login_adapter(provider_id:int) -> void:
-	print("LOGIN ADAPTEr")
 	wallet_adapter.wallet_type = provider_id	
 	wallet_adapter.connect_wallet()
 

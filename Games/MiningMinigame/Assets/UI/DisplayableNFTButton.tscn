@@ -11,7 +11,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 script = ExtResource("1_4rwe4")
 visual = NodePath("Visual")
-image_size = 128
+image_size = 256
 button = NodePath("Visual/Button")
 
 [node name="Visual" type="TextureRect" parent="."]

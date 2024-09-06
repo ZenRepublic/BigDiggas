@@ -96,6 +96,7 @@ func clear_display() -> void:
 func handle_display_update() -> void:
 	if no_nft_overlay!=null:
 		no_nft_overlay.visible = (displayables.size()==0)
+		container.visible = !no_nft_overlay.visible
 	
 func close() -> void:
 	self.visible = false

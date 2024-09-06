@@ -1,71 +1,93 @@
 extends LineEdit
 class_name InputField
 
-enum InputType{Alphanumeric,Integer,FractionNumber}
+enum InputType{ALPHANUMERIC,INTEGER,DECIMAL}
 
-@export var input_type = InputType.Alphanumeric
+@export var input_type = InputType.ALPHANUMERIC
 @export var min_length:int = 0
 @export var is_optional = false
 
 @export_category("Number Field Settings")
 @export var min_value:float = 0.0
 @export var max_value:float = 999.0
+@export var allow_zero:bool=true
 
 
-var fraction_regex = "^[0-9.]*$"
-var integer_regex = "^[0-9]+$"
-var alphanumeric_regex = "^[a-zA-Z0-9]+$"
+var alphanumeric_regex = "^[a-zA-Z0-9 _\\-@]+$"
+var integer_regex = "^[-+]?\\d+$"
+var fraction_regex = "^[-+]?[0-9]+(\\.[0-9]+)?$"
 
 @onready var input_constraint = RegEx.new()
+var old_text
 
 signal on_field_updated
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	old_text = text
 	text_changed.connect(handle_text_change)
 	text_submitted.connect(handle_text_submit)
+	focus_exited.connect(handle_focus_lost)
 	match input_type:
-		InputType.Alphanumeric:
+		InputType.ALPHANUMERIC:
 			input_constraint.compile(alphanumeric_regex)
-		InputType.Integer:
+		InputType.INTEGER:
 			input_constraint.compile(integer_regex)
-		InputType.FractionNumber:
+		InputType.DECIMAL:
 			input_constraint.compile(fraction_regex)
 			
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 	
-var old_text = ""
+
 func handle_text_change(new_text: String) -> void:
-	if new_text.length() < min_length:
-		new_text = old_text
+	#if input_constraint.search(new_text) == null:
+		#text = old_text
+		#caret_column = text.length()
+		#return
 	
+	#old_text = text
+	#text = new_text
+	#caret_column = text.length()
+	pass
+	
+func handle_focus_lost() -> void:
+	text = validate_text(text)
 	on_field_updated.emit()
-	old_text = text
 	
 func handle_text_submit(new_text:String) -> void:
-	text = adjust_text(new_text)
+	on_field_updated.emit()
 	release_focus()
+	text = validate_text(text)
+	on_field_updated.emit()
 	
-func adjust_text(new_text:String) -> String:
+func validate_text(new_text:String) -> String:
 	var adjusted_text:String = new_text
-	if input_constraint.search(new_text):
-			if input_type == InputType.Integer:
-				var value:int = int(new_text)
-				print(value)
-				value = clamp(value,int(get_min_value()),int(get_max_value()))
-				adjusted_text = str(value)
-			if input_type == InputType.FractionNumber:
-				var value:float = float(new_text)
-				value = clamp(value,get_min_value(),get_max_value())
-				adjusted_text = str(value)
+	
+	if new_text.length() >0 and input_constraint.search(new_text) == null:
+		if input_type == InputType.INTEGER or input_type == InputType.DECIMAL:
+			return str(min_value)
+		else:
+			return ""
+
+	if input_type == InputType.INTEGER:
+		var value:int = int(new_text)
+		value = clamp(value,int(get_min_value()),int(get_max_value()))
+		if value == 0 and not allow_zero:
+			return ""
+		adjusted_text = str(value)
+	elif input_type == InputType.DECIMAL:
+		var value:float = float(new_text)
+		value = clamp(value,get_min_value(),get_max_value())
+		if value == 0 and not allow_zero:
+			return ""
+		adjusted_text = str(value)
 	else:
-		adjusted_text = old_text
+		adjusted_text = new_text
 	
 	return adjusted_text
 		
-	
 	
 func get_min_value() -> float:
 	if min_value == -1:
@@ -86,5 +108,17 @@ func is_valid() -> bool:
 	if !is_optional && text.length()==0:
 		return false
 		
+	if input_constraint.search(text) == null:
+		return false
+		
 	return true
+	
+func get_field_value():
+	match input_type:
+		InputType.ALPHANUMERIC:
+			return text
+		InputType.INTEGER:
+			return int(text)
+		InputType.DECIMAL:
+			return float(text)
 	

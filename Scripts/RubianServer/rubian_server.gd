@@ -20,19 +20,9 @@ func register_user(user:Pubkey) -> void:
 	}
 	var response:Dictionary = await send_post_request(JSON.stringify(body),headers,SERVER_LINK+"users/register")
 	
-func get_verified_collections() -> Array:
-	var response:Dictionary = await send_get_request(SERVER_LINK+"verified/collections")
-	return response["collections"]
-	
-func get_verified_tokens() -> Array:
-	var response:Dictionary = await send_get_request(SERVER_LINK+"verified/tokens")
-	print(response)
-	return response["tokens"]
-	
 func get_mine_manager_data() -> Dictionary:
 	var response:Dictionary = await send_get_request(SERVER_LINK+"minemanager")
-	print(response)
-	return response
+	return response["collections"]
 
 func send_get_request(request_link:String) -> Dictionary:
 	var http_request = HTTPRequest.new()

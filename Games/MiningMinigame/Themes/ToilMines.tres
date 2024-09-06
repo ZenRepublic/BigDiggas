@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=55 format=3 uid="uid://ds48g7imsbnvb"]
+[gd_resource type="Theme" load_steps=56 format=3 uid="uid://ds48g7imsbnvb"]
 
 [ext_resource type="FontFile" uid="uid://wg54cqgbfnj6" path="res://Fonts/ZeroCool.ttf" id="1_r1x44"]
 [ext_resource type="Texture2D" uid="uid://b2pa4cnrwjuii" path="res://Games/MiningMinigame/textures/Icons/TickBoxChecked.png" id="2_7ut3y"]
@@ -83,20 +83,20 @@ bg_color = Color(0.552941, 0.717647, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_au41s"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-border_color = Color(0.65098, 0.521569, 0.623529, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_shhmq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xavy7"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 7
-border_width_top = 7
-border_width_right = 7
-border_width_bottom = 7
+border_width_left = 15
+border_width_top = 15
+border_width_right = 15
+border_width_bottom = 15
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_snl5k"]
@@ -303,6 +303,12 @@ border_color = Color(0, 0, 0, 1)
 shadow_size = 5
 shadow_offset = Vector2(3, 0)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p74wg"]
+bg_color = Color(0.639216, 0.156863, 0.345098, 0.627451)
+skew = Vector2(0.28, 0)
+border_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(3, 0)
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_huk0e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wsv7"]
@@ -451,6 +457,7 @@ SimpleButtonAlt/base_type = &"Button"
 SimpleButtonAlt/colors/font_color = Color(1, 1, 1, 1)
 SimpleButtonAlt/font_sizes/font_size = 30
 SimpleButtonAlt/fonts/font = ExtResource("2_71xjw")
+SimpleButtonAlt/styles/disabled = SubResource("StyleBoxFlat_p74wg")
 SimpleButtonAlt/styles/focus = SubResource("StyleBoxEmpty_huk0e")
 SimpleButtonAlt/styles/hover = SubResource("StyleBoxFlat_5wsv7")
 SimpleButtonAlt/styles/normal = SubResource("StyleBoxFlat_83cvm")

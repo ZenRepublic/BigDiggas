@@ -9,6 +9,8 @@ enum AssetType {NONE,NFT, TOKEN}
 
 var owned_assets:Array[WalletAsset]
 
+var asset_cache:Array[WalletAsset]
+
 @export var missing_texture_visual:Texture2D
 
 var is_loading:bool=false
@@ -57,8 +59,25 @@ func load_assets()->void:
 	on_asset_load_finished.emit(owned_assets)
 	assets_loaded=true
 	is_loading=false
+	
+func get_owned_asset(asset_mint:Pubkey) -> WalletAsset:
+	for asset in owned_assets:
+		if asset.mint.to_string() == asset_mint.to_string():
+			return asset
+	return null
+	
+func try_find_in_cache(asset_mint:Pubkey) -> WalletAsset:
+	for asset in asset_cache:
+		if asset.mint.to_string() == asset_mint.to_string():
+			return asset
+	return null
 
 func get_asset_from_mint(asset_mint:Pubkey, load_texture:bool=false) -> WalletAsset:
+#	check if the mint already exists in the cache so wouldn't need to fetch again
+	var wallet_asset:WalletAsset = try_find_in_cache(asset_mint)
+	if wallet_asset != null:
+		return wallet_asset
+		
 	var mpl_metadata:MplTokenMetadata = SolanaService.spawn_mpl_metadata_client()
 	mpl_metadata.get_mint_metadata(asset_mint)
 	var metadata:MetaData = await mpl_metadata.metadata_fetched
@@ -73,11 +92,13 @@ func get_asset_from_mint(asset_mint:Pubkey, load_texture:bool=false) -> WalletAs
 		AssetType.NFT:
 			var nft:Nft = Nft.new()
 			await nft.set_data(asset_mint,metadata,asset_type,load_texture)
+			asset_cache.append(nft as WalletAsset)
 			return nft
 			pass
 		AssetType.TOKEN:
 			var token:Token = Token.new()
 			await token.set_data(asset_mint,metadata,asset_type,load_texture)
+			asset_cache.append(token as WalletAsset)
 			return token
 			pass
 			

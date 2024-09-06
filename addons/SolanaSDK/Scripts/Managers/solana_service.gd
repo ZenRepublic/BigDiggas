@@ -69,7 +69,6 @@ func generate_keypair_from_pk(pk:String) -> Keypair:
 	#var keypair = Keypair.new_from_file("C:\\Users\\thoma\\Desktop\\kp\\kp.json")
 	return keypair
 	
-#	print(SolanaClient.get_latest_blockhash())
 func spawn_client_instance()->SolanaClient:
 	var sol_client:SolanaClient = SolanaClient.new()
 	add_child(sol_client)

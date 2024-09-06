@@ -32,7 +32,7 @@ grow_vertical = 2
 script = ExtResource("1_btcd8")
 displayable_nft_scn = ExtResource("2_xmhd2")
 collection_filter = Array[ExtResource("3_rk1ve")]([ExtResource("4_vmypy")])
-container = NodePath("Selection/ScrollContainer/NFTContainer")
+container = NodePath("Selection/MarginContainer/ScrollContainer/NFTContainer")
 no_nft_overlay = NodePath("Selection/NoNFTOverlay")
 close_on_select = true
 
@@ -53,9 +53,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -304.0
+offset_left = -406.0
 offset_top = -173.0
-offset_right = 304.0
+offset_right = 406.0
 offset_bottom = 173.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -63,24 +63,28 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_wsw7d")
 script = ExtResource("1_btcd8")
 displayable_nft_scn = ExtResource("2_xmhd2")
 collection_filter = Array[ExtResource("3_rk1ve")]([ExtResource("4_vmypy")])
-container = NodePath("ScrollContainer/NFTContainer")
+container = NodePath("MarginContainer/ScrollContainer/NFTContainer")
 no_nft_overlay = NodePath("NoNFTOverlay")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Selection"]
+[node name="MarginContainer" type="MarginContainer" parent="Selection"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Selection/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("5_6o7rc")
 horizontal_scroll_mode = 0
 
-[node name="NFTContainer" type="GridContainer" parent="Selection/ScrollContainer"]
+[node name="NFTContainer" type="GridContainer" parent="Selection/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 2
 theme_override_constants/h_separation = 30
 theme_override_constants/v_separation = 30
-columns = 2
+columns = 3
 
-[node name="NoneSelect" type="MarginContainer" parent="Selection/ScrollContainer/NFTContainer" node_paths=PackedStringArray("visual", "button")]
+[node name="NoneSelect" type="MarginContainer" parent="Selection/MarginContainer/ScrollContainer/NFTContainer" node_paths=PackedStringArray("visual", "button")]
 custom_minimum_size = Vector2(196, 196)
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -92,12 +96,12 @@ visual = NodePath("Visual")
 image_size = 128
 button = NodePath("Visual/Button")
 
-[node name="Visual" type="TextureRect" parent="Selection/ScrollContainer/NFTContainer/NoneSelect"]
+[node name="Visual" type="TextureRect" parent="Selection/MarginContainer/ScrollContainer/NFTContainer/NoneSelect"]
 layout_mode = 2
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="Selection/ScrollContainer/NFTContainer/NoneSelect/Visual"]
+[node name="Label" type="Label" parent="Selection/MarginContainer/ScrollContainer/NFTContainer/NoneSelect/Visual"]
 layout_mode = 2
 offset_top = 67.0
 offset_right = 176.0
@@ -106,7 +110,7 @@ text = "None"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Button" type="Button" parent="Selection/ScrollContainer/NFTContainer/NoneSelect/Visual"]
+[node name="Button" type="Button" parent="Selection/MarginContainer/ScrollContainer/NFTContainer/NoneSelect/Visual"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -161,6 +165,6 @@ texture_normal = ExtResource("8_pli40")
 ignore_texture_size = true
 stretch_mode = 4
 
-[connection signal="on_display_updated" from="Selection" to="Selection/ScrollContainer/NFTContainer" method="shift_button_to_end"]
-[connection signal="pressed" from="Selection/ScrollContainer/NFTContainer/NoneSelect/Visual/Button" to="." method="select_none"]
+[connection signal="on_display_updated" from="Selection" to="Selection/MarginContainer/ScrollContainer/NFTContainer" method="shift_button_to_end"]
+[connection signal="pressed" from="Selection/MarginContainer/ScrollContainer/NFTContainer/NoneSelect/Visual/Button" to="." method="select_none"]
 [connection signal="pressed" from="Selection/Exit/CloseButton" to="." method="close"]
