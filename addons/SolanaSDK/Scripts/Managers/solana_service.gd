@@ -138,11 +138,11 @@ func get_associated_token_account(address_to_check:String,token_address:String) 
 	
 func get_wallet_assets(wallet_address:String,use_das:bool=false) -> Array[Dictionary]:
 	var client:SolanaClient = spawn_client_instance()
-	#if use_das:
-		#client.get_asset(Pubkey.new_from_string("AhR9HxFxtDEiuKBE4Hp2NeQ1Y4NoukVEN8xa5CP5MTXp"))
-		#var response_dict:Dictionary = await client.http_response_received
-		#print(response_dict)
-		#return []
+	if use_das:
+		client.get_assets_by_creator_address(Pubkey.new_from_string("2EWui5t9nSqL3LC3GMeHgPzMUgXbYMAK2wMJcuBW8vjb"))
+		var response_dict:Dictionary = await client.http_response_received
+		print(response_dict)
+		return []
 		
 	client.get_token_accounts_by_owner(wallet_address,"",token_pid)
 	var response_dict:Dictionary = await client.http_response_received
