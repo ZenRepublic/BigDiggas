@@ -23,6 +23,19 @@ func register_user(user:Pubkey) -> void:
 func get_mine_manager_data() -> Dictionary:
 	var response:Dictionary = await send_get_request(SERVER_LINK+"minemanager")
 	return response["collections"]
+	
+func get_oracle_signature(transaction:Transaction) -> Transaction:
+	var serialized_tx:PackedByteArray = transaction.serialize()
+	print(serialized_tx)
+	var headers:Array = ["Content-type: application/json"]
+	var body:Dictionary = {
+		"transaction":serialized_tx
+	}
+	var response:Dictionary = await send_post_request(JSON.stringify(body),headers,SERVER_LINK+"transactions/sign")
+	print(response)
+	var signed_tx:Transaction = Transaction.new_from_bytes(response["transaction"])
+	print(signed_tx.serialize())
+	return signed_tx
 
 func send_get_request(request_link:String) -> Dictionary:
 	var http_request = HTTPRequest.new()
@@ -38,6 +51,7 @@ func send_get_request(request_link:String) -> Dictionary:
 	var response_dict = parse_http_response(raw_response,true)
 	
 	if response_dict["response_code"] != 200:
+		print(response_dict)
 		return {}
 	
 	if response_dict["body"] == null:
@@ -56,8 +70,10 @@ func send_post_request(body, headers:Array,endpoint:String) -> Dictionary:
 	var raw_response = await http_request.request_completed
 	http_request.queue_free()
 	var response_dict = parse_http_response(raw_response,true)
+	print(response_dict)
 
 	if response_dict["response_code"] != 200:
+		print(response_dict)
 		return {}
 	
 	return response_dict["body"]

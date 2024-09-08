@@ -85,6 +85,7 @@ func send_get_request(request_link:String) -> Dictionary:
 	var response_dict = parse_http_response(raw_response,true)
 	
 	if response_dict["response_code"] != 200:
+		print(response_dict)
 		return {}
 	
 	if response_dict["body"] == null:
@@ -105,6 +106,7 @@ func send_post_request(body, headers:Array,endpoint:String) -> Dictionary:
 	var response_dict = parse_http_response(raw_response,true)
 
 	if response_dict["response_code"] != 200:
+		print(response_dict)
 		return {}
 	
 	return response_dict["body"]
