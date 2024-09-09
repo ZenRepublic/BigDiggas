@@ -28,3 +28,6 @@ func _on_mint_button_pressed() -> void:
 	MusicManager.play_sound("ButtonRich")
 	screen_manager.switch_active_panel(2)
 	
+func _on_admin_button_pressed() -> void:
+	MusicManager.play_sound("ButtonRich")
+	screen_manager.switch_active_panel(3)

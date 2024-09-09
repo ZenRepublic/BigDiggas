@@ -13,7 +13,7 @@ signal on_selected(selected_nft:Nft)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	display_system.visible=false
-	display_system.on_nft_selected.connect(select_nft)
+	display_system.on_asset_selected.connect(select_nft)
 	displayable_nft.on_selected.connect(show_display_system)
 	pass # Replace with function body.
 

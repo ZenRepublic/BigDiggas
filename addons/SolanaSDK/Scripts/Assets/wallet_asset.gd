@@ -8,7 +8,7 @@ var symbol:String
 var image:Texture2D
 var balance:int
 
-var type:AssetManager.AssetType
+var asset_type:AssetManager.AssetType
 
 var metadata:MetaData
 var offchain_metadata:Dictionary
@@ -20,7 +20,7 @@ func set_data(mint_address:Pubkey,token_metadata:MetaData,asset_type:AssetManage
 	metadata = token_metadata
 	asset_name = metadata.get_token_name()
 	symbol = metadata.get_symbol()
-	type = asset_type
+	self.asset_type = asset_type
 	
 	if metadata.get_uri() != null and metadata.get_uri().length() > 0:
 		offchain_metadata = await SolanaService.file_loader.load_token_metadata(metadata.get_uri())

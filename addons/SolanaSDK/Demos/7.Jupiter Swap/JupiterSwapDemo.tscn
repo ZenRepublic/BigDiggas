@@ -1,0 +1,294 @@
+[gd_scene load_steps=28 format=3 uid="uid://c7j3dt0k488vf"]
+
+[ext_resource type="Script" path="res://addons/SolanaSDK/Demos/1.TokenTransferDemo/token_transfer_manager.gd" id="4_q04c2"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field_system.gd" id="5_d6p00"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field.gd" id="6_n8mnl"]
+[ext_resource type="Texture2D" uid="uid://et1kvxp5bprg" path="res://addons/SolanaSDK/Textures/Buttons/b_inactive.PNG" id="7_ko4lt"]
+[ext_resource type="Texture2D" uid="uid://d4kauar2qc15y" path="res://addons/SolanaSDK/Textures/Buttons/b_green_hover.PNG" id="8_rejmh"]
+[ext_resource type="Texture2D" uid="uid://cye2pbirpht4u" path="res://addons/SolanaSDK/Textures/Buttons/b_green_pressed.PNG" id="9_daua1"]
+[ext_resource type="Texture2D" uid="uid://5erj253phx4s" path="res://addons/SolanaSDK/Textures/Buttons/b_orange_hover.PNG" id="10_sqv4e"]
+[ext_resource type="Texture2D" uid="uid://dnqcw4msg2uow" path="res://addons/SolanaSDK/Textures/Buttons/b_orange_pressed.PNG" id="11_4cfhp"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/ThirdPartyTools/Jupiter/jupiter_api.gd" id="12_wxvqd"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/scene_change_button.gd" id="12_ykt6x"]
+[ext_resource type="PackedScene" uid="uid://blmw46he11fxs" path="res://addons/SolanaSDK/Scripts/TransactionManager/TransactionOverlayUI.tscn" id="13_bakiu"]
+[ext_resource type="PackedScene" uid="uid://d34k0q4mj2qqt" path="res://addons/SolanaSDK/Demos/7.Jupiter Swap/TokenDisplayEntry.tscn" id="13_edp1o"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Demos/7.Jupiter Swap/token_selector.gd" id="13_ss3fq"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/scene_loader.gd" id="14_csqn1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pi32"]
+bg_color = Color(0.937255, 0.682353, 0.341176, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0xvq3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_avkrb"]
+texture = ExtResource("7_ko4lt")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ryjmu"]
+texture = ExtResource("10_sqv4e")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f2tob"]
+texture = ExtResource("11_4cfhp")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bmrj2"]
+texture = ExtResource("11_4cfhp")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q88lx"]
+bg_color = Color(0.360524, 0.371319, 0.458671, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_b04j3"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m8hje"]
+texture = ExtResource("7_ko4lt")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_efb31"]
+texture = ExtResource("8_rejmh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bio0t"]
+texture = ExtResource("9_daua1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hadpj"]
+texture = ExtResource("9_daua1")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5sqk"]
+bg_color = Color(0.580584, 0.549824, 0.493143, 1)
+
+[node name="TokenTransferDemo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pi32")
+
+[node name="ReturnButton" type="Button" parent="." node_paths=PackedStringArray("scene_loader")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -198.0
+offset_top = 18.0
+offset_right = -29.0
+offset_bottom = 95.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0xvq3")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_avkrb")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ryjmu")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_f2tob")
+theme_override_styles/normal = SubResource("StyleBoxTexture_bmrj2")
+text = "RETURN"
+script = ExtResource("12_ykt6x")
+path_to_scene = "res://addons/SolanaSDK/Demos/_DemoSelectScene/DemoSelectScene.tscn"
+scene_loader = NodePath("../SceneLoader")
+
+[node name="TransactionOverlayUI" parent="." instance=ExtResource("13_bakiu")]
+
+[node name="SceneLoader" type="Node" parent="."]
+script = ExtResource("14_csqn1")
+
+[node name="LoadingCanvas" type="Panel" parent="SceneLoader"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q88lx")
+
+[node name="Label" type="Label" parent="SceneLoader/LoadingCanvas"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 41
+text = "Loading, please wait..."
+
+[node name="Content" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -203.0
+offset_bottom = 203.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Intro" type="VBoxContainer" parent="Content"]
+layout_mode = 2
+
+[node name="JupiterSwap" type="Label" parent="Content/Intro"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 61
+text = "JUPITER SWAP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="JupiterSwap2" type="Label" parent="Content/Intro"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 41
+text = "Swap any token you own for SOL (mainnet only)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SwapContainer" type="VBoxContainer" parent="Content" node_paths=PackedStringArray("input_field_system", "send_button")]
+layout_mode = 2
+theme_override_constants/separation = 15
+script = ExtResource("4_q04c2")
+input_field_system = NodePath("InputFieldSystem")
+token_type = 1
+send_button = NodePath("SendButton")
+
+[node name="InputFieldSystem" type="Node" parent="Content/SwapContainer" node_paths=PackedStringArray("input_fields")]
+script = ExtResource("5_d6p00")
+input_fields = [NodePath("../AmountInputField")]
+
+[node name="Button" type="Button" parent="Content/SwapContainer"]
+custom_minimum_size = Vector2(600, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 28
+text = "SELECT TOKEN"
+
+[node name="AmountInputField" type="LineEdit" parent="Content/SwapContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+placeholder_text = "Enter amount to swap..."
+alignment = 1
+script = ExtResource("6_n8mnl")
+input_type = 2
+
+[node name="QuoteContainer" type="HBoxContainer" parent="Content/SwapContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="WillReceiveLabel" type="Label" parent="Content/SwapContainer/QuoteContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "You will receive:"
+
+[node name="AmountDisplay" type="Label" parent="Content/SwapContainer/QuoteContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.722556, 0.632248, 1)
+theme_override_font_sizes/font_size = 26
+text = "0.07 SOL"
+
+[node name="SendButton" type="Button" parent="Content/SwapContainer"]
+custom_minimum_size = Vector2(200, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 35
+theme_override_styles/focus = SubResource("StyleBoxEmpty_b04j3")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_m8hje")
+theme_override_styles/hover = SubResource("StyleBoxTexture_efb31")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bio0t")
+theme_override_styles/normal = SubResource("StyleBoxTexture_hadpj")
+text = "SWAP"
+
+[node name="JupiterAPI" type="Node" parent="."]
+script = ExtResource("12_wxvqd")
+
+[node name="TokenSelector" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_ss3fq")
+
+[node name="BG" type="Panel" parent="TokenSelector"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TokenSelector" type="PanelContainer" parent="TokenSelector"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -245.0
+offset_right = 301.0
+offset_bottom = 283.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e5sqk")
+
+[node name="MarginContainer" type="MarginContainer" parent="TokenSelector/TokenSelector"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TokenSelector/TokenSelector/MarginContainer"]
+layout_mode = 2
+
+[node name="SelectToken" type="Label" parent="TokenSelector/TokenSelector/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 51
+text = "Select Token"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Explainer" type="HBoxContainer" parent="TokenSelector/TokenSelector/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DetailsLabel" type="Label" parent="TokenSelector/TokenSelector/MarginContainer/VBoxContainer/Explainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 21
+text = "Token Details"
+
+[node name="BalanceLabel" type="Label" parent="TokenSelector/TokenSelector/MarginContainer/VBoxContainer/Explainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 21
+text = "Balance
+"
+horizontal_alignment = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TokenSelector/TokenSelector/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="TokenList" type="VBoxContainer" parent="TokenSelector/TokenSelector/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Token" parent="TokenSelector/TokenSelector/MarginContainer/VBoxContainer/ScrollContainer/TokenList" instance=ExtResource("13_edp1o")]
+layout_mode = 2
+
+[connection signal="pressed" from="ReturnButton" to="ReturnButton" method="_on_pressed"]
+[connection signal="text_changed" from="Content/SwapContainer/AmountInputField" to="Content/SwapContainer/AmountInputField" method="_on_text_changed"]

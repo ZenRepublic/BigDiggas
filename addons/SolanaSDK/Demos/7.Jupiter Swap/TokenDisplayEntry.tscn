@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://d34k0q4mj2qqt"]
+
+[ext_resource type="Texture2D" uid="uid://dkyfoudbohuqq" path="res://addons/SolanaSDK/Textures/missingicon.png" id="1_cgotv"]
+
+[node name="Token" type="PanelContainer"]
+
+[node name="TokenContent" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Visual" type="TextureRect" parent="TokenContent"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("1_cgotv")
+expand_mode = 4
+stretch_mode = 5
+
+[node name="TokenName" type="Label" parent="TokenContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "$BONK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TokenBalance" type="Label" parent="TokenContent"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+text = "50000000"
+horizontal_alignment = 2
+vertical_alignment = 1

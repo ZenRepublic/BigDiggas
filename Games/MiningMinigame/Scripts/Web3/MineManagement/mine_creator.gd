@@ -95,7 +95,7 @@ func update_manager_selection(selected_nft:Nft) -> void:
 		return
 	
 	manager_mint = selected_nft.mint
-	create_mine_button.text = "FREE"
+	creation_fee_label.text = "FREE"
 	
 func update_button_state() -> void:
 	var all_fields_valid:bool = true

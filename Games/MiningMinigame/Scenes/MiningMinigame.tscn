@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://bij2iptygj5u7"]
+[gd_scene load_steps=72 format=3 uid="uid://bij2iptygj5u7"]
 
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/game_manager.gd" id="1_h8t7s"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Generation/map_manager.gd" id="1_u2155"]
@@ -52,6 +52,7 @@
 [ext_resource type="Texture2D" uid="uid://cta44sqrw538o" path="res://Games/MiningMinigame/textures/Art/PantingRubianTransparent.png" id="49_8fgul"]
 [ext_resource type="Texture2D" uid="uid://o5rv54frq23a" path="res://Games/MiningMinigame/textures/Art/LuckyRubianTransparent.png" id="50_mui0o"]
 [ext_resource type="Texture2D" uid="uid://c0feshgo2ki4c" path="res://Games/MiningMinigame/textures/Icons/TickBox.png" id="51_7rss0"]
+[ext_resource type="Texture2D" uid="uid://do4yvfocf2d42" path="res://Games/MiningMinigame/Scenes/Screenshot 2024-09-09 185529.png" id="53_os3fy"]
 
 [sub_resource type="Environment" id="Environment_wroa2"]
 glow_enabled = true
@@ -487,6 +488,7 @@ vertical_alignment = 1
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="GUI/Inventory"]
 
 [node name="Quickbelt" type="Control" parent="GUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -907,6 +909,25 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("23_862k3")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="GUI/Toolbelt"]
+visible = false
+layout_mode = 0
+offset_left = -453.0
+offset_top = -6.0
+offset_right = 825.0
+offset_bottom = 66.0
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Toolbelt"]
+visible = false
+layout_mode = 2
+offset_left = -20.0
+offset_top = -34.0
+offset_right = 422.0
+offset_bottom = 76.0
+texture = ExtResource("53_os3fy")
 expand_mode = 3
 stretch_mode = 5
 

@@ -39,8 +39,8 @@ func load_assets()->void:
 	
 	var connected_wallet:Pubkey = SolanaService.wallet.get_pubkey()
 	
-	var wallet_assets:Array[Dictionary] = await SolanaService.get_wallet_assets(connected_wallet.to_string(),true)
-	return
+	var wallet_assets:Array[Dictionary] = await SolanaService.get_wallet_assets(connected_wallet.to_string())
+	#return
 	on_asset_load_started.emit(wallet_assets.size())
 	
 	for i in range(wallet_assets.size()):	
@@ -124,23 +124,23 @@ func get_asset_type(metadata:MetaData) -> AssetType:
 			
 	return AssetType.NONE
 
-func get_owned_nfts() -> Array[Nft]:
-	var owned_nfts:Array[Nft]
+func get_owned_nfts() -> Array[WalletAsset]:
+	var owned_nfts:Array[WalletAsset]
 	for asset in owned_assets:
 		if asset is Nft:
 			owned_nfts.append(asset)
 	return owned_nfts
 	
-func get_owned_tokens() -> Array[Token]:
-	var owned_tokens:Array[Token]
+func get_owned_tokens() -> Array[WalletAsset]:
+	var owned_tokens:Array[WalletAsset]
 	for asset in owned_assets:
 		if asset is Token:
 			owned_tokens.append(asset)
 	return owned_tokens
 	
-func get_nfts_from_collection(collection:NFTCollection) -> Array[Nft]:
-	var collection_nfts:Array[Nft]
-	var owned_nfts:Array[Nft] = get_owned_nfts()
+func get_nfts_from_collection(collection:NFTCollection) -> Array[WalletAsset]:
+	var collection_nfts:Array[WalletAsset]
+	var owned_nfts:Array[WalletAsset] = get_owned_nfts()
 	for nft in owned_nfts:
 		if collection.belongs_to_collection(nft):
 			collection_nfts.append(nft)

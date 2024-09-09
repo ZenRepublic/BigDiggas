@@ -53,7 +53,7 @@ func get_token_data(token_mint:Pubkey) -> Dictionary:
 	return response
 	
 func get_token_status(token_mint:Pubkey) -> TokenStatus:
-	var response:Dictionary = await send_get_request(JUP_TOKEN_API+token_mint.to_string())
+	var response:Dictionary = await get_token_data(token_mint)
 	if "verified" in response["tags"]:
 		return TokenStatus.VERIFIED
 	else:
