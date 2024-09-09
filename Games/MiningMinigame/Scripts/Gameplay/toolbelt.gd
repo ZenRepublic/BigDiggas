@@ -1,47 +1,41 @@
 extends Control
 class_name Toolbelt
 
-@onready var tool_menu:RadialMenuAdvanced = $ToolMenu
-@onready var animation_player:AnimationPlayer = $AnimationPlayer
+@export var tool_buttons:Array[BaseButton]
+
+@export var normal_tool_color:Color
+@export var selected_tool_color:Color
 
 var player_manager:PlayerManager
+var curr_active_tool:int=-1
 
 signal on_tool_selected
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	player_manager = get_tree().get_first_node_in_group("Player")
-	player_manager.input_handler.on_right_click.connect(handle_toolbelt)
+	player_manager.tool_manager.on_tool_switched.connect(update_tool_selection)
 	
-	tool_menu.slot_selected.connect(handle_tool_click)
-	
-	self.visible=false
+	for i in range(tool_buttons.size()):
+		tool_buttons[i].pressed.connect(handle_tool_click.bind(i))
+		tool_buttons[i].mouse_entered.connect(on_mouse_entered)
 
+func update_tool_selection(new_tool_id:int) -> void:
+	if curr_active_tool!= -1:
+		tool_buttons[curr_active_tool].disabled = false
+		tool_buttons[curr_active_tool].get_child(0).self_modulate = normal_tool_color
+		
+	tool_buttons[new_tool_id].disabled = true
+	tool_buttons[new_tool_id].get_child(0).self_modulate = selected_tool_color
+	
+	curr_active_tool = new_tool_id
+	
+func handle_tool_click(button_id:int) -> void:
+	update_tool_selection(button_id)
+	on_tool_selected.emit(button_id)
+	
 
-func handle_toolbelt(clicked:bool) -> void:
-	#if clicked with slot selected signal, then dont double process when released right click	
-	if !clicked and !self.visible:
-		return
-		
-#	don't allow to open toolbelt if mouse already showing, means its UI mode
-	if clicked and player_manager.input_handler.mouse_active:
-		return
-		
-	player_manager.input_handler.show_mouse(clicked)
-	self.visible = clicked
-	
-	#set menu to be right in the middle of mouse	
-	tool_menu.global_position = get_global_mouse_position()
-	
-	if clicked:
-		animation_player.play("ToolbeltAppear")
-	#when right click is released, update the tool selection, unless it's -2
-	if !clicked and tool_menu.selection >= 0:
-		update_tool_selection(tool_menu.selection)
-		
-func update_tool_selection(tool_index:int) -> void:
-	on_tool_selected.emit(tool_index)
-	
-func handle_tool_click(_selected_child,_tool_index:int) -> void:
-	#the toolbelt might get a bit bugged, good to have a fallback click with left
-	#button to also select the tool, hiding the belt in process
-	handle_toolbelt(false)	
+func on_mouse_entered() -> void:
+	player_manager.input_handler.show_mouse(true)
+
+func on_mouse_exited() -> void:
+	player_manager.input_handler.show_mouse(false)

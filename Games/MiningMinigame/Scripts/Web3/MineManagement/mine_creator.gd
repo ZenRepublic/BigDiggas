@@ -18,6 +18,8 @@ class_name MineCreator
 @export var collection_selection:OptionButton
 @export var max_reward_field:InputField
 
+var server_data_loaded:bool
+
 var selected_token:Token
 var selected_collection:Nft
 var manager_mint:Pubkey
@@ -28,7 +30,6 @@ func _ready() -> void:
 	general_input_field_system.on_fields_updated.connect(update_button_state)
 	nft_input_field_system.on_fields_updated.connect(update_button_state)
 	
-	fill_option_fields()
 	token_selection.item_selected.connect(select_token)
 	collection_selection.item_selected.connect(select_collection)
 	
@@ -36,7 +37,14 @@ func _ready() -> void:
 	
 	max_fund_button.pressed.connect(set_max_fund)	
 	create_mine_button.pressed.connect(try_create_mine)
+	
+	self.visibility_changed.connect(fetch_server_data)
 	pass # Replace with function body.
+	
+func fetch_server_data() -> void:
+	if self.visible and !server_data_loaded:
+		await fill_option_fields()
+		server_data_loaded = true
 	
 func fill_option_fields() -> void:
 	var data:Dictionary = await RubianServer.get_mine_manager_data()

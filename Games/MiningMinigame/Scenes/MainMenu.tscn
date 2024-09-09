@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dmdb8dbmov2cl"]
+[gd_scene load_steps=65 format=3 uid="uid://dmdb8dbmov2cl"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_b88w7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_manager.gd" id="1_yvyci"]
@@ -26,7 +26,6 @@
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/checkbox_lock.gd" id="20_cfq0y"]
 [ext_resource type="Texture2D" uid="uid://csxntm0i2aw6m" path="res://Textures/Tokens/unnamed (6).png" id="20_lsgje"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/token_button_lock.gd" id="23_i3ydu"]
-[ext_resource type="PackedScene" uid="uid://btmj6a3kagg46" path="res://Games/MiningMinigame/Assets/UI/DisplayableNFTButton.tscn" id="25_040nb"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_creator.gd" id="25_g7mfu"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field_system.gd" id="26_6s5lj"]
 [ext_resource type="Texture2D" uid="uid://cqad321mes0x8" path="res://Textures/Tokens/BonkLogo.png" id="26_7eifw"]
@@ -1288,7 +1287,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 script = ExtResource("16_lhc84")
-rubian_displayble_scn = ExtResource("25_040nb")
 
 [node name="ScreenManager" type="Node" parent="MineManagerScreen" node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
@@ -1687,7 +1685,7 @@ text = "This is gonna be epic, my diggas"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("general_input_field_system", "token_selection", "fund_input_field", "max_fund_button", "token_visuals", "manager_selector", "creation_fee_label", "create_mine_button", "nft_input_field_system", "collection_selection")]
+[node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("general_input_field_system", "token_selection", "fund_input_field", "max_fund_button", "token_visuals", "manager_selector", "creation_fee_label", "create_mine_button", "nft_input_field_system", "collection_selection", "max_reward_field")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 50
@@ -1702,6 +1700,7 @@ creation_fee_label = NodePath("PaymentSettings/PriceContainer/ClubCreationFee")
 create_mine_button = NodePath("PaymentSettings/CreateMineButton")
 nft_input_field_system = NodePath("MineDetailsContainer/NFTMinerSettings/NFTInputFieldSystem")
 collection_selection = NodePath("MineDetailsContainer/NFTMinerSettings/CollectionSelector")
+max_reward_field = NodePath("MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer/PayoutLimitInputField")
 
 [node name="GeneralInputFieldSystem" type="Node" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer" node_paths=PackedStringArray("input_fields")]
 script = ExtResource("26_6s5lj")

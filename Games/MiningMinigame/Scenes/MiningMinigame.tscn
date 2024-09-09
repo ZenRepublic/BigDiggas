@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://bij2iptygj5u7"]
+[gd_scene load_steps=71 format=3 uid="uid://bij2iptygj5u7"]
 
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/game_manager.gd" id="1_h8t7s"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Generation/map_manager.gd" id="1_u2155"]
@@ -43,6 +43,7 @@
 [ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="36_lgwgq"]
 [ext_resource type="Texture2D" uid="uid://c0a2xkqrpbp22" path="res://Games/MiningMinigame/textures/GUI/StoreCoreBot.png" id="37_wgp6g"]
 [ext_resource type="Texture2D" uid="uid://l8q6otup8pp2" path="res://Games/MiningMinigame/textures/GUI/StoreCoreTop.png" id="38_uwq7y"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/quickbelt.gd" id="40_vabo6"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/pause_ui.gd" id="44_7ed4m"]
 [ext_resource type="PackedScene" uid="uid://bd2lr00a7wwps" path="res://Games/MiningMinigame/Scenes/ScoreCalculatorUI.tscn" id="44_ryjad"]
 [ext_resource type="Texture2D" uid="uid://cic6ilj6c0gbn" path="res://Games/MiningMinigame/textures/GUI/LinePattern.png" id="44_ut1d8"]
@@ -50,6 +51,7 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/game_settings.gd" id="47_ir0rj"]
 [ext_resource type="Texture2D" uid="uid://cta44sqrw538o" path="res://Games/MiningMinigame/textures/Art/PantingRubianTransparent.png" id="49_8fgul"]
 [ext_resource type="Texture2D" uid="uid://o5rv54frq23a" path="res://Games/MiningMinigame/textures/Art/LuckyRubianTransparent.png" id="50_mui0o"]
+[ext_resource type="Texture2D" uid="uid://c0feshgo2ki4c" path="res://Games/MiningMinigame/textures/Icons/TickBox.png" id="51_7rss0"]
 
 [sub_resource type="Environment" id="Environment_wroa2"]
 glow_enabled = true
@@ -255,8 +257,9 @@ cursor_hotspot = Vector2(5, 13)
 [node name="Stats" type="Node" parent="Player"]
 script = ExtResource("14_8axdo")
 
-[node name="HUD" type="Node" parent="Player" node_paths=PackedStringArray("toolbelt", "powerbank", "inventory")]
+[node name="HUD" type="Node" parent="Player" node_paths=PackedStringArray("quickbelt", "toolbelt", "powerbank", "inventory")]
 script = ExtResource("11_lf0ou")
+quickbelt = NodePath("../../GUI/Quickbelt")
 toolbelt = NodePath("../../GUI/Toolbelt")
 powerbank = NodePath("../../PowerBank/PowerBank")
 inventory = NodePath("../../GUI/Inventory")
@@ -291,7 +294,7 @@ damage_colors = {
 1: Color(1, 0.721569, 0.47451, 1),
 2: Color(0.917647, 0.384314, 0.384314, 1)
 }
-mining_tools = [NodePath("Chisel"), NodePath("Hammer"), NodePath("Pickaxe")]
+mining_tools = [NodePath("Chisel"), NodePath("Pickaxe"), NodePath("Hammer")]
 
 [node name="Chisel" parent="Player/ToolManager" instance=ExtResource("13_3k81u")]
 visible = false
@@ -483,17 +486,16 @@ vertical_alignment = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="GUI/Inventory"]
 
-[node name="Toolbelt" type="Control" parent="GUI"]
-visible = false
+[node name="Quickbelt" type="Control" parent="GUI"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("31_gdb18")
+script = ExtResource("40_vabo6")
 
-[node name="Background" type="Panel" parent="GUI/Toolbelt"]
+[node name="Background" type="Panel" parent="GUI/Quickbelt"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -502,7 +504,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0m0s0")
 
-[node name="ToolMenu" type="Control" parent="GUI/Toolbelt"]
+[node name="ToolMenu" type="Control" parent="GUI/Quickbelt"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -537,7 +539,7 @@ animated_pulse_offset = -6
 animated_pulse_speed = 8
 animated_pulse_color = Color(0.427451, 0.501961, 0.980392, 1)
 
-[node name="Hammer" type="TextureRect" parent="GUI/Toolbelt/ToolMenu"]
+[node name="Hammer" type="TextureRect" parent="GUI/Quickbelt/ToolMenu"]
 layout_mode = 0
 offset_left = 56.9471
 offset_top = -55.75
@@ -548,7 +550,7 @@ texture = ExtResource("23_862k3")
 expand_mode = 5
 stretch_mode = 6
 
-[node name="Pickaxe" type="TextureRect" parent="GUI/Toolbelt/ToolMenu"]
+[node name="Pickaxe" type="TextureRect" parent="GUI/Quickbelt/ToolMenu"]
 layout_mode = 0
 offset_left = -85.9471
 offset_top = -55.75
@@ -559,7 +561,7 @@ texture = ExtResource("24_7rlxl")
 expand_mode = 5
 stretch_mode = 6
 
-[node name="Chisel" type="TextureRect" parent="GUI/Toolbelt/ToolMenu"]
+[node name="Chisel" type="TextureRect" parent="GUI/Quickbelt/ToolMenu"]
 layout_mode = 0
 offset_left = -14.5
 offset_top = 68.0
@@ -570,7 +572,7 @@ texture = ExtResource("25_mrug7")
 expand_mode = 1
 stretch_mode = 6
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/Toolbelt"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GUI/Quickbelt"]
 libraries = {
 "": SubResource("AnimationLibrary_1brrf")
 }
@@ -811,5 +813,104 @@ texture = ExtResource("50_mui0o")
 expand_mode = 3
 stretch_mode = 5
 
+[node name="Toolbelt" type="Control" parent="GUI" node_paths=PackedStringArray("tool_buttons")]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -186.0
+offset_top = -80.0
+offset_right = 186.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("31_gdb18")
+tool_buttons = [NodePath("ToolContainer/HBoxContainer/ChiselButton"), NodePath("ToolContainer/HBoxContainer/PickaxeButton"), NodePath("ToolContainer/HBoxContainer/HammerButton")]
+normal_tool_color = Color(1, 1, 1, 1)
+selected_tool_color = Color(0.670588, 0.866667, 0.392157, 1)
+
+[node name="ToolContainer" type="PanelContainer" parent="GUI/Toolbelt"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("36_lgwgq")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Toolbelt/ToolContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="ChiselButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("51_7rss0")
+
+[node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/ChiselButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.5
+offset_top = -21.0
+offset_right = 20.5
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("25_mrug7")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PickaxeButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("51_7rss0")
+
+[node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/PickaxeButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.5
+offset_top = -21.0
+offset_right = 20.5
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("24_7rlxl")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HammerButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("51_7rss0")
+
+[node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/HammerButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.5
+offset_top = -22.0
+offset_right = 20.5
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("23_862k3")
+expand_mode = 3
+stretch_mode = 5
+
 [connection signal="pressed" from="GUI/PauseUI/Content/HBoxContainer/Content/Buttons/ResumeButton" to="GUI/PauseUI" method="resume_game"]
 [connection signal="pressed" from="GUI/PauseUI/Content/HBoxContainer/Content/Buttons/EndRunButton" to="GUI/PauseUI" method="end_run"]
+[connection signal="mouse_entered" from="GUI/Toolbelt/ToolContainer" to="GUI/Toolbelt" method="on_mouse_entered"]
+[connection signal="mouse_exited" from="GUI/Toolbelt/ToolContainer" to="GUI/Toolbelt" method="on_mouse_exited"]

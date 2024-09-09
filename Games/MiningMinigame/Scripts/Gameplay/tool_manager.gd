@@ -16,11 +16,13 @@ class_name ToolManager
 @onready var tool_light:PointLight2D = $Light
 
 @export var mining_tools:Array[MiningTool]
+@export var default_tool_id:int = 1
 
 signal on_tool_hit(tool:MiningTool)
 # Initial velocity of the sprite
 var velocity: Vector2 = Vector2.ZERO
 
+var quickbelt:Quickbelt
 var toolbelt:Toolbelt
 
 var active_tool:MiningTool
@@ -29,16 +31,24 @@ var map_manager:MapManager
 var player_manager:PlayerManager
 
 var focused_tile:MineTile
+
+signal on_tool_switched(new_tool_id:int)
 # Called when the node enters the scene tree for the first time.
 func setup():
 	for tool in mining_tools:
 		tool.visible=false
 	
-	switch_tool(0)
+	switch_tool(default_tool_id)
 	player_manager = get_tree().get_first_node_in_group("Player")
 	player_manager.on_freeze_state_changed.connect(handle_player_freeze)
+	
+	quickbelt = player_manager.hud.quickbelt
+	quickbelt.on_tool_selected.connect(switch_tool)
+	
 	toolbelt = player_manager.hud.toolbelt
 	toolbelt.on_tool_selected.connect(switch_tool)
+	#toolbelt will connect to the toolmanager later on, so gotta initalize it manually first
+	toolbelt.update_tool_selection(default_tool_id)	
 	
 	self.global_position = get_global_mouse_position()
 	cam.on_camera_zoom.connect(adjust_light)
@@ -52,9 +62,8 @@ func setup():
 var jiggle_start_delay:float = 0.3
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	active_tool.visible = !input.mouse_active
-	
-	if !active_tool.visible:
+#	dont allow to hit when mouse active, cause it means it is in UI mode
+	if input.mouse_active:
 		return
 		
 	if active_tool.is_hitting:
@@ -84,6 +93,8 @@ func switch_tool(tool_id:int) -> void:
 		active_tool.visible=false
 	active_tool = mining_tools[tool_id]
 	active_tool.visible=true
+	
+	on_tool_switched.emit(tool_id)
 	
 	if focused_tile!=null:
 		update_hit_indications()

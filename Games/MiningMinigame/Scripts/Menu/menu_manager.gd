@@ -11,7 +11,7 @@ func _init() -> void:
 	
 func _ready() -> void:
 	MusicManager.play_song("Menu")	
-	var tx_data:TransactionData = await SolanaService.transaction_manager.transfer_sol("84pL2GAuv8XGVPyZre2xcgUNSGz9csYHBt5AW4PUcEe9",0.01)
+	#var tx_data:TransactionData = await SolanaService.transaction_manager.transfer_sol("84pL2GAuv8XGVPyZre2xcgUNSGz9csYHBt5AW4PUcEe9",0.01)
 	
 func play_ui_sound(sound_name:String) -> void:
 	MusicManager.play_sound(sound_name)
