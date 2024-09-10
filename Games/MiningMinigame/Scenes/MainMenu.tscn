@@ -30,12 +30,12 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_creator.gd" id="25_g7mfu"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field_system.gd" id="26_6s5lj"]
 [ext_resource type="Texture2D" uid="uid://cqad321mes0x8" path="res://Textures/Tokens/BonkLogo.png" id="26_7eifw"]
-[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/nft_selector.gd" id="27_01mht"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/asset_selector.gd" id="27_01mht"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/mint_display.gd" id="27_a1nqh"]
 [ext_resource type="Texture2D" uid="uid://b6ditanjl5jng" path="res://Games/MiningMinigame/textures/Art/Meditation/Meditating rubian BG.png" id="27_bup1p"]
 [ext_resource type="Texture2D" uid="uid://dojiow5rpog3p" path="res://Textures/Tokens/28d69f0d-4a98-443b-908f-2906126efac7.jpg" id="27_og57w"]
 [ext_resource type="Texture2D" uid="uid://bpt1e8u1buonk" path="res://Textures/BrandingAssets/whosthatrubian.png" id="27_onooq"]
-[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_nft.gd" id="28_6k1tr"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_asset.gd" id="28_6k1tr"]
 [ext_resource type="Texture2D" uid="uid://5d4lrsf4xvb3" path="res://Games/MiningMinigame/textures/Art/Meditation/Meditating rubian.png" id="28_aocwv"]
 [ext_resource type="Texture2D" uid="uid://bk67w02eegc4j" path="res://Games/MiningMinigame/textures/GUI/solscanlogo.png" id="28_cm551"]
 [ext_resource type="Texture2D" uid="uid://gct6yxwxfabu" path="res://Textures/BrandingAssets/Twt banner 2rubies.PNG" id="30_vx2kd"]
@@ -1680,7 +1680,6 @@ disabled = true
 text = "Close in 5h 30min"
 
 [node name="ComingSoon" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
@@ -1709,6 +1708,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("general_input_field_system", "token_selection", "fund_input_field", "max_fund_button", "token_visuals", "manager_selector", "creation_fee_label", "create_mine_button", "nft_input_field_system", "collection_selection", "max_reward_field")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 50
@@ -1954,11 +1954,11 @@ layout_mode = 2
 size_flags_vertical = 0
 theme_override_constants/separation = 10
 
-[node name="ManagerSelection" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings" node_paths=PackedStringArray("displayable_nft", "display_system")]
+[node name="ManagerSelection" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings" node_paths=PackedStringArray("displayable_asset", "display_system")]
 layout_mode = 2
 theme_override_constants/separation = 5
 script = ExtResource("27_01mht")
-displayable_nft = NodePath("VisualContainer/DisplayableNFTButton")
+displayable_asset = NodePath("VisualContainer/DisplayableAssetButton")
 display_system = NodePath("../../../../../../NFTSelectionDisplay")
 default_visual = ExtResource("27_onooq")
 default_name = "ANON"
@@ -1974,7 +1974,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_w0os1")
 
-[node name="DisplayableNFTButton" type="MarginContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer" node_paths=PackedStringArray("visual", "name_label", "button")]
+[node name="DisplayableAssetButton" type="MarginContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer" node_paths=PackedStringArray("visual", "name_label", "select_button")]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
@@ -1984,16 +1984,16 @@ script = ExtResource("28_6k1tr")
 visual = NodePath("Visual")
 image_size = 256
 name_label = NodePath("../../ManagerName")
-button = NodePath("Visual/Button")
+select_button = NodePath("Visual/Button")
 
-[node name="Visual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer/DisplayableNFTButton"]
+[node name="Visual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer/DisplayableAssetButton"]
 custom_minimum_size = Vector2(256, 256)
 layout_mode = 2
 texture = ExtResource("27_onooq")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Button" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer/DisplayableNFTButton/Visual"]
+[node name="Button" type="Button" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer/DisplayableAssetButton/Visual"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2383,11 +2383,10 @@ libraries = {
 "": SubResource("AnimationLibrary_5wofc")
 }
 
-[node name="MintSuccessScreen" type="VBoxContainer" parent="RubianMintScreen/ContentContainer" node_paths=PackedStringArray("nft_displayer", "inspect_button", "screen_manager")]
+[node name="MintSuccessScreen" type="VBoxContainer" parent="RubianMintScreen/ContentContainer" node_paths=PackedStringArray("inspect_button", "screen_manager")]
 visible = false
 layout_mode = 2
 script = ExtResource("27_a1nqh")
-nft_displayer = NodePath("RubianDetails")
 inspect_button = NodePath("RubianDetails/Body/RubianName/InspectButton")
 screen_manager = NodePath("../../ScreenManager")
 
@@ -2409,14 +2408,13 @@ text = "New Rubian Minted!"
 layout_mode = 2
 theme_override_constants/margin_bottom = 30
 
-[node name="RubianDetails" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen" node_paths=PackedStringArray("visual", "name_label", "button")]
+[node name="RubianDetails" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen" node_paths=PackedStringArray("visual", "name_label")]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 script = ExtResource("28_6k1tr")
 visual = NodePath("RubianVisual/MarginContainer/Visual")
 name_label = NodePath("Body/RubianName/NameLabel")
-button = NodePath("RubianVisual/TextureButton")
 
 [node name="RubianVisual" type="PanelContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails"]
 layout_mode = 2

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c6ync1x06vh2q"]
 
-[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_nft.gd" id="1_d5vc2"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_asset.gd" id="1_d5vc2"]
 [ext_resource type="Texture2D" uid="uid://dkyfoudbohuqq" path="res://addons/SolanaSDK/Textures/missingicon.png" id="2_7dajo"]
 
 [node name="DisplayableNFT" type="Button" node_paths=PackedStringArray("visual", "name_label", "button")]

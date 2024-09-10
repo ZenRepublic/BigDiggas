@@ -1,8 +1,25 @@
-[gd_scene load_steps=2 format=3 uid="uid://d34k0q4mj2qqt"]
+[gd_scene load_steps=8 format=3 uid="uid://d34k0q4mj2qqt"]
 
 [ext_resource type="Texture2D" uid="uid://dkyfoudbohuqq" path="res://addons/SolanaSDK/Textures/missingicon.png" id="1_cgotv"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_asset.gd" id="1_isrdy"]
 
-[node name="Token" type="PanelContainer"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80nu6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a6u6e"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jdp4d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3rfs2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6u03q"]
+
+[node name="Token" type="PanelContainer" node_paths=PackedStringArray("visual", "name_label", "balance_label", "select_button")]
+script = ExtResource("1_isrdy")
+visual = NodePath("TokenContent/Visual")
+image_size = 64
+name_label = NodePath("TokenContent/TokenName")
+balance_label = NodePath("TokenContent/TokenBalance")
+select_button = NodePath("SelectButton")
 
 [node name="TokenContent" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -26,6 +43,14 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 22
-text = "50000000"
+text = "-"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="SelectButton" type="Button" parent="."]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_80nu6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_a6u6e")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_jdp4d")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_3rfs2")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_6u03q")

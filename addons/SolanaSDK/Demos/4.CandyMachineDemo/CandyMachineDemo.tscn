@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/scene_change_button.gd" id="7_25l6n"]
 [ext_resource type="Texture2D" uid="uid://dq15ny3t87eog" path="res://addons/SolanaSDK/icon.svg" id="8_fhp08"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Demos/4.CandyMachineDemo/candy_machine_display.gd" id="8_iq3ir"]
-[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_nft.gd" id="9_i7656"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_asset.gd" id="9_i7656"]
 [ext_resource type="CandyGuardAccessList" uid="uid://bcl3w71l4bt5v" path="res://addons/SolanaSDK/Demos/4.CandyMachineDemo/RubiansMintSettings/rubians_default.tres" id="9_x8gs6"]
 [ext_resource type="Texture2D" uid="uid://cye2pbirpht4u" path="res://addons/SolanaSDK/Textures/Buttons/b_green_pressed.PNG" id="11_iirhe"]
 [ext_resource type="Texture2D" uid="uid://d4kauar2qc15y" path="res://addons/SolanaSDK/Textures/Buttons/b_green_hover.PNG" id="12_8q8gn"]
@@ -108,7 +108,7 @@ script = ExtResource("7_25l6n")
 path_to_scene = "res://addons/SolanaSDK/Demos/_DemoSelectScene/DemoSelectScene.tscn"
 scene_loader = NodePath("../SceneLoader")
 
-[node name="CMDisplay" type="Control" parent="." node_paths=PackedStringArray("collection_desc", "minted_amount", "progress_bar", "mint_buttons")]
+[node name="CMDisplay" type="Control" parent="." node_paths=PackedStringArray("asset_display", "collection_desc", "minted_amount", "progress_bar", "mint_buttons")]
 anchors_preset = 0
 offset_left = 147.0
 offset_top = 134.0
@@ -117,6 +117,7 @@ offset_bottom = 585.0
 script = ExtResource("8_iq3ir")
 candy_machine_id = "EPDMTLPBkidL1fXamZUXG9Yp4ZSVsg4QpWdPsKuVUx32"
 candy_guard_id = "HSrVZzrTDa1HGeAFgWMehR37he4iPBVEriAozUhEA6xh"
+asset_display = NodePath("../MarginContainer/MintContent/MintCollection")
 collection_desc = NodePath("../MarginContainer/MintContent/MintDetails/MintDetails/Description")
 minted_amount = NodePath("../MarginContainer/MintContent/MintDetails/MintDetails/MintedInfo")
 progress_bar = NodePath("../MarginContainer/MintContent/MintDetails/MintDetails/ProgressBar")

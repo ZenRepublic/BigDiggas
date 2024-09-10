@@ -54,7 +54,10 @@ func get_token_data(token_mint:Pubkey) -> Dictionary:
 	
 func get_token_status(token_mint:Pubkey) -> TokenStatus:
 	var response:Dictionary = await get_token_data(token_mint)
-	if "verified" in response["tags"]:
+	if response.size() == 0:
+		return TokenStatus.UNKNOWN
+		
+	if "verified" in response["tags"] or "strict" in response["tags"]:
 		return TokenStatus.VERIFIED
 	else:
 		return TokenStatus.UNKNOWN

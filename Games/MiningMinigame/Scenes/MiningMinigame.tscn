@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://bij2iptygj5u7"]
+[gd_scene load_steps=73 format=3 uid="uid://bij2iptygj5u7"]
 
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/game_manager.gd" id="1_h8t7s"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Generation/map_manager.gd" id="1_u2155"]
@@ -39,7 +39,7 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/toolbelt.gd" id="31_gdb18"]
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/wave_progress.gdshader" id="32_j6xqt"]
 [ext_resource type="PackedScene" uid="uid://bsvw53lakv2lb" path="res://Games/MiningMinigame/Assets/InventorySlot.tscn" id="32_jit1v"]
-[ext_resource type="Texture2D" uid="uid://kvai085crm7c" path="res://Games/MiningMinigame/textures/PowerBank.PNG" id="34_w2hqv"]
+[ext_resource type="Texture2D" uid="uid://kvai085crm7c" path="res://Games/MiningMinigame/textures/GUI/PowerBank.PNG" id="34_w2hqv"]
 [ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="36_lgwgq"]
 [ext_resource type="Texture2D" uid="uid://c0a2xkqrpbp22" path="res://Games/MiningMinigame/textures/GUI/StoreCoreBot.png" id="37_wgp6g"]
 [ext_resource type="Texture2D" uid="uid://l8q6otup8pp2" path="res://Games/MiningMinigame/textures/GUI/StoreCoreTop.png" id="38_uwq7y"]
@@ -51,8 +51,8 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/game_settings.gd" id="47_ir0rj"]
 [ext_resource type="Texture2D" uid="uid://cta44sqrw538o" path="res://Games/MiningMinigame/textures/Art/PantingRubianTransparent.png" id="49_8fgul"]
 [ext_resource type="Texture2D" uid="uid://o5rv54frq23a" path="res://Games/MiningMinigame/textures/Art/LuckyRubianTransparent.png" id="50_mui0o"]
-[ext_resource type="Texture2D" uid="uid://c0feshgo2ki4c" path="res://Games/MiningMinigame/textures/Icons/TickBox.png" id="51_7rss0"]
-[ext_resource type="Texture2D" uid="uid://do4yvfocf2d42" path="res://Games/MiningMinigame/Scenes/Screenshot 2024-09-09 185529.png" id="53_os3fy"]
+[ext_resource type="Texture2D" uid="uid://cd7m7kscfl8xr" path="res://Games/MiningMinigame/textures/GUI/ToolBelt.png" id="52_phoc1"]
+[ext_resource type="Texture2D" uid="uid://bpcdxm5wsyyi6" path="res://Games/MiningMinigame/textures/GUI/Toolbelt toolbox.png" id="53_fwtgn"]
 
 [sub_resource type="Environment" id="Environment_wroa2"]
 glow_enabled = true
@@ -194,6 +194,8 @@ shader_parameter/scroll_speed = 0.3
 shader_parameter/angle_degrees = 90.0
 shader_parameter/tiling = Vector2(1, 1)
 shader_parameter/tint = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3w0fe"]
 
 [node name="MiningMinigame" type="Node2D" node_paths=PackedStringArray("map_manager", "shockwave_manager", "panel_popper")]
 script = ExtResource("1_h8t7s")
@@ -817,20 +819,38 @@ stretch_mode = 5
 
 [node name="Toolbelt" type="Control" parent="GUI" node_paths=PackedStringArray("tool_buttons")]
 layout_mode = 3
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -186.0
-offset_top = -80.0
-offset_right = 186.0
-grow_horizontal = 2
+offset_left = 17.0
+offset_top = -428.0
+offset_right = 104.0
+offset_bottom = 6.0
 grow_vertical = 0
 script = ExtResource("31_gdb18")
 tool_buttons = [NodePath("ToolContainer/HBoxContainer/ChiselButton"), NodePath("ToolContainer/HBoxContainer/PickaxeButton"), NodePath("ToolContainer/HBoxContainer/HammerButton")]
 normal_tool_color = Color(1, 1, 1, 1)
 selected_tool_color = Color(0.670588, 0.866667, 0.392157, 1)
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Toolbelt"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = -47.0
+offset_right = 223.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(223, 47)
+mouse_filter = 2
+texture = ExtResource("52_phoc1")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="ToolContainer" type="PanelContainer" parent="GUI/Toolbelt"]
 layout_mode = 1
@@ -840,15 +860,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("36_lgwgq")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3w0fe")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Toolbelt/ToolContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="GUI/Toolbelt/ToolContainer"]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 20
 alignment = 1
 
 [node name="ChiselButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
-texture_normal = ExtResource("51_7rss0")
+size_flags_horizontal = 4
+texture_normal = ExtResource("53_fwtgn")
+stretch_mode = 5
 
 [node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/ChiselButton"]
 layout_mode = 1
@@ -857,10 +881,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -19.5
-offset_top = -21.0
-offset_right = 20.5
-offset_bottom = 19.0
+offset_left = -20.0637
+offset_top = -19.5
+offset_right = 19.9363
+offset_bottom = 20.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -869,8 +893,11 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="PickaxeButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
-texture_normal = ExtResource("51_7rss0")
+size_flags_horizontal = 4
+texture_normal = ExtResource("53_fwtgn")
+stretch_mode = 5
 
 [node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/PickaxeButton"]
 layout_mode = 1
@@ -879,10 +906,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -19.5
-offset_top = -21.0
-offset_right = 20.5
-offset_bottom = 19.0
+offset_left = -19.0637
+offset_top = -19.5
+offset_right = 20.9363
+offset_bottom = 20.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -891,8 +918,11 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="HammerButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
+custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
-texture_normal = ExtResource("51_7rss0")
+size_flags_horizontal = 4
+texture_normal = ExtResource("53_fwtgn")
+stretch_mode = 5
 
 [node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/HammerButton"]
 layout_mode = 1
@@ -901,33 +931,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -19.5
-offset_top = -22.0
-offset_right = 20.5
-offset_bottom = 18.0
+offset_left = -20.0637
+offset_top = -19.5
+offset_right = 19.9363
+offset_bottom = 20.5
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("23_862k3")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="Panel" type="Panel" parent="GUI/Toolbelt"]
-visible = false
-layout_mode = 0
-offset_left = -453.0
-offset_top = -6.0
-offset_right = 825.0
-offset_bottom = 66.0
-
-[node name="TextureRect" type="TextureRect" parent="GUI/Toolbelt"]
-visible = false
-layout_mode = 2
-offset_left = -20.0
-offset_top = -34.0
-offset_right = 422.0
-offset_bottom = 76.0
-texture = ExtResource("53_os3fy")
 expand_mode = 3
 stretch_mode = 5
 

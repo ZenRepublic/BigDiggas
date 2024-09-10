@@ -9,7 +9,7 @@ class_name MineCreator
 @export var token_visuals:Array[TextureRect]
 
 @export_category("Payment Settings")
-@export var manager_selector:NFTSelector
+@export var manager_selector:AssetSelector
 @export var creation_fee_label:Label
 @export var create_mine_button:Button
 

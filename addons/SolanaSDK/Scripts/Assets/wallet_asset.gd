@@ -6,7 +6,7 @@ var mint:Pubkey
 var asset_name:String
 var symbol:String
 var image:Texture2D
-var balance:int
+var balance:int=0
 
 var asset_type:AssetManager.AssetType
 

@@ -4,6 +4,11 @@ class_name Token
 var decimals:int
 var lamport_balance:int
 
+func refresh_balance() -> void:
+	if decimals == 0:
+		await SolanaService.get_token_decimals(mint.to_string())
+		
+	lamport_balance = await SolanaService.get_balance(SolanaService.wallet.get_pubkey().to_string(),mint.to_string())
 
 func get_balance(fetch_new:bool=false) -> float:
 	if decimals == 0:

@@ -1,12 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://lgukfb417wvu"]
 
-[ext_resource type="Script" path="res://addons/SolanaSDK/Demos/2.NFTListDemo/nft_display_system.gd" id="1_btcd8"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/asset_display_system.gd" id="1_btcd8"]
 [ext_resource type="PackedScene" uid="uid://btmj6a3kagg46" path="res://Games/MiningMinigame/Assets/UI/DisplayableNFTButton.tscn" id="2_xmhd2"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTCollection/nft_collection.gd" id="3_rk1ve"]
 [ext_resource type="Resource" uid="uid://yts1i1o0c345" path="res://Games/MiningMinigame/Scripts/Web3/RubiansNFTCollection.tres" id="4_vmypy"]
 [ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="5_6o7rc"]
 [ext_resource type="Texture2D" uid="uid://cq285gbck81as" path="res://Games/MiningMinigame/textures/Icons/AddIcon.png" id="6_mhrye"]
-[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_nft.gd" id="6_ujc3t"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_asset.gd" id="6_ujc3t"]
 [ext_resource type="Script" path="res://addons/texture_button_colored/texture_button_colored.gd" id="7_jinrh"]
 [ext_resource type="Texture2D" uid="uid://b3003ar1uxa77" path="res://addons/SolanaSDK/Textures/closebutton.jpg.png" id="8_pli40"]
 
@@ -85,7 +85,7 @@ theme_override_constants/h_separation = 30
 theme_override_constants/v_separation = 30
 columns = 3
 
-[node name="NoneSelect" type="MarginContainer" parent="Selection/MarginContainer/ScrollContainer/NFTContainer" node_paths=PackedStringArray("visual", "button")]
+[node name="NoneSelect" type="MarginContainer" parent="Selection/MarginContainer/ScrollContainer/NFTContainer" node_paths=PackedStringArray("visual")]
 custom_minimum_size = Vector2(196, 196)
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -95,7 +95,6 @@ theme_override_constants/margin_bottom = 10
 script = ExtResource("6_ujc3t")
 visual = NodePath("Visual")
 image_size = 128
-button = NodePath("Visual/Button")
 
 [node name="Visual" type="TextureRect" parent="Selection/MarginContainer/ScrollContainer/NFTContainer/NoneSelect"]
 layout_mode = 2

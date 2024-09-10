@@ -52,13 +52,11 @@ func handle_text_change(new_text: String) -> void:
 	#caret_column = text.length()
 	pass
 	
-func handle_focus_lost() -> void:
-	text = validate_text(text)
-	on_field_updated.emit()
-	
 func handle_text_submit(new_text:String) -> void:
-	on_field_updated.emit()
+#	when submit text, just release focus and all the logic goes there
 	release_focus()
+	
+func handle_focus_lost() -> void:
 	text = validate_text(text)
 	on_field_updated.emit()
 	
@@ -103,15 +101,15 @@ func get_max_value() -> float:
 	
 		
 func is_valid() -> bool:
+	var input_valid:bool = true
 	if text.length() < min_length:
-		return false
+		input_valid = false
 	if !is_optional && text.length()==0:
-		return false
+		input_valid = false
 		
 	if input_constraint.search(text) == null:
-		return false
-		
-	return true
+		input_valid = false
+	return input_valid
 	
 func get_field_value():
 	match input_type:

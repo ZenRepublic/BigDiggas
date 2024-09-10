@@ -38,20 +38,21 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 	else:
 		wallet = SolanaService.wallet.get_kp()
 		
-	transaction.set_unit_limit(0.0)
-	transaction.set_unit_price(0.0)
+		
+	print(custom_signer)
 	transaction.set_payer(wallet)
 	#
 	#transaction.set_unit_limit(0.0)
 	#transaction.set_unit_price(0.0)
 	
+	transaction.sign()
+	#await transaction.fully_signed
+	print("SIGNED")
+	
 	#var double_signed_tx:Transaction = await RubianServer.get_oracle_signature(transaction)
 	#print(double_signed_tx.get_signers())
 	#return
 	
-	transaction.sign()
-	#await transaction.fully_signed
-	print("SIGNED")
 	on_tx_signed.emit()
 	var tx_data:TransactionData = await send_transaction(transaction,tx_commitment)
 	
@@ -62,12 +63,13 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 func sign_serialized_transaction(wallet,transaction_bytes:PackedByteArray,tx_commitment:Commitment=Commitment.CONFIRMED,priority_fee:float=0.0) -> TransactionData:
 	on_tx_init.emit()
 	var transaction:Transaction = Transaction.new_from_bytes(transaction_bytes)
-
+	print(transaction.serialize())
 	add_child(transaction)
-	transaction.set_signers([wallet])
 	
-	transaction.set_unit_limit(priority_fee)
-	transaction.set_unit_price(priority_fee)
+	transaction.set_signers([wallet])
+	transaction.sign()
+	#transaction.set_unit_limit(priority_fee)
+	#transaction.set_unit_price(priority_fee)
 
 	var tx_data:TransactionData = await send_transaction(transaction,tx_commitment)
 	
