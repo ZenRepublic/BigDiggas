@@ -7,6 +7,9 @@ enum InputType{ALPHANUMERIC,INTEGER,DECIMAL}
 @export var min_length:int = 0
 @export var is_optional = false
 
+#@export_category("Alphanumeric Settings")
+#@export var bytes_required:int = 0
+
 @export_category("Number Field Settings")
 @export var min_value:float = 0.0
 @export var max_value:float = 999.0
@@ -69,20 +72,24 @@ func validate_text(new_text:String) -> String:
 		else:
 			return ""
 
-	if input_type == InputType.INTEGER:
-		var value:int = int(new_text)
-		value = clamp(value,int(get_min_value()),int(get_max_value()))
-		if value == 0 and not allow_zero:
-			return ""
-		adjusted_text = str(value)
-	elif input_type == InputType.DECIMAL:
-		var value:float = float(new_text)
-		value = clamp(value,get_min_value(),get_max_value())
-		if value == 0 and not allow_zero:
-			return ""
-		adjusted_text = str(value)
-	else:
-		adjusted_text = new_text
+	match input_type:
+		#InputType.ALPHANUMERIC:
+			#if bytes_required!= 0:
+				#var byte_size:int = new_text.to_utf8_buffer().size()
+				#if byte_size != bytes_required:
+					#return ""
+		InputType.INTEGER:
+			var value:int = int(new_text)
+			value = clamp(value,int(get_min_value()),int(get_max_value()))
+			if value == 0 and not allow_zero:
+				return ""
+			adjusted_text = str(value)
+		InputType.DECIMAL:
+			var value:float = float(new_text)
+			value = clamp(value,get_min_value(),get_max_value())
+			if value == 0 and not allow_zero:
+				return ""
+			adjusted_text = str(value)
 	
 	return adjusted_text
 		
@@ -102,13 +109,12 @@ func get_max_value() -> float:
 		
 func is_valid() -> bool:
 	var input_valid:bool = true
-	if text.length() < min_length:
-		input_valid = false
-	if !is_optional && text.length()==0:
-		input_valid = false
-		
-	if input_constraint.search(text) == null:
-		input_valid = false
+	
+	if !is_optional or (is_optional and text.length() != 0):
+		if text.length() < min_length:
+			input_valid = false
+		if input_constraint.search(text) == null:
+			input_valid = false
 	return input_valid
 	
 func get_field_value():
@@ -119,4 +125,5 @@ func get_field_value():
 			return int(text)
 		InputType.DECIMAL:
 			return float(text)
+			
 	

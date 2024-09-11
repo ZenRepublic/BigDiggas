@@ -1,5 +1,5 @@
 extends Node
-class_name MineCreator
+class_name MineCreateHandler
 
 @export_category("Main Settings")
 @export var general_input_field_system:InputFieldSystem
@@ -24,6 +24,8 @@ var selected_token:Token
 var selected_collection:Nft
 var manager_mint:Pubkey
 
+signal on_create_pressed(mine_data:Dictionary)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	update_button_state()
@@ -36,7 +38,7 @@ func _ready() -> void:
 	manager_selector.on_selected.connect(update_manager_selection)
 	
 	max_fund_button.pressed.connect(set_max_fund)	
-	create_mine_button.pressed.connect(try_create_mine)
+	create_mine_button.pressed.connect(package_input_data)
 	
 	self.visibility_changed.connect(fetch_server_data)
 	pass # Replace with function body.
@@ -69,8 +71,8 @@ func select_token(selected_idx:int) -> void:
 	var new_token:Pubkey = token_selection.get_item_metadata(selected_idx)
 
 	if new_token != selected_token:
-		fund_input_field.text = ""
-		
+		fund_input_field.clear()
+	
 	selected_token = await SolanaService.asset_manager.get_asset_from_mint(new_token)
 	fund_input_field.max_value = await selected_token.get_balance()
 	
@@ -110,7 +112,7 @@ func update_button_state() -> void:
 		
 	var fund_amount:float = float(fund_input_field.text)
 	if fund_amount == 0:
-		fund_input_field.text = ""
+		fund_input_field.clear()
 		all_fields_valid=false
 	
 	create_mine_button.disabled = !all_fields_valid
@@ -118,20 +120,26 @@ func update_button_state() -> void:
 func set_max_fund() -> void:
 	fund_input_field.text = str(fund_input_field.max_value)
 	
-func try_create_mine() -> void:
+func get_campaign_end_timestamp(campaign_duration_in_hours:int) -> float:
+	var utc_timestamp:float = Time.get_unix_time_from_system()
+	#timestamp is in seconds, so we need to convert hours to seconds and add it to the timestamp
+	var duration_in_seconds:int = campaign_duration_in_hours*3600
+	var end_timestamp = utc_timestamp + duration_in_seconds
+	return end_timestamp
 	
+	
+func package_input_data() -> void:
 	var general_input_data:Array = general_input_field_system.get_fields_data()
 	var nft_input_data:Array = nft_input_field_system.get_fields_data()
 	var mine_data:Dictionary = {
 		"name":general_input_data[0],
-		"duration":general_input_data[1],
-		"currency":token_selection.get_item_metadata(token_selection.get_selected_id()).to_string(),
+		"duration": get_campaign_end_timestamp(general_input_data[1]),
+		"currency":token_selection.get_item_metadata(token_selection.get_selected_id()),
 		"fund_amount":general_input_data[2],
-		"miner_collection":collection_selection.get_item_metadata(collection_selection.get_selected_id()).to_string(),
+		"miner_collection":collection_selection.get_item_metadata(collection_selection.get_selected_id()),
 		"miner_energy":nft_input_data[0],
 		"max_payout":nft_input_data[1],
 		"manager":manager_mint
 	}
 	
-	print(mine_data)
-	
+	on_create_pressed.emit(mine_data)

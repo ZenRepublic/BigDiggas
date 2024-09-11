@@ -21,7 +21,6 @@ func get_inputs_valid() -> bool:
 	for field in input_fields:
 		if !field.is_valid():
 			all_valid=false
-			break
 	return all_valid
 		
 func get_fields_data()-> Array:

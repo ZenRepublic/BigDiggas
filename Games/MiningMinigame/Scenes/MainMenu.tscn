@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dmdb8dbmov2cl"]
+[gd_scene load_steps=68 format=3 uid="uid://dmdb8dbmov2cl"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_b88w7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_manager.gd" id="1_yvyci"]
@@ -27,7 +27,7 @@
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/checkbox_lock.gd" id="20_cfq0y"]
 [ext_resource type="Texture2D" uid="uid://csxntm0i2aw6m" path="res://Textures/Tokens/unnamed (6).png" id="20_lsgje"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/token_button_lock.gd" id="23_i3ydu"]
-[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_creator.gd" id="25_g7mfu"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_create_handler.gd" id="25_g7mfu"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field_system.gd" id="26_6s5lj"]
 [ext_resource type="Texture2D" uid="uid://cqad321mes0x8" path="res://Textures/Tokens/BonkLogo.png" id="26_7eifw"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/asset_selector.gd" id="27_01mht"]
@@ -44,6 +44,7 @@
 [ext_resource type="AudioStream" uid="uid://bta85g154ui34" path="res://Games/MiningMinigame/Sounds/UI/button_press_rich.mp3" id="40_7n6mh"]
 [ext_resource type="PackedScene" uid="uid://lgukfb417wvu" path="res://Games/MiningMinigame/Assets/UI/NFTSelectionDisplay.tscn" id="40_chyj7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/house_manager.gd" id="43_vd0sw"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/house_data_handler.gd" id="44_gxjox"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8eq28"]
 shader = ExtResource("1_b88w7")
@@ -234,6 +235,7 @@ texture = ExtResource("2_whdnv")
 stretch_mode = 1
 
 [node name="MainScreen" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1300,7 +1302,7 @@ theme_type_variation = &"SimpleButton"
 text = "ENTER 
 MINE!"
 
-[node name="MineManagerScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("mines_list")]
+[node name="MineManagerScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("mines_list", "mine_creator")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1311,6 +1313,7 @@ grow_vertical = 2
 theme_override_constants/separation = 0
 script = ExtResource("16_lhc84")
 mines_list = NodePath("MainContent/MineManagement/YourMinesContainer/ActiveMinesContainer/MarginContainer/ScrollContainer/MinesList")
+mine_creator = NodePath("MainContent/MineManagement/CreateMineContainer")
 
 [node name="ScreenManager" type="Node" parent="MineManagerScreen" node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
@@ -1464,6 +1467,7 @@ starting_panel = NodePath("../ComingSoon")
 screens = [NodePath("../ComingSoon"), NodePath("../CreateMineContainer"), NodePath("../MineDetailsContainer")]
 
 [node name="ComingSoon" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
@@ -1492,7 +1496,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("general_input_field_system", "token_selection", "fund_input_field", "max_fund_button", "token_visuals", "manager_selector", "creation_fee_label", "create_mine_button", "nft_input_field_system", "collection_selection", "max_reward_field")]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 50
@@ -2532,7 +2535,6 @@ script = ExtResource("38_ykcbo")
 button_locks = [NodePath("../MainScreen/MenuPanel/AdminButton")]
 
 [node name="HouseAdminScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("houses_list")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2722,16 +2724,18 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="HouseCreateContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement"]
+[node name="HouseCreateContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement" node_paths=PackedStringArray("input_field_system", "data_submit_button")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 30
 alignment = 1
-script = ExtResource("26_6s5lj")
+script = ExtResource("44_gxjox")
+input_field_system = NodePath("InputFieldSystem")
+data_submit_button = NodePath("CreateHouseButton")
 
 [node name="InputFieldSystem" type="Node" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer" node_paths=PackedStringArray("input_fields")]
 script = ExtResource("26_6s5lj")
-input_fields = [NodePath("../GeneralSettings/HouseNameInputField"), NodePath("../GeneralSettings/OracleKeyInputField"), NodePath("../GeneralSettings/ManagerCollectionInputField3"), NodePath("../MonetizationSettings/HouseNameInputField2"), NodePath("../MonetizationSettings/HouseCreationFee/CreationFeeSettings/NonManagerFee/NonManagerInputField"), NodePath("../MonetizationSettings/HouseCreationFee/CreationFeeSettings/ManagerFee/ManagerFeeInputField"), NodePath("../MonetizationSettings/ClaimFee/ClaimFeeSettings/HouseFee/HouseFeeInputField"), NodePath("../MonetizationSettings/ClaimFee/ClaimFeeSettings/ManagerFee/ManagerFeeInputField")]
+input_fields = [NodePath("../GeneralSettings/HouseNameInputField"), NodePath("../GeneralSettings/OracleKeyInputField"), NodePath("../GeneralSettings/ManagerCollectionInputField3"), NodePath("../MonetizationSettings/HouseCurrencyInputField"), NodePath("../MonetizationSettings/FeesContainer/MineCreationFee/StandardFee/StandardFeeInputField"), NodePath("../MonetizationSettings/FeesContainer/MineCreationFee/ManagerDiscount/ManagerDiscountInputField"), NodePath("../MonetizationSettings/FeesContainer/ClaimFee/HouseFee/HouseFeeInputField"), NodePath("../MonetizationSettings/FeesContainer/ClaimFee/ManagerFee/ManagerFeeInputField")]
 
 [node name="GeneralSettings" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer"]
 layout_mode = 2
@@ -2779,7 +2783,7 @@ theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 28
 text = "MONETIZATION SETTINGS"
 
-[node name="HouseNameInputField2" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings"]
+[node name="HouseCurrencyInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
@@ -2790,55 +2794,55 @@ script = ExtResource("15_cwt4b")
 min_length = 32
 is_optional = true
 
-[node name="HouseCreationFee" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings"]
+[node name="FeesContainer" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MineCreationFee" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer"]
 layout_mode = 2
 
-[node name="CREATIONFEE" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/HouseCreationFee"]
+[node name="CREATIONFEE" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 28
-text = "MINE CREATION FEE (IN HOUSE CURRENCY)"
+text = "MINE CREATION FEE "
 
-[node name="CreationFeeSettings" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/HouseCreationFee"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="NonManagerFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/HouseCreationFee/CreationFeeSettings"]
+[node name="StandardFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="NonManagerLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/HouseCreationFee/CreationFeeSettings/NonManagerFee"]
+[node name="StandardLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/StandardFee"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "non-manager"
+text = "Standard"
 
-[node name="NonManagerInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/HouseCreationFee/CreationFeeSettings/NonManagerFee"]
+[node name="StandardFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/StandardFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 25
-text = "0.1"
+text = "0.2"
 placeholder_text = "Enter Amount..."
 alignment = 1
 script = ExtResource("15_cwt4b")
 input_type = 2
 max_value = -1.0
 
-[node name="ManagerFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/HouseCreationFee/CreationFeeSettings"]
+[node name="ManagerDiscount" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="ManagerFeeLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/HouseCreationFee/CreationFeeSettings/ManagerFee"]
+[node name="ManagerDiscountLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/ManagerDiscount"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "manager"
+text = "Manager"
 
-[node name="ManagerFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/HouseCreationFee/CreationFeeSettings/ManagerFee"]
+[node name="ManagerDiscountInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/ManagerDiscount"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -2852,68 +2856,63 @@ script = ExtResource("15_cwt4b")
 input_type = 2
 max_value = -1.0
 
-[node name="ClaimFee" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings"]
+[node name="ClaimFee" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer"]
 layout_mode = 2
 
-[node name="CLAIMFEE" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/ClaimFee"]
+[node name="CLAIMFEE" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 28
 text = "PLAYER CLAIM FEE (in SOL)"
 
-[node name="ClaimFeeSettings" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/ClaimFee"]
-layout_mode = 2
-theme_override_constants/separation = 30
-alignment = 1
-
-[node name="HouseFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/ClaimFee/ClaimFeeSettings"]
+[node name="HouseFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="HouseFeeLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/ClaimFee/ClaimFeeSettings/HouseFee"]
+[node name="HouseFeeLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee/HouseFee"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
 text = "house"
 
-[node name="HouseFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/ClaimFee/ClaimFeeSettings/HouseFee"]
+[node name="HouseFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee/HouseFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 25
-text = "0.00075"
+text = "0.0006"
 placeholder_text = "Enter Amount..."
 alignment = 1
 script = ExtResource("15_cwt4b")
 input_type = 2
 max_value = -1.0
 
-[node name="ManagerFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/ClaimFee/ClaimFeeSettings"]
+[node name="ManagerFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="ManagerFee" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/ClaimFee/ClaimFeeSettings/ManagerFee"]
+[node name="ManagerFee" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee/ManagerFee"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
 text = "Manager"
 
-[node name="ManagerFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/ClaimFee/ClaimFeeSettings/ManagerFee"]
+[node name="ManagerFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee/ManagerFee"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "0.0002"
+text = "0.0006"
 placeholder_text = "Enter amount..."
 alignment = 1
 script = ExtResource("15_cwt4b")
 input_type = 2
 max_value = -1.0
 
-[node name="CreateMineButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer"]
+[node name="CreateHouseButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
