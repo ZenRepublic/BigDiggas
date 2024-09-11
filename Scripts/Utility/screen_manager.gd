@@ -9,6 +9,12 @@ var prev_panel:Control
 signal on_panel_changed(new_active_panel:int)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	for screen in screens:
+		if screen == starting_panel:
+			screen.visible=true
+		else:
+			screen.visible=false
+			
 	curr_active_panel = starting_panel
 
 func switch_active_panel(new_panel_id:int) -> void:

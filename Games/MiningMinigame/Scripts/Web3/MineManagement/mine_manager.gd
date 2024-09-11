@@ -3,6 +3,9 @@ class_name MineManager
 
 @onready var screen_manager:ScreenManager = $ScreenManager
 
+@export var mines_list:Container
+@export var create_mine_button:BaseButton
+
 func _ready() -> void:
 	self.visibility_changed.connect(on_visibility_changed)
 	
