@@ -39,7 +39,6 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 		wallet = SolanaService.wallet.get_kp()
 		
 		
-	print(custom_signer)
 	transaction.set_payer(wallet)
 	#
 	#transaction.set_unit_limit(0.0)
@@ -151,7 +150,7 @@ func transfer_token(token_address:String,receiver:String,amount:float,tx_commitm
 			sender_keypair,
 			receiver_account,
 			token_mint,
-			SolanaService.token_pid
+			SolanaService.TOKEN_PID
 			)
 		instructions.append(init_ata_ix)
 		

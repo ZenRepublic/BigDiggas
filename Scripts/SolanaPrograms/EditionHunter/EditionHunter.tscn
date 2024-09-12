@@ -1,0 +1,144 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgg21iko0gv5q"]
+
+[ext_resource type="Script" path="res://Scripts/SolanaPrograms/EditionHunter/edition_hunter_program.gd" id="1_j3g1f"]
+[ext_resource type="JSON" path="res://Scripts/SolanaPrograms/EditionHunter/idl (3).json" id="2_rh1im"]
+
+[node name="EditionHunter" type="Node"]
+script = ExtResource("1_j3g1f")
+
+[node name="AnchorProgram" type="AnchorProgram" parent="."]
+pid = "2L4CEZNRzRDAoxp65z2MJh7aoxL4g5XqJY1aQhFFxzxQ"
+json_file = ExtResource("2_rh1im")
+idl = {
+"accounts": [{
+"name": "Treasury",
+"type": {
+"fields": [{
+"name": "name",
+"type": "string"
+}, {
+"name": "authority",
+"type": "publicKey"
+}, {
+"name": "oracle",
+"type": "publicKey"
+}, {
+"name": "mint",
+"type": "publicKey"
+}],
+"kind": "struct"
+}
+}],
+"instructions": [{
+"accounts": [{
+"isMut": true,
+"isSigner": false,
+"name": "treasury"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "mint"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "metadata"
+}, {
+"isMut": true,
+"isSigner": true,
+"name": "payer"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "rent"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "systemProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "tokenProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "tokenMetadataProgram"
+}],
+"args": [{
+"name": "name",
+"type": "string"
+}, {
+"name": "oracle",
+"type": "publicKey"
+}, {
+"name": "tokenParams",
+"type": {
+"defined": "InitTokenParams"
+}
+}],
+"name": "createTreasury"
+}, {
+"accounts": [{
+"isMut": true,
+"isSigner": false,
+"name": "treasury"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "mint"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "destination"
+}, {
+"isMut": true,
+"isSigner": true,
+"name": "user"
+}, {
+"isMut": false,
+"isSigner": true,
+"name": "oracle"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "rent"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "systemProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "tokenProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "associatedTokenProgram"
+}],
+"args": [{
+"name": "quantity",
+"type": "u64"
+}],
+"name": "mintTokens"
+}],
+"name": "edition_hunter",
+"types": [{
+"name": "InitTokenParams",
+"type": {
+"fields": [{
+"name": "name",
+"type": "string"
+}, {
+"name": "symbol",
+"type": "string"
+}, {
+"name": "uri",
+"type": "string"
+}, {
+"name": "decimals",
+"type": "u8"
+}],
+"kind": "struct"
+}
+}],
+"version": "0.1.0"
+}

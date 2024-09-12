@@ -11,8 +11,10 @@ var default_mainnet = "https://api.mainnet-beta.solana.com"
 
 var active_rpc:String
 
-var token_pid:String = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
-var associated_token_pid:String = "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+var TOKEN_METADATA_PID:String = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
+var TOKEN_PID:String = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+var ATA_TOKEN_PID:String = "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+var SYSVAR_RENT_PUBKEY:String = "SysvarRent111111111111111111111111111111111"
 
 @onready var wallet:WalletService = $WalletService
 @onready var transaction_manager:TransactionManager = $TransactionManager
@@ -122,7 +124,7 @@ func get_token_decimals(token_address:String)->int:
 	
 func get_associated_token_account(address_to_check:String,token_address:String) -> Pubkey:
 	var client:SolanaClient = spawn_client_instance()
-	client.get_token_accounts_by_owner(address_to_check,token_address,associated_token_pid)
+	client.get_token_accounts_by_owner(address_to_check,token_address,ATA_TOKEN_PID)
 	var response_dict:Dictionary = await client.http_response_received
 	client.queue_free()
 	
@@ -144,7 +146,7 @@ func get_wallet_assets(wallet_address:String,use_das:bool=false) -> Array[Dictio
 		print(response_dict)
 		return []
 		
-	client.get_token_accounts_by_owner(wallet_address,"",token_pid)
+	client.get_token_accounts_by_owner(wallet_address,"",TOKEN_PID)
 	var response_dict:Dictionary = await client.http_response_received
 	client.queue_free()
 
