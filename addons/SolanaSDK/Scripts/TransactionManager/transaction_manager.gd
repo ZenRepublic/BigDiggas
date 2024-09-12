@@ -59,13 +59,13 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 	return tx_data
 	
 
-func sign_serialized_transaction(wallet,transaction_bytes:PackedByteArray,tx_commitment:Commitment=Commitment.CONFIRMED,priority_fee:float=0.0) -> TransactionData:
+func sign_serialized_transaction(signers:Array,transaction_bytes:PackedByteArray,tx_commitment:Commitment=Commitment.CONFIRMED,priority_fee:float=0.0) -> TransactionData:
 	on_tx_init.emit()
 	var transaction:Transaction = Transaction.new_from_bytes(transaction_bytes)
 	print(transaction.serialize())
 	add_child(transaction)
 	
-	transaction.set_signers([wallet])
+	transaction.set_signers(signers)
 	transaction.sign()
 	#transaction.set_unit_limit(priority_fee)
 	#transaction.set_unit_price(priority_fee)

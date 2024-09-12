@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://dmdb8dbmov2cl"]
+[gd_scene load_steps=69 format=3 uid="uid://dmdb8dbmov2cl"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_b88w7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_manager.gd" id="1_yvyci"]
@@ -45,6 +45,7 @@
 [ext_resource type="PackedScene" uid="uid://lgukfb417wvu" path="res://Games/MiningMinigame/Assets/UI/NFTSelectionDisplay.tscn" id="40_chyj7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/house_manager.gd" id="43_vd0sw"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/house_data_handler.gd" id="44_gxjox"]
+[ext_resource type="PackedScene" uid="uid://bgg21iko0gv5q" path="res://Scripts/SolanaPrograms/EditionHunter/EditionHunter.tscn" id="46_bks0f"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8eq28"]
 shader = ExtResource("1_b88w7")
@@ -3173,6 +3174,8 @@ stretch_mode = 1
 [node name="NFTSelectionDisplay" parent="." instance=ExtResource("40_chyj7")]
 visible = false
 layout_mode = 1
+
+[node name="EditionHunter" parent="." instance=ExtResource("46_bks0f")]
 
 [connection signal="pressed" from="MainScreen/MenuPanel/ManageButton" to="." method="_on_mint_manager_button_pressed"]
 [connection signal="pressed" from="MainScreen/MenuPanel/TrainingButton" to="." method="_on_training_button_pressed"]

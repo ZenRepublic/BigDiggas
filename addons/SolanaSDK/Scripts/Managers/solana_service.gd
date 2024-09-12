@@ -105,14 +105,18 @@ func get_balance(address_to_check:String,token_address:String="") -> float:
 		var token_account:Pubkey = await get_associated_token_account(address_to_check,token_address)
 		if token_account == null:
 			return 0
+		var balance = await get_ata_balance(token_account.to_string())
+		return balance
 		
-		client.get_token_account_balance(token_account.to_string())
-		var response_dict:Dictionary = await client.http_response_received
-		client.queue_free()
-		
-		var lamport_balance = response_dict["result"]["value"]["amount"]
-		var token_decimals = response_dict["result"]["value"]["decimals"]
-		return float(lamport_balance)/(10**token_decimals)	
+func get_ata_balance(associated_token_account:String) -> float:
+	var client:SolanaClient = spawn_client_instance()
+	client.get_token_account_balance(associated_token_account)
+	var response_dict:Dictionary = await client.http_response_received
+	client.queue_free()
+	
+	var lamport_balance = response_dict["result"]["value"]["amount"]
+	var token_decimals = response_dict["result"]["value"]["decimals"]
+	return float(lamport_balance)/(10**token_decimals)	
 		
 func get_token_decimals(token_address:String)->int:
 	var client:SolanaClient = spawn_client_instance()

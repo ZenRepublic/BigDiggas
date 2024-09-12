@@ -34,7 +34,6 @@ func get_oracle_signature(transaction:Transaction) -> Transaction:
 	var response:Dictionary = await send_post_request(JSON.stringify(body),headers,SERVER_LINK+"transactions/sign")
 	print(response)
 	var signed_tx:Transaction = Transaction.new_from_bytes(response["transaction"])
-	print(signed_tx.serialize())
 	return signed_tx
 
 func send_get_request(request_link:String) -> Dictionary:

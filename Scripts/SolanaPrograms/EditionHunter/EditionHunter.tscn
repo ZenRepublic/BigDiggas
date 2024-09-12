@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=3 uid="uid://bgg21iko0gv5q"]
 
 [ext_resource type="Script" path="res://Scripts/SolanaPrograms/EditionHunter/edition_hunter_program.gd" id="1_j3g1f"]
-[ext_resource type="JSON" path="res://Scripts/SolanaPrograms/EditionHunter/idl (3).json" id="2_rh1im"]
+[ext_resource type="JSON" path="res://Scripts/SolanaPrograms/EditionHunter/idl (7).json" id="2_if13x"]
 
 [node name="EditionHunter" type="Node"]
 script = ExtResource("1_j3g1f")
 
 [node name="AnchorProgram" type="AnchorProgram" parent="."]
 pid = "2L4CEZNRzRDAoxp65z2MJh7aoxL4g5XqJY1aQhFFxzxQ"
-json_file = ExtResource("2_rh1im")
+json_file = ExtResource("2_if13x")
 idl = {
 "accounts": [{
 "name": "Treasury",
@@ -82,7 +82,7 @@ idl = {
 "isSigner": false,
 "name": "treasury"
 }, {
-"isMut": false,
+"isMut": true,
 "isSigner": false,
 "name": "mint"
 }, {
@@ -92,7 +92,7 @@ idl = {
 }, {
 "isMut": true,
 "isSigner": true,
-"name": "user"
+"name": "player"
 }, {
 "isMut": false,
 "isSigner": true,
@@ -109,10 +109,6 @@ idl = {
 "isMut": false,
 "isSigner": false,
 "name": "tokenProgram"
-}, {
-"isMut": false,
-"isSigner": false,
-"name": "associatedTokenProgram"
 }],
 "args": [{
 "name": "quantity",
