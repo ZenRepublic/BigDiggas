@@ -142,6 +142,31 @@ func get_associated_token_account(address_to_check:String,token_address:String) 
 	
 	return Pubkey.new_from_string(response_dict["result"]["value"][0]["pubkey"])
 	
+func get_program_accounts_demo():
+	const account = "2L4CEZNRzRDAoxp65z2MJh7aoxL4g5XqJY1aQhFFxzxQ";
+	var client: SolanaClient = spawn_client_instance()
+	const filters = [
+		{ 
+			"memcmp" : {
+				"offset": 0,
+				"bytes": "fpeY",
+				"encoding": "base64"
+			}
+		},
+		#{
+			#"dataSize": 592
+		#}
+	]
+	client.get_program_accounts(account, filters,false)
+
+	var response : Dictionary = await client.http_response_received
+	print(response)
+	assert(response.has("result"))
+	var accounts = response["result"]
+	print(accounts)
+	
+	#display_dict(accounts, $ResultTree5.create_item())
+	
 func get_wallet_assets(wallet_address:String,use_das:bool=false) -> Array[Dictionary]:
 	var client:SolanaClient = spawn_client_instance()
 	if use_das:

@@ -120,11 +120,11 @@ func update_button_state() -> void:
 func set_max_fund() -> void:
 	fund_input_field.text = str(fund_input_field.max_value)
 	
-func get_campaign_end_timestamp(campaign_duration_in_hours:int) -> float:
+func get_campaign_end_timestamp(campaign_duration_in_hours:int) -> int:
 	var utc_timestamp:float = Time.get_unix_time_from_system()
 	#timestamp is in seconds, so we need to convert hours to seconds and add it to the timestamp
 	var duration_in_seconds:int = campaign_duration_in_hours*3600
-	var end_timestamp = utc_timestamp + duration_in_seconds
+	var end_timestamp:int = floori(utc_timestamp + duration_in_seconds)
 	return end_timestamp
 	
 	

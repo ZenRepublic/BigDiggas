@@ -1,17 +1,17 @@
 [gd_scene load_steps=3 format=3 uid="uid://bgg21iko0gv5q"]
 
 [ext_resource type="Script" path="res://Scripts/SolanaPrograms/EditionHunter/edition_hunter_program.gd" id="1_j3g1f"]
-[ext_resource type="JSON" path="res://Scripts/SolanaPrograms/EditionHunter/idl (7).json" id="2_if13x"]
+[ext_resource type="JSON" path="res://Scripts/SolanaPrograms/EditionHunter/idl (20).json" id="2_0n3wv"]
 
 [node name="EditionHunter" type="Node"]
 script = ExtResource("1_j3g1f")
 
 [node name="AnchorProgram" type="AnchorProgram" parent="."]
 pid = "2L4CEZNRzRDAoxp65z2MJh7aoxL4g5XqJY1aQhFFxzxQ"
-json_file = ExtResource("2_if13x")
+json_file = ExtResource("2_0n3wv")
 idl = {
 "accounts": [{
-"name": "Treasury",
+"name": "Hunt",
 "type": {
 "fields": [{
 "name": "name",
@@ -23,8 +23,14 @@ idl = {
 "name": "oracle",
 "type": "publicKey"
 }, {
-"name": "mint",
+"name": "huntToken",
 "type": "publicKey"
+}, {
+"name": "prizeCreator",
+"type": "publicKey"
+}, {
+"name": "endTime",
+"type": "u64"
 }],
 "kind": "struct"
 }
@@ -33,15 +39,15 @@ idl = {
 "accounts": [{
 "isMut": true,
 "isSigner": false,
-"name": "treasury"
+"name": "hunt"
 }, {
 "isMut": true,
 "isSigner": false,
-"name": "mint"
+"name": "huntToken"
 }, {
 "isMut": true,
 "isSigner": false,
-"name": "metadata"
+"name": "huntTokenMetadata"
 }, {
 "isMut": true,
 "isSigner": true,
@@ -61,7 +67,11 @@ idl = {
 }, {
 "isMut": false,
 "isSigner": false,
-"name": "tokenMetadataProgram"
+"name": "associatedTokenProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "metadataProgram"
 }],
 "args": [{
 "name": "name",
@@ -70,25 +80,31 @@ idl = {
 "name": "oracle",
 "type": "publicKey"
 }, {
-"name": "tokenParams",
+"name": "prizeParams",
 "type": {
-"defined": "InitTokenParams"
+"defined": "HuntPrizeParams"
 }
+}, {
+"name": "prizeCreator",
+"type": "publicKey"
+}, {
+"name": "endTime",
+"type": "u64"
 }],
-"name": "createTreasury"
+"name": "createHunt"
 }, {
 "accounts": [{
 "isMut": true,
 "isSigner": false,
-"name": "treasury"
+"name": "hunt"
 }, {
 "isMut": true,
 "isSigner": false,
-"name": "mint"
+"name": "huntToken"
 }, {
 "isMut": true,
 "isSigner": false,
-"name": "destination"
+"name": "playerAccount"
 }, {
 "isMut": true,
 "isSigner": true,
@@ -114,11 +130,11 @@ idl = {
 "name": "quantity",
 "type": "u64"
 }],
-"name": "mintTokens"
+"name": "earnTokens"
 }],
 "name": "edition_hunter",
 "types": [{
-"name": "InitTokenParams",
+"name": "HuntTokenParams",
 "type": {
 "fields": [{
 "name": "name",
@@ -132,6 +148,15 @@ idl = {
 }, {
 "name": "decimals",
 "type": "u8"
+}],
+"kind": "struct"
+}
+}, {
+"name": "HuntPrizeParams",
+"type": {
+"fields": [{
+"name": "name",
+"type": "string"
 }],
 "kind": "struct"
 }
