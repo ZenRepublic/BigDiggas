@@ -1,0 +1,959 @@
+{
+  "version": "0.1.0",
+  "name": "clubhouse",
+  "instructions": [
+	{
+	  "name": "createHouse",
+	  "accounts": [
+		{
+		  "name": "programAdmin",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "house",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "houseCurrencyVault",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "houseAdmin",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "houseCurrencyMint",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": [
+		{
+		  "name": "managerCollection",
+		  "type": {
+			"option": "publicKey"
+		  }
+		},
+		{
+		  "name": "houseConfig",
+		  "type": {
+			"defined": "HouseConfig"
+		  }
+		},
+		{
+		  "name": "houseName",
+		  "type": "bytes"
+		}
+	  ]
+	},
+	{
+	  "name": "updateHouse",
+	  "accounts": [
+		{
+		  "name": "house",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "houseAdmin",
+		  "isMut": false,
+		  "isSigner": true
+		}
+	  ],
+	  "args": [
+		{
+		  "name": "houseConfig",
+		  "type": {
+			"defined": "HouseConfig"
+		  }
+		}
+	  ]
+	},
+	{
+	  "name": "deleteHouse",
+	  "accounts": [
+		{
+		  "name": "house",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "houseAdmin",
+		  "isMut": false,
+		  "isSigner": true
+		},
+		{
+		  "name": "houseCurrencyVault",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "tokenProgram",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": []
+	},
+	{
+	  "name": "addProgramAdmin",
+	  "accounts": [
+		{
+		  "name": "signer",
+		  "isMut": true,
+		  "isSigner": true
+		},
+		{
+		  "name": "programAdmin",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "programData",
+		  "isMut": false,
+		  "isSigner": false
+		},
+		{
+		  "name": "programAdminProof",
+		  "isMut": true,
+		  "isSigner": false
+		},
+		{
+		  "name": "systemProgram",
+		  "isMut": false,
+		  "isSigner": false
+		}
+	  ],
+	  "args": []
+	}
+  ],
+  "accounts": [
+	{
+	  "name": "ProgramAdminProof",
+	  "docs": [
+		"If the admin is set, the program will check if the caller is the admin, otherwise it should check if the caller is the program authority"
+	  ],
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "admin",
+			"type": {
+			  "option": "publicKey"
+			}
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Club",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "house",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "managerMint",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "collectionIdentifier",
+			"type": {
+			  "defined": "CollectionIdentifier"
+			}
+		  },
+		  {
+			"name": "metadataMint",
+			"type": {
+			  "option": "publicKey"
+			}
+		  },
+		  {
+			"name": "rewardMint",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "rewardMintDecimals",
+			"type": "u8"
+		  },
+		  {
+			"name": "isActive",
+			"type": "bool"
+		  },
+		  {
+			"name": "memberCount",
+			"type": "u32"
+		  },
+		  {
+			"name": "activeTrainings",
+			"type": "u32"
+		  },
+		  {
+			"name": "activeMatches",
+			"type": "u32"
+		  },
+		  {
+			"name": "reserved",
+			"type": {
+			  "array": [
+				"u8",
+				128
+			  ]
+			}
+		  },
+		  {
+			"name": "trainingConfig",
+			"type": {
+			  "defined": "TrainingConfig"
+			}
+		  },
+		  {
+			"name": "reservedTraining",
+			"type": {
+			  "array": [
+				"u8",
+				64
+			  ]
+			}
+		  },
+		  {
+			"name": "matchConfig",
+			"type": {
+			  "defined": "MatchConfig"
+			}
+		  },
+		  {
+			"name": "reservedMatch",
+			"type": {
+			  "array": [
+				"u8",
+				64
+			  ]
+			}
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Campaign",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "house",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "collection",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "manager",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "metadataMint",
+			"type": {
+			  "option": "publicKey"
+			}
+		  },
+		  {
+			"name": "rewardMint",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "rewardMintDecimals",
+			"type": "u8"
+		  },
+		  {
+			"name": "memberCount",
+			"type": "u32"
+		  },
+		  {
+			"name": "activeGames",
+			"type": "u32"
+		  },
+		  {
+			"name": "totalGames",
+			"type": "u32"
+		  },
+		  {
+			"name": "timeSpan",
+			"type": {
+			  "defined": "TimeSpan"
+			}
+		  },
+		  {
+			"name": "houseConfigSnapshot",
+			"type": {
+			  "defined": "HouseConfig"
+			}
+		  },
+		  {
+			"name": "nftEnergyConfig",
+			"type": {
+			  "option": {
+				"defined": "NftEnergyConfig"
+			  }
+			}
+		  },
+		  {
+			"name": "tokenEnergyConfig",
+			"type": {
+			  "option": {
+				"defined": "TokenEnergyConfig"
+			  }
+			}
+		  },
+		  {
+			"name": "reserved",
+			"type": {
+			  "array": [
+				"u64",
+				16
+			  ]
+			}
+		  },
+		  {
+			"name": "campaignName",
+			"type": "string"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Match",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "club",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "membersJoined",
+			"type": "u8"
+		  },
+		  {
+			"name": "wager",
+			"type": "u64"
+		  },
+		  {
+			"name": "startTime",
+			"type": "i64"
+		  },
+		  {
+			"name": "reserved",
+			"type": {
+			  "array": [
+				"u8",
+				64
+			  ]
+			}
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Duel",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "bump",
+			"type": "u8"
+		  },
+		  {
+			"name": "clubMemberA",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "aIsReady",
+			"type": "bool"
+		  },
+		  {
+			"name": "clubMemberB",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "bIsReady",
+			"type": "bool"
+		  },
+		  {
+			"name": "wager",
+			"type": "u64"
+		  },
+		  {
+			"name": "startTime",
+			"type": "i64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "MatchConnection",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "gameMatch",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "clubMember",
+			"type": "publicKey"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "House",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "houseName",
+			"type": {
+			  "array": [
+				"u8",
+				32
+			  ]
+			}
+		  },
+		  {
+			"name": "houseAdmin",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "managerCollection",
+			"docs": [
+			  "to create CAMPAIGNS"
+			],
+			"type": {
+			  "option": "publicKey"
+			}
+		  },
+		  {
+			"name": "houseCurrency",
+			"docs": [
+			  "paid to create CAMPAIGNS"
+			],
+			"type": "publicKey"
+		  },
+		  {
+			"name": "houseCurrencyDecimals",
+			"docs": [
+			  "currency decimals"
+			],
+			"type": "u8"
+		  },
+		  {
+			"name": "totalCampaigns",
+			"docs": [
+			  "currently active campaigns"
+			],
+			"type": "u32"
+		  },
+		  {
+			"name": "activeCampaigns",
+			"docs": [
+			  "currently active campaigns"
+			],
+			"type": "u16"
+		  },
+		  {
+			"name": "uniquePlayers",
+			"docs": [
+			  "unique players in house"
+			],
+			"type": "u32"
+		  },
+		  {
+			"name": "gamesPlayed",
+			"docs": [
+			  "total games played in house"
+			],
+			"type": "u32"
+		  },
+		  {
+			"name": "unclaimedCreationFees",
+			"docs": [
+			  "creation fees collected total"
+			],
+			"type": "u64"
+		  },
+		  {
+			"name": "unclaimedHouseFees",
+			"docs": [
+			  "house fees pending withdrawal"
+			],
+			"type": "u64"
+		  },
+		  {
+			"name": "isActive",
+			"docs": [
+			  "house fees pending withdrawal"
+			],
+			"type": "bool"
+		  },
+		  {
+			"name": "reserved1",
+			"type": {
+			  "array": [
+				"u64",
+				13
+			  ]
+			}
+		  },
+		  {
+			"name": "config",
+			"type": {
+			  "defined": "HouseConfig"
+			}
+		  },
+		  {
+			"name": "reserved2",
+			"type": {
+			  "array": [
+				"u64",
+				16
+			  ]
+			}
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Activity",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "house",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "nativeMint",
+			"type": {
+			  "option": "publicKey"
+			}
+		  },
+		  {
+			"name": "minimumParticipants",
+			"type": "u8"
+		  },
+		  {
+			"name": "maximumParticipants",
+			"type": "u8"
+		  },
+		  {
+			"name": "energyRechargeMinutes",
+			"type": "i64"
+		  },
+		  {
+			"name": "burnRemainingTokens",
+			"type": "bool"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "CampaignPlayer",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "mint",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "club",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "energy",
+			"type": "u8"
+		  },
+		  {
+			"name": "rechargeStartTime",
+			"type": "i64"
+		  },
+		  {
+			"name": "trainingsPlayed",
+			"type": "u32"
+		  },
+		  {
+			"name": "matchesPlayed",
+			"type": "u32"
+		  },
+		  {
+			"name": "inTraining",
+			"type": "bool"
+		  },
+		  {
+			"name": "inMatch",
+			"type": "bool"
+		  },
+		  {
+			"name": "currentActivity",
+			"type": {
+			  "option": "publicKey"
+			}
+		  },
+		  {
+			"name": "reserved",
+			"type": {
+			  "array": [
+				"u8",
+				32
+			  ]
+			}
+		  }
+		]
+	  }
+	}
+  ],
+  "types": [
+	{
+	  "name": "NftEnergyConfig",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "maxClubMemberEnergy",
+			"type": "u8"
+		  },
+		  {
+			"name": "energyRechargeMinutes",
+			"type": "i64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "TokenEnergyConfig",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "energyPrice",
+			"type": "u64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "CampaignConstants",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "minGameDuration",
+			"type": "i64"
+		  },
+		  {
+			"name": "maxGameDuration",
+			"type": "i64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "Duration",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "minDuration",
+			"type": "i64"
+		  },
+		  {
+			"name": "maxDuration",
+			"type": "i64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "TimeSpan",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "startTime",
+			"type": "i64"
+		  },
+		  {
+			"name": "endTime",
+			"type": "i64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "WagerConfig",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "minimumWager",
+			"type": "u64"
+		  },
+		  {
+			"name": "maximumWager",
+			"type": "u64"
+		  },
+		  {
+			"name": "wagerPayoutPercent",
+			"docs": [
+			  "payout percent - percentage of the wager that is paid out to the winner"
+			],
+			"type": "u8"
+		  },
+		  {
+			"name": "wagerBurnPercent",
+			"docs": [
+			  "burn percent - percentage of the wager that is burned"
+			],
+			"type": "u8"
+		  },
+		  {
+			"name": "wagerTaxPercent",
+			"docs": [
+			  "tax percent - percentage of the wager that is paid to the house"
+			],
+			"type": "u8"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "TrainingConfig",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "maxRewardsPerTraining",
+			"type": "u64"
+		  },
+		  {
+			"name": "maxClubMemberEnergy",
+			"type": "u8"
+		  },
+		  {
+			"name": "energyRechargeMinutes",
+			"type": "i64"
+		  },
+		  {
+			"name": "burnRemainingTokens",
+			"type": "bool"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "HouseConfig",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "oracleKey",
+			"type": "publicKey"
+		  },
+		  {
+			"name": "campaignCreationFee",
+			"type": "u64"
+		  },
+		  {
+			"name": "campaignManagerDiscount",
+			"type": "u64"
+		  },
+		  {
+			"name": "claimFee",
+			"type": "u64"
+		  },
+		  {
+			"name": "rewardsTax",
+			"type": "u64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "MatchConfig",
+	  "type": {
+		"kind": "struct",
+		"fields": [
+		  {
+			"name": "winTaxBasisPoints",
+			"type": "u64"
+		  },
+		  {
+			"name": "matchMinDeposit",
+			"type": "u64"
+		  }
+		]
+	  }
+	},
+	{
+	  "name": "CollectionIdentifier",
+	  "docs": [
+		"Identifier of the collection"
+	  ],
+	  "type": {
+		"kind": "enum",
+		"variants": [
+		  {
+			"name": "Collection",
+			"fields": [
+			  {
+				"name": "pubkey",
+				"type": "publicKey"
+			  }
+			]
+		  },
+		  {
+			"name": "Creator",
+			"fields": [
+			  {
+				"name": "pubkey",
+				"type": "publicKey"
+			  }
+			]
+		  }
+		]
+	  }
+	}
+  ],
+  "errors": [
+	{
+	  "code": 6000,
+	  "name": "ProgramAuthorityMismatch",
+	  "msg": "Signer does not match program authority"
+	},
+	{
+	  "code": 6001,
+	  "name": "CollectionProofInvalid",
+	  "msg": "Collection Proof is invalid"
+	},
+	{
+	  "code": 6002,
+	  "name": "CollectionKeyMismatch",
+	  "msg": "Collection Key Mismatch"
+	},
+	{
+	  "code": 6003,
+	  "name": "TokenOwnerMismatch",
+	  "msg": "Caller does not own the token account"
+	},
+	{
+	  "code": 6004,
+	  "name": "OwnerBalanceMismatch",
+	  "msg": "Caller does not own the NFT"
+	},
+	{
+	  "code": 6005,
+	  "name": "MintNotNft",
+	  "msg": "Mint is not an NFT"
+	},
+	{
+	  "code": 6006,
+	  "name": "OutOfEnergy",
+	  "msg": "Energy depleted"
+	},
+	{
+	  "code": 6007,
+	  "name": "EnergyCalculationFailed",
+	  "msg": "Energy calculation failed"
+	},
+	{
+	  "code": 6008,
+	  "name": "ClubInactive",
+	  "msg": "Club inactive"
+	},
+	{
+	  "code": 6009,
+	  "name": "InvalidInput",
+	  "msg": "Invalid input"
+	},
+	{
+	  "code": 6010,
+	  "name": "MetadataMismatch",
+	  "msg": "Metadata does not match mint"
+	},
+	{
+	  "code": 6011,
+	  "name": "TaxTooHigh",
+	  "msg": "Tax above 100%"
+	},
+	{
+	  "code": 6012,
+	  "name": "InsufficientFunds",
+	  "msg": "Insufficient funds"
+	},
+	{
+	  "code": 6013,
+	  "name": "NotClubAdmin",
+	  "msg": "No Authority"
+	},
+	{
+	  "code": 6014,
+	  "name": "PlayerAlreadyInMatch",
+	  "msg": "Player already in a match"
+	},
+	{
+	  "code": 6015,
+	  "name": "TooLowWager",
+	  "msg": "Too low wager"
+	},
+	{
+	  "code": 6016,
+	  "name": "InvalidHouseNameLength",
+	  "msg": "The house name cannot be longer than 32 bytes"
+	},
+	{
+	  "code": 6017,
+	  "name": "HouseNameTooShort",
+	  "msg": "The house name cannot be shorted than 4 bytes"
+	},
+	{
+	  "code": 6018,
+	  "name": "InvalidHouseName",
+	  "msg": "The house name cannot have special characters"
+	},
+	{
+	  "code": 6019,
+	  "name": "NonZeroVault",
+	  "msg": "The vault must be empty"
+	},
+	{
+	  "code": 6020,
+	  "name": "ActiveCampaigns",
+	  "msg": "Active campaigns exist"
+	}
+  ],
+  "metadata": {
+	"address": "C1ubCwnK75ExARi8BoVzAvREDG29wJKyiwnf1hC8rgBU"
+  }
+}

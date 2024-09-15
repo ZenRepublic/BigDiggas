@@ -118,6 +118,8 @@ func is_valid() -> bool:
 	return input_valid
 	
 func get_field_value():
+	if text.length() == 0:
+		return null
 	match input_type:
 		InputType.ALPHANUMERIC:
 			return text

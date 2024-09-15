@@ -5,7 +5,7 @@ class_name DisplayableAsset
 @export var image_size = 512
 
 @export var name_label:Label
-@export var balance_label:Label
+@export var balance_label:NumberLabel
 @export var select_button:BaseButton
 
 var asset:WalletAsset
@@ -41,7 +41,7 @@ func set_data(asset:WalletAsset) -> void:
 			
 	if balance_label != null and asset is Token:
 		var token = asset as Token
-		balance_label.text = str(await token.get_balance())
+		balance_label.set_value(await token.get_balance())
 		
 
 func set_data_manual(texture:Texture2D, nft_name:String, balance:float=0.0) -> void:
@@ -51,7 +51,7 @@ func set_data_manual(texture:Texture2D, nft_name:String, balance:float=0.0) -> v
 		name_label.text = nft_name
 		
 	if balance_label!=null and balance != 0.0:
-		balance_label.text = str(balance)
+		balance_label.set_value(balance)
 	
 func get_associated_asset() -> WalletAsset:
 	return asset

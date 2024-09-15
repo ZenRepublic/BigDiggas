@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj0hq5of6bv16"]
+
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="1_h1sc6"]
+
+[node name="HouseEntryButton" type="Button"]
+custom_minimum_size = Vector2(0, 50)
+size_flags_vertical = 3
+theme = ExtResource("1_h1sc6")
+theme_type_variation = &"ListButton"
+text = "BIG DIGGAS DEVNET TEST"

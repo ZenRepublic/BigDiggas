@@ -3,6 +3,8 @@ extends Node
 @onready var program:AnchorProgram = $AnchorProgram
 
 var hunt_name:String = "best hunt 7"
+
+var EDITION_MARKER_BIT_SIZE = AnchorProgram.u64(248)
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var hunt_token_metadata:Dictionary={
@@ -30,9 +32,9 @@ func _ready() -> void:
 	#await create_hunt(hunt_name,oracle,hunt_token_metadata,hunt_prize_metadata,hunt_creator,1)
 	
 	#print(await get_hunt_data("best hunt 6"))
-	program.fetch_all_accounts("Hunt")
-	var data_all:Dictionary = await program.accounts_fetched
-	print(data_all)
+	#program.fetch_all_accounts("Hunt")
+	#var data_all:Dictionary = await program.accounts_fetched
+	#print(data_all)
 	
 	pass # Replace with function body.
 
@@ -56,8 +58,8 @@ func create_hunt(hunt_name:String,oracle:Pubkey,hunt_token_data:Dictionary, hunt
 		hunt_token,
 		get_hunt_token_metadata_pda(hunt_pda,hunt_token),
 		#hunt_prize,
-		#get_hunt_prize_master_edition_pda(hunt_pda,hunt_prize),
-		#get_prize_nft_metadata_pda(hunt_pda,hunt_prize),
+		#get_hunt_prize_master_edition_pda(hunt_prize),
+		#get_prize_nft_metadata_pda(hunt_prize),
 		#master_edition_hunt_ata,
 		SolanaService.wallet.get_kp(),
 		SolanaService.SYSVAR_RENT_PUBKEY,
@@ -126,14 +128,14 @@ func get_hunt_prize(hunt_pda:Pubkey) -> Pubkey:
 	var hunt_pda_bytes:PackedByteArray = hunt_pda.to_bytes()
 	return Pubkey.new_pda_bytes([token_seed,hunt_pda_bytes],Pubkey.new_from_string(program.get_pid()))
 	
-func get_hunt_prize_master_edition_pda(hunt_pda:Pubkey, hunt_prize:Pubkey) -> Pubkey:
+func get_hunt_prize_master_edition_pda(hunt_prize:Pubkey) -> Pubkey:
 	var metadata_seed:PackedByteArray = "metadata".to_utf8_buffer()
 	var metadata_pid_seed:PackedByteArray = SolanaUtils.bs58_decode(SolanaService.TOKEN_METADATA_PID)
 	var hunt_prize_bytes:PackedByteArray = hunt_prize.to_bytes()
 	var edition_seed:PackedByteArray = "edition".to_utf8_buffer()
 	return Pubkey.new_pda_bytes([metadata_seed,metadata_pid_seed,hunt_prize_bytes,edition_seed],Pubkey.new_from_string(SolanaService.TOKEN_METADATA_PID))
 	
-func get_prize_nft_metadata_pda(hunt_pda:Pubkey, hunt_prize:Pubkey) -> Pubkey:
+func get_prize_nft_metadata_pda(hunt_prize:Pubkey) -> Pubkey:
 	var metadata_seed:PackedByteArray = "metadata".to_utf8_buffer()
 	var metadata_pid_seed:PackedByteArray = SolanaUtils.bs58_decode(SolanaService.TOKEN_METADATA_PID)
 	var hunt_prize_bytes:PackedByteArray = hunt_prize.to_bytes()

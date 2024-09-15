@@ -148,10 +148,12 @@ script = ExtResource("6_d4boe")
 input_field_system = NodePath("InputFieldSystem")
 send_button = NodePath("SendButton")
 
-[node name="InputFieldSystem" type="Node" parent="TransactionContainer/TransactionBoxes/SolTransactionPanel" node_paths=PackedStringArray("input_fields", "confirm_button")]
+[node name="InputFieldSystem" type="Node" parent="TransactionContainer/TransactionBoxes/SolTransactionPanel"]
 script = ExtResource("7_h3u85")
-input_fields = [NodePath("../ReceiverInputField"), NodePath("../AmountInputField")]
-confirm_button = NodePath("../SendButton")
+input_fields = {
+"receiverAddress": NodePath("../ReceiverInputField"),
+"transferAmount": NodePath("../AmountInputField")
+}
 
 [node name="IntroText" type="Label" parent="TransactionContainer/TransactionBoxes/SolTransactionPanel"]
 layout_mode = 2
@@ -192,51 +194,54 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_bio0t")
 theme_override_styles/normal = SubResource("StyleBoxTexture_hadpj")
 text = "SEND"
 
-[node name="SplTransactionPanel2" type="VBoxContainer" parent="TransactionContainer/TransactionBoxes" node_paths=PackedStringArray("input_field_system", "send_button")]
+[node name="SplTransactionPanel" type="VBoxContainer" parent="TransactionContainer/TransactionBoxes" node_paths=PackedStringArray("input_field_system", "send_button")]
 layout_mode = 2
 script = ExtResource("6_d4boe")
 input_field_system = NodePath("InputFieldSystem")
 token_type = 1
 send_button = NodePath("SendButton")
 
-[node name="InputFieldSystem" type="Node" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel2" node_paths=PackedStringArray("input_fields", "confirm_button")]
+[node name="InputFieldSystem" type="Node" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel"]
 script = ExtResource("7_h3u85")
-input_fields = [NodePath("../TokenAddressInputField"), NodePath("../ReceiverInputField"), NodePath("../AmountInputField")]
-confirm_button = NodePath("../SendButton")
+input_fields = {
+"receiverAddress": NodePath("../ReceiverInputField"),
+"tokenAddress": NodePath("../TokenAddressInputField"),
+"transferAmount": NodePath("../AmountInputField")
+}
 
-[node name="IntroText" type="Label" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel2"]
+[node name="IntroText" type="Label" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "Transfer Custom Token"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Spacer" type="MarginContainer" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel2"]
+[node name="Spacer" type="MarginContainer" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel"]
 layout_mode = 2
 theme_override_constants/margin_bottom = 30
 
-[node name="TokenAddressInputField" type="LineEdit" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel2"]
+[node name="TokenAddressInputField" type="LineEdit" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel"]
 layout_mode = 2
 text = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
 placeholder_text = "Enter Token Address..."
 alignment = 1
 script = ExtResource("8_1ogk1")
 
-[node name="ReceiverInputField" type="LineEdit" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel2"]
+[node name="ReceiverInputField" type="LineEdit" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel"]
 layout_mode = 2
 placeholder_text = "Receiver SOL Address..."
 alignment = 1
 script = ExtResource("8_1ogk1")
 min_length = 32
 
-[node name="AmountInputField" type="LineEdit" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel2"]
+[node name="AmountInputField" type="LineEdit" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel"]
 layout_mode = 2
 placeholder_text = "Enter amount to send..."
 alignment = 1
 script = ExtResource("8_1ogk1")
 input_type = 2
 
-[node name="SendButton" type="Button" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel2"]
+[node name="SendButton" type="Button" parent="TransactionContainer/TransactionBoxes/SplTransactionPanel"]
 custom_minimum_size = Vector2(200, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -303,7 +308,7 @@ text = "Loading, please wait..."
 
 [connection signal="text_changed" from="TransactionContainer/TransactionBoxes/SolTransactionPanel/ReceiverInputField" to="TransactionContainer/TransactionBoxes/SolTransactionPanel/ReceiverInputField" method="_on_text_changed"]
 [connection signal="text_changed" from="TransactionContainer/TransactionBoxes/SolTransactionPanel/AmountInputField" to="TransactionContainer/TransactionBoxes/SolTransactionPanel/AmountInputField" method="_on_text_changed"]
-[connection signal="text_changed" from="TransactionContainer/TransactionBoxes/SplTransactionPanel2/TokenAddressInputField" to="TransactionContainer/TransactionBoxes/SplTransactionPanel2/TokenAddressInputField" method="_on_text_changed"]
-[connection signal="text_changed" from="TransactionContainer/TransactionBoxes/SplTransactionPanel2/ReceiverInputField" to="TransactionContainer/TransactionBoxes/SplTransactionPanel2/ReceiverInputField" method="_on_text_changed"]
-[connection signal="text_changed" from="TransactionContainer/TransactionBoxes/SplTransactionPanel2/AmountInputField" to="TransactionContainer/TransactionBoxes/SplTransactionPanel2/AmountInputField" method="_on_text_changed"]
+[connection signal="text_changed" from="TransactionContainer/TransactionBoxes/SplTransactionPanel/TokenAddressInputField" to="TransactionContainer/TransactionBoxes/SplTransactionPanel/TokenAddressInputField" method="_on_text_changed"]
+[connection signal="text_changed" from="TransactionContainer/TransactionBoxes/SplTransactionPanel/ReceiverInputField" to="TransactionContainer/TransactionBoxes/SplTransactionPanel/ReceiverInputField" method="_on_text_changed"]
+[connection signal="text_changed" from="TransactionContainer/TransactionBoxes/SplTransactionPanel/AmountInputField" to="TransactionContainer/TransactionBoxes/SplTransactionPanel/AmountInputField" method="_on_text_changed"]
 [connection signal="pressed" from="ReturnButton" to="ReturnButton" method="_on_pressed"]

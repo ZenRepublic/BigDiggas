@@ -183,9 +183,11 @@ verification_icon = NodePath("DisplayableToken/TokenContent/VerificationMark")
 verified_icon = ExtResource("8_ik51n")
 unknown_icon = ExtResource("9_nb5w6")
 
-[node name="InputFieldSystem" type="Node" parent="Content/SwapContainer" node_paths=PackedStringArray("input_fields")]
+[node name="InputFieldSystem" type="Node" parent="Content/SwapContainer"]
 script = ExtResource("5_d6p00")
-input_fields = [NodePath("../AmountInputField")]
+input_fields = {
+"swapAmount": NodePath("../AmountInputField")
+}
 
 [node name="TokenSelector" type="Node" parent="Content/SwapContainer" node_paths=PackedStringArray("displayable_asset", "display_system")]
 script = ExtResource("9_6q363")

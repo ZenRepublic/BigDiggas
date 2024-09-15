@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d34k0q4mj2qqt"]
+[gd_scene load_steps=9 format=3 uid="uid://d34k0q4mj2qqt"]
 
 [ext_resource type="Texture2D" uid="uid://dkyfoudbohuqq" path="res://addons/SolanaSDK/Textures/missingicon.png" id="1_cgotv"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/displayable_asset.gd" id="1_isrdy"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/number_label.gd" id="3_k3dfe"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80nu6"]
 
@@ -46,6 +47,9 @@ theme_override_font_sizes/font_size = 22
 text = "-"
 horizontal_alignment = 2
 vertical_alignment = 1
+script = ExtResource("3_k3dfe")
+format_mode = 1
+decimal_amount = 1
 
 [node name="SelectButton" type="Button" parent="."]
 layout_mode = 2

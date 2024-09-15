@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://dmdb8dbmov2cl"]
+[gd_scene load_steps=74 format=3 uid="uid://dmdb8dbmov2cl"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_b88w7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_manager.gd" id="1_yvyci"]
@@ -22,6 +22,7 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_manager.gd" id="16_lhc84"]
 [ext_resource type="Script" path="res://addons/texture_button_colored/texture_button_colored.gd" id="16_tnflq"]
 [ext_resource type="Texture2D" uid="uid://8y8gq03rslv8" path="res://Textures/Tokens/madlads.jpg" id="18_oxyad"]
+[ext_resource type="PackedScene" uid="uid://bnfq88vw2eksv" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/MineEntry.tscn" id="19_22vot"]
 [ext_resource type="Texture2D" uid="uid://cmjf6jjfcxgr5" path="res://Textures/BrandingAssets/Rubians sand.PNG" id="19_jq644"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/rubian_mint_manager.gd" id="20_1cknd"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/checkbox_lock.gd" id="20_cfq0y"]
@@ -40,12 +41,17 @@
 [ext_resource type="Texture2D" uid="uid://bk67w02eegc4j" path="res://Games/MiningMinigame/textures/GUI/solscanlogo.png" id="28_cm551"]
 [ext_resource type="Texture2D" uid="uid://gct6yxwxfabu" path="res://Textures/BrandingAssets/Twt banner 2rubies.PNG" id="30_vx2kd"]
 [ext_resource type="CandyGuardAccessList" uid="uid://cmkeb8th70j6r" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/GuardSettings/rubians_mainnet.tres" id="31_k7knv"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_display.gd" id="33_brjtb"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/button_lock_manager.gd" id="38_ykcbo"]
 [ext_resource type="AudioStream" uid="uid://bta85g154ui34" path="res://Games/MiningMinigame/Sounds/UI/button_press_rich.mp3" id="40_7n6mh"]
 [ext_resource type="PackedScene" uid="uid://lgukfb417wvu" path="res://Games/MiningMinigame/Assets/UI/NFTSelectionDisplay.tscn" id="40_chyj7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/house_manager.gd" id="43_vd0sw"]
-[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/house_data_handler.gd" id="44_gxjox"]
-[ext_resource type="PackedScene" uid="uid://bgg21iko0gv5q" path="res://Scripts/SolanaPrograms/EditionHunter/EditionHunter.tscn" id="46_bks0f"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/account_display_system.gd" id="44_f7hss"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/house_create_data_handler.gd" id="44_gxjox"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/house_edit_data_handler.gd" id="45_jekb5"]
+[ext_resource type="PackedScene" uid="uid://cj0hq5of6bv16" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/AccountSelectButton.tscn" id="45_wvih7"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/house_display.gd" id="47_r2cti"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/number_label.gd" id="47_tnhgc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8eq28"]
 shader = ExtResource("1_b88w7")
@@ -68,10 +74,6 @@ shader_parameter/tint = Color(0.8, 0.258824, 0.368627, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l4xl"]
 bg_color = Color(0.121569, 0.0627451, 0.164706, 0.717647)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yce1"]
-bg_color = Color(1, 1, 1, 1)
-skew = Vector2(0.56, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqkck"]
 bg_color = Color(0.639216, 0.156863, 0.345098, 1)
@@ -564,378 +566,62 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Step1" type="Label" parent="MainScreen/ContentPanel/MineSelection"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -5.0
-offset_top = 76.0
-offset_right = 307.0
-offset_bottom = 126.0
-grow_horizontal = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
-theme_override_font_sizes/font_size = 40
-text = "step 1:"
-horizontal_alignment = 2
-vertical_alignment = 1
-
 [node name="SelectMine" type="Label" parent="MainScreen/ContentPanel/MineSelection"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -133.0
-offset_top = 138.0
-offset_right = 347.0
-offset_bottom = 219.0
+offset_left = -137.0
+offset_top = 115.0
+offset_right = 352.0
+offset_bottom = 196.0
 grow_horizontal = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_font_sizes/font_size = 55
-text = "Select mine"
+text = "ACTIVE MINES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PanelContainer" type="PanelContainer" parent="MainScreen/ContentPanel/MineSelection"]
+[node name="ActiveMinesContainer" type="PanelContainer" parent="MainScreen/ContentPanel/MineSelection" node_paths=PackedStringArray("container", "no_entries_overlay")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -317.0
-offset_top = -117.0
-offset_right = 359.0
-offset_bottom = 290.0
+offset_left = -321.0
+offset_top = -140.0
+offset_right = 355.0
+offset_bottom = 267.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2l4xl")
+script = ExtResource("44_f7hss")
+container = NodePath("MarginContainer/MineList/MineList")
+entry_scn = ExtResource("19_22vot")
+no_entries_overlay = NodePath("NoMinesOverlay")
+bring_new_to_back = false
 
-[node name="MineList" type="ScrollContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer"]
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/ActiveMinesContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MineList" type="ScrollContainer" parent="MainScreen/ContentPanel/MineSelection/ActiveMinesContainer/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList"]
+[node name="MineList" type="VBoxContainer" parent="MainScreen/ContentPanel/MineSelection/ActiveMinesContainer/MarginContainer/MineList"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="MineEntry" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"ListEntryButton"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry"]
-layout_mode = 2
-offset_right = 676.0
-offset_bottom = 45.0
-
-[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
-custom_minimum_size = Vector2(23.985, 0)
-layout_mode = 2
-
-[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 30
-text = "Steel Ball Mine LFG BROSKIS"
-vertical_alignment = 1
-
-[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer/Divider"]
-custom_minimum_size = Vector2(4.97, 0)
-layout_mode = 2
-offset_left = 19.0
-offset_right = 23.97
-offset_bottom = 45.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-
-[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("12_6oue8")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 20
-text = "$MOTHER"
-vertical_alignment = 1
-
-[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MineEntry2" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"ListEntryButton"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2"]
-layout_mode = 2
-offset_right = 676.0
-offset_bottom = 45.0
-
-[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
-custom_minimum_size = Vector2(23.985, 0)
-layout_mode = 2
-
-[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 30
-text = "Steel Ball Mine LFG BROSKIS"
-vertical_alignment = 1
-
-[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer/Divider"]
-custom_minimum_size = Vector2(4.97, 0)
-layout_mode = 2
-offset_left = 19.0
-offset_right = 23.97
-offset_bottom = 45.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-
-[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("12_6oue8")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 20
-text = "$MOTHER"
-vertical_alignment = 1
-
-[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry2/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MineEntry3" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"ListEntryButton"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3"]
-layout_mode = 2
-offset_right = 676.0
-offset_bottom = 45.0
-
-[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
-custom_minimum_size = Vector2(23.985, 0)
-layout_mode = 2
-
-[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 30
-text = "Steel Ball Mine LFG BROSKIS"
-vertical_alignment = 1
-
-[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer/Divider"]
-custom_minimum_size = Vector2(4.97, 0)
-layout_mode = 2
-offset_left = 19.0
-offset_right = 23.97
-offset_bottom = 45.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-
-[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("12_6oue8")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 20
-text = "$MOTHER"
-vertical_alignment = 1
-
-[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry3/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MineEntry4" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"ListEntryButton"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4"]
-layout_mode = 2
-offset_right = 676.0
-offset_bottom = 45.0
-
-[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
-custom_minimum_size = Vector2(23.985, 0)
-layout_mode = 2
-
-[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 30
-text = "Steel Ball Mine LFG BROSKIS"
-vertical_alignment = 1
-
-[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer/Divider"]
-custom_minimum_size = Vector2(4.97, 0)
-layout_mode = 2
-offset_left = 19.0
-offset_right = 23.97
-offset_bottom = 45.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-
-[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("12_6oue8")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 20
-text = "$MOTHER"
-vertical_alignment = 1
-
-[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry4/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MineEntry5" type="Button" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer"]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"ListEntryButton"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5"]
-layout_mode = 2
-offset_right = 676.0
-offset_bottom = 45.0
-
-[node name="Spacer1" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
-custom_minimum_size = Vector2(23.985, 0)
-layout_mode = 2
-
-[node name="MineName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 30
-text = "Steel Ball Mine LFG BROSKIS"
-vertical_alignment = 1
-
-[node name="Spacer2" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Divider" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
-custom_minimum_size = Vector2(15, 0)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Divider2" type="Panel" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer/Divider"]
-custom_minimum_size = Vector2(4.97, 0)
-layout_mode = 2
-offset_left = 19.0
-offset_right = 23.97
-offset_bottom = 45.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
-
-[node name="Spacer3" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-
-[node name="TokenIcon" type="TextureRect" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("12_6oue8")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="TokenName" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 20
-text = "$MOTHER"
-vertical_alignment = 1
-
-[node name="Spacer4" type="MarginContainer" parent="MainScreen/ContentPanel/MineSelection/PanelContainer/MineList/VBoxContainer/MineEntry5/HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="MainScreen/ContentPanel/MineSelection/PanelContainer"]
+[node name="NoMinesOverlay" type="Label" parent="MainScreen/ContentPanel/MineSelection/ActiveMinesContainer"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 text = "No active mines found..."
@@ -1302,7 +988,7 @@ theme_type_variation = &"SimpleButton"
 text = "ENTER 
 MINE!"
 
-[node name="MineManagerScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("mines_list", "mine_creator")]
+[node name="MineManagerScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("mine_screen_manager", "mine_account_display_system", "mine_create_handler", "mine_display", "mines_list", "mine_creator")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -1312,13 +998,18 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 script = ExtResource("16_lhc84")
+house_name = "Big Diggas Devnet 1"
+mine_screen_manager = NodePath("MainContent/MineManagement/ScreenManager")
+mine_account_display_system = NodePath("MainContent/MineManagement/YourMinesContainer/ActiveMinesContainer")
+mine_create_handler = NodePath("MainContent/MineManagement/CreateMineContainer")
+mine_display = NodePath("MainContent/MineManagement/MineDetailsContainer")
 mines_list = NodePath("MainContent/MineManagement/YourMinesContainer/ActiveMinesContainer/MarginContainer/ScrollContainer/MinesList")
 mine_creator = NodePath("MainContent/MineManagement/CreateMineContainer")
 
 [node name="ScreenManager" type="Node" parent="MineManagerScreen" node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
 starting_panel = NodePath("../MainContent/MineManagement")
-screens = [NodePath("../MainContent/LoadingPanel"), NodePath("../MainContent/MineManagement")]
+screens = [NodePath("../MainContent/LoadingPanel"), NodePath("../MainContent/SigningPanel"), NodePath("../MainContent/MineManagement")]
 
 [node name="MenuBanner" type="PanelContainer" parent="MineManagerScreen"]
 custom_minimum_size = Vector2(0, 115.39)
@@ -1405,10 +1096,29 @@ text = "Loading, hang on..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SigningPanel" type="PanelContainer" parent="MineManagerScreen/MainContent"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/SigningPanel"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 50
+text = "Signing transaction..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MineManagement" type="HBoxContainer" parent="MineManagerScreen/MainContent"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 30
+
+[node name="ScreenManager" type="Node" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("starting_panel", "screens")]
+script = ExtResource("2_xsafj")
+starting_panel = NodePath("../ComingSoon")
+screens = [NodePath("../ComingSoon"), NodePath("../LoadingScreen"), NodePath("../CreateMineContainer"), NodePath("../MineDetailsContainer")]
 
 [node name="YourMinesContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement"]
 layout_mode = 2
@@ -1420,10 +1130,13 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 text = "Your Mines"
 
-[node name="ActiveMinesContainer" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer"]
+[node name="ActiveMinesContainer" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer" node_paths=PackedStringArray("container")]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("4_d1tk4")
+script = ExtResource("44_f7hss")
+container = NodePath("MarginContainer/ScrollContainer/MinesList")
+entry_scn = ExtResource("45_wvih7")
 
 [node name="MarginContainer" type="MarginContainer" parent="MineManagerScreen/MainContent/MineManagement/YourMinesContainer/ActiveMinesContainer"]
 layout_mode = 2
@@ -1461,11 +1174,6 @@ text = "Create new..."
 script = ExtResource("10_c1ty1")
 wallet_snapshot_path = "res://Scripts/SolanaPrograms/Clubhouse/house_admin_wallets.json"
 
-[node name="ScreenManager" type="Node" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("starting_panel", "screens")]
-script = ExtResource("2_xsafj")
-starting_panel = NodePath("../ComingSoon")
-screens = [NodePath("../ComingSoon"), NodePath("../CreateMineContainer"), NodePath("../MineDetailsContainer")]
-
 [node name="ComingSoon" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement"]
 visible = false
 layout_mode = 2
@@ -1495,7 +1203,36 @@ text = "This is gonna be epic, my diggas"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("general_input_field_system", "token_selection", "fund_input_field", "max_fund_button", "token_visuals", "manager_selector", "creation_fee_label", "create_mine_button", "nft_input_field_system", "collection_selection", "max_reward_field")]
+[node name="LoadingScreen" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/LoadingScreen"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/LoadingScreen/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 50
+text = "Loading"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MineManagerScreen/MainContent/MineManagement/LoadingScreen/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 28
+text = "Hang on..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("general_input_field_system", "token_selection", "fund_input_field", "max_fund_button", "token_visuals", "fee_explanation", "manager_selector", "creation_fee_label", "create_mine_button", "nft_input_field_system", "collection_selection", "max_reward_field")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 50
@@ -1505,6 +1242,7 @@ token_selection = NodePath("MineDetailsContainer/TokenSettings/TokenSelector")
 fund_input_field = NodePath("MineDetailsContainer/TokenSettings/FundAmountContainer/FundInputField")
 max_fund_button = NodePath("MineDetailsContainer/TokenSettings/FundAmountContainer/MaxFundButton")
 token_visuals = [NodePath("MineDetailsContainer/TokenSettings/FundAmountContainer/FundTokenVisual"), NodePath("MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer/TokenVisual")]
+fee_explanation = NodePath("PaymentSettings/RewardClaimFee/FeeExplanation")
 manager_selector = NodePath("PaymentSettings/ManagerSelection")
 creation_fee_label = NodePath("PaymentSettings/PriceContainer/ClubCreationFee")
 create_mine_button = NodePath("PaymentSettings/CreateMineButton")
@@ -1512,9 +1250,14 @@ nft_input_field_system = NodePath("MineDetailsContainer/NFTMinerSettings/NFTInpu
 collection_selection = NodePath("MineDetailsContainer/NFTMinerSettings/CollectionSelector")
 max_reward_field = NodePath("MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer/PayoutLimitInputField")
 
-[node name="GeneralInputFieldSystem" type="Node" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer" node_paths=PackedStringArray("input_fields")]
+[node name="GeneralInputFieldSystem" type="Node" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer"]
 script = ExtResource("26_6s5lj")
-input_fields = [NodePath("../MineDetailsContainer/GeneralSettings/NameBar/NameDetails/MineNameInputField"), NodePath("../MineDetailsContainer/GeneralSettings/CampaignLength/CampaignLengthInputField"), NodePath("../MineDetailsContainer/TokenSettings/FundAmountContainer/FundInputField")]
+input_fields = {
+"campaignEndTime": NodePath("../MineDetailsContainer/GeneralSettings/CampaignLength/CampaignLengthInputField"),
+"campaignName": NodePath("../MineDetailsContainer/GeneralSettings/MineNameInputField"),
+"initialAmount": NodePath("../MineDetailsContainer/TokenSettings/FundAmountContainer/FundInputField"),
+"rewardsTax": NodePath("../PaymentSettings/RewardClaimFee/RewardFeeInputField")
+}
 
 [node name="MineDetailsContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer"]
 layout_mode = 2
@@ -1525,14 +1268,7 @@ script = ExtResource("26_6s5lj")
 [node name="GeneralSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
 layout_mode = 2
 
-[node name="NameBar" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings"]
-layout_mode = 2
-
-[node name="NameDetails" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings/NameBar"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="MineNameInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings/NameBar/NameDetails"]
+[node name="MineNameInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/GeneralSettings"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
@@ -1663,9 +1399,12 @@ size_flags_vertical = 3
 theme_override_constants/separation = 5
 alignment = 1
 
-[node name="NFTInputFieldSystem" type="Node" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings" node_paths=PackedStringArray("input_fields")]
+[node name="NFTInputFieldSystem" type="Node" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
 script = ExtResource("26_6s5lj")
-input_fields = [NodePath("../CustomizationSettings/MinerEnergyContainer/EnergyCapInputField"), NodePath("../CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer/PayoutLimitInputField")]
+input_fields = {
+"maxEnergy": NodePath("../CustomizationSettings/MinerEnergyContainer/EnergyCapInputField"),
+"maxReward": NodePath("../CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer/PayoutLimitInputField")
+}
 
 [node name="MinerCollection" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
 layout_mode = 2
@@ -1739,7 +1478,37 @@ allow_zero = false
 [node name="PaymentSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer"]
 layout_mode = 2
 size_flags_vertical = 0
-theme_override_constants/separation = 10
+theme_override_constants/separation = 15
+
+[node name="RewardClaimFee" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings"]
+layout_mode = 2
+
+[node name="ClaimFee" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/RewardClaimFee"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Reward Claim Fee (SOL)*"
+
+[node name="RewardFeeInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/RewardClaimFee"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+text = "0.0005"
+placeholder_text = "Enter amount..."
+alignment = 1
+script = ExtResource("15_cwt4b")
+input_type = 2
+max_value = -1.0
+
+[node name="FeeExplanation" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/RewardClaimFee"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_colors/font_color = Color(0.85098, 0.741176, 0.784314, 1)
+theme_override_font_sizes/font_size = 15
+text = "*Fees claimable after campaign has finished. House Tax of 15% is applied!"
+horizontal_alignment = 1
+autowrap_mode = 2
 
 [node name="ManagerSelection" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings" node_paths=PackedStringArray("displayable_asset", "display_system")]
 layout_mode = 2
@@ -1774,7 +1543,7 @@ name_label = NodePath("../../ManagerName")
 select_button = NodePath("Visual/Button")
 
 [node name="Visual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection/VisualContainer/DisplayableAssetButton"]
-custom_minimum_size = Vector2(256, 256)
+custom_minimum_size = Vector2(144, 144)
 layout_mode = 2
 texture = ExtResource("27_onooq")
 expand_mode = 2
@@ -1791,6 +1560,7 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"InvisibleButton"
 
 [node name="ManagerName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/PaymentSettings/ManagerSelection"]
+visible = false
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
@@ -1814,7 +1584,7 @@ size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 40
-text = "0.1 SOL"
+text = "0.2 SOL"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -1825,12 +1595,22 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButtonAlt"
 text = "Create Mine"
 
-[node name="MineDetailsContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement"]
+[node name="MineDetailsContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("mine_name_label", "collection_displayable", "mine_manager_displayable", "mine_token_displayable", "total_games_label", "unique_players_label", "max_reward_label", "fees_collected", "close_button")]
 visible = false
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 15
 alignment = 1
+script = ExtResource("33_brjtb")
+mine_name_label = NodePath("MineName")
+collection_displayable = NodePath("MineDetails/MarginContainer/VBoxContainer/MainDetails")
+mine_manager_displayable = NodePath("MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/MainDetailsContainer/MineManager")
+mine_token_displayable = NodePath("MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TokensLeftContainer/TokenBalanceContainer")
+total_games_label = NodePath("MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/TotalGames/TotalGames")
+unique_players_label = NodePath("MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/UniquePlayers/UniquePlayers")
+max_reward_label = NodePath("MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/MaxReward/MaxReward")
+fees_collected = NodePath("MineDetails/MarginContainer/VBoxContainer/FeesCollectedContainer/FeesCollected")
+close_button = NodePath("MineDetails/MarginContainer/VBoxContainer/CloseMineButton")
 
 [node name="MineName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer"]
 layout_mode = 2
@@ -1856,9 +1636,13 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="MainDetails" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
+[node name="MainDetails" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer" node_paths=PackedStringArray("visual", "name_label")]
 layout_mode = 2
 theme_override_constants/separation = 20
+script = ExtResource("28_6k1tr")
+visual = NodePath("CollectionVisual")
+image_size = 256
+name_label = NodePath("MainDetailsContainer/MainDetailsContainer/MineCollection/CollectionName")
 
 [node name="CollectionVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails"]
 layout_mode = 2
@@ -1870,59 +1654,67 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
+[node name="MainDetailsContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="MineCollection" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer"]
+[node name="MineCollection" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/MainDetailsContainer"]
 layout_mode = 2
 
-[node name="MinerCollection" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineCollection"]
+[node name="MinerCollection" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/MainDetailsContainer/MineCollection"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 16
 text = "Miner Collection:"
 
-[node name="CollectionName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineCollection"]
+[node name="CollectionName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/MainDetailsContainer/MineCollection"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_font_sizes/font_size = 16
 text = "RUBIANS"
 
-[node name="MineManager" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer"]
+[node name="MineManager" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/MainDetailsContainer"]
 layout_mode = 2
+script = ExtResource("28_6k1tr")
 
-[node name="MineOwner" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineManager"]
+[node name="MineOwner" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/MainDetailsContainer/MineManager"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 16
 text = "Mine Manager:"
 
-[node name="CollectionName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineManager"]
+[node name="ManagerName" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/MainDetailsContainer/MineManager"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_font_sizes/font_size = 16
-text = "Rubian #420"
+text = "ANON"
 
-[node name="TokensInTreasury" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
+[node name="TokensLeftContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
+layout_mode = 2
+
+[node name="TokensInTreasury" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TokensLeftContainer"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 16
 text = "Tokens left:"
 
-[node name="TreasuryContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
+[node name="TokenBalanceContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TokensLeftContainer" node_paths=PackedStringArray("visual", "balance_label")]
 layout_mode = 2
 theme_override_constants/separation = 10
+script = ExtResource("28_6k1tr")
+visual = NodePath("TokenVisual")
+image_size = 64
+balance_label = NodePath("TokensLabel")
 
-[node name="TokenVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TreasuryContainer"]
+[node name="TokenVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TokensLeftContainer/TokenBalanceContainer"]
 layout_mode = 2
 texture = ExtResource("12_6oue8")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="TokensLabel" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TreasuryContainer"]
+[node name="TokensLabel" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TokensLeftContainer/TokenBalanceContainer"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
@@ -1930,6 +1722,7 @@ theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 30
 text = "96,568,555"
 vertical_alignment = 1
+script = ExtResource("47_tnhgc")
 
 [node name="ExtraDetailsContainer" type="PanelContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -1946,63 +1739,63 @@ layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="MinerEnergy" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
+[node name="TotalGames" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/MinerEnergy"]
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/TotalGames"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 20
-text = "MINER ENERGY"
+text = "Total Games"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TokensLabel2" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/MinerEnergy"]
+[node name="TotalGames" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/TotalGames"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 30
-text = "5"
+text = "268"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CampaignDuration" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
+[node name="UniquePlayers" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/CampaignDuration"]
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/UniquePlayers"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 20
-text = "Campaign Length"
+text = "Unique Players"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TokensLabel2" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/CampaignDuration"]
+[node name="UniquePlayers" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/UniquePlayers"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 30
-text = "48h"
+text = "56"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RewardCap" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
+[node name="MaxReward" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/RewardCap"]
+[node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/MaxReward"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 20
-text = "Reward Cap"
+text = "Max Reward"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TokensLabel2" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/RewardCap"]
+[node name="MaxReward" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/MaxReward"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
@@ -2011,6 +1804,9 @@ theme_override_font_sizes/font_size = 30
 text = "5k"
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("47_tnhgc")
+format_mode = 1
+decimal_amount = 1
 
 [node name="FeesCollectedContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -2020,9 +1816,8 @@ alignment = 1
 [node name="Label" type="Label" parent="MineManagerScreen/MainContent/MineManagement/MineDetailsContainer/MineDetails/MarginContainer/VBoxContainer/FeesCollectedContainer"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 22
 text = "Fees Collected:"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -2171,10 +1966,9 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(300, 115)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 30
-text = "Mint a Rubian, become a Toil Mines manager and Gamify your favorite token!"
+theme_override_font_sizes/font_size = 28
+text = "Mint a Rubian and join our ranks as a Mine Manager. Free Creation of campaigns and more cool utilities soon!"
 horizontal_alignment = 1
-vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="BannerMargin" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro"]
@@ -2263,7 +2057,7 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 35
-text = "1.5 SOL"
+text = "2 SOL"
 
 [node name="CouponContainer" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
 layout_mode = 2
@@ -2534,7 +2328,7 @@ stream = ExtResource("40_7n6mh")
 script = ExtResource("38_ykcbo")
 button_locks = [NodePath("../MainScreen/MenuPanel/AdminButton")]
 
-[node name="HouseAdminScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("houses_list")]
+[node name="HouseAdminScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("house_screen_manager", "house_display", "house_create_data_handler", "house_edit_data_handler")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -2544,12 +2338,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 script = ExtResource("43_vd0sw")
-houses_list = NodePath("MainContent/HouseManagement/YourHousesContainer/ActiveHousesContainer/MarginContainer/ScrollContainer/HousesList")
+house_screen_manager = NodePath("MainContent/HouseManagement/ScreenManager")
+house_display = NodePath("MainContent/HouseManagement/HouseDetailsContainer")
+house_create_data_handler = NodePath("MainContent/HouseManagement/HouseCreateContainer")
+house_edit_data_handler = NodePath("MainContent/HouseManagement/HouseDetailsContainer/EditableSettings")
 
 [node name="ScreenManager" type="Node" parent="HouseAdminScreen" node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
 starting_panel = NodePath("../MainContent/HouseManagement")
-screens = [NodePath("../MainContent/LoadingPanel"), NodePath("../MainContent/HouseManagement")]
+screens = [NodePath("../MainContent/LoadingPanel"), NodePath("../MainContent/SigningPanel"), NodePath("../MainContent/HouseManagement")]
 
 [node name="MenuBanner" type="PanelContainer" parent="HouseAdminScreen"]
 custom_minimum_size = Vector2(0, 115.39)
@@ -2622,20 +2419,6 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 20
 
-[node name="LoadingPanel" type="PanelContainer" parent="HouseAdminScreen/MainContent"]
-visible = false
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
-
-[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/LoadingPanel"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
-theme_override_font_sizes/font_size = 50
-text = "Loading, hang on..."
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="HouseManagement" type="HBoxContainer" parent="HouseAdminScreen/MainContent"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -2651,37 +2434,31 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 text = "SELECT HOUSE"
 
-[node name="ActiveHousesContainer" type="PanelContainer" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer"]
+[node name="HouseDisplaySystem" type="PanelContainer" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer" node_paths=PackedStringArray("container")]
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("4_d1tk4")
+script = ExtResource("44_f7hss")
+container = NodePath("MarginContainer/ScrollContainer/HousesList")
+entry_scn = ExtResource("45_wvih7")
 
-[node name="MarginContainer" type="MarginContainer" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/ActiveHousesContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/HouseDisplaySystem"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/ActiveHousesContainer/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/HouseDisplaySystem/MarginContainer"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="HousesList" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/ActiveHousesContainer/MarginContainer/ScrollContainer"]
+[node name="HousesList" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/HouseDisplaySystem/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Button" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/ActiveHousesContainer/MarginContainer/ScrollContainer/HousesList"]
-visible = false
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-size_flags_vertical = 3
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"ListButton"
-text = "BIG DIGGAS DEVNET TEST"
-
-[node name="CreateNewButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/ActiveHousesContainer/MarginContainer/ScrollContainer/HousesList"]
+[node name="CreateNewButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/HouseDisplaySystem/MarginContainer/ScrollContainer/HousesList"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 3
@@ -2692,7 +2469,7 @@ text = "Create new..."
 [node name="ScreenManager" type="Node" parent="HouseAdminScreen/MainContent/HouseManagement" node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
 starting_panel = NodePath("../Intro")
-screens = [NodePath("../Intro"), NodePath("../HouseCreateContainer"), NodePath("../HouseDetailsContainer")]
+screens = [NodePath("../Intro"), NodePath("../Loading"), NodePath("../HouseCreateContainer"), NodePath("../HouseDetailsContainer")]
 
 [node name="Intro" type="PanelContainer" parent="HouseAdminScreen/MainContent/HouseManagement"]
 visible = false
@@ -2725,6 +2502,37 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="Loading" type="PanelContainer" parent="HouseAdminScreen/MainContent/HouseManagement"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/Loading"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/Loading/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 50
+text = "Loading"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Description" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/Loading/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 28
+text = "please wait..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
 [node name="HouseCreateContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement" node_paths=PackedStringArray("input_field_system", "data_submit_button")]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -2734,9 +2542,18 @@ script = ExtResource("44_gxjox")
 input_field_system = NodePath("InputFieldSystem")
 data_submit_button = NodePath("CreateHouseButton")
 
-[node name="InputFieldSystem" type="Node" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer" node_paths=PackedStringArray("input_fields")]
+[node name="InputFieldSystem" type="Node" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer"]
 script = ExtResource("26_6s5lj")
-input_fields = [NodePath("../GeneralSettings/HouseNameInputField"), NodePath("../GeneralSettings/OracleKeyInputField"), NodePath("../GeneralSettings/ManagerCollectionInputField3"), NodePath("../MonetizationSettings/HouseCurrencyInputField"), NodePath("../MonetizationSettings/FeesContainer/MineCreationFee/StandardFee/StandardFeeInputField"), NodePath("../MonetizationSettings/FeesContainer/MineCreationFee/ManagerDiscount/ManagerDiscountInputField"), NodePath("../MonetizationSettings/FeesContainer/ClaimFee/HouseFee/HouseFeeInputField"), NodePath("../MonetizationSettings/FeesContainer/ClaimFee/ManagerFee/ManagerFeeInputField")]
+input_fields = {
+"campaignCreationFee": NodePath("../MonetizationSettings/FeesContainer/MineCreationFee/CampaignCreationFee/CampaignCreationFeeInputField"),
+"campaignManagerDiscount": NodePath("../MonetizationSettings/FeesContainer/MineCreationFee/CampaignManagerDiscount/CampaignManagerDiscountInputField"),
+"claimFee": NodePath("../MonetizationSettings/FeesContainer/HouseFees/ClaimFee/ClaimFeeInputField"),
+"houseCurrency": NodePath("../MonetizationSettings/HouseCurrencyInputField"),
+"houseName": NodePath("../GeneralSettings/HouseNameInputField"),
+"managerCollection": NodePath("../GeneralSettings/ManagerCollectionInputField"),
+"oracleKey": NodePath("../GeneralSettings/OracleKeyInputField"),
+"rewardsTax": NodePath("../MonetizationSettings/FeesContainer/HouseFees/RewardTax/RewardTaxInputField")
+}
 
 [node name="GeneralSettings" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer"]
 layout_mode = 2
@@ -2764,15 +2581,17 @@ script = ExtResource("15_cwt4b")
 min_length = 32
 is_optional = true
 
-[node name="ManagerCollectionInputField3" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/GeneralSettings"]
+[node name="ManagerCollectionInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/GeneralSettings"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
 theme_override_font_sizes/font_size = 24
+text = "EE1XTVRxVX5UtTLKRg7Y5bFQEKm2wm2nao9SGF27fypH"
 placeholder_text = "Enter Manager Collection Key..."
 max_length = 44
 script = ExtResource("15_cwt4b")
 min_length = 32
+is_optional = true
 
 [node name="MonetizationSettings" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer"]
 layout_mode = 2
@@ -2809,336 +2628,490 @@ theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 28
 text = "MINE CREATION FEE "
 
-[node name="StandardFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee"]
+[node name="CampaignCreationFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="StandardLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/StandardFee"]
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/CampaignCreationFee"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
 text = "Standard"
 
-[node name="StandardFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/StandardFee"]
+[node name="CampaignCreationFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/CampaignCreationFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 25
 text = "0.2"
-placeholder_text = "Enter Amount..."
+placeholder_text = "Not Set"
 alignment = 1
 script = ExtResource("15_cwt4b")
 input_type = 2
+is_optional = true
 max_value = -1.0
 
-[node name="ManagerDiscount" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee"]
+[node name="CampaignManagerDiscount" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="ManagerDiscountLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/ManagerDiscount"]
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/CampaignManagerDiscount"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
 text = "Manager"
 
-[node name="ManagerDiscountInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/ManagerDiscount"]
+[node name="CampaignManagerDiscountInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/MineCreationFee/CampaignManagerDiscount"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
 text = "0"
-placeholder_text = "Enter amount..."
+placeholder_text = "Not Set"
 alignment = 1
 max_length = 12
 script = ExtResource("15_cwt4b")
 input_type = 2
 max_value = -1.0
 
-[node name="ClaimFee" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer"]
+[node name="HouseFees" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="CLAIMFEE" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee"]
+[node name="HouseFeesLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/HouseFees"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 28
-text = "PLAYER CLAIM FEE (in SOL)"
+text = "HOUSE SOL FEES"
 
-[node name="HouseFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee"]
+[node name="ClaimFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/HouseFees"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="HouseFeeLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee/HouseFee"]
+[node name="ClaimFeeLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/HouseFees/ClaimFee"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "house"
+text = "Player CLAIM FEE"
 
-[node name="HouseFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee/HouseFee"]
+[node name="ClaimFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/HouseFees/ClaimFee"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 25
-text = "0.0006"
+text = "0.0002"
 placeholder_text = "Enter Amount..."
 alignment = 1
 script = ExtResource("15_cwt4b")
 input_type = 2
 max_value = -1.0
 
-[node name="ManagerFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee"]
+[node name="RewardTax" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/HouseFees"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
 
-[node name="ManagerFee" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee/ManagerFee"]
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/HouseFees/RewardTax"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "Manager"
+text = "reward tax %"
 
-[node name="ManagerFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/ClaimFee/ManagerFee"]
-custom_minimum_size = Vector2(200, 0)
+[node name="RewardTaxInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/MonetizationSettings/FeesContainer/HouseFees/RewardTax"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 22
-text = "0.0006"
-placeholder_text = "Enter amount..."
+theme_override_font_sizes/font_size = 25
+text = "15"
+placeholder_text = "Enter Amount..."
 alignment = 1
 script = ExtResource("15_cwt4b")
 input_type = 2
-max_value = -1.0
+max_value = 100.0
 
 [node name="CreateHouseButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("4_d1tk4")
-theme_type_variation = &"SimpleButtonAlt"
+theme_type_variation = &"SimpleButton"
 text = "Create House"
 
-[node name="HouseDetailsContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement"]
+[node name="HouseDetailsContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement" node_paths=PackedStringArray("active_campaigns_label", "total_campaigns_label", "unique_players_label", "house_edit_data_handler")]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 6
-theme_override_constants/separation = 15
-alignment = 1
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+script = ExtResource("47_r2cti")
+active_campaigns_label = NodePath("HouseStatsContainer/MarginContainer/HBoxContainer/ActiveCampaigns/Campaigns")
+total_campaigns_label = NodePath("HouseStatsContainer/MarginContainer/HBoxContainer/TotalCampaigns/TotalCampaigns")
+unique_players_label = NodePath("HouseStatsContainer/MarginContainer/HBoxContainer/UniquePlayers/TokensLabel2")
+house_edit_data_handler = NodePath("EditableSettings")
 
-[node name="MineName" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer"]
+[node name="HouseName" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderSmall"
-theme_override_font_sizes/font_size = 50
-text = "EPIC RUBIANS MINE"
+theme_override_font_sizes/font_size = 35
+text = "BIG DIGGAS DEVNET 1"
 horizontal_alignment = 1
-
-[node name="MineDetails" type="PanelContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer"]
-layout_mode = 2
-size_flags_stretch_ratio = 0.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_j2pdf")
-
-[node name="MarginContainer" type="MarginContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 25
-
-[node name="MainDetails" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="CollectionVisual" type="TextureRect" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails"]
-layout_mode = 2
-texture = ExtResource("19_jq644")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="MainDetailsContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
-layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="MineCollection" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="MinerCollection" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineCollection"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 16
-text = "Miner Collection:"
-
-[node name="CollectionName" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineCollection"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
-theme_override_font_sizes/font_size = 16
-text = "RUBIANS"
-
-[node name="MineManager" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="MineOwner" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineManager"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 16
-text = "Mine Manager:"
-
-[node name="CollectionName" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/HBoxContainer/MineManager"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
-theme_override_font_sizes/font_size = 16
-text = "Rubian #420"
-
-[node name="TokensInTreasury" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 16
-text = "Tokens left:"
-
-[node name="TreasuryContainer" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="TokenVisual" type="TextureRect" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TreasuryContainer"]
-layout_mode = 2
-texture = ExtResource("12_6oue8")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="TokensLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/MainDetails/MainDetailsContainer/TreasuryContainer"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
-theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
-theme_override_font_sizes/font_size = 30
-text = "96,568,555"
 vertical_alignment = 1
 
-[node name="ExtraDetailsContainer" type="PanelContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
+[node name="HouseStatsContainer" type="PanelContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="MinerEnergy" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
+[node name="ActiveCampaigns" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/MinerEnergy"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 20
-text = "MINER ENERGY"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TokensLabel2" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/MinerEnergy"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
-theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
-theme_override_font_sizes/font_size = 30
-text = "5"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CampaignDuration" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/CampaignDuration"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 20
-text = "Campaign Length"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TokensLabel2" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/CampaignDuration"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
-theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
-theme_override_font_sizes/font_size = 30
-text = "48h"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="RewardCap" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/RewardCap"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 20
-text = "Reward Cap"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="TokensLabel2" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/ExtraDetailsContainer/MarginContainer/HBoxContainer/RewardCap"]
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
-theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
-theme_override_font_sizes/font_size = 30
-text = "5k"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FeesCollectedContainer" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 15
 alignment = 1
 
-[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/FeesCollectedContainer"]
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer/HBoxContainer/ActiveCampaigns"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "ACtive Campaigns"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Campaigns" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer/HBoxContainer/ActiveCampaigns"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 30
+text = "42"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TotalCampaigns" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer/HBoxContainer/TotalCampaigns"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "Total Campaigns"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TotalCampaigns" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer/HBoxContainer/TotalCampaigns"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 30
+text = "651"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UniquePlayers" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer/HBoxContainer/UniquePlayers"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 20
+text = "Unique Players"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TokensLabel2" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/HouseStatsContainer/MarginContainer/HBoxContainer/UniquePlayers"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 30
+text = "61,894"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("47_tnhgc")
+format_mode = 1
+decimal_amount = 1
+
+[node name="FeeClaimer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer"]
+layout_mode = 2
+
+[node name="CreationFees" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 16
-text = "Fees Collected:"
+theme_override_font_sizes/font_size = 28
+text = "Creation Fees:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="FeesCollected" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer/FeesCollectedContainer"]
+[node name="FeesCollected" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_colors/font_color = Color(0.419608, 0.788235, 0.423529, 1)
 theme_override_font_sizes/font_size = 25
-text = "0.0735 SOL"
+text = "2.8 SOL"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="CloseMineButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/MineDetails/MarginContainer/VBoxContainer"]
+[node name="ClaimFeesButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+text = "Claim"
+
+[node name="HouseFees" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/HouseFees"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "House Fees:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="FeesCollected" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/HouseFees"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_colors/font_color = Color(0.419608, 0.788235, 0.423529, 1)
+theme_override_font_sizes/font_size = 25
+text = "15.942 SOL"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ClaimFeesButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/HouseFees"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButton"
+text = "Claim"
+
+[node name="EditableSettings" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer" node_paths=PackedStringArray("input_field_system", "data_submit_button")]
+layout_mode = 2
+theme_override_constants/separation = 10
+script = ExtResource("45_jekb5")
+input_field_system = NodePath("InputFieldSystem")
+data_submit_button = NodePath("Buttons/EditHouseButton")
+
+[node name="InputFieldSystem" type="Node" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings"]
+script = ExtResource("26_6s5lj")
+input_fields = {
+"campaignCreationFee": NodePath("../FeesContainer/MineCreationFee/CampaignCreationFee/CampaignCreationFeeInputField"),
+"campaignManagerDiscount": NodePath("../FeesContainer/MineCreationFee/CampaignManagerDiscount/CampaignManagerDiscountInputField"),
+"claimFee": NodePath("../FeesContainer/HouseFees/ClaimFee/ClaimFeeInputField"),
+"oracleKey": NodePath("../OracleKeyInputField"),
+"rewardsTax": NodePath("../FeesContainer/HouseFees/RewardTax/RewardTaxInputField")
+}
+
+[node name="MonetizationSettings" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 28
+text = "Edit House Details"
+
+[node name="OracleKeyInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
+theme_override_font_sizes/font_size = 24
+placeholder_text = "Provide Oracle Key..."
+max_length = 44
+script = ExtResource("15_cwt4b")
+min_length = 32
+is_optional = true
+
+[node name="FeesContainer" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MineCreationFee" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer"]
+layout_mode = 2
+
+[node name="CREATIONFEE" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/MineCreationFee"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 28
+text = "MINE CREATION FEE "
+
+[node name="CampaignCreationFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/MineCreationFee"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/MineCreationFee/CampaignCreationFee"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Standard"
+
+[node name="CampaignCreationFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/MineCreationFee/CampaignCreationFee"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Not Set"
+alignment = 1
+script = ExtResource("15_cwt4b")
+input_type = 2
+is_optional = true
+max_value = -1.0
+
+[node name="CampaignManagerDiscount" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/MineCreationFee"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/MineCreationFee/CampaignManagerDiscount"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Manager"
+
+[node name="CampaignManagerDiscountInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/MineCreationFee/CampaignManagerDiscount"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+placeholder_text = "Not Set"
+alignment = 1
+max_length = 12
+script = ExtResource("15_cwt4b")
+input_type = 2
+max_value = -1.0
+
+[node name="HouseFees" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HouseFeesLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/HouseFees"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 28
+text = "HOUSE SOL FEES"
+
+[node name="ClaimFee" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/HouseFees"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="ClaimFeeLabel" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/HouseFees/ClaimFee"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "Player CLAIM FEE"
+
+[node name="ClaimFeeInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/HouseFees/ClaimFee"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Enter Amount..."
+alignment = 1
+script = ExtResource("15_cwt4b")
+input_type = 2
+max_value = -1.0
+
+[node name="RewardTax" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/HouseFees"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/HouseFees/RewardTax"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "reward tax %"
+
+[node name="RewardTaxInputField" type="LineEdit" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/FeesContainer/HouseFees/RewardTax"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 25
+placeholder_text = "Enter Amount..."
+alignment = 1
+script = ExtResource("15_cwt4b")
+input_type = 2
+max_value = 100.0
+
+[node name="Buttons" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 2
+
+[node name="EditHouseButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/Buttons"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButtonAlt"
+text = "Close House"
+
+[node name="CloseMineButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/Buttons"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButton"
-disabled = true
-text = "Close in 5h 30min"
+text = "Edit House"
+
+[node name="LoadingPanel" type="PanelContainer" parent="HouseAdminScreen/MainContent"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/LoadingPanel"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 50
+text = "Loading, hang on..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SigningPanel" type="PanelContainer" parent="HouseAdminScreen/MainContent"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1s1dl")
+
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/SigningPanel"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 50
+text = "Signing transaction..."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="SideScroller2" type="Control" parent="HouseAdminScreen"]
 visible = false
@@ -3175,8 +3148,6 @@ stretch_mode = 1
 visible = false
 layout_mode = 1
 
-[node name="EditionHunter" parent="." instance=ExtResource("46_bks0f")]
-
 [connection signal="pressed" from="MainScreen/MenuPanel/ManageButton" to="." method="_on_mint_manager_button_pressed"]
 [connection signal="pressed" from="MainScreen/MenuPanel/TrainingButton" to="." method="_on_training_button_pressed"]
 [connection signal="pressed" from="MainScreen/MenuPanel/MintButton" to="." method="_on_mint_button_pressed"]
@@ -3197,4 +3168,9 @@ layout_mode = 1
 [connection signal="pressed" from="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body/CreateMine/CreateMineButton" to="ScreenManager" method="switch_active_panel" binds= [1]]
 [connection signal="pressed" from="HouseAdminScreen/MenuBanner/HBoxContainer/MarginContainer/BackButton" to="." method="play_ui_sound" binds= ["Return"]]
 [connection signal="pressed" from="HouseAdminScreen/MenuBanner/HBoxContainer/MarginContainer/BackButton" to="ScreenManager" method="switch_active_panel" binds= [0]]
-[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/ActiveHousesContainer/MarginContainer/ScrollContainer/HousesList/CreateNewButton" to="HouseAdminScreen/MainContent/HouseManagement/ScreenManager" method="switch_active_panel" binds= [1]]
+[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/HouseDisplaySystem/MarginContainer/ScrollContainer/HousesList/CreateNewButton" to="HouseAdminScreen" method="show_create_house"]
+[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/CreateHouseButton" to="HouseAdminScreen" method="create_new_house"]
+[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees/ClaimFeesButton" to="HouseAdminScreen" method="claim_creation_fees"]
+[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/HouseFees/ClaimFeesButton" to="HouseAdminScreen" method="claim_house_tax_fees"]
+[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/Buttons/EditHouseButton" to="HouseAdminScreen" method="close_selected_house"]
+[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/Buttons/CloseMineButton" to="HouseAdminScreen" method="edit_selected_house"]

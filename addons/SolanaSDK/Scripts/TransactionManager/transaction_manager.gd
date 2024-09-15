@@ -45,6 +45,7 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 	#transaction.set_unit_price(0.0)
 	transaction.sign()
 	print("SIGNED!")
+	print(transaction.serialize())
 	#await transaction.fully_signed
 	
 	#var double_signed_tx:Transaction = await RubianServer.get_oracle_signature(transaction)

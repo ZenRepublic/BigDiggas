@@ -61,7 +61,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sapfa")
-tiny_adventure_pid = "2opEDUyeHM8rv1JfcK6N4BPgXnB4g9NjZ7wD23mGTmhr"
 start_button = NodePath("StartingScreen/StartingScreen/StartButton")
 player = NodePath("GameScreen/BlocksContainer/Block0/Player")
 chest = NodePath("GameScreen/BlocksContainer/Block3/Chest")

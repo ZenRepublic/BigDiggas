@@ -7,6 +7,7 @@ class_name MineCreateHandler
 @export var fund_input_field:InputField
 @export var max_fund_button:Button
 @export var token_visuals:Array[TextureRect]
+@export var fee_explanation:Label
 
 @export_category("Payment Settings")
 @export var manager_selector:AssetSelector
@@ -24,8 +25,6 @@ var selected_token:Token
 var selected_collection:Nft
 var manager_mint:Pubkey
 
-signal on_create_pressed(mine_data:Dictionary)
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	update_button_state()
@@ -38,7 +37,6 @@ func _ready() -> void:
 	manager_selector.on_selected.connect(update_manager_selection)
 	
 	max_fund_button.pressed.connect(set_max_fund)	
-	create_mine_button.pressed.connect(package_input_data)
 	
 	self.visibility_changed.connect(fetch_server_data)
 	pass # Replace with function body.
@@ -93,7 +91,7 @@ func select_collection(selected_idx:int) -> void:
 func update_manager_selection(selected_nft:Nft) -> void:
 	if selected_nft == null:
 		manager_mint = null
-		creation_fee_label.text = "0.1 SOL"
+		creation_fee_label.text = "0.2 SOL"
 		return
 	
 	manager_mint = selected_nft.mint
@@ -128,18 +126,20 @@ func get_campaign_end_timestamp(campaign_duration_in_hours:int) -> int:
 	return end_timestamp
 	
 	
-func package_input_data() -> void:
-	var general_input_data:Array = general_input_field_system.get_fields_data()
-	var nft_input_data:Array = nft_input_field_system.get_fields_data()
+func get_data() -> Dictionary:
+	var general_input_data:Dictionary = general_input_field_system.get_fields_data()
+	var nft_input_data:Dictionary = nft_input_field_system.get_fields_data()
 	var mine_data:Dictionary = {
-		"name":general_input_data[0],
-		"duration": get_campaign_end_timestamp(general_input_data[1]),
+		"name":general_input_data["campaignName"],
+		"duration": get_campaign_end_timestamp(general_input_data["campaignEndTime"]),
 		"currency":token_selection.get_item_metadata(token_selection.get_selected_id()),
-		"fund_amount":general_input_data[2],
+		"fund_amount":general_input_data["initialAmount"],
 		"miner_collection":collection_selection.get_item_metadata(collection_selection.get_selected_id()),
-		"miner_energy":nft_input_data[0],
-		"max_payout":nft_input_data[1],
-		"manager":manager_mint
+		"miner_energy":nft_input_data["maxEnergy"],
+		"max_payout":nft_input_data["maxReward"],
+		"manager":manager_mint,
+		"rewardsTax": general_input_data["rewardsTax"]
 	}
 	
-	on_create_pressed.emit(mine_data)
+	return mine_data
+	

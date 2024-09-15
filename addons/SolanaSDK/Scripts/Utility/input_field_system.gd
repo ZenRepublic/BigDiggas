@@ -1,13 +1,15 @@
 extends Node
 class_name InputFieldSystem
 
-@export var input_fields: Array[InputField]
+#@export var input_fields: Array[InputField]
+@export var input_fields: Dictionary
 
 signal on_input_submit
 signal on_fields_updated
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	for field in input_fields:
+	for key in input_fields.keys():
+		var field = get_node(input_fields[key]) as InputField
 		field.on_field_updated.connect(notify_change)
 		
 func notify_change() -> void:
@@ -18,18 +20,24 @@ func confirm_input() -> void:
 	
 func get_inputs_valid() -> bool:
 	var all_valid=true
-	for field in input_fields:
+	for key in input_fields.keys():
+		var field = get_node(input_fields[key]) as InputField
 		if !field.is_valid():
 			all_valid=false
 	return all_valid
 		
-func get_fields_data()-> Array:
-	var fields_data:Array
-	for input in input_fields:
-		fields_data.append(input.get_field_value())
-	
+func get_fields_data()-> Dictionary:
+	var fields_data:Dictionary
+	for key in input_fields.keys():
+		var field = get_node(input_fields[key]) as InputField
+		fields_data[key] = field.get_field_value()
+		
 	return fields_data
 		
 func clear_fields() -> void:
-	for field in input_fields:
+	for key in input_fields.keys():
+		var field = get_node(input_fields[key]) as InputField
 		field.clear()
+		
+func get_field(name:String) -> InputField:
+	return get_node(input_fields[name]) as InputField

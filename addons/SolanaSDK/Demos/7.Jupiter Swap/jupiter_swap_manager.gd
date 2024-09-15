@@ -47,7 +47,7 @@ func handle_token_select(selected_asset:Token) -> void:
 		return
 	curr_token_to_swap = selected_asset
 	input_field_system.clear_fields()
-	input_field_system.input_fields[0].max_value = await curr_token_to_swap.get_balance()
+	input_field_system.input_fields["swapAmount"].max_value = await curr_token_to_swap.get_balance()
 	
 	verification_icon.texture = await set_token_verification_mark(selected_asset.mint)
 	verification_icon.visible=true
@@ -86,7 +86,7 @@ func refresh_swap_quote() -> void:
 	
 	var token_to_send:Pubkey = curr_token_to_swap.mint
 	var token_to_receive:Pubkey = Pubkey.new_from_string(WRAPPED_SOL_ADDRESS)
-	var amount_to_swap:float = input_field_system.get_fields_data()[0]
+	var amount_to_swap:float = input_field_system.get_fields_data()["swapAmount"]
 	
 	swap_quote = await jupiter_api.get_swap_quote(token_to_send,token_to_receive,amount_to_swap,swap_slippage_percentage)
 	
@@ -98,7 +98,7 @@ func refresh_swap_quote() -> void:
 	
 func freeze_selection(freeze:bool) -> void:
 	swap_button.disabled=freeze
-	input_field_system.input_fields[0].editable=!freeze
+	input_field_system.input_fields["swapAmount"].editable=!freeze
 	token_selector.displayable_asset.select_button.disabled=freeze
 		
 func swap_tokens() -> void:
