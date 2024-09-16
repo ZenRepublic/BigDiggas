@@ -13,6 +13,11 @@ extends Node
 func get_pid() -> Pubkey:
 		return Pubkey.new_from_string(program.get_pid())
 		
+func fetch_account_of_type(account_type:String,key:Pubkey) -> Dictionary:
+	program.fetch_account(account_type,key)
+	var account:Dictionary = await program.accounts_fetched
+	return account
+	
 func fetch_all_accounts_of_type(account_type:String,filter:Array=[]) -> Dictionary:
 	program.fetch_all_accounts(account_type,filter)
 	var accounts:Dictionary = await program.accounts_fetched
@@ -51,14 +56,78 @@ func update_house(house_name:String,house_config:Dictionary) -> TransactionData:
 	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([create_house_ix])
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
 	return tx_data
-
-
-func create_campaign() -> TransactionData:
 	
-	var create_house_ix:Instruction = program.build_instruction("createCampaignUnmanaged",[	
-		
+func close_house(house_name:String) -> TransactionData:
+	var house_pda:Pubkey = ClubhousePDA.get_house_pda(house_name)
+	
+	var delete_house_ix:Instruction = program.build_instruction("closeHouse",[
+		house_pda,
+		SolanaService.wallet.get_kp(),
+		ClubhousePDA.get_house_currency_vault(house_pda),
+		SolanaService.TOKEN_PID,
+		SystemProgram.get_pid()
+	],null)
+	
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([delete_house_ix])
+	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
+	return tx_data
+
+
+func create_campaign(house_pda:Pubkey,house_currency:Pubkey,campaign_name:String,reward_mint:Pubkey,collection:Pubkey,fund_amount_lamports:int,max_reward_lamports:int,player_claim_fee:int,timespan:Dictionary,nft_config=null,token_config=null) -> TransactionData:
+	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(campaign_name,house_pda)
+	var signer_payment_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),house_currency)
+	var reward_depositor_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),reward_mint)
+	
+	var create_campaign_ix:Instruction = program.build_instruction("createCampaignUnmanaged",[	
+		SolanaService.wallet.get_kp(),
+		campaign_pda,
+		house_pda,
+		signer_payment_account,
+		reward_mint,
+		ClubhousePDA.get_house_currency_vault(house_pda),
+		reward_depositor_account,
+		ClubhousePDA.get_campaign_vault_pda(campaign_pda),
+		SolanaService.TOKEN_PID,
+		SystemProgram.get_pid()
 		],{
-			
+			"collectionPubkey":collection,
+			"campaignName":campaign_name,
+			"fundAmount":fund_amount_lamports,
+			"maxRewardsPerGame":max_reward_lamports,
+			"playerClaimPrice":player_claim_fee,
+			"timespan":timespan,
+			"nftEnergyConfig":AnchorProgram.option(nft_config),
+			"tokenEnergyConfig":AnchorProgram.option(token_config)
+		})
+	
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([create_campaign_ix])
+	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
+	return tx_data
+	
+	
+func start_game(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey,) -> TransactionData:
+	
+	var create_campaign_ix:Instruction = program.build_instruction("createCampaignUnmanaged",[	
+		SolanaService.wallet.get_kp(),
+		house_pda,
+		campaign_pda,
+		ClubhousePDA.get_campaign_player_pda(campaign_pda,player_nft)
+		signer_payment_account,
+		reward_mint,
+		ClubhousePDA.get_house_currency_vault(house_pda),
+		reward_depositor_account,
+		ClubhousePDA.get_campaign_vault_pda(campaign_pda),
+		SolanaService.TOKEN_PID,
+		SystemProgram.get_pid()
+		],{
+			"collectionPubkey":collection,
+			"campaignName":campaign_name,
+			"fundAmount":fund_amount_lamports,
+			"maxRewardsPerGame":max_reward_lamports,
+			"playerClaimPrice":player_claim_fee,
+			"timespan":timespan,
+			"nftEnergyConfig":AnchorProgram.option(nft_config),
+			"tokenEnergyConfig":AnchorProgram.option(token_config)
 		})
 	
 	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([])

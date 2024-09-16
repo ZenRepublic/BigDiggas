@@ -6,6 +6,9 @@ class_name HouseDisplay
 @export var total_campaigns_label:Label
 @export var unique_players_label:NumberLabel
 
+@export var creation_fees_label:Label
+@export var house_fees_label:Label
+
 @export var house_edit_data_handler:HouseEditDataHandler
 
 var curr_selected_house_data:Dictionary
@@ -19,5 +22,8 @@ func set_house_data(data:Dictionary) -> void:
 	active_campaigns_label.text = str(data["activeCampaigns"])
 	total_campaigns_label.text = str(data["totalCampaigns"])
 	unique_players_label.set_value(data["uniquePlayers"])
+	
+	creation_fees_label.text = "%s SOL" % str(data["unclaimedCreationFees"])
+	house_fees_label.text = "%s SOL" % str(data["unclaimedHouseFees"])
 	
 	house_edit_data_handler.set_fields(data)

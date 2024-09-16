@@ -18,13 +18,17 @@ func _ready() -> void:
 	
 func on_visibility_changed() -> void:
 	if self.visible:
-		screen_manager.switch_active_panel(0)
-		var houses:Dictionary = await ClubhouseProgram.fetch_all_accounts_of_type("House")
-		for key in houses.keys():
-			var house_data:Dictionary = houses[key]
-			var house_name_bytes:PackedByteArray = house_data["houseName"] as PackedByteArray
-			house_account_display_system.add_account(house_name_bytes.get_string_from_utf8(),house_data)
-		screen_manager.switch_active_panel(2)
+		await refresh_account_list()
+		
+func refresh_account_list() -> void:
+	screen_manager.switch_active_panel(0)
+	house_account_display_system.clear_display()
+	var houses:Dictionary = await ClubhouseProgram.fetch_all_accounts_of_type("House")
+	for key in houses.keys():
+		var house_data:Dictionary = houses[key]
+		var house_name_bytes:PackedByteArray = house_data["houseName"] as PackedByteArray
+		house_account_display_system.add_account(house_name_bytes.get_string_from_utf8(),house_data)
+	screen_manager.switch_active_panel(2)
 		
 func show_create_house() -> void:
 	house_screen_manager.switch_active_panel(2)
@@ -84,14 +88,23 @@ func edit_selected_house() -> void:
 	screen_manager.switch_active_panel(2)
 	pass
 	
+	
+func close_selected_house() -> void:
+	screen_manager.switch_active_panel(1)
+	
+	var house_data:Dictionary = house_edit_data_handler.get_data()
+	var house_name_bytes:PackedByteArray = house_display.curr_selected_house_data["houseName"] as PackedByteArray
+	var house_name:String = house_name_bytes.get_string_from_utf8()
+	
+	var tx_data:TransactionData = await ClubhouseProgram.close_house(house_name)
+	
+	screen_manager.switch_active_panel(2)
+	pass
+	
 func load_house(house_data:Dictionary) -> void:
 	house_screen_manager.switch_active_panel(1)
 	await house_display.set_house_data(house_data)
 	house_screen_manager.switch_active_panel(3)
-	
-func close_selected_house() -> void:
-	screen_manager.switch_active_panel(1)
-	pass
 	
 func claim_creation_fees() -> void:
 	screen_manager.switch_active_panel(1)

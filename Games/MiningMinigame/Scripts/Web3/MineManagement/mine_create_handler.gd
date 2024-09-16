@@ -130,13 +130,15 @@ func get_data() -> Dictionary:
 	var general_input_data:Dictionary = general_input_field_system.get_fields_data()
 	var nft_input_data:Dictionary = nft_input_field_system.get_fields_data()
 	var mine_data:Dictionary = {
-		"name":general_input_data["campaignName"],
-		"duration": get_campaign_end_timestamp(general_input_data["campaignEndTime"]),
-		"currency":token_selection.get_item_metadata(token_selection.get_selected_id()),
-		"fund_amount":general_input_data["initialAmount"],
-		"miner_collection":collection_selection.get_item_metadata(collection_selection.get_selected_id()),
-		"miner_energy":nft_input_data["maxEnergy"],
-		"max_payout":nft_input_data["maxReward"],
+		"campaignName":general_input_data["campaignName"],
+		"startTime": Time.get_unix_time_from_system(),
+		"endTime": get_campaign_end_timestamp(general_input_data["campaignEndTime"]),
+		"rewardMint":token_selection.get_item_metadata(token_selection.get_selected_id()),
+		"fundAmount":general_input_data["initialAmount"],
+		"collection":collection_selection.get_item_metadata(collection_selection.get_selected_id()),
+		"maxEnergy":nft_input_data["maxEnergy"],
+		"energyRechargeMinutes":-1,
+		"maxReward":nft_input_data["maxReward"],
 		"manager":manager_mint,
 		"rewardsTax": general_input_data["rewardsTax"]
 	}

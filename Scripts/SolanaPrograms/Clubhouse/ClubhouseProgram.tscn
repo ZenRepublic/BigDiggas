@@ -32,11 +32,6 @@ idl = {
 "name": "managerMint",
 "type": "publicKey"
 }, {
-"name": "collectionIdentifier",
-"type": {
-"defined": "CollectionIdentifier"
-}
-}, {
 "name": "metadataMint",
 "type": {
 "option": "publicKey"
@@ -111,7 +106,13 @@ idl = {
 "name": "rewardMintDecimals",
 "type": "u8"
 }, {
-"name": "memberCount",
+"name": "maxRewardsPerGame",
+"type": "u64"
+}, {
+"name": "rewardsClaimFee",
+"type": "u64"
+}, {
+"name": "playerCount",
 "type": "u32"
 }, {
 "name": "activeGames",
@@ -320,7 +321,7 @@ idl = {
 "name": "mint",
 "type": "publicKey"
 }, {
-"name": "club",
+"name": "campaign",
 "type": "publicKey"
 }, {
 "name": "energy",
@@ -329,19 +330,16 @@ idl = {
 "name": "rechargeStartTime",
 "type": "i64"
 }, {
-"name": "trainingsPlayed",
+"name": "gameStartTime",
+"type": "i64"
+}, {
+"name": "gamesPlayed",
 "type": "u32"
 }, {
-"name": "matchesPlayed",
-"type": "u32"
-}, {
-"name": "inTraining",
+"name": "inGame",
 "type": "bool"
 }, {
-"name": "inMatch",
-"type": "bool"
-}, {
-"name": "currentActivity",
+"name": "game",
 "type": {
 "option": "publicKey"
 }
@@ -408,36 +406,48 @@ idl = {
 "name": "InsufficientFunds"
 }, {
 "code": 6013.0,
+"msg": "Amount too high",
+"name": "AmountTooHigh"
+}, {
+"code": 6014.0,
 "msg": "No Authority",
 "name": "NotClubAdmin"
 }, {
-"code": 6014.0,
+"code": 6015.0,
 "msg": "Player already in a match",
 "name": "PlayerAlreadyInMatch"
 }, {
-"code": 6015.0,
+"code": 6016.0,
 "msg": "Too low wager",
 "name": "TooLowWager"
 }, {
-"code": 6016.0,
+"code": 6017.0,
 "msg": "The house name cannot be longer than 32 bytes",
 "name": "InvalidHouseNameLength"
 }, {
-"code": 6017.0,
+"code": 6018.0,
 "msg": "The house name cannot be shorted than 4 bytes",
 "name": "HouseNameTooShort"
 }, {
-"code": 6018.0,
+"code": 6019.0,
 "msg": "The house name cannot have special characters",
 "name": "InvalidHouseName"
 }, {
-"code": 6019.0,
+"code": 6020.0,
 "msg": "The vault must be empty",
 "name": "NonZeroVault"
 }, {
-"code": 6020.0,
+"code": 6021.0,
 "msg": "Active campaigns exist",
 "name": "ActiveCampaigns"
+}, {
+"code": 6022.0,
+"msg": "Campaign is active",
+"name": "ActiveCampaign"
+}, {
+"code": 6023.0,
+"msg": "Campaign is expired",
+"name": "CampaignExpired"
 }],
 "instructions": [{
 "accounts": [{
@@ -507,13 +517,25 @@ idl = {
 "isSigner": false,
 "name": "house"
 }, {
-"isMut": false,
+"isMut": true,
 "isSigner": true,
 "name": "houseAdmin"
 }, {
 "isMut": true,
 "isSigner": false,
 "name": "houseCurrencyVault"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "adminWithdrawAccount"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "houseCurrency"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "associatedTokenProgram"
 }, {
 "isMut": false,
 "isSigner": false,
@@ -524,7 +546,7 @@ idl = {
 "name": "systemProgram"
 }],
 "args": [],
-"name": "deleteHouse"
+"name": "closeHouse"
 }, {
 "accounts": [{
 "isMut": true,
@@ -549,6 +571,217 @@ idl = {
 }],
 "args": [],
 "name": "addProgramAdmin"
+}, {
+"accounts": [{
+"isMut": true,
+"isSigner": true,
+"name": "signer"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "campaign"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "house"
+}, {
+"docs": ["pays the campaign creation fees"],
+"isMut": true,
+"isSigner": false,
+"name": "signerPaymentAccount"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "rewardMint"
+}, {
+"docs": ["the vault where we pay the campaign creation fees"],
+"isMut": true,
+"isSigner": false,
+"name": "houseVault"
+}, {
+"docs": ["the account that deposits rewards for the campaign"],
+"isMut": true,
+"isSigner": false,
+"name": "rewardDepositorAccount"
+}, {
+"docs": ["the vault where the rewards are held to be claimed"],
+"isMut": true,
+"isSigner": false,
+"name": "rewardVault"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "tokenProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "systemProgram"
+}],
+"args": [{
+"name": "collectionPubkey",
+"type": "publicKey"
+}, {
+"name": "campaignName",
+"type": "string"
+}, {
+"name": "fundAmount",
+"type": "u64"
+}, {
+"name": "maxRewardsPerGame",
+"type": "u64"
+}, {
+"name": "playerClaimPrice",
+"type": "u64"
+}, {
+"name": "timeSpan",
+"type": {
+"defined": "TimeSpan"
+}
+}, {
+"name": "nftEnergyConfig",
+"type": {
+"option": {
+"defined": "NftEnergyConfig"
+}
+}
+}, {
+"name": "tokenEnergyConfig",
+"type": {
+"option": {
+"defined": "TokenEnergyConfig"
+}
+}
+}],
+"name": "createCampaignUnmanaged"
+}, {
+"accounts": [{
+"isMut": true,
+"isSigner": false,
+"name": "campaign"
+}, {
+"docs": ["the account that deposits rewards for the campaign"],
+"isMut": true,
+"isSigner": true,
+"name": "rewardWithdrawalAccount"
+}, {
+"docs": ["the vault where the rewards are held to be claimed"],
+"isMut": false,
+"isSigner": false,
+"name": "rewardMint"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "rewardVault"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "house"
+}, {
+"isMut": true,
+"isSigner": true,
+"name": "manager"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "tokenProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "systemProgram"
+}],
+"args": [],
+"name": "closeCampaignUnmanaged"
+}, {
+"accounts": [{
+"isMut": true,
+"isSigner": false,
+"name": "house"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "campaign"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "campaignPlayer"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "playerNftTokenAccount"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "playerNftMetadata"
+}, {
+"isMut": true,
+"isSigner": true,
+"name": "user"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "tokenProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "systemProgram"
+}],
+"args": [],
+"name": "startGameWithNft"
+}, {
+"accounts": [{
+"isMut": true,
+"isSigner": false,
+"name": "house"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "campaign"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "campaignPlayer"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "playerNftTokenAccount"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "playerNftMetadata"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "rewardMint"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "rewardVault"
+}, {
+"isMut": true,
+"isSigner": false,
+"name": "playerRewardTokenAccount"
+}, {
+"isMut": true,
+"isSigner": true,
+"name": "user"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "associatedTokenProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "tokenProgram"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "systemProgram"
+}],
+"args": [{
+"name": "amountWon",
+"type": "u64"
+}],
+"name": "endGameWithNft"
 }],
 "metadata": {
 "address": "C1ubCwnK75ExARi8BoVzAvREDG29wJKyiwnf1hC8rgBU"
@@ -558,7 +791,7 @@ idl = {
 "name": "NftEnergyConfig",
 "type": {
 "fields": [{
-"name": "maxClubMemberEnergy",
+"name": "maxPlayerEnergy",
 "type": "u8"
 }, {
 "name": "energyRechargeMinutes",
@@ -685,25 +918,6 @@ idl = {
 "type": "u64"
 }],
 "kind": "struct"
-}
-}, {
-"docs": ["Identifier of the collection"],
-"name": "CollectionIdentifier",
-"type": {
-"kind": "enum",
-"variants": [{
-"fields": [{
-"name": "pubkey",
-"type": "publicKey"
-}],
-"name": "Collection"
-}, {
-"fields": [{
-"name": "pubkey",
-"type": "publicKey"
-}],
-"name": "Creator"
-}]
 }
 }],
 "version": "0.1.0"
