@@ -41,7 +41,6 @@ func handle_toolbelt(clicked:bool) -> void:
 func update_tool_selection(tool_index:int) -> void:
 #	for some reason indexes work in counterclockwise direction, we need to flip it
 	var clockwise_index:int = (tool_menu.get_child_count() - tool_index) % tool_menu.get_child_count()
-	print(clockwise_index)
 	on_tool_selected.emit(clockwise_index)
 	
 func handle_tool_click(_selected_child,_tool_index:int) -> void:

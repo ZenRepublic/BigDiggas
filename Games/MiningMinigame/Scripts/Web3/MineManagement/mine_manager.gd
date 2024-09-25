@@ -27,15 +27,12 @@ func _ready() -> void:
 	
 func on_visibility_changed() -> void:
 	if self.visible:
-		await refresh_account_list()
+		await refresh_mines_list()
 		
-func refresh_account_list() -> void:
+func refresh_mines_list() -> void:
 	screen_manager.switch_active_panel(0)
-	mine_account_display_system.clear_display()
-	var campaigns:Dictionary = await ClubhouseProgram.fetch_all_accounts_of_type("Campaign",[{"memcmp" : { "offset":8, "bytes": house_pda.to_string()}}])
-	for key in campaigns.keys():
-		var campaign_data:Dictionary = campaigns[key]
-		mine_account_display_system.add_account(campaign_data["campaignName"],campaign_data)
+	var filter:Array = [{"memcmp" : { "offset":8, "bytes": house_pda.to_string()}}]
+	await mine_account_display_system.refresh_list("Campaign","campaignName",filter)
 	screen_manager.switch_active_panel(2)
 		
 func show_create_mine() -> void:

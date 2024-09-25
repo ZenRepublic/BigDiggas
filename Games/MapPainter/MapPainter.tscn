@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Games/MapPainter/painter_manager.gd" id="1_keos3"]
 [ext_resource type="Script" path="res://Games/MapPainter/grid_overlay.gd" id="2_kcjvv"]
-[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/input_field.gd" id="3_b51id"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/Input/input_field.gd" id="3_b51id"]
 [ext_resource type="Script" path="res://Games/MapPainter/color_picker.gd" id="4_k31ai"]
 [ext_resource type="Resource" uid="uid://dwb3oc0e3ll2x" path="res://Games/MapPainter/map_colors.tres" id="5_lvpx4"]
 [ext_resource type="Script" path="res://Games/MapPainter/painter_input.gd" id="6_dgnsr"]

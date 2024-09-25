@@ -45,7 +45,6 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 	#transaction.set_unit_price(0.0)
 	transaction.sign()
 	print("SIGNED!")
-	print(transaction.serialize())
 	#await transaction.fully_signed
 	
 	#var double_signed_tx:Transaction = await RubianServer.get_oracle_signature(transaction)
@@ -62,7 +61,6 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 func sign_serialized_transaction(signers:Array,transaction_bytes:PackedByteArray,tx_commitment:Commitment=Commitment.CONFIRMED,priority_fee:float=0.0) -> TransactionData:
 	on_tx_init.emit()
 	var transaction:Transaction = Transaction.new_from_bytes(transaction_bytes)
-	print(transaction.serialize())
 	add_child(transaction)
 	
 	transaction.set_signers(signers)

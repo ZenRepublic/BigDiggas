@@ -43,7 +43,6 @@ func _input(event: InputEvent) -> void:
 		
 func zoom_camera(zoom_in:bool) -> void:
 	emit_signal("on_zoom",zoom_in)
-	print("ZOOM")
 	if zoom_in:
 		curr_zoom += zoom_tick
 	else:

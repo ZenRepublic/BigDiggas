@@ -51,7 +51,6 @@ func set_loaded_assets() -> void:
 			
 
 func setup(assets:Array[WalletAsset],clear_previous:bool=false) -> void:
-	print(assets)
 	if clear_previous && entries.size()!=null:
 		clear_display()
 	

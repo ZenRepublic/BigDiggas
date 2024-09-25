@@ -51,8 +51,8 @@ func load_assets()->void:
 		
 		if asset is Token && load_token_balances:
 			var token = asset as Token
-			token.lamport_balance = wallet_assets[i]["amount"]
 			token.decimals = await SolanaService.get_token_decimals(asset_mint.to_string())
+			token.balance = wallet_assets[i]["amount"] / pow(10,token.decimals)
 			
 		owned_assets.append(asset)
 		on_asset_loaded.emit(asset)
@@ -69,15 +69,17 @@ func get_owned_asset(asset_mint:Pubkey) -> WalletAsset:
 	
 func try_find_in_cache(asset_mint:Pubkey) -> WalletAsset:
 	for asset in asset_cache:
+		
 		if asset.mint.to_string() == asset_mint.to_string():
 			return asset
 	return null
 
-func get_asset_from_mint(asset_mint:Pubkey, load_texture:bool=false) -> WalletAsset:
+func get_asset_from_mint(asset_mint:Pubkey, load_texture:bool=false, try_load_from_cache:bool=true) -> WalletAsset:
 #	check if the mint already exists in the cache so wouldn't need to fetch again
-	var wallet_asset:WalletAsset = try_find_in_cache(asset_mint)
-	if wallet_asset != null:
-		return wallet_asset
+	if try_load_from_cache:
+		var wallet_asset:WalletAsset = try_find_in_cache(asset_mint)
+		if wallet_asset != null:
+			return wallet_asset
 		
 	var mpl_metadata:MplTokenMetadata = SolanaService.spawn_mpl_metadata_client()
 	mpl_metadata.get_mint_metadata(asset_mint)

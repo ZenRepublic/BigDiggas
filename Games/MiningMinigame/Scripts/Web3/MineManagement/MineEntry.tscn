@@ -1,69 +1,79 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnfq88vw2eksv"]
+[gd_scene load_steps=7 format=3 uid="uid://bnfq88vw2eksv"]
 
 [ext_resource type="Texture2D" uid="uid://dchy7ed3ybfi1" path="res://Textures/Tokens/Zenny token.PNG" id="2_ra8j1"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_account_select.gd" id="2_w5oyl"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/DisplaySystems/Assets/displayable_asset.gd" id="3_c34kt"]
 [ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="5_p8jhh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ej5u4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yce1"]
 bg_color = Color(1, 1, 1, 1)
 skew = Vector2(0.56, 0)
 
-[node name="MineEntry" type="Button"]
-custom_minimum_size = Vector2(0, 45)
+[node name="AccountSelectMine" type="PanelContainer" node_paths=PackedStringArray("token_displayable", "label", "button")]
+custom_minimum_size = Vector2(680, 45)
+offset_right = 692.0
+offset_bottom = 57.0
+theme = ExtResource("5_p8jhh")
+theme_type_variation = &"ListEntryButton"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_ej5u4")
+script = ExtResource("2_w5oyl")
+token_displayable = NodePath("MarginContainer/HBoxContainer/TokenInfo")
+label = NodePath("MarginContainer/HBoxContainer/MineName")
+button = NodePath("Button")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
 theme = ExtResource("5_p8jhh")
 theme_type_variation = &"ListEntryButton"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
-offset_right = 676.0
-offset_bottom = 45.0
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_right = 10
 
-[node name="Spacer1" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(23.985, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 30
 
-[node name="MineName" type="Label" parent="HBoxContainer"]
+[node name="MineName" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("5_p8jhh")
 theme_override_font_sizes/font_size = 30
 text = "Steel Ball Mine LFG BROSKIS"
 vertical_alignment = 1
 
-[node name="Spacer2" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
+[node name="Divider" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 
-[node name="Divider" type="Panel" parent="HBoxContainer"]
+[node name="Divider1" type="Panel" parent="MarginContainer/HBoxContainer/Divider"]
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
 
-[node name="Divider2" type="Panel" parent="HBoxContainer/Divider"]
+[node name="Divider2" type="Panel" parent="MarginContainer/HBoxContainer/Divider"]
 custom_minimum_size = Vector2(4.97, 0)
 layout_mode = 2
-offset_left = 19.0
-offset_right = 23.97
-offset_bottom = 45.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7yce1")
 
-[node name="Spacer3" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
+[node name="TokenInfo" type="HBoxContainer" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("visual", "name_label")]
 layout_mode = 2
+theme_override_constants/separation = 10
+script = ExtResource("3_c34kt")
+visual = NodePath("TokenIcon")
+image_size = 64
+name_label = NodePath("TokenName")
 
-[node name="TokenIcon" type="TextureRect" parent="HBoxContainer"]
+[node name="TokenIcon" type="TextureRect" parent="MarginContainer/HBoxContainer/TokenInfo"]
 layout_mode = 2
 texture = ExtResource("2_ra8j1")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="TokenName" type="Label" parent="HBoxContainer"]
+[node name="TokenName" type="Label" parent="MarginContainer/HBoxContainer/TokenInfo"]
 layout_mode = 2
 theme = ExtResource("5_p8jhh")
 theme_override_font_sizes/font_size = 20
 text = "$MOTHER"
 vertical_alignment = 1
-
-[node name="Spacer4" type="MarginContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(11.925, 0)
-layout_mode = 2
-size_flags_horizontal = 3

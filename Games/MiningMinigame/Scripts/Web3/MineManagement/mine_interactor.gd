@@ -22,7 +22,6 @@ func refresh_account_list() -> void:
 	var campaigns:Dictionary = await ClubhouseProgram.fetch_all_accounts_of_type("Campaign")
 	for key in campaigns.keys():
 		var campaign_data:Dictionary = campaigns[key]
-		print(campaign_data)
 		mine_account_display.add_account(campaign_data["campaignName"],campaign_data)
 	screen_manager.switch_active_panel(2)
 

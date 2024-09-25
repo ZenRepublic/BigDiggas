@@ -39,7 +39,6 @@ func move(move_delta:Vector2)-> void:
 	#var viewport_size = cam.get_viewport_rect().size
 	#var half_width = (viewport_size.x * cam.zoom.x) / 2
 	#var half_height = (viewport_size.y * cam.zoom.y) / 2
-	#print(half_width," ",half_height)
 	
 	var min_x = map_bounds.position.x - movement_padding
 	var min_y = map_bounds.position.y - movement_padding

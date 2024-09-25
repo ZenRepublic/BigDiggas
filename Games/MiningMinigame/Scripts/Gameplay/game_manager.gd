@@ -21,7 +21,6 @@ func _ready():
 	player.stats.on_energy_depleted.connect(handle_out_of_energy)
 	
 	game_mode = SceneManager.get_interscene_data("GameMode")
-	print(game_mode)
 	pass # Replace with function body.
 
 	

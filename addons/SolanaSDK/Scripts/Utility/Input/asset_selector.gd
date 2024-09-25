@@ -6,6 +6,7 @@ class_name AssetSelector
 
 @export var default_visual:Texture2D
 @export var default_name:String
+@export var is_optional:bool=false
 
 var selected_asset:WalletAsset
 signal on_selected(selected_asset:WalletAsset)
@@ -40,3 +41,10 @@ func select_asset(display_selection:WalletAsset) -> void:
 	selected_asset = display_selection
 	on_selected.emit(selected_asset)
 	await displayable_asset.set_data(selected_asset)
+	
+func is_valid() -> bool:
+	if selected_asset == null:
+		return is_optional
+	
+	return selected_asset != null
+		

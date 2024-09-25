@@ -57,11 +57,9 @@ func uncover() -> void:
 	var json = JSON.new()
 	json.parse(response)
 	var data = json.get_data()
-	print(data)
 	encounter_popup.setup(data["introduction"],data["actions"], texture)
 	encounter_popup.connect("on_action_selected", process_encounter_outcome)
 
 func process_encounter_outcome(action_selected:String) -> void:
 	var response:String = await OpenAI.prompt_session(action_selected,session_id)
-	print(response)
 	

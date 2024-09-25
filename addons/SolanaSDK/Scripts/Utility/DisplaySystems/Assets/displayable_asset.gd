@@ -1,12 +1,15 @@
 extends Node
 class_name DisplayableAsset
 
+@export var select_button:BaseButton
 @export var visual:TextureRect
 @export var image_size = 512
+@export_file("*.png","*.jpg") var missing_icon_path:String
 
 @export var name_label:Label
+@export_category("Displayable Token Settings")
 @export var balance_label:NumberLabel
-@export var select_button:BaseButton
+@export var auto_load_balance:bool
 
 var asset:WalletAsset
 
@@ -37,11 +40,16 @@ func set_data(asset:WalletAsset) -> void:
 		if asset.image!=null:
 			visual.texture = asset.image
 		else:
+			if missing_icon_path!=null:
+				visual.texture = load(missing_icon_path)
 			print("Couldn't load the image for mint: %s" % asset.mint.to_string())
 			
-	if balance_label != null and asset is Token:
+	if asset is Token:
 		var token = asset as Token
-		balance_label.set_value(await token.get_balance())
+		if balance_label!=null:
+			balance_label.set_value(await token.get_balance())
+		if auto_load_balance:
+			SolanaService.transaction_manager.on_tx_finish.connect(update_balance)
 		
 
 func set_data_manual(texture:Texture2D, nft_name:String, balance:float=0.0) -> void:
@@ -58,3 +66,14 @@ func get_associated_asset() -> WalletAsset:
 	
 func handle_select() -> void:
 	on_selected.emit(self)
+	
+func update_balance(tx_data:TransactionData) -> void:
+	if !tx_data.is_successful():
+		return
+	
+	if balance_label == null:
+		return
+		
+	var token:Token = asset as Token
+	balance_label.set_value(await token.get_balance(true))
+	

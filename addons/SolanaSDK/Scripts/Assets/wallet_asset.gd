@@ -6,7 +6,6 @@ var mint:Pubkey
 var asset_name:String
 var symbol:String
 var image:Texture2D
-var balance:int=0
 
 var asset_type:AssetManager.AssetType
 
@@ -33,7 +32,6 @@ func try_load_image(size:int=256) -> void:
 		image = SolanaService.asset_manager.missing_texture_visual
 		return
 		
-	#print(offchain_metadata["image"])
 	image = await SolanaService.file_loader.load_token_image(offchain_metadata["image"],size)
 	if image == null:
 		push_warning("Couldn't fetch image for mint: %s" % mint.to_string())

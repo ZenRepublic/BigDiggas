@@ -1,10 +1,8 @@
 extends Node
 
-var WRAPPED_SOL_ADDRESS:String = "So11111111111111111111111111111111111111112"
-
 @export var jupiter_api:JupiterAPI
 @export var token_selector:AssetSelector
-@export var input_field_system:InputFieldSystem
+@export var data_input_system:DataInputSystem
 @export var sol_swap_value_label:Label
 @export var swap_button:Button
 @export var swap_slippage_percentage:float = 0.01
@@ -22,8 +20,7 @@ var swap_quote:Dictionary
 var time_to_refresh_quote:float = 0
 
 func _ready() -> void:
-	swap_button.disabled=true
-	input_field_system.on_fields_updated.connect(update_button_state)
+	data_input_system.on_fields_updated.connect(handle_fields_update)
 	token_selector.on_selected.connect(handle_token_select)
 	swap_button.pressed.connect(swap_tokens)
 	
@@ -46,13 +43,13 @@ func handle_token_select(selected_asset:Token) -> void:
 	if selected_asset == curr_token_to_swap:
 		return
 	curr_token_to_swap = selected_asset
-	input_field_system.clear_fields()
-	input_field_system.input_fields["swapAmount"].max_value = await curr_token_to_swap.get_balance()
+	data_input_system.reset_all_fields()
+	data_input_system.input_fields["swapAmount"].max_value = await curr_token_to_swap.get_balance()
 	
 	verification_icon.texture = await set_token_verification_mark(selected_asset.mint)
 	verification_icon.visible=true
 		
-	update_button_state()
+	handle_fields_update()
 	
 func set_token_verification_mark(token_mint:Pubkey) -> Texture2D:
 	var token_status:JupiterAPI.TokenStatus = await jupiter_api.get_token_status(token_mint)
@@ -64,17 +61,16 @@ func set_token_verification_mark(token_mint:Pubkey) -> Texture2D:
 	
 	return null
 	
-func update_button_state() -> void:
+func handle_fields_update() -> void:
 	var all_fields_valid:bool = true
 	
-	if !input_field_system.get_inputs_valid():
+	if !data_input_system.get_inputs_valid():
 		all_fields_valid=false
 		
 	if token_selector.selected_asset == null:
 		all_fields_valid=false
 		
-	if !all_fields_valid:
-		swap_button.disabled = true
+	if !data_input_system.get_inputs_valid():
 		sol_swap_value_label.text = "..."
 		return
 		
@@ -85,20 +81,19 @@ func refresh_swap_quote() -> void:
 	swap_button.text = "Loading..."
 	
 	var token_to_send:Pubkey = curr_token_to_swap.mint
-	var token_to_receive:Pubkey = Pubkey.new_from_string(WRAPPED_SOL_ADDRESS)
-	var amount_to_swap:float = input_field_system.get_fields_data()["swapAmount"]
+	var token_to_receive:Pubkey = Pubkey.new_from_string(SolanaService.WRAPPED_SOL_CA)
+	var amount_to_swap:float = data_input_system.get_input_data()["swapAmount"]
 	
 	swap_quote = await jupiter_api.get_swap_quote(token_to_send,token_to_receive,amount_to_swap,swap_slippage_percentage)
 	
 	sol_swap_value_label.text = str(float(swap_quote["outAmount"]) / pow(10,9))
 	time_to_refresh_quote = quote_refresh_seconds
 	freeze_selection(false)
-	print(swap_quote)
 	
 	
 func freeze_selection(freeze:bool) -> void:
 	swap_button.disabled=freeze
-	input_field_system.input_fields["swapAmount"].editable=!freeze
+	data_input_system.input_fields["swapAmount"].editable=!freeze
 	token_selector.displayable_asset.select_button.disabled=freeze
 		
 func swap_tokens() -> void:

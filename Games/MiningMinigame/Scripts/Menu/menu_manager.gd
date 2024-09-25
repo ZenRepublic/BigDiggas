@@ -21,12 +21,12 @@ func _on_training_button_pressed() -> void:
 	MusicManager.play_sound("ButtonSimple")
 	SceneManager.load_scene(game_scene_path,true,-1,{"GameMode":GameManager.GameMode.TRAINING})
 	
-func _on_mint_manager_button_pressed() -> void:
-	MusicManager.play_sound("ButtonSimple")
-	screen_manager.switch_active_panel(1)
-	
 func _on_mint_button_pressed() -> void:
 	MusicManager.play_sound("ButtonRich")
+	screen_manager.switch_active_panel(1)
+	
+func _on_mint_manager_button_pressed() -> void:
+	MusicManager.play_sound("ButtonSimple")
 	screen_manager.switch_active_panel(2)
 	
 func _on_admin_button_pressed() -> void:

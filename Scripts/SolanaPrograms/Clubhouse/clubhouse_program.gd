@@ -13,14 +13,27 @@ extends Node
 func get_pid() -> Pubkey:
 		return Pubkey.new_from_string(program.get_pid())
 		
+#for fetching, gotta create a separate instance because these calls may happen in parallel which is not allowed
+func spawn_program_instance()->AnchorProgram:
+	var program_instance:AnchorProgram = AnchorProgram.new()
+	program_instance.set_pid(program.get_pid())
+	program_instance.set_json_file(program.get_json_file())
+	program_instance.set_idl(program.get_idl())
+	add_child(program_instance)
+	return program_instance
+		
 func fetch_account_of_type(account_type:String,key:Pubkey) -> Dictionary:
-	program.fetch_account(account_type,key)
-	var account:Dictionary = await program.accounts_fetched
+	var program_instance = spawn_program_instance()
+	program_instance.fetch_account(account_type,key)
+	var account:Dictionary = await program_instance.accounts_fetched
+	program_instance.queue_free()
 	return account
 	
 func fetch_all_accounts_of_type(account_type:String,filter:Array=[]) -> Dictionary:
-	program.fetch_all_accounts(account_type,filter)
-	var accounts:Dictionary = await program.accounts_fetched
+	var program_instance = spawn_program_instance()
+	program_instance.fetch_all_accounts(account_type,filter)
+	var accounts:Dictionary = await program_instance.accounts_fetched
+	program_instance.queue_free()
 	return accounts
 		
 func create_house(house_name:String,manager_collection:Pubkey,house_currency:Pubkey,house_config:Dictionary) -> TransactionData:
@@ -57,13 +70,17 @@ func update_house(house_name:String,house_config:Dictionary) -> TransactionData:
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
 	return tx_data
 	
-func close_house(house_name:String) -> TransactionData:
+func close_house(house_name:String, house_currency:Pubkey) -> TransactionData:
 	var house_pda:Pubkey = ClubhousePDA.get_house_pda(house_name)
 	
+	var house_vault_token_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),house_currency)
 	var delete_house_ix:Instruction = program.build_instruction("closeHouse",[
 		house_pda,
 		SolanaService.wallet.get_kp(),
 		ClubhousePDA.get_house_currency_vault(house_pda),
+		house_vault_token_account,
+		house_currency,
+		SolanaService.ATA_TOKEN_PID,
 		SolanaService.TOKEN_PID,
 		SystemProgram.get_pid()
 	],null)
@@ -107,28 +124,28 @@ func create_campaign(house_pda:Pubkey,house_currency:Pubkey,campaign_name:String
 	
 func start_game(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey,) -> TransactionData:
 	
-	var create_campaign_ix:Instruction = program.build_instruction("createCampaignUnmanaged",[	
-		SolanaService.wallet.get_kp(),
-		house_pda,
-		campaign_pda,
-		ClubhousePDA.get_campaign_player_pda(campaign_pda,player_nft)
-		signer_payment_account,
-		reward_mint,
-		ClubhousePDA.get_house_currency_vault(house_pda),
-		reward_depositor_account,
-		ClubhousePDA.get_campaign_vault_pda(campaign_pda),
-		SolanaService.TOKEN_PID,
-		SystemProgram.get_pid()
-		],{
-			"collectionPubkey":collection,
-			"campaignName":campaign_name,
-			"fundAmount":fund_amount_lamports,
-			"maxRewardsPerGame":max_reward_lamports,
-			"playerClaimPrice":player_claim_fee,
-			"timespan":timespan,
-			"nftEnergyConfig":AnchorProgram.option(nft_config),
-			"tokenEnergyConfig":AnchorProgram.option(token_config)
-		})
+	#var create_campaign_ix:Instruction = program.build_instruction("createCampaignUnmanaged",[	
+		#SolanaService.wallet.get_kp(),
+		#house_pda,
+		#campaign_pda,
+		#ClubhousePDA.get_campaign_player_pda(campaign_pda,player_nft),
+		#signer_payment_account,
+		#reward_mint,
+		#ClubhousePDA.get_house_currency_vault(house_pda),
+		#reward_depositor_account,
+		#ClubhousePDA.get_campaign_vault_pda(campaign_pda),
+		#SolanaService.TOKEN_PID,
+		#SystemProgram.get_pid()
+		#],{
+			#"collectionPubkey":collection,
+			#"campaignName":campaign_name,
+			#"fundAmount":fund_amount_lamports,
+			#"maxRewardsPerGame":max_reward_lamports,
+			#"playerClaimPrice":player_claim_fee,
+			#"timespan":timespan,
+			#"nftEnergyConfig":AnchorProgram.option(nft_config),
+			#"tokenEnergyConfig":AnchorProgram.option(token_config)
+		#})
 	
 	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([])
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)

@@ -5,8 +5,9 @@ enum InputType{ALPHANUMERIC,INTEGER,DECIMAL}
 
 @export var input_type = InputType.ALPHANUMERIC
 @export var min_length:int = 0
-@export var is_optional = false
-
+@export var is_optional:bool = false
+@export var null_if_empty:bool = true
+@export var is_pubkey:bool=false
 #@export_category("Alphanumeric Settings")
 #@export var bytes_required:int = 0
 
@@ -73,11 +74,10 @@ func validate_text(new_text:String) -> String:
 			return ""
 
 	match input_type:
-		#InputType.ALPHANUMERIC:
-			#if bytes_required!= 0:
-				#var byte_size:int = new_text.to_utf8_buffer().size()
-				#if byte_size != bytes_required:
-					#return ""
+		InputType.ALPHANUMERIC:
+			if is_pubkey:
+				if SolanaUtils.bs58_decode(text).size() != 32:
+					return ""
 		InputType.INTEGER:
 			var value:int = int(new_text)
 			value = clamp(value,int(get_min_value()),int(get_max_value()))
@@ -118,14 +118,25 @@ func is_valid() -> bool:
 	return input_valid
 	
 func get_field_value():
-	if text.length() == 0:
-		return null
 	match input_type:
 		InputType.ALPHANUMERIC:
-			return text
+			if text.length() == 0:
+				if null_if_empty:
+					return null
+				else:
+					return ""
+			else:
+				if is_pubkey:
+					return Pubkey.new_from_string(text)
+				else:
+					return text
 		InputType.INTEGER:
+			if text.length() == 0:
+				return null
 			return int(text)
 		InputType.DECIMAL:
+			if text.length() == 0:
+				return null
 			return float(text)
 			
 	

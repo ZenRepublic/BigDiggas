@@ -2,7 +2,7 @@ extends Node
 class_name MineCreateHandler
 
 @export_category("Main Settings")
-@export var general_input_field_system:InputFieldSystem
+@export var general_input_system:DataInputSystem
 @export var token_selection:OptionButton
 @export var fund_input_field:InputField
 @export var max_fund_button:Button
@@ -15,7 +15,7 @@ class_name MineCreateHandler
 @export var create_mine_button:Button
 
 @export_category("NFT Miner Settings")
-@export var nft_input_field_system:InputFieldSystem
+@export var nft_input_system:DataInputSystem
 @export var collection_selection:OptionButton
 @export var max_reward_field:InputField
 
@@ -28,8 +28,8 @@ var manager_mint:Pubkey
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:	
 	update_button_state()
-	general_input_field_system.on_fields_updated.connect(update_button_state)
-	nft_input_field_system.on_fields_updated.connect(update_button_state)
+	general_input_system.on_fields_updated.connect(update_button_state)
+	nft_input_system.on_fields_updated.connect(update_button_state)
 	
 	token_selection.item_selected.connect(select_token)
 	collection_selection.item_selected.connect(select_collection)
@@ -99,10 +99,10 @@ func update_manager_selection(selected_nft:Nft) -> void:
 	
 func update_button_state() -> void:
 	var all_fields_valid:bool = true
-	if !general_input_field_system.get_inputs_valid():
+	if !general_input_system.get_inputs_valid():
 		all_fields_valid = false
 	
-	if !nft_input_field_system.get_inputs_valid():
+	if !nft_input_system.get_inputs_valid():
 		all_fields_valid = false
 		
 	if token_selection.get_selected_id() == -1 or collection_selection.get_selected_id() == -1:
@@ -127,8 +127,8 @@ func get_campaign_end_timestamp(campaign_duration_in_hours:int) -> int:
 	
 	
 func get_data() -> Dictionary:
-	var general_input_data:Dictionary = general_input_field_system.get_fields_data()
-	var nft_input_data:Dictionary = nft_input_field_system.get_fields_data()
+	var general_input_data:Dictionary = general_input_system.get_input_data()
+	var nft_input_data:Dictionary = nft_input_system.get_input_data()
 	var mine_data:Dictionary = {
 		"campaignName":general_input_data["campaignName"],
 		"startTime": Time.get_unix_time_from_system(),

@@ -68,11 +68,9 @@ func can_be_hit(tile:MineTile) -> bool:
 	if !floor_data.is_destroyable:
 		return false
 		
-	#print(floor_data.floor_level)
 	#can always hit the first floor
 	if floor_data.floor_level == 0:
 		return true
-	#print(floor_data.floor_level)
 		
 	var tile_above:MineTile = map_manager.floors[floor_data.floor_level-1].get_tile_by_pos(tile.pos_in_grid)
 	#can be hit if there's no tile above it and if there's no treasure hidden under the above tile

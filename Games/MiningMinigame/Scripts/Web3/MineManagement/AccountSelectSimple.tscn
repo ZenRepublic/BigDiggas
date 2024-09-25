@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cj0hq5of6bv16"]
+
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="1_h1sc6"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/DisplaySystems/Accounts/account_display_entry.gd" id="2_v7x62"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wp4mv"]
+
+[node name="AccountSelectSimple" type="PanelContainer" node_paths=PackedStringArray("label", "button")]
+custom_minimum_size = Vector2(300, 50)
+offset_right = 300.0
+offset_bottom = 50.0
+size_flags_vertical = 3
+theme = ExtResource("1_h1sc6")
+theme_type_variation = &"ListButton"
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wp4mv")
+script = ExtResource("2_v7x62")
+label = NodePath("Label")
+button = NodePath("Button")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("1_h1sc6")
+theme_type_variation = &"ListButton"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "BIG DIGGAS DEVNET TEST"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -25,7 +25,6 @@ func set_digga(nft:Nft, max_energy:int, player_data:Dictionary) -> void:
 	energy_bar_label.text = "%s/%s" % [energy_bar.value,energy_bar.max_value]
 	
 	enter_mine_button.disabled = (energy_bar.value <= 0)
-	print(player_data)
 	
 func get_digga_mint() -> Pubkey:
 	return digga_nft.mint

@@ -69,7 +69,6 @@ func get_token_unit_price(token_mint:Pubkey,price_against:Pubkey=null) -> float:
 		vs_token = "&vsToken="+price_against.to_string()
 		
 	var response:Dictionary = await send_get_request(JUP_PRICE_API+ids+vs_token)
-	print(response)
 	if response == {}:
 		return 0
 	return response["data"][token_mint.to_string()]["price"]
