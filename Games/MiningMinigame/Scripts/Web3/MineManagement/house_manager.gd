@@ -21,14 +21,12 @@ func on_visibility_changed() -> void:
 func refresh_house_list() -> void:
 	screen_manager.switch_active_panel(0)
 	await house_account_display_system.refresh_list("House","houseName")
-	screen_manager.switch_active_panel(2)
+	screen_manager.switch_active_panel(1)
 		
 func show_create_house() -> void:
 	house_screen_manager.switch_active_panel(2)
 		
 func create_new_house() -> void:
-	screen_manager.switch_active_panel(1)
-	
 	var house_data:Dictionary = house_create_input_system.get_input_data()
 	
 	var house_currency:Pubkey = house_data["houseCurrency"]
@@ -54,13 +52,9 @@ func create_new_house() -> void:
 		"rewardsTax":AnchorProgram.u64(rewards_tax_basis_points),
 	}
 	var tx_data:TransactionData = await ClubhouseProgram.create_house(house_data["houseName"],house_data["managerCollection"],house_currency,house_config)
-	
-	screen_manager.switch_active_panel(2)
 	pass
 	
 func edit_selected_house() -> void:
-	screen_manager.switch_active_panel(1)
-	
 	var house_data:Dictionary = house_edit_input_system.get_input_data()
 	var house_name_bytes:PackedByteArray = house_display.curr_selected_house_data["houseName"] as PackedByteArray
 	var house_name:String = house_name_bytes.get_string_from_utf8()
@@ -86,14 +80,10 @@ func edit_selected_house() -> void:
 	}
 	
 	var tx_data:TransactionData = await ClubhouseProgram.update_house(house_name,house_config)
-	
-	screen_manager.switch_active_panel(2)
 	pass
 	
 	
 func close_selected_house() -> void:
-	screen_manager.switch_active_panel(1)
-	
 	var house_data:Dictionary = house_display.curr_selected_house_data
 	var house_name_bytes:PackedByteArray = house_data["houseName"] as PackedByteArray
 	var house_name:String = house_name_bytes.get_string_from_utf8()
@@ -111,9 +101,7 @@ func load_house(house_data:Dictionary) -> void:
 	house_screen_manager.switch_active_panel(3)
 	
 func claim_creation_fees() -> void:
-	screen_manager.switch_active_panel(1)
 	pass
 	
 func claim_house_tax_fees() -> void:
-	screen_manager.switch_active_panel(1)
 	pass

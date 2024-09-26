@@ -23,7 +23,7 @@ func _ready() -> void:
 		on_fields_updated.connect(handle_fields_updated)
 	
 func handle_asset_select(selected_asset:WalletAsset) -> void: notify_change()
-func notify_change() -> void:
+func notify_change(_new_field_value:String="") -> void:
 	on_fields_updated.emit()
 
 func handle_fields_updated() -> void:
@@ -54,7 +54,7 @@ func get_input_data()-> Dictionary:
 		
 	for key in asset_selectors.keys():
 		var selector = get_node(asset_selectors[key]) as AssetSelector
-		fields_data[key] = selector.selected_asset
+		fields_data[key] = selector.selected_asset.mint
 		
 	return fields_data
 	

@@ -4,11 +4,14 @@ class_name TimedButton
 @export var time_left_prefix:String = "Closes in:"
 @export var activated_text:String
 @export var refresh_frequency_seconds:int = 1
+@export var enable_on_activation:bool=true
 
-var activation_time:float
+var finish_time:float=0
 var time_elapsed:float
 
 var is_active:bool=false
+
+signal on_timer_finished
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	disabled=true
@@ -17,33 +20,42 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if !is_active:
+	if finish_time == 0:
 		return
 	
 	time_elapsed+=delta
 	if time_elapsed < refresh_frequency_seconds:
 		return
 	
-	var utc_timestamp:float = Time.get_unix_time_from_system()
-	if utc_timestamp >= activation_time:
+	if is_finished():
 		if disabled:
-			disabled=false
+			if enable_on_activation:
+				disabled=false
 			text = activated_text
+			on_timer_finished.emit()
 			is_active=false
 		return
 			
 	disabled=true
-	var time_left_formatted:String = format_time(activation_time - utc_timestamp)
+	var time_left_formatted:String = format_time_left(finish_time)
 	text = "%s %s" % [time_left_prefix,time_left_formatted]
 	time_elapsed=0
 
-func activate(end_timestamp:float) -> void:
-	activation_time = end_timestamp
+func start_timer(end_timestamp:float) -> void:
+	finish_time = end_timestamp
 	is_active=true
 	time_elapsed = refresh_frequency_seconds
 	
+func is_finished() -> bool:
+	if finish_time == 0:
+		return false
+		
+	var utc_timestamp:float = Time.get_unix_time_from_system()
+	return utc_timestamp >= finish_time
 	
-func format_time(timestamp: int) -> String:
+	
+func format_time_left(end_time:int) -> String:
+	var timestamp = end_time - Time.get_unix_time_from_system()
 	var hours = int(timestamp / 3600)
 	var minutes = int((timestamp % 3600) / 60)
 	var seconds = int(timestamp % 60)

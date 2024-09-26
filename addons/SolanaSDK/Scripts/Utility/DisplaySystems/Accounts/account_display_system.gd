@@ -40,7 +40,7 @@ func add_account(account_name:String,account_data:Dictionary) -> void:
 	if bring_new_to_back:
 		container.move_child(entry_instance,0)
 	
-	entry_instance.setup(account_name,account_data)
+	entry_instance.setup_account_entry(account_name,account_data)
 	entry_instance.on_selected.connect(handle_press)
 	accounts.append(entry_instance)
 	

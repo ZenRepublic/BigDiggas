@@ -24,7 +24,7 @@ var fraction_regex = "^[-+]?[0-9]+(\\.[0-9]+)?$"
 @onready var input_constraint = RegEx.new()
 var old_text
 
-signal on_field_updated
+signal on_field_updated(value:String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -62,14 +62,17 @@ func handle_text_submit(new_text:String) -> void:
 	
 func handle_focus_lost() -> void:
 	text = validate_text(text)
-	on_field_updated.emit()
+	on_field_updated.emit(text)
 	
 func validate_text(new_text:String) -> String:
 	var adjusted_text:String = new_text
 	
 	if new_text.length() >0 and input_constraint.search(new_text) == null:
 		if input_type == InputType.INTEGER or input_type == InputType.DECIMAL:
-			return str(min_value)
+			if min_value <= 0 and !allow_zero:
+				return ""
+			else:
+				return str(min_value)
 		else:
 			return ""
 

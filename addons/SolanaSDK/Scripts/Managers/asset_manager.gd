@@ -140,7 +140,16 @@ func get_owned_tokens() -> Array[WalletAsset]:
 			owned_tokens.append(asset)
 	return owned_tokens
 	
-func get_nfts_from_collection(collection:NFTCollection) -> Array[WalletAsset]:
+func get_owned_nfts_from_collection_key(collection_id:Pubkey) -> Array[WalletAsset]:
+	var collection_nfts:Array[WalletAsset]
+	var owned_nfts:Array[WalletAsset] = get_owned_nfts()
+	for nft in owned_nfts:
+		if nft.metadata.get_collection().key.to_string() == collection_id.to_string():
+			collection_nfts.append(nft)
+			
+	return collection_nfts
+	
+func get_owned_nfts_from_collection(collection:NFTCollection) -> Array[WalletAsset]:
 	var collection_nfts:Array[WalletAsset]
 	var owned_nfts:Array[WalletAsset] = get_owned_nfts()
 	for nft in owned_nfts:

@@ -35,7 +35,7 @@ no_asset_overlay = NodePath("Selection/NoNFTOverlay")
 minimum_entry_size = Vector2(196, 196)
 display_type = 1
 display_entry_scn = ExtResource("2_xmhd2")
-load_all = true
+load_all_owned = true
 close_on_select = true
 collection_filter = Array[ExtResource("3_rk1ve")]([ExtResource("4_vmypy")])
 

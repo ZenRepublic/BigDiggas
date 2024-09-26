@@ -25,7 +25,7 @@ func spawn_program_instance()->AnchorProgram:
 func fetch_account_of_type(account_type:String,key:Pubkey) -> Dictionary:
 	var program_instance = spawn_program_instance()
 	program_instance.fetch_account(account_type,key)
-	var account:Dictionary = await program_instance.accounts_fetched
+	var account:Dictionary = await program_instance.account_fetched
 	program_instance.queue_free()
 	return account
 	
@@ -118,6 +118,24 @@ func create_campaign(house_pda:Pubkey,house_currency:Pubkey,campaign_name:String
 		})
 	
 	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([create_campaign_ix])
+	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
+	return tx_data
+	
+func close_campaign(house_pda:Pubkey,campaign_name:String,reward_mint:Pubkey) -> TransactionData:
+	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(campaign_name,house_pda)
+	
+	var close_campaign_ix:Instruction = program.build_instruction("closeCampaignUnmanaged",[	
+		campaign_pda,
+		SolanaService.wallet.get_kp(),
+		reward_mint,
+		ClubhousePDA.get_campaign_vault_pda(campaign_pda),
+		house_pda,
+		SolanaService.wallet.get_kp(),
+		SolanaService.TOKEN_PID,
+		SystemProgram.get_pid()
+		],null)
+	
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([close_campaign_ix])
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
 	return tx_data
 	

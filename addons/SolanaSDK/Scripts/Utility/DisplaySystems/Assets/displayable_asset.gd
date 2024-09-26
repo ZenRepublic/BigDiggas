@@ -4,9 +4,10 @@ class_name DisplayableAsset
 @export var select_button:BaseButton
 @export var visual:TextureRect
 @export var image_size = 512
-@export_file("*.png","*.jpg") var missing_icon_path:String
+@export_file("*.png","*.jpg") var default_icon_path:String
 
 @export var name_label:Label
+@export var symbol_label:Label
 @export_category("Displayable Token Settings")
 @export var balance_label:NumberLabel
 @export var auto_load_balance:bool
@@ -21,17 +22,13 @@ func _ready() -> void:
 		select_button.pressed.connect(handle_select)
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 	
 func set_data(asset:WalletAsset) -> void:
 	self.asset = asset
 	if name_label!=null:
-		name_label.text = asset.metadata.get_token_name()
-		if name_label.text=="":
-			name_label.text="name missing"
+		name_label.text = asset.asset_name
+	if symbol_label!=null:
+		symbol_label.text = "$%s" % asset.symbol
 	
 	if asset.image!=null:
 		visual.texture = asset.image
@@ -40,8 +37,7 @@ func set_data(asset:WalletAsset) -> void:
 		if asset.image!=null:
 			visual.texture = asset.image
 		else:
-			if missing_icon_path!=null:
-				visual.texture = load(missing_icon_path)
+			set_default_visual()
 			print("Couldn't load the image for mint: %s" % asset.mint.to_string())
 			
 	if asset is Token:
@@ -50,6 +46,8 @@ func set_data(asset:WalletAsset) -> void:
 			balance_label.set_value(await token.get_balance())
 		if auto_load_balance:
 			SolanaService.transaction_manager.on_tx_finish.connect(update_balance)
+	elif asset is Nft:
+		var nft = asset as Nft
 		
 
 func set_data_manual(texture:Texture2D, nft_name:String, balance:float=0.0) -> void:
@@ -76,4 +74,11 @@ func update_balance(tx_data:TransactionData) -> void:
 		
 	var token:Token = asset as Token
 	balance_label.set_value(await token.get_balance(true))
+	
+func set_default_visual():
+	if visual == null:
+		return
+		
+	if default_icon_path.length()>0:
+		visual.texture = load(default_icon_path)
 	

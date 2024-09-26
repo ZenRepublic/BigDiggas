@@ -3,11 +3,9 @@ class_name MineManager
 
 @onready var screen_manager:ScreenManager = $ScreenManager
 
-@export var house_name:String
-@export var house_currency:String
-
 @export var mine_screen_manager:ScreenManager
 @export var mine_account_display_system:AccountDisplaySystem
+@export var mine_input_system:MineInputSystem
 @export var mine_create_handler:MineCreateHandler
 
 @export var mine_display:MineDisplay
@@ -18,10 +16,17 @@ class_name MineManager
 var house_pda:Pubkey
 var currency_mint:Pubkey
 
+var house_data:Dictionary
+
 func _ready() -> void:
 	self.visibility_changed.connect(on_visibility_changed)
-	house_pda = ClubhousePDA.get_house_pda(house_name)
-	currency_mint = Pubkey.new_from_string(house_currency)
+	
+	var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager")
+	house_pda = ClubhousePDA.get_house_pda(menu_manager.house_name)
+	currency_mint = Pubkey.new_from_string(menu_manager.house_currency)
+	
+	house_data = await ClubhouseProgram.fetch_account_of_type("House",house_pda)
+	mine_input_system.setup(house_data)
 	
 	mine_account_display_system.on_account_selected.connect(load_mine)
 	
@@ -33,17 +38,15 @@ func refresh_mines_list() -> void:
 	screen_manager.switch_active_panel(0)
 	var filter:Array = [{"memcmp" : { "offset":8, "bytes": house_pda.to_string()}}]
 	await mine_account_display_system.refresh_list("Campaign","campaignName",filter)
-	screen_manager.switch_active_panel(2)
+	screen_manager.switch_active_panel(1)
 		
 func show_create_mine() -> void:
 	mine_screen_manager.switch_active_panel(2)
 	
 func create_new_mine() -> void:
-	screen_manager.switch_active_panel(1)
-	
-	var mine_data:Dictionary = mine_create_handler.get_data()
+	var mine_data:Dictionary = mine_input_system.get_input_data()
 	var mine_name:String = mine_data["campaignName"]
-	var reward_mint:Pubkey = mine_data["rewardMint"]
+	var reward_mint:Pubkey = mine_data["rewardCurrency"]
 	var collection:Pubkey = mine_data["collection"]
 	
 	var reward_mint_decimals:int = await SolanaService.get_token_decimals(reward_mint.to_string())
@@ -53,21 +56,35 @@ func create_new_mine() -> void:
 	var player_claim_fee: int = floori(mine_data["rewardsTax"]*pow(10,9))
 	
 	var timespan:Dictionary = {
-		"startTime":mine_data["startTime"],
-		"endTime":mine_data["endTime"]
+		"startTime":Time.get_unix_time_from_system(),
+		"endTime":get_campaign_end_timestamp(mine_data["campaignDuration"])
 	}
 	
 	var nft_config:Dictionary = {
 		"maxClubMemberEnergy":AnchorProgram.u8(mine_data["maxEnergy"]),
-		"energyRechargeMinutes":mine_data["energyRechargeMinutes"]
+		"energyRechargeMinutes":-1
 	}
 
 	var tx_data:TransactionData = await ClubhouseProgram.create_campaign(house_pda,currency_mint,mine_name,reward_mint,collection,fund_amount_lamports,max_reward_lamports,player_claim_fee,timespan,nft_config)
-	
-	screen_manager.switch_active_panel(2)
 	pass
+	
+func get_campaign_end_timestamp(campaign_duration_in_hours:int) -> int:
+	var utc_timestamp:float = Time.get_unix_time_from_system()
+	#timestamp is in seconds, so we need to convert hours to seconds and add it to the timestamp
+	var duration_in_seconds:int = campaign_duration_in_hours*3600
+	var end_timestamp:int = floori(utc_timestamp + duration_in_seconds)
+	return end_timestamp
 	
 func load_mine(mine_data:Dictionary) -> void:
 	mine_screen_manager.switch_active_panel(1)
 	await mine_display.set_mine_data(mine_data)
 	mine_screen_manager.switch_active_panel(3)
+
+
+func close_mine() -> void:
+	var mine_name:String = mine_display.curr_selected_mine_data["campaignName"]
+	var reward_mint:Pubkey = mine_display.curr_selected_mine_data["rewardMint"]
+	var tx_data:TransactionData = await ClubhouseProgram.close_campaign(house_pda,mine_name,reward_mint)
+	
+	await refresh_mines_list()
+	mine_screen_manager.switch_active_panel(0)

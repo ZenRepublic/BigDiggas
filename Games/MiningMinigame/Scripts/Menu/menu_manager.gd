@@ -3,7 +3,11 @@ class_name MenuManager
 
 @export_file(".tscn") var game_scene_path:String
 
+@export var house_name:String
+@export var house_currency:String
+
 @onready var screen_manager:ScreenManager = $ScreenManager
+
 # Called when the node enters the scene tree for the first time.
 
 func _init() -> void:

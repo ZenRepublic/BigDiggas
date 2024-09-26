@@ -41,5 +41,4 @@ func set_mine_data(data:Dictionary) -> void:
 	max_reward_label.set_value(data["maxRewardsPerGame"]/pow(10,data["rewardMintDecimals"]))
 	
 	#fees_collected.text = str(data["collectedFees"])
-	close_button.activate(data["timeSpan"]["endTime"])
-	
+	close_button.start_timer(data["timeSpan"]["endTime"])

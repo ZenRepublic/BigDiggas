@@ -197,17 +197,16 @@ input_submit_button = NodePath("../SwapButton")
 script = ExtResource("9_6q363")
 displayable_asset = NodePath("../DisplayableToken")
 display_system = NodePath("../../../TokenDisplaySystem")
-default_name = "SELECT TOKEN"
 
-[node name="DisplayableToken" type="PanelContainer" parent="Content/SwapContainer" node_paths=PackedStringArray("visual", "name_label", "select_button")]
+[node name="DisplayableToken" type="PanelContainer" parent="Content/SwapContainer" node_paths=PackedStringArray("select_button", "visual", "name_label")]
 custom_minimum_size = Vector2(600, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 script = ExtResource("9_qn513")
+select_button = NodePath("SelectButton")
 visual = NodePath("TokenContent/Visual")
 image_size = 32
 name_label = NodePath("TokenContent/TokenName")
-select_button = NodePath("SelectButton")
 
 [node name="TokenContent" type="HBoxContainer" parent="Content/SwapContainer/DisplayableToken"]
 layout_mode = 2
@@ -299,7 +298,6 @@ no_asset_overlay = NodePath("TokenPanel/MarginContainer/NoAssetsOverlay")
 minimum_entry_size = Vector2(553, 30)
 display_type = 2
 display_entry_scn = ExtResource("13_edp1o")
-load_all = true
 close_on_select = true
 
 [node name="BG" type="Panel" parent="TokenDisplaySystem"]

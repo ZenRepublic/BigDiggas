@@ -1,8 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://d34k0q4mj2qqt"]
+[gd_scene load_steps=11 format=3 uid="uid://bvniq0gvi7isd"]
 
-[ext_resource type="Texture2D" uid="uid://dkyfoudbohuqq" path="res://addons/SolanaSDK/Textures/missingicon.png" id="1_cgotv"]
-[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/DisplaySystems/Assets/displayable_asset.gd" id="1_isrdy"]
-[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/Input/number_label.gd" id="3_k3dfe"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/DisplaySystems/Assets/displayable_asset.gd" id="1_7cfu0"]
+[ext_resource type="Texture2D" uid="uid://dkyfoudbohuqq" path="res://addons/SolanaSDK/Textures/missingicon.png" id="2_oulwk"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="3_orhei"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/Input/number_label.gd" id="4_650ih"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1vq0v"]
+bg_color = Color(0.482353, 0.329412, 0.501961, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_80nu6"]
 
@@ -14,12 +18,14 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6u03q"]
 
-[node name="Token" type="PanelContainer" node_paths=PackedStringArray("select_button", "visual", "name_label", "symbol_label", "balance_label")]
-script = ExtResource("1_isrdy")
+[node name="TokenEntry" type="PanelContainer" node_paths=PackedStringArray("select_button", "visual", "name_label", "symbol_label", "balance_label")]
+custom_minimum_size = Vector2(553, 30)
+theme_override_styles/panel = SubResource("StyleBoxFlat_1vq0v")
+script = ExtResource("1_7cfu0")
 select_button = NodePath("SelectButton")
 visual = NodePath("TokenContent/Visual")
 image_size = 64
-name_label = NodePath("TokenContent/TokenSymbol")
+name_label = NodePath("TokenContent/TokenName")
 symbol_label = NodePath("TokenContent/TokenSymbol")
 balance_label = NodePath("TokenContent/TokenBalance")
 
@@ -30,12 +36,13 @@ theme_override_constants/separation = 15
 [node name="Visual" type="TextureRect" parent="TokenContent"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-texture = ExtResource("1_cgotv")
+texture = ExtResource("2_oulwk")
 expand_mode = 4
 stretch_mode = 5
 
 [node name="TokenName" type="Label" parent="TokenContent"]
 layout_mode = 2
+theme = ExtResource("3_orhei")
 theme_override_font_sizes/font_size = 22
 text = "BONK"
 horizontal_alignment = 1
@@ -43,8 +50,9 @@ vertical_alignment = 1
 
 [node name="TokenSymbol" type="Label" parent="TokenContent"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.956863, 0.772549, 0, 1)
-theme_override_font_sizes/font_size = 18
+theme = ExtResource("3_orhei")
+theme_override_colors/font_color = Color(0.917647, 0.384314, 0.384314, 1)
+theme_override_font_sizes/font_size = 22
 text = "$BONK"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -52,11 +60,12 @@ vertical_alignment = 1
 [node name="TokenBalance" type="Label" parent="TokenContent"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("3_orhei")
 theme_override_font_sizes/font_size = 22
 text = "-"
 horizontal_alignment = 2
 vertical_alignment = 1
-script = ExtResource("3_k3dfe")
+script = ExtResource("4_650ih")
 format_mode = 1
 decimal_amount = 1
 
