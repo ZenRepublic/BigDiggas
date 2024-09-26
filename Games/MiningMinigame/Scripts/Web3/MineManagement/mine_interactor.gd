@@ -34,5 +34,7 @@ func load_mine_card(mine_data:Dictionary) -> void:
 	
 func enter_mine() -> void:
 	var selected_nft:Pubkey = mine_card.get_selected_digga_nft()
+	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(mine_card.curr_selected_mine_data["campaignName"],house_pda)
+	var tx_data:TransactionData = await ClubhouseProgram.start_game(house_pda,campaign_pda,selected_nft)
 	
 	

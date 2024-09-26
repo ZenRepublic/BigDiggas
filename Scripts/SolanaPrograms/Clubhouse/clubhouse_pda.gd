@@ -27,4 +27,4 @@ static func get_campaign_player_pda(campaign_pda:Pubkey,player_mint:Pubkey) -> P
 static func get_nft_metadata_pda(nft:Pubkey) -> Pubkey:
 	var name_bytes = "metadata".to_utf8_buffer()
 	var metadata_pid_seed:PackedByteArray = SolanaUtils.bs58_decode(SolanaService.TOKEN_METADATA_PID)
-	return Pubkey.new_pda_bytes([name_bytes,metadata_pid_seed,nft.to_bytes()],PROGRAM_ID)
+	return Pubkey.new_pda_bytes([name_bytes,metadata_pid_seed,nft.to_bytes()],Pubkey.new_from_string(SolanaService.TOKEN_METADATA_PID))

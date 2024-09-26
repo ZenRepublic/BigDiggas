@@ -54,8 +54,8 @@ func is_finished() -> bool:
 	return utc_timestamp >= finish_time
 	
 	
-func format_time_left(end_time:int) -> String:
-	var timestamp = end_time - Time.get_unix_time_from_system()
+func format_time_left(end_time:float) -> String:
+	var timestamp:int = end_time - Time.get_unix_time_from_system()
 	var hours = int(timestamp / 3600)
 	var minutes = int((timestamp % 3600) / 60)
 	var seconds = int(timestamp % 60)

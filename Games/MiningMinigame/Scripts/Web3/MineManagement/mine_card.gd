@@ -42,7 +42,6 @@ func set_mine_data(data:Dictionary) -> void:
 	
 	max_reward_label.set_value(data["maxRewardsPerGame"]/pow(10,data["rewardMintDecimals"]))
 	
-	campaign_timer.on_timer_finished.connect(disable_mine)
 	campaign_timer.start_timer(data["timeSpan"]["endTime"])
 	if campaign_timer.is_finished():
 		disable_mine()

@@ -14,6 +14,7 @@ var selection_locked:bool=false
 # Called when the node enters the scene tree for the first time.
 
 func set_digga(nft:Nft, mine_data:Dictionary, player_data:Dictionary) -> void:
+	screen_manager.switch_active_panel(2)
 	digga_nft = nft
 	var max_energy:int = mine_data["nftEnergyConfig"]["maxPlayerEnergy"]
 	await displayable_digga.set_data(nft)

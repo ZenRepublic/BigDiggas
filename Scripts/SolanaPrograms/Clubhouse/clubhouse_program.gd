@@ -140,31 +140,23 @@ func close_campaign(house_pda:Pubkey,campaign_name:String,reward_mint:Pubkey) ->
 	return tx_data
 	
 	
-func start_game(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey,) -> TransactionData:
+func start_game(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey) -> TransactionData:
+	var campaign_player_pda:Pubkey = ClubhousePDA.get_campaign_player_pda(campaign_pda,player_nft)
+	var player_nft_token_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),player_nft)
+	print(player_nft_token_account.to_string())
+	print(ClubhousePDA.get_nft_metadata_pda(player_nft).to_string())
 	
-	#var create_campaign_ix:Instruction = program.build_instruction("createCampaignUnmanaged",[	
-		#SolanaService.wallet.get_kp(),
-		#house_pda,
-		#campaign_pda,
-		#ClubhousePDA.get_campaign_player_pda(campaign_pda,player_nft),
-		#signer_payment_account,
-		#reward_mint,
-		#ClubhousePDA.get_house_currency_vault(house_pda),
-		#reward_depositor_account,
-		#ClubhousePDA.get_campaign_vault_pda(campaign_pda),
-		#SolanaService.TOKEN_PID,
-		#SystemProgram.get_pid()
-		#],{
-			#"collectionPubkey":collection,
-			#"campaignName":campaign_name,
-			#"fundAmount":fund_amount_lamports,
-			#"maxRewardsPerGame":max_reward_lamports,
-			#"playerClaimPrice":player_claim_fee,
-			#"timespan":timespan,
-			#"nftEnergyConfig":AnchorProgram.option(nft_config),
-			#"tokenEnergyConfig":AnchorProgram.option(token_config)
-		#})
+	var start_game_ix:Instruction = program.build_instruction("startGameWithNft",[
+		house_pda,	
+		campaign_pda,
+		campaign_player_pda,
+		player_nft_token_account,
+		ClubhousePDA.get_nft_metadata_pda(player_nft),
+		SolanaService.wallet.get_kp(),
+		SolanaService.TOKEN_PID,
+		SystemProgram.get_pid()
+		],null)
 	
-	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([])
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([start_game_ix])
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
 	return tx_data
