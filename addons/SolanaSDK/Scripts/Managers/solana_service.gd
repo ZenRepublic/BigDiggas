@@ -27,6 +27,8 @@ var WRAPPED_SOL_CA:String = "So11111111111111111111111111111111111111112"
 
 var rpc:String
 
+signal on_rpc_cluster_changed
+
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	asset_manager.setup()
@@ -50,6 +52,7 @@ func set_rpc_cluster(new_cluster:RpcCluster)->void:
 			
 	ProjectSettings.set_setting("solana_sdk/client/default_url",active_rpc)
 	rpc_cluster = new_cluster
+	on_rpc_cluster_changed.emit()
 	
 func generate_keypair(derive_from_machine:bool=false) -> Keypair:
 	var randomizer = RandomNumberGenerator.new()
@@ -144,38 +147,74 @@ func get_associated_token_account(address_to_check:String,token_address:String) 
 	
 	return Pubkey.new_from_string(response_dict["result"]["value"][0]["pubkey"])
 	
-func get_wallet_assets(wallet_address:String,use_das:bool=false) -> Array[Dictionary]:
+func get_asset_data(asset_id:Pubkey) -> Dictionary:
 	var client:SolanaClient = spawn_client_instance()
-	if use_das:
-		client.get_assets_by_owner(SolanaService.wallet.get_pubkey(),2,1)
-		var response_dict:Dictionary = await client.http_response_received
-		for nft_data in response_dict["result"]["items"]:
-			print(nft_data)
-			var metadata:MetaData = MetaData.new()
-			metadata.copy_from_dict(nft_data)
-			print(metadata.get_mint())
-			print(metadata.get_uri())
-			print(metadata.get_token_name())
-			print(metadata.get_creators())
-			print(metadata.get_collection())
-			print(metadata.get_token_standard())
-		return []
-		
-	client.get_token_accounts_by_owner(wallet_address,"",TOKEN_PID)
+	client.get_asset(asset_id)
 	var response_dict:Dictionary = await client.http_response_received
 	client.queue_free()
 
+	if response_dict.has("error"):
+		return {}
+	return response_dict["result"]
+	
+func get_wallet_assets_data(wallet_to_check:Pubkey,asset_limit:int=1000) -> Array:
+	var page_id:int=1
+	var wallet_assets:Array
+	
+	while true:
+		var client:SolanaClient = spawn_client_instance()
+		client.get_assets_by_owner(wallet_to_check,page_id,asset_limit)
+		var response_dict:Dictionary = await client.http_response_received
+		client.queue_free()
+		if response_dict.has("error"):
+			break
+			
+		var loaded_page_assets:Array = response_dict["result"]["items"]
+		for item in loaded_page_assets:
+			wallet_assets.append(item)
+		
+		if loaded_page_assets.size() < asset_limit:
+			break
+		page_id+=1
+	
+	return wallet_assets
+	
+func get_collection_assets_data(nft_owner:Pubkey,collection_mint:Pubkey,asset_limit:int=1000) -> Array:
+	var page_id:int=1
+	var owned_collection_assets:Array
+	
+	while true:
+		var client:SolanaClient = spawn_client_instance()
+		client.get_assets_by_group("collection_id",collection_mint,page_id,asset_limit)
+		var response_dict:Dictionary = await client.http_response_received
+		client.queue_free()
+		if response_dict.has("error"):
+			break
+			
+		var loaded_page_assets:Array = response_dict["result"]["items"]
+		if loaded_page_assets.size() < asset_limit:
+			break
+		page_id+=1
+
+	return owned_collection_assets
+	
+func get_token_accounts(wallet_to_check:Pubkey) -> Array[Dictionary]:
+	var client:SolanaClient = spawn_client_instance()
+	client.get_token_accounts_by_owner(wallet_to_check.to_string(),"",TOKEN_PID)
+	var response_dict:Dictionary = await client.http_response_received
+	client.queue_free()
+	
 	var wallet_tokens:Array[Dictionary]
 	for token in response_dict["result"]["value"]:
 		var token_byte_data = SolanaUtils.bs64_decode(token["account"]["data"][0])
 		var token_data:Dictionary = parse_token_data(token_byte_data)
-		print(token_data)
 		#remove token accounts which no longer hold an NFT
 		if token_data["amount"] == 0:
 			continue
 		wallet_tokens.append(token_data)
 	
 	return wallet_tokens
+	
 	
 func parse_token_data(data: PackedByteArray) -> Dictionary:
 	# Ensure that the data has a minimum length

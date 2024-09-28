@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=3 uid="uid://dmdb8dbmov2cl"]
+[gd_scene load_steps=88 format=3 uid="uid://dmdb8dbmov2cl"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_b88w7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_manager.gd" id="1_yvyci"]
@@ -83,6 +83,8 @@ shader_parameter/tint = Color(0.8, 0.258824, 0.368627, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l4xl"]
 bg_color = Color(0.121569, 0.0627451, 0.164706, 0.717647)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jlw4g"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eqkck"]
 bg_color = Color(0.639216, 0.156863, 0.345098, 1)
@@ -652,7 +654,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ActiveMines" type="Control" parent="MainScreen/MineInteractor"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -677,7 +678,7 @@ text = "ACTIVE MINES"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ActiveMinesContainer" type="PanelContainer" parent="MainScreen/MineInteractor/ActiveMines" node_paths=PackedStringArray("container", "no_entries_overlay")]
+[node name="ActiveMinesContainer" type="PanelContainer" parent="MainScreen/MineInteractor/ActiveMines" node_paths=PackedStringArray("container", "no_entries_overlay", "refresh_button")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -692,10 +693,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2l4xl")
 script = ExtResource("44_f7hss")
-container = NodePath("MarginContainer/MineList/MineList")
+container = NodePath("MarginContainer/ListContent/MineList/MineList")
 entry_scn = ExtResource("19_22vot")
 no_entries_overlay = NodePath("NoMinesOverlay")
 bring_new_to_back = false
+refresh_button = NodePath("MarginContainer/ListContent/RefreshButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="MainScreen/MineInteractor/ActiveMines/ActiveMinesContainer"]
 layout_mode = 2
@@ -704,16 +706,28 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="MineList" type="ScrollContainer" parent="MainScreen/MineInteractor/ActiveMines/ActiveMinesContainer/MarginContainer"]
+[node name="ListContent" type="VBoxContainer" parent="MainScreen/MineInteractor/ActiveMines/ActiveMinesContainer/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="MineList" type="ScrollContainer" parent="MainScreen/MineInteractor/ActiveMines/ActiveMinesContainer/MarginContainer/ListContent"]
+layout_mode = 2
+size_flags_vertical = 3
 theme = ExtResource("4_d1tk4")
 follow_focus = true
 horizontal_scroll_mode = 0
 
-[node name="MineList" type="VBoxContainer" parent="MainScreen/MineInteractor/ActiveMines/ActiveMinesContainer/MarginContainer/MineList"]
+[node name="MineList" type="VBoxContainer" parent="MainScreen/MineInteractor/ActiveMines/ActiveMinesContainer/MarginContainer/ListContent/MineList"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
+
+[node name="RefreshButton" type="Button" parent="MainScreen/MineInteractor/ActiveMines/ActiveMinesContainer/MarginContainer/ListContent"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"ListButtonAlt"
+theme_override_styles/focus = SubResource("StyleBoxEmpty_jlw4g")
+text = "REFRESH"
 
 [node name="NoMinesOverlay" type="Label" parent="MainScreen/MineInteractor/ActiveMines/ActiveMinesContainer"]
 visible = false
@@ -725,6 +739,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MineDetails" type="Control" parent="MainScreen/MineInteractor"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -931,8 +946,13 @@ size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_qo2jl")
 script = ExtResource("26_jgoqw")
 container = NodePath("HBoxContainer/ScrollContainer/MinersList")
+minimum_entry_size = null
 display_type = 1
 display_entry_scn = ExtResource("27_aplq1")
+load_all_owned = null
+close_on_select = null
+destroy_on_close = null
+collection_filter = null
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainScreen/MineInteractor/MineDetails/MineCard/CharacterSelection"]
 layout_mode = 2
@@ -3345,6 +3365,7 @@ stretch_mode = 1
 [node name="NFTSelectionDisplay" parent="." instance=ExtResource("40_chyj7")]
 visible = false
 layout_mode = 1
+destroy_on_close = null
 
 [node name="TokenDisplaySystem" type="Control" parent="." node_paths=PackedStringArray("container", "no_asset_overlay", "search_bar")]
 visible = false
@@ -3363,6 +3384,8 @@ display_entry_scn = ExtResource("62_n7e6j")
 search_bar = NodePath("TokenPanel/MarginContainer/VBoxContainer/Searchbar")
 load_all_owned = true
 close_on_select = true
+destroy_on_close = null
+collection_filter = null
 
 [node name="BG" type="Panel" parent="TokenDisplaySystem"]
 layout_mode = 1

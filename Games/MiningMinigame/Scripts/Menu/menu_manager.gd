@@ -15,6 +15,7 @@ func _init() -> void:
 	
 func _ready() -> void:
 	MusicManager.play_song("Menu")	
+	#var data:Dictionary = await SolanaService.get_asset_data(Pubkey.new_from_string("2JcEwPap98iwPG9oAhbNZYkpmDYs996veyAXAHzqfH1o"))
 	#var signer = Keypair.new_from_file("res://uthm9E1kt14ZGnMhT6SD16cfXhCRuBCqeHfLo1T7M9s.json")
 	#var tx_data:TransactionData = await SolanaService.transaction_manager.transfer_sol("84pL2GAuv8XGVPyZre2xcgUNSGz9csYHBt5AW4PUcEe9",0.01,TransactionManager.Commitment.CONFIRMED,0.0,signer)
 	

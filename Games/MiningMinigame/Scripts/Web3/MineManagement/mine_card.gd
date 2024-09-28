@@ -14,6 +14,8 @@ class_name MineCard
 var curr_selected_mine_data:Dictionary
 var campaign_pda:Pubkey
 
+var is_locked:bool=false
+
 func _ready() -> void:
 	player_display_system.on_asset_selected.connect(select_digga)
 		
@@ -50,10 +52,13 @@ func set_mine_data(data:Dictionary) -> void:
 	
 func disable_mine() -> void:
 	digga_overview.lock_selection(true)
+	is_locked=true
 	pass
 	
 
 func select_digga(nft:Nft) -> void:
+	if is_locked:
+		return
 	#var campaign_pda
 	var campaign_player_pda:Pubkey = ClubhousePDA.get_campaign_player_pda(campaign_pda,nft.mint)
 	var player_data:Dictionary = await ClubhouseProgram.fetch_account_of_type("CampaignPlayer",campaign_player_pda)

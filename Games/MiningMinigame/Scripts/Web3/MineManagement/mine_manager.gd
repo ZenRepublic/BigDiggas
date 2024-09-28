@@ -26,19 +26,18 @@ func _ready() -> void:
 	currency_mint = Pubkey.new_from_string(menu_manager.house_currency)
 	
 	house_data = await ClubhouseProgram.fetch_account_of_type("House",house_pda)
-	mine_input_system.setup(house_data)
+	if house_data.size()!=0:
+		mine_input_system.setup(house_data)
+		
+	var filter:Array = [{"memcmp" : { "offset":8, "bytes": house_pda.to_string()}}]
+	mine_account_display_system.set_list("Campaign","campaignName",filter,false)
 	
 	mine_account_display_system.on_account_selected.connect(load_mine)
 	
 func on_visibility_changed() -> void:
 	if self.visible:
-		await refresh_mines_list()
-		
-func refresh_mines_list() -> void:
-	screen_manager.switch_active_panel(0)
-	var filter:Array = [{"memcmp" : { "offset":8, "bytes": house_pda.to_string()}}]
-	await mine_account_display_system.refresh_list("Campaign","campaignName",filter)
-	screen_manager.switch_active_panel(1)
+		mine_account_display_system.refresh_account_list()
+
 		
 func show_create_mine() -> void:
 	mine_screen_manager.switch_active_panel(2)
@@ -86,5 +85,5 @@ func close_mine() -> void:
 	var reward_mint:Pubkey = mine_display.curr_selected_mine_data["rewardMint"]
 	var tx_data:TransactionData = await ClubhouseProgram.close_campaign(house_pda,mine_name,reward_mint)
 	
-	await refresh_mines_list()
+	mine_account_display_system.refresh_account_list()
 	mine_screen_manager.switch_active_panel(0)

@@ -14,14 +14,11 @@ func _ready() -> void:
 	self.visibility_changed.connect(on_visibility_changed)
 	house_account_display_system.on_account_selected.connect(load_house)
 	
+	house_account_display_system.set_list("House","houseName",[],false)
+	
 func on_visibility_changed() -> void:
 	if self.visible:
-		await refresh_house_list()
-
-func refresh_house_list() -> void:
-	screen_manager.switch_active_panel(0)
-	await house_account_display_system.refresh_list("House","houseName")
-	screen_manager.switch_active_panel(1)
+		house_account_display_system.refresh_account_list()
 		
 func show_create_house() -> void:
 	house_screen_manager.switch_active_panel(2)
@@ -92,7 +89,7 @@ func close_selected_house() -> void:
 	var tx_data:TransactionData = await ClubhouseProgram.close_house(house_name,house_currency)
 	
 	house_screen_manager.switch_active_panel(0)
-	await refresh_house_list()
+	house_account_display_system.refresh_account_list()
 	pass
 	
 func load_house(house_data:Dictionary) -> void:

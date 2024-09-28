@@ -12,20 +12,19 @@ func _ready() -> void:
 	var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager")
 	house_pda = ClubhousePDA.get_house_pda(menu_manager.house_name)
 	
-	await refresh_mines_list()
+	var filter:Array = [{"memcmp" : { "offset":8, "bytes": house_pda.to_string()}}]
+	mine_account_display.set_list("Campaign","campaignName",filter)
+	
 	self.visibility_changed.connect(on_visibility_changed)
 	mine_account_display.on_account_selected.connect(load_mine_card)
 	
 	
 func on_visibility_changed() -> void:
 	if self.visible:
-		await refresh_mines_list()
+		pass
 		
 func refresh_mines_list() -> void:
-	screen_manager.switch_active_panel(0)
-	var filter:Array = [{"memcmp" : { "offset":8, "bytes": house_pda.to_string()}}]
-	await mine_account_display.refresh_list("Campaign","campaignName",filter)
-	screen_manager.switch_active_panel(2)
+	mine_account_display.refresh_account_list()
 		
 func load_mine_card(mine_data:Dictionary) -> void:
 	screen_manager.switch_active_panel(0)

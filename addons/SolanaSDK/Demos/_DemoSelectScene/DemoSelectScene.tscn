@@ -91,9 +91,11 @@ theme_override_constants/margin_bottom = 30
 [node name="Content" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
 
-[node name="AccountPanel" type="VBoxContainer" parent="Margin/Content"]
+[node name="AccountPanel" type="VBoxContainer" parent="Margin/Content" node_paths=PackedStringArray("account_address", "sol_balance")]
 layout_mode = 2
 script = ExtResource("2_10qtm")
+account_address = NodePath("AccountAddress")
+sol_balance = NodePath("Balance")
 
 [node name="AccountLabel" type="Label" parent="Margin/Content/AccountPanel"]
 layout_mode = 2

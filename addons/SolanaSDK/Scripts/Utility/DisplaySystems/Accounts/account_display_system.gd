@@ -5,21 +5,44 @@ class_name AccountDisplaySystem
 @export var entry_scn:PackedScene
 @export var no_entries_overlay:Control
 @export var bring_new_to_back:bool=true
+@export var refresh_button:BaseButton
 
 var accounts:Array[AccountDisplayEntry]
+
+var list_data:Dictionary
 
 signal on_account_selected(account_data:Dictionary)
 
 func _ready() -> void:
 	if no_entries_overlay!=null:
 		no_entries_overlay.visible=true
+	
+	if refresh_button!=null:
+		refresh_button.pressed.connect(refresh_account_list)
 		
-func refresh_list(account_keyword:String, identifier_keyword:String,filter:Array=[]) -> void:
+func set_list(account_keyword:String, identifier_keyword:String,filter:Array=[], spawn_accounts:bool=true) -> void:
+	list_data = {
+		"acc_key": account_keyword,
+		"id_key":identifier_keyword,
+		"filter":filter
+	}
+	
+	if spawn_accounts:
+		refresh_account_list()
+	
+	
+func refresh_account_list() -> void:
+	if list_data.size() == 0:
+		return
+	
+	if refresh_button!=null:
+		refresh_button.disabled=true
+		
 	clear_display()
-	var accounts:Dictionary = await ClubhouseProgram.fetch_all_accounts_of_type(account_keyword,filter)
+	var accounts:Dictionary = await ClubhouseProgram.fetch_all_accounts_of_type(list_data["acc_key"],list_data["filter"])
 	for key in accounts.keys():
 		var data:Dictionary = accounts[key]
-		var identifier = data[identifier_keyword]
+		var identifier = data[list_data["id_key"]]
 		#identifier needs to be a string to give it to label. if packed byte array, then convert to string		
 		#check against array variants: https://docs.godotengine.org/en/stable/classes/class_@globalscope.html#enum-globalscope-variant-type			
 		if typeof(identifier) in [28,29,30,31,32,33]:
@@ -28,7 +51,10 @@ func refresh_list(account_keyword:String, identifier_keyword:String,filter:Array
 		elif typeof(identifier) != TYPE_STRING:
 			identifier = str(identifier)
 			
-		add_account(identifier,data)
+		await add_account(identifier,data)
+		
+	if refresh_button!=null:
+		refresh_button.disabled=false
 	
 
 func add_account(account_name:String,account_data:Dictionary) -> void:
@@ -36,11 +62,12 @@ func add_account(account_name:String,account_data:Dictionary) -> void:
 		no_entries_overlay.visible=false
 		
 	var entry_instance:AccountDisplayEntry = entry_scn.instantiate() as AccountDisplayEntry
+	
 	container.add_child(entry_instance)
 	if bring_new_to_back:
 		container.move_child(entry_instance,0)
 	
-	entry_instance.setup_account_entry(account_name,account_data)
+	await entry_instance.setup_account_entry(account_name,account_data)
 	entry_instance.on_selected.connect(handle_press)
 	accounts.append(entry_instance)
 	

@@ -4,7 +4,7 @@ extends AccountDisplayEntry
 
 func setup_account_entry(name:String,account_data:Dictionary) -> void:
 	super.setup_account_entry(name,account_data)
-	
+
 	var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager")
 	var house_pda:Pubkey = ClubhousePDA.get_house_pda(menu_manager.house_name)
 	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(data["campaignName"],house_pda)
