@@ -48,8 +48,8 @@ func load_scene(scene_path:String,fade_between_scenes:bool=true,transition_id:in
 	#await get_tree().create_timer(0.01).timeout
 	if scene_data.size()>0:
 		for key in scene_data.keys():
-			if !interscene_data.has(key):
-				interscene_data[key] = scene_data[key]
+			#if !interscene_data.has(key):
+			interscene_data[key] = scene_data[key]
 	print(interscene_data)
 	
 	scene_to_load_path = scene_path

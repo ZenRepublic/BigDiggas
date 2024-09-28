@@ -238,7 +238,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yvyci")
 game_scene_path = "res://Games/MiningMinigame/Scenes/MiningMinigame.tscn"
-house_name = "THEBESTBONKDEVNET"
+house_name = "BIG DEVNET"
 house_currency = "2JcEwPap98iwPG9oAhbNZYkpmDYs996veyAXAHzqfH1o"
 
 [node name="ScreenManager" type="Node" parent="." node_paths=PackedStringArray("starting_panel", "screens")]
@@ -267,6 +267,7 @@ texture = ExtResource("2_whdnv")
 stretch_mode = 1
 
 [node name="MainScreen" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1855,7 +1856,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CreateMineContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 50
@@ -2069,7 +2069,7 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "Miner Type"
+text = "Digga Type"
 vertical_alignment = 1
 autowrap_mode = 3
 
@@ -2106,7 +2106,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "Miner Collection"
+text = "Digga Collection"
 
 [node name="CollectionInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings"]
 layout_mode = 2
@@ -2131,7 +2131,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "Miner Energy"
+text = "DIGGA Energy"
 
 [node name="EnergyCapInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/MinerEnergyContainer"]
 layout_mode = 2
@@ -2297,6 +2297,7 @@ theme_type_variation = &"SimpleButtonAlt"
 text = "Create Mine"
 
 [node name="MineDisplay" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement" node_paths=PackedStringArray("mine_name_label", "collection_displayable", "mine_manager_displayable", "mine_token_displayable", "total_games_label", "unique_players_label", "max_reward_label", "fees_collected", "close_button")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 6
 theme_override_constants/separation = 15
@@ -2536,7 +2537,6 @@ vertical_alignment = 1
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButton"
-disabled = true
 text = "Close in 5h 30min"
 script = ExtResource("52_bt0ds")
 time_left_prefix = "Close in:"
@@ -2547,7 +2547,6 @@ script = ExtResource("38_ykcbo")
 button_locks = [NodePath("../MainScreen/MenuPanel/AdminButton")]
 
 [node name="HouseAdminScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("house_screen_manager", "house_display", "house_create_input_system", "house_edit_input_system", "house_account_display_system")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2753,6 +2752,7 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="HouseCreateContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 30
@@ -2962,7 +2962,6 @@ theme_type_variation = &"SimpleButton"
 text = "Create House"
 
 [node name="HouseDetailsContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement" node_paths=PackedStringArray("house_name_label", "active_campaigns_label", "total_campaigns_label", "unique_players_label", "creation_fees_label", "house_fees_label", "house_edit_input_system")]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
@@ -3518,7 +3517,7 @@ vertical_alignment = 1
 [connection signal="pressed" from="HouseAdminScreen/MenuBanner/HBoxContainer/MarginContainer/BackButton" to="ScreenManager" method="switch_active_panel" binds= [0]]
 [connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/HouseDisplaySystem/MarginContainer/ScrollContainer/HousesList/CreateNewButton" to="HouseAdminScreen" method="show_create_house"]
 [connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/CreateHouseButton" to="HouseAdminScreen" method="create_new_house"]
-[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees/ClaimFeesButton" to="HouseAdminScreen" method="claim_creation_fees"]
+[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees/ClaimFeesButton" to="HouseAdminScreen" method="claim_house_fees"]
 [connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/HouseFees/ClaimFeesButton" to="HouseAdminScreen" method="claim_house_tax_fees"]
 [connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/Buttons/CloseHouseButton" to="HouseAdminScreen" method="close_selected_house"]
 [connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/Buttons/EditMineButton" to="HouseAdminScreen" method="edit_selected_house"]

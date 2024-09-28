@@ -1,7 +1,7 @@
 extends Node
 class_name ClubhousePDA
 
-static var PROGRAM_ID:Pubkey = Pubkey.new_from_string("C1ubCwnK75ExARi8BoVzAvREDG29wJKyiwnf1hC8rgBU")
+static var PROGRAM_ID:Pubkey = Pubkey.new_from_string("C1ubv5AC5w7Eh3iHpEt2BXZ1g3eARQtMRgmE2AXfznSg")
 	
 static func get_house_pda(house_name:String) -> Pubkey:
 	var name_bytes = "house".to_utf8_buffer()
@@ -9,7 +9,8 @@ static func get_house_pda(house_name:String) -> Pubkey:
 	return Pubkey.new_pda_bytes([name_bytes,house_name_bytes],PROGRAM_ID)
 
 static func get_house_currency_vault(house_pda:Pubkey) -> Pubkey:
-	return Pubkey.new_pda_bytes([house_pda.to_bytes()],PROGRAM_ID)
+	var name_bytes = "vault".to_utf8_buffer()
+	return Pubkey.new_pda_bytes([name_bytes,house_pda.to_bytes()],PROGRAM_ID)
 	
 static func get_campaign_pda(campaign_name:String,house_pda:Pubkey) -> Pubkey:
 	var name_bytes = "campaign".to_utf8_buffer()

@@ -29,7 +29,7 @@ func _ready() -> void:
 	if house_data.size()!=0:
 		mine_input_system.setup(house_data)
 		
-	var filter:Array = [{"memcmp" : { "offset":8, "bytes": house_pda.to_string()}}]
+	var filter:Array = [{"memcmp" : { "offset":9, "bytes": house_pda.to_string()}}]
 	mine_account_display_system.set_list("Campaign","campaignName",filter,false)
 	
 	mine_account_display_system.on_account_selected.connect(load_mine)
@@ -46,7 +46,6 @@ func create_new_mine() -> void:
 	var mine_data:Dictionary = mine_input_system.get_input_data()
 	var mine_name:String = mine_data["campaignName"]
 	var reward_mint:Pubkey = mine_data["rewardCurrency"]
-	var collection:Pubkey = mine_data["collection"]
 	
 	var reward_mint_decimals:int = await SolanaService.get_token_decimals(reward_mint.to_string())
 	var fund_amount_lamports:int = floori(mine_data["fundAmount"]*pow(10,reward_mint_decimals))
@@ -60,12 +59,15 @@ func create_new_mine() -> void:
 	}
 	
 	var nft_config:Dictionary = {
-		"maxClubMemberEnergy":AnchorProgram.u8(mine_data["maxEnergy"]),
-		"energyRechargeMinutes":-1
+		"collection": mine_data["collection"],
+		"maxPlayerEnergy":AnchorProgram.u8(mine_data["maxEnergy"]),
+		"energyRechargeMinutes":AnchorProgram.option(null)
 	}
 
-	var tx_data:TransactionData = await ClubhouseProgram.create_campaign(house_pda,currency_mint,mine_name,reward_mint,collection,fund_amount_lamports,max_reward_lamports,player_claim_fee,timespan,nft_config)
-	pass
+	var tx_data:TransactionData = await ClubhouseProgram.create_campaign(house_pda,currency_mint,mine_name,reward_mint,fund_amount_lamports,max_reward_lamports,player_claim_fee,timespan,nft_config)
+	
+	if tx_data.is_successful():
+		mine_account_display_system.refresh_account_list()
 	
 func get_campaign_end_timestamp(campaign_duration_in_hours:int) -> int:
 	var utc_timestamp:float = Time.get_unix_time_from_system()
@@ -83,7 +85,9 @@ func load_mine(mine_data:Dictionary) -> void:
 func close_mine() -> void:
 	var mine_name:String = mine_display.curr_selected_mine_data["campaignName"]
 	var reward_mint:Pubkey = mine_display.curr_selected_mine_data["rewardMint"]
+	
 	var tx_data:TransactionData = await ClubhouseProgram.close_campaign(house_pda,mine_name,reward_mint)
 	
-	mine_account_display_system.refresh_account_list()
-	mine_screen_manager.switch_active_panel(0)
+	if tx_data.is_successful():
+		mine_account_display_system.refresh_account_list()
+		mine_screen_manager.switch_active_panel(0)

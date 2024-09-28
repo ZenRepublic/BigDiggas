@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bd2lr00a7wwps"]
+[gd_scene load_steps=25 format=3 uid="uid://bd2lr00a7wwps"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_3jlna"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/score_calculator_ui.gd" id="1_s1cof"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/bill_creator.gd" id="8_8sjun"]
 [ext_resource type="PackedScene" uid="uid://cq2b8v1v3u2fm" path="res://Games/MiningMinigame/Assets/BillSlot.tscn" id="9_153da"]
 [ext_resource type="Texture2D" uid="uid://crkoovodnwd7g" path="res://Games/MiningMinigame/textures/GUI/collectible_coin_big_idle_1.png" id="10_svpuf"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/Input/number_label.gd" id="12_rcagu"]
 [ext_resource type="AudioStream" uid="uid://gia20kjit3e0" path="res://Games/MiningMinigame/Sounds/UI/calculatepoints.mp3" id="12_ytlle"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0jn3"]
@@ -474,15 +475,19 @@ size_flags_horizontal = 3
 [node name="FinalPrice" type="Label" parent="BillCreator/ClaimContainer"]
 layout_mode = 2
 theme = ExtResource("7_x3axi")
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 60
 text = "500"
 vertical_alignment = 1
+script = ExtResource("12_rcagu")
+format_mode = 1
+decimal_amount = 2
 
 [node name="Visual" type="TextureRect" parent="BillCreator/ClaimContainer"]
-texture_filter = 1
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("10_svpuf")
+expand_mode = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="BillCreator"]
 stream = ExtResource("12_ytlle")

@@ -26,18 +26,17 @@ func set_mine_data(data:Dictionary) -> void:
 	
 	mine_name_label.text = data["campaignName"]
 	
-	var collection_asset:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["collection"],true)
+	var collection_asset:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["nftConfig"]["collection"],true)
 	await collection_displayable.set_data(collection_asset)
 	var owned_collection_nfts:Array[WalletAsset] = SolanaService.asset_manager.get_owned_nfts_from_collection_key(collection_asset.mint)
 	player_display_system.setup(owned_collection_nfts,true)
 	
-	if data["manager"] != null:
-		var mine_manager:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["manager"])
-		#mine manager can be a wallet address, so check if its a valid nft before assigning it		
+	if data["managerMint"] != null:
+		var mine_manager:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["managerMint"])
 		if mine_manager!=null:
-			await mine_manager_displayable.set_data(mine_manager)
+			mine_manager_displayable.set_data(mine_manager)
 		
-	var campaign_token:Token = await SolanaService.asset_manager.get_asset_from_mint(data["rewardMint"],true)
+	var campaign_token:Token = await SolanaService.asset_manager.get_asset_from_mint(data["rewardMint"],true,false)
 	campaign_token.token_account = ClubhousePDA.get_campaign_vault_pda(campaign_pda)
 	campaign_token.decimals = data["rewardMintDecimals"]
 	await mine_token_displayable.set_data(campaign_token)

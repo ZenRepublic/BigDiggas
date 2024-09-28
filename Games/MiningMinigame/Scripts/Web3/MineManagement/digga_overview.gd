@@ -16,7 +16,7 @@ var selection_locked:bool=false
 func set_digga(nft:Nft, mine_data:Dictionary, player_data:Dictionary) -> void:
 	screen_manager.switch_active_panel(2)
 	digga_nft = nft
-	var max_energy:int = mine_data["nftEnergyConfig"]["maxPlayerEnergy"]
+	var max_energy:int = mine_data["nftConfig"]["maxPlayerEnergy"]
 	await displayable_digga.set_data(nft)
 	
 	energy_bar.max_value = max_energy

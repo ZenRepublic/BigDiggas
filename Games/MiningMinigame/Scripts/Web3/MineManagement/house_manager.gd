@@ -49,12 +49,13 @@ func create_new_house() -> void:
 		"rewardsTax":AnchorProgram.u64(rewards_tax_basis_points),
 	}
 	var tx_data:TransactionData = await ClubhouseProgram.create_house(house_data["houseName"],house_data["managerCollection"],house_currency,house_config)
-	pass
+	
+	if tx_data.is_successful():
+		house_account_display_system.refresh_account_list()
 	
 func edit_selected_house() -> void:
 	var house_data:Dictionary = house_edit_input_system.get_input_data()
-	var house_name_bytes:PackedByteArray = house_display.curr_selected_house_data["houseName"] as PackedByteArray
-	var house_name:String = house_name_bytes.get_string_from_utf8()
+	var house_name:String = house_display.curr_selected_house_data["houseName"]
 	
 	var oracleKey:Pubkey = house_data["oracleKey"]
 	if oracleKey == null:
@@ -77,28 +78,35 @@ func edit_selected_house() -> void:
 	}
 	
 	var tx_data:TransactionData = await ClubhouseProgram.update_house(house_name,house_config)
-	pass
+	
+	if tx_data.is_successful():
+		house_account_display_system.refresh_account_list()
 	
 	
 func close_selected_house() -> void:
 	var house_data:Dictionary = house_display.curr_selected_house_data
-	var house_name_bytes:PackedByteArray = house_data["houseName"] as PackedByteArray
-	var house_name:String = house_name_bytes.get_string_from_utf8()
+	var house_name:String = house_data["houseName"]
 	var house_currency:Pubkey = house_data["houseCurrency"]
 	
 	var tx_data:TransactionData = await ClubhouseProgram.close_house(house_name,house_currency)
 	
-	house_screen_manager.switch_active_panel(0)
-	house_account_display_system.refresh_account_list()
-	pass
+	if tx_data.is_successful():
+		house_screen_manager.switch_active_panel(0)
+		house_account_display_system.refresh_account_list()
+	
+func claim_house_fees() -> void:
+	var house_data:Dictionary = house_display.curr_selected_house_data
+	var house_name:String = house_data["houseName"]
+	var house_currency:Pubkey = house_data["houseCurrency"]
+	
+	var tx_data:TransactionData = await ClubhouseProgram.close_house(house_name,house_currency)
+	
+	if tx_data.is_successful():
+		house_account_display_system.refresh_account_list()
+		house_display.creation_fees_label.text = "0 SOL"
+		house_display.house_fees_label.text = "0 SOL"
 	
 func load_house(house_data:Dictionary) -> void:
 	house_screen_manager.switch_active_panel(1)
 	await house_display.set_house_data(house_data)
 	house_screen_manager.switch_active_panel(3)
-	
-func claim_creation_fees() -> void:
-	pass
-	
-func claim_house_tax_fees() -> void:
-	pass

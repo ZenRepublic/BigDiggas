@@ -38,7 +38,6 @@ func fetch_all_accounts_of_type(account_type:String,filter:Array=[]) -> Dictiona
 		
 func create_house(house_name:String,manager_collection:Pubkey,house_currency:Pubkey,house_config:Dictionary) -> TransactionData:
 	var house_pda:Pubkey = ClubhousePDA.get_house_pda(house_name)
-
 	var create_house_ix:Instruction = program.build_instruction("createHouse",[
 		SolanaService.wallet.get_kp(),
 		house_pda,
@@ -72,13 +71,13 @@ func update_house(house_name:String,house_config:Dictionary) -> TransactionData:
 	
 func close_house(house_name:String, house_currency:Pubkey) -> TransactionData:
 	var house_pda:Pubkey = ClubhousePDA.get_house_pda(house_name)
+	var fees_withdrawal_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),house_currency)
 	
-	var house_vault_token_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),house_currency)
 	var delete_house_ix:Instruction = program.build_instruction("closeHouse",[
 		house_pda,
 		SolanaService.wallet.get_kp(),
 		ClubhousePDA.get_house_currency_vault(house_pda),
-		house_vault_token_account,
+		fees_withdrawal_account,
 		house_currency,
 		SolanaService.ATA_TOKEN_PID,
 		SolanaService.TOKEN_PID,
@@ -88,18 +87,38 @@ func close_house(house_name:String, house_currency:Pubkey) -> TransactionData:
 	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([delete_house_ix])
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
 	return tx_data
+	
+	
+func withdraw_house_fees(house_name:String, house_currency:Pubkey) -> TransactionData:
+	var house_pda:Pubkey = ClubhousePDA.get_house_pda(house_name)
+	var fees_withdrawal_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),house_currency)
+	
+	var withdraw_fees_ix:Instruction = program.build_instruction("withdrawHouseFees",[
+		house_pda,
+		SolanaService.wallet.get_kp(),
+		ClubhousePDA.get_house_currency_vault(house_pda),
+		fees_withdrawal_account,
+		house_currency,
+		SolanaService.ATA_TOKEN_PID,
+		SolanaService.TOKEN_PID,
+		SystemProgram.get_pid()
+	],null)
+	
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([withdraw_fees_ix])
+	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
+	return tx_data
 
 
-func create_campaign(house_pda:Pubkey,house_currency:Pubkey,campaign_name:String,reward_mint:Pubkey,collection:Pubkey,fund_amount_lamports:int,max_reward_lamports:int,player_claim_fee:int,timespan:Dictionary,nft_config=null,token_config=null) -> TransactionData:
+func create_campaign(house_pda:Pubkey,house_currency:Pubkey,campaign_name:String,reward_mint:Pubkey,fund_amount_lamports:int,max_reward_lamports:int,player_claim_fee:int,timespan:Dictionary,nft_config=null,token_config=null) -> TransactionData:
 	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(campaign_name,house_pda)
-	var signer_payment_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),house_currency)
+	var creation_fee_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),house_currency)
 	var reward_depositor_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),reward_mint)
 	
-	var create_campaign_ix:Instruction = program.build_instruction("createCampaignUnmanaged",[	
+	var create_campaign_ix:Instruction = program.build_instruction("createCampaign",[	
 		SolanaService.wallet.get_kp(),
 		campaign_pda,
 		house_pda,
-		signer_payment_account,
+		creation_fee_account,
 		reward_mint,
 		ClubhousePDA.get_house_currency_vault(house_pda),
 		reward_depositor_account,
@@ -107,14 +126,13 @@ func create_campaign(house_pda:Pubkey,house_currency:Pubkey,campaign_name:String
 		SolanaService.TOKEN_PID,
 		SystemProgram.get_pid()
 		],{
-			"collectionPubkey":collection,
 			"campaignName":campaign_name,
-			"fundAmount":fund_amount_lamports,
-			"maxRewardsPerGame":max_reward_lamports,
-			"playerClaimPrice":player_claim_fee,
+			"fundAmount":AnchorProgram.u64(fund_amount_lamports),
+			"maxRewardsPerGame":AnchorProgram.u64(max_reward_lamports),
+			"playerClaimPrice":AnchorProgram.u64(player_claim_fee),
 			"timespan":timespan,
-			"nftEnergyConfig":AnchorProgram.option(nft_config),
-			"tokenEnergyConfig":AnchorProgram.option(token_config)
+			"nftConfig":AnchorProgram.option(nft_config),
+			"tokenConfig":AnchorProgram.option(token_config)
 		})
 	
 	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([create_campaign_ix])
@@ -123,14 +141,16 @@ func create_campaign(house_pda:Pubkey,house_currency:Pubkey,campaign_name:String
 	
 func close_campaign(house_pda:Pubkey,campaign_name:String,reward_mint:Pubkey) -> TransactionData:
 	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(campaign_name,house_pda)
+	var reward_withdrawal_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),reward_mint)
 	
-	var close_campaign_ix:Instruction = program.build_instruction("closeCampaignUnmanaged",[	
+	var close_campaign_ix:Instruction = program.build_instruction("closeCampaign",[	
 		campaign_pda,
-		SolanaService.wallet.get_kp(),
+		reward_withdrawal_account,
 		reward_mint,
 		ClubhousePDA.get_campaign_vault_pda(campaign_pda),
 		house_pda,
 		SolanaService.wallet.get_kp(),
+		SolanaService.ATA_TOKEN_PID,
 		SolanaService.TOKEN_PID,
 		SystemProgram.get_pid()
 		],null)

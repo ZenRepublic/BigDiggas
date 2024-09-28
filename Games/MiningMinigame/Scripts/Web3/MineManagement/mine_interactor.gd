@@ -12,7 +12,7 @@ func _ready() -> void:
 	var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager")
 	house_pda = ClubhousePDA.get_house_pda(menu_manager.house_name)
 	
-	var filter:Array = [{"memcmp" : { "offset":8, "bytes": house_pda.to_string()}}]
+	var filter:Array = [{"memcmp" : { "offset":9, "bytes": house_pda.to_string()}}]
 	mine_account_display.set_list("Campaign","campaignName",filter)
 	
 	self.visibility_changed.connect(on_visibility_changed)
@@ -34,6 +34,14 @@ func load_mine_card(mine_data:Dictionary) -> void:
 func enter_mine() -> void:
 	var selected_nft:Pubkey = mine_card.get_selected_digga_nft()
 	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(mine_card.curr_selected_mine_data["campaignName"],house_pda)
-	var tx_data:TransactionData = await ClubhouseProgram.start_game(house_pda,campaign_pda,selected_nft)
+	
+	var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager") as MenuManager
+	menu_manager.load_game(mine_card.curr_selected_mine_data,{})
+	#
+	#var tx_data:TransactionData = await ClubhouseProgram.start_game(house_pda,campaign_pda,selected_nft)
+	#
+	#if tx_data.is_successful():
+		#var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager") as MenuManager
+		#menu_manager.enter_mine(mine_card.curr_selected_mine_data,{})
 	
 	

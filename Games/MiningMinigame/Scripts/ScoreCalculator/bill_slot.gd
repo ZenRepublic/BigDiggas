@@ -3,7 +3,7 @@ class_name BillSlot
 
 @onready var visual:TextureRect = $Visual
 @onready var quantity_label:Label = $Quantity
-@onready var token_value_label:Label = $TokenValue
+@onready var token_value_label:NumberLabel = $TokenValue
 
 @onready var token_visual:TextureRect = $TokenVisual
 
@@ -12,7 +12,7 @@ class_name BillSlot
 var total_value:float
 
 func _ready() -> void:
-	token_value_label.text = ""
+	token_value_label.set_value(0)
 	
 
 func setup(bill_creator:BillCreator,item_data:InventoryItem, unit_token_price:float,token_texture:Texture2D=null) -> void:
@@ -26,12 +26,12 @@ func setup(bill_creator:BillCreator,item_data:InventoryItem, unit_token_price:fl
 	await get_tree().create_timer(0.4).timeout
 	
 	total_value = unit_token_price * item_data.market_value * item_data.quantity
-	var rise_increment = ceil(total_value/10.0)
+	var rise_increment:float = total_value/10.0
 	var curr_value:float=0
 	while curr_value<total_value:
 		curr_value += rise_increment
 		curr_value = clamp(curr_value,0,total_value)
-		token_value_label.text = str(curr_value)
+		token_value_label.set_value(curr_value)
 		bill_creator.play_increment_sound(lerp(0.9,1.2,curr_value/total_value))
 		await get_tree().create_timer(0.07).timeout
 		

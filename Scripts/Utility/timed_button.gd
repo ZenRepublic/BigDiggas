@@ -14,7 +14,7 @@ var is_active:bool=false
 signal on_timer_finished
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	disabled=true
+	#disabled=true
 	pass # Replace with function body.
 
 
@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 			is_active=false
 		return
 			
-	disabled=true
+	#disabled=true
 	var time_left_formatted:String = format_time_left(finish_time)
 	text = "%s %s" % [time_left_prefix,time_left_formatted]
 	time_elapsed=0

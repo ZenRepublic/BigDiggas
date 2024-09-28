@@ -17,17 +17,16 @@ var curr_selected_mine_data:Dictionary
 		
 # Called when the node enters the scene tree for the first time.
 func set_mine_data(data:Dictionary) -> void:
-	#print(data)
 	curr_selected_mine_data = data
 	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(data["campaignName"],data["house"])
 	mine_name_label.text = data["campaignName"]
 	
 	
-	var collection_asset:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["collection"],true)
+	var collection_asset:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["nftConfig"]["collection"],true)
 	collection_displayable.set_data(collection_asset)
 	
-	if data["manager"] != null:
-		var mine_manager:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["manager"])
+	if data["managerMint"] != null:
+		var mine_manager:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["managerMint"])
 		if mine_manager!=null:
 			mine_manager_displayable.set_data(mine_manager)
 		

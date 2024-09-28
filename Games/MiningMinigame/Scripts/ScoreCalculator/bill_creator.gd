@@ -8,7 +8,7 @@ class_name BillCreator
 @onready var spacer:HBoxContainer = $Spacer
 
 @onready var claim_container:Control = $ClaimContainer
-@onready var final_price_label:Label = $ClaimContainer/FinalPrice
+@onready var final_price_label:NumberLabel = $ClaimContainer/FinalPrice
 @onready var final_price_visual:TextureRect = $ClaimContainer/Visual
 @onready var action_button:Button = $ClaimContainer/ActionButton
 @onready var audio_player:AudioStreamPlayer = $AudioStreamPlayer
@@ -46,7 +46,7 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 	var tween:Tween = get_tree().create_tween()
 	tween.tween_property(spacer_line,"size_flags_stretch_ratio",1.0,0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
-	final_price_label.text = ""
+	final_price_label.set_value(0)
 	claim_container.visible = true
 	
 	var total_value:float=0.0
@@ -58,17 +58,17 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 	if game_mode == GameManager.GameMode.MINING:
 		final_score = mine_reward_claimer.get_token_value(final_score,false)
 		
+	var final_claim_amount:float
 	for slot in bill_slots:
-		var transfer_rate = round(slot.total_value/10)
+		var transfer_rate:float = slot.total_value/10
 		var slot_value:float = slot.get_total_value()
-		var final_claim_amount:float
 		while slot_value>0:
 			slot_value -= transfer_rate
 			if slot_value < 0:
 				slot_value=0
 			slot.token_value_label.text = str(slot_value)
 			final_claim_amount += transfer_rate
-			final_price_label.text = str(final_claim_amount)
+			final_price_label.set_value(final_claim_amount)
 			play_increment_sound(lerp(1.0,1.4,final_claim_amount/total_value))
 			await get_tree().create_timer(0.05).timeout
 			

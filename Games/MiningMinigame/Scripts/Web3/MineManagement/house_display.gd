@@ -16,9 +16,8 @@ var decimals:int
 # Called when the node enters the scene tree for the first time.
 func set_house_data(data:Dictionary) -> void:
 	curr_selected_house_data = data
-	
-	var house_name_bytes:PackedByteArray = data["houseName"] as PackedByteArray
-	house_name_label.text = house_name_bytes.get_string_from_utf8()
+
+	house_name_label.text = data["houseName"]
 	
 	active_campaigns_label.text = str(data["activeCampaigns"])
 	total_campaigns_label.text = str(data["totalCampaigns"])

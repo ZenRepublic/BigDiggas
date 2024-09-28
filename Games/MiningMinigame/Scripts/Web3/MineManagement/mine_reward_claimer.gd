@@ -48,6 +48,7 @@ func claim_reward(score:int) -> TransactionData:
 	var house_pda:Pubkey = ClubhousePDA.get_house_pda(mine_data["house"])
 	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(mine_data["campaignName"],house_pda)
 	var reward_mint:Pubkey = mine_data["rewardMint"]
+	
 	var tx_data:TransactionData = await ClubhouseProgram.claim_reward(house_pda,campaign_pda,Pubkey.new_random(),reward_mint,score)
 	return tx_data
 	

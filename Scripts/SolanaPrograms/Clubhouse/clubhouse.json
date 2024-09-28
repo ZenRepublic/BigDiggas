@@ -56,7 +56,7 @@
 				},
 				{
 					"name": "houseName",
-					"type": "bytes"
+					"type": "string"
 				}
 			]
 		},
@@ -82,6 +82,52 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "withdrawHouseFees",
+			"accounts": [
+				{
+					"name": "house",
+					"isMut": false,
+					"isSigner": false
+				},
+				{
+					"name": "houseAdmin",
+					"isMut": true,
+					"isSigner": true
+				},
+				{
+					"name": "houseCurrencyVault",
+					"isMut": true,
+					"isSigner": false
+				},
+				{
+					"name": "adminWithdrawAccount",
+					"isMut": true,
+					"isSigner": false
+				},
+				{
+					"name": "houseCurrency",
+					"isMut": false,
+					"isSigner": false
+				},
+				{
+					"name": "associatedTokenProgram",
+					"isMut": false,
+					"isSigner": false
+				},
+				{
+					"name": "tokenProgram",
+					"isMut": false,
+					"isSigner": false
+				},
+				{
+					"name": "systemProgram",
+					"isMut": false,
+					"isSigner": false
+				}
+			],
+			"args": []
 		},
 		{
 			"name": "closeHouse",
@@ -161,7 +207,7 @@
 			"args": []
 		},
 		{
-			"name": "createCampaignUnmanaged",
+			"name": "createCampaign",
 			"accounts": [
 				{
 					"name": "signer",
@@ -179,7 +225,7 @@
 					"isSigner": false
 				},
 				{
-					"name": "signerPaymentAccount",
+					"name": "creationFeeAccount",
 					"isMut": true,
 					"isSigner": false,
 					"docs": [
@@ -228,10 +274,6 @@
 			],
 			"args": [
 				{
-					"name": "collectionPubkey",
-					"type": "publicKey"
-				},
-				{
 					"name": "campaignName",
 					"type": "string"
 				},
@@ -254,25 +296,25 @@
 					}
 				},
 				{
-					"name": "nftEnergyConfig",
+					"name": "nftConfig",
 					"type": {
 						"option": {
-							"defined": "NftEnergyConfig"
+							"defined": "NftCampaignConfig"
 						}
 					}
 				},
 				{
-					"name": "tokenEnergyConfig",
+					"name": "tokenConfig",
 					"type": {
 						"option": {
-							"defined": "TokenEnergyConfig"
+							"defined": "TokenCampaignConfig"
 						}
 					}
 				}
 			]
 		},
 		{
-			"name": "closeCampaignUnmanaged",
+			"name": "closeCampaign",
 			"accounts": [
 				{
 					"name": "campaign",
@@ -282,7 +324,7 @@
 				{
 					"name": "rewardWithdrawalAccount",
 					"isMut": true,
-					"isSigner": true,
+					"isSigner": false,
 					"docs": [
 						"the account that deposits rewards for the campaign"
 					]
@@ -306,9 +348,14 @@
 					"isSigner": false
 				},
 				{
-					"name": "manager",
+					"name": "creator",
 					"isMut": true,
 					"isSigner": true
+				},
+				{
+					"name": "associatedTokenProgram",
+					"isMut": false,
+					"isSigner": false
 				},
 				{
 					"name": "tokenProgram",
@@ -550,19 +597,19 @@
 				"kind": "struct",
 				"fields": [
 					{
+						"name": "bump",
+						"type": "u8"
+					},
+					{
 						"name": "house",
 						"type": "publicKey"
 					},
 					{
-						"name": "collection",
+						"name": "creator",
 						"type": "publicKey"
 					},
 					{
-						"name": "manager",
-						"type": "publicKey"
-					},
-					{
-						"name": "metadataMint",
+						"name": "managerMint",
 						"type": {
 							"option": "publicKey"
 						}
@@ -608,27 +655,36 @@
 						}
 					},
 					{
-						"name": "nftEnergyConfig",
+						"name": "nftConfig",
 						"type": {
 							"option": {
-								"defined": "NftEnergyConfig"
+								"defined": "NftCampaignConfig"
 							}
 						}
 					},
 					{
-						"name": "tokenEnergyConfig",
-						"type": {
-							"option": {
-								"defined": "TokenEnergyConfig"
-							}
-						}
-					},
-					{
-						"name": "reserved",
+						"name": "reservedForNft",
 						"type": {
 							"array": [
 								"u64",
-								16
+								8
+							]
+						}
+					},
+					{
+						"name": "tokenConfig",
+						"type": {
+							"option": {
+								"defined": "TokenCampaignConfig"
+							}
+						}
+					},
+					{
+						"name": "reservedForToken",
+						"type": {
+							"array": [
+								"u64",
+								8
 							]
 						}
 					},
@@ -730,13 +786,8 @@
 				"kind": "struct",
 				"fields": [
 					{
-						"name": "houseName",
-						"type": {
-							"array": [
-								"u8",
-								32
-							]
-						}
+						"name": "bump",
+						"type": "u8"
 					},
 					{
 						"name": "houseAdmin",
@@ -819,7 +870,7 @@
 						"type": {
 							"array": [
 								"u64",
-								13
+								16
 							]
 						}
 					},
@@ -837,6 +888,10 @@
 								16
 							]
 						}
+					},
+					{
+						"name": "houseName",
+						"type": "string"
 					}
 				]
 			}
@@ -929,26 +984,36 @@
 	],
 	"types": [
 		{
-			"name": "NftEnergyConfig",
+			"name": "NftCampaignConfig",
 			"type": {
 				"kind": "struct",
 				"fields": [
+					{
+						"name": "collection",
+						"type": "publicKey"
+					},
 					{
 						"name": "maxPlayerEnergy",
 						"type": "u8"
 					},
 					{
 						"name": "energyRechargeMinutes",
-						"type": "i64"
+						"type": {
+							"option": "i64"
+						}
 					}
 				]
 			}
 		},
 		{
-			"name": "TokenEnergyConfig",
+			"name": "TokenCampaignConfig",
 			"type": {
 				"kind": "struct",
 				"fields": [
+					{
+						"name": "tokenAddress",
+						"type": "publicKey"
+					},
 					{
 						"name": "energyPrice",
 						"type": "u64"
@@ -1198,41 +1263,58 @@
 		},
 		{
 			"code": 6017,
-			"name": "InvalidHouseNameLength",
-			"msg": "The house name cannot be longer than 32 bytes"
+			"name": "StartsWithPunctuation",
+			"msg": "String starts with punctuation"
 		},
 		{
 			"code": 6018,
-			"name": "HouseNameTooShort",
-			"msg": "The house name cannot be shorted than 4 bytes"
+			"name": "StartsWithWhitespace",
+			"msg": "String starts with whitespace"
 		},
 		{
 			"code": 6019,
-			"name": "InvalidHouseName",
-			"msg": "The house name cannot have special characters"
+			"name": "EndsWithWhitespace",
+			"msg": "String ends with whitespace"
 		},
 		{
 			"code": 6020,
+			"name": "InvalidCharacter",
+			"msg": "Invalid character in string"
+		},
+		{
+			"code": 6021,
+			"name": "ConsecutiveWhitespace",
+			"msg": "Consecutive whitespace found"
+		},
+		{
+			"code": 6022,
+			"name": "StringTooLong",
+			"msg": "The string cannot be longer than 32 bytes"
+		},
+		{
+			"code": 6023,
+			"name": "StringTooShort",
+			"msg": "The string cannot be shorter than 4 bytes"
+		},
+		{
+			"code": 6024,
 			"name": "NonZeroVault",
 			"msg": "The vault must be empty"
 		},
 		{
-			"code": 6021,
+			"code": 6025,
 			"name": "ActiveCampaigns",
 			"msg": "Active campaigns exist"
 		},
 		{
-			"code": 6022,
+			"code": 6026,
 			"name": "ActiveCampaign",
 			"msg": "Campaign is active"
 		},
 		{
-			"code": 6023,
+			"code": 6027,
 			"name": "CampaignExpired",
 			"msg": "Campaign is expired"
 		}
-	],
-	"metadata": {
-		"address": "C1ubCwnK75ExARi8BoVzAvREDG29wJKyiwnf1hC8rgBU"
-	}
+	]
 }

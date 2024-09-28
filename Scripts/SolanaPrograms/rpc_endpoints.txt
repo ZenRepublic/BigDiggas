@@ -4,5 +4,6 @@ Mainnet:
 	https://mainnet.helius-rpc.com/?api-key=45143f32-3c29-4d77-ba93-2005b017e7a5
 	
 Devnet:
+	https://lingering-old-forest.solana-devnet.quiknode.pro/b117971e16b44a82c492776a0d5f6863a0d20993/
 	https://api.devnet.solana.com
 	https://devnet.helius-rpc.com/?api-key=45143f32-3c29-4d77-ba93-2005b017e7a5
