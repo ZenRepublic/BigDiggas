@@ -593,7 +593,7 @@ mine_card = NodePath("MineDetails/MineCard")
 [node name="ScreenManager" type="Node" parent="MainScreen/MineInteractor" node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
 starting_panel = NodePath("../ActiveMines")
-screens = [NodePath("../Loading"), NodePath("../Signing"), NodePath("../ActiveMines"), NodePath("../MineDetails")]
+screens = [NodePath("../Loading"), NodePath("../ActiveMines"), NodePath("../MineDetails")]
 
 [node name="Loading" type="Control" parent="MainScreen/MineInteractor"]
 visible = false
@@ -624,35 +624,6 @@ text = "LOADING..."
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Signing" type="Control" parent="MainScreen/MineInteractor"]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="SelectMine" type="Label" parent="MainScreen/MineInteractor/Signing"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -244.5
-offset_top = -40.5
-offset_right = 244.5
-offset_bottom = 40.5
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"HeaderMedium"
-theme_override_font_sizes/font_size = 55
-text = "SIGNING..."
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="ActiveMines" type="Control" parent="MainScreen/MineInteractor"]
 layout_mode = 1
 anchors_preset = 15
@@ -666,15 +637,15 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -137.0
-offset_top = 115.0
+offset_left = -185.0
+offset_top = 123.0
 offset_right = 352.0
-offset_bottom = 196.0
+offset_bottom = 204.0
 grow_horizontal = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_font_sizes/font_size = 55
-text = "ACTIVE MINES"
+text = "SELECT MINE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -747,15 +718,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="BackButton" type="TextureButton" parent="MainScreen/MineInteractor/MineDetails"]
+custom_minimum_size = Vector2(140, 100)
+layout_mode = 2
+offset_left = 168.0
+offset_top = 19.0
+offset_right = 308.0
+offset_bottom = 119.0
+scale = Vector2(0.75, 0.75)
+texture_normal = ExtResource("15_c33lj")
+ignore_texture_size = true
+stretch_mode = 5
+flip_h = true
+script = ExtResource("16_tnflq")
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_pressed_color = Color(0.682353, 0.886275, 1, 1)
+theme_override_colors/icon_hover_color = Color(0.427451, 0.501961, 0.980392, 1)
+theme_override_colors/icon_hover_pressed_color = Color(0.682353, 0.886275, 1, 1)
+theme_override_colors/icon_disabled_color = Color(0.881937, 0.881937, 0.881937, 0.352941)
+
 [node name="MineDetails" type="Label" parent="MainScreen/MineInteractor/MineDetails"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -247.0
-offset_top = 34.0
-offset_right = 152.0
-offset_bottom = 87.0
+offset_left = -119.0
+offset_top = 30.0
+offset_right = 280.0
+offset_bottom = 83.0
 grow_horizontal = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
@@ -1011,10 +1001,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -248.0
-offset_top = 467.0
-offset_right = 82.0
-offset_bottom = 503.0
+offset_left = -135.0
+offset_top = 470.0
+offset_right = 195.0
+offset_bottom = 506.0
 grow_horizontal = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
@@ -3505,6 +3495,8 @@ vertical_alignment = 1
 [connection signal="pressed" from="MainScreen/MenuPanel/TrainingButton" to="." method="_on_training_button_pressed"]
 [connection signal="pressed" from="MainScreen/MenuPanel/MintButton" to="." method="_on_mint_button_pressed"]
 [connection signal="pressed" from="MainScreen/MenuPanel/AdminButton" to="." method="_on_admin_button_pressed"]
+[connection signal="pressed" from="MainScreen/MineInteractor/MineDetails/BackButton" to="." method="play_ui_sound" binds= ["Return"]]
+[connection signal="pressed" from="MainScreen/MineInteractor/MineDetails/BackButton" to="MainScreen/MineInteractor/ScreenManager" method="switch_active_panel" binds= [1]]
 [connection signal="pressed" from="MainScreen/MineInteractor/MineDetails/DiggaOverview/MarginContainer/SelectedDiggaContainer/MarginContainer/EnterMineButton" to="MainScreen/MineInteractor" method="enter_mine"]
 [connection signal="on_nft_mint_failed" from="RubianMintScreen" to="RubianMintScreen/MenuBanner" method="_on_rubian_mint_screen_on_nft_mint_failed"]
 [connection signal="on_nft_mint_failed" from="RubianMintScreen" to="RubianMintScreen/ScreenManager" method="switch_active_panel" binds= [1]]

@@ -37,7 +37,7 @@ func set_mine_data(data:Dictionary) -> void:
 		if mine_manager!=null:
 			await mine_manager_displayable.set_data(mine_manager)
 		
-	var campaign_token:Token = await SolanaService.asset_manager.get_asset_from_mint(data["rewardMint"],true,false)
+	var campaign_token:Token = await SolanaService.asset_manager.get_asset_from_mint(data["rewardMint"],true)
 	campaign_token.token_account = ClubhousePDA.get_campaign_vault_pda(campaign_pda)
 	campaign_token.decimals = data["rewardMintDecimals"]
 	await mine_token_displayable.set_data(campaign_token)

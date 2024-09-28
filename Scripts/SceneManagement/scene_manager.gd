@@ -93,5 +93,8 @@ func select_transition_scene(id:int) -> PackedScene:
 		return transition_panels[id]
 		
 func get_interscene_data(key):
-	return interscene_data[key]
+	if interscene_data.has(key):
+		return interscene_data[key]
+	else:
+		return null
 		

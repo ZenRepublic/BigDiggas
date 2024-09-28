@@ -160,3 +160,31 @@ func start_game(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey) -> Trans
 	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([start_game_ix])
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
 	return tx_data
+	
+
+func claim_reward(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey,reward_mint:Pubkey,reward_amount:int) -> TransactionData:
+	var campaign_player_pda:Pubkey = ClubhousePDA.get_campaign_player_pda(campaign_pda,player_nft)
+	var player_nft_token_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),player_nft)
+	print(player_nft_token_account.to_string())
+	print(ClubhousePDA.get_nft_metadata_pda(player_nft).to_string())
+	
+	var claim_reward_ix:Instruction = program.build_instruction("endGameWithNft",[
+		house_pda,	
+		campaign_pda,
+		campaign_player_pda,
+		player_nft_token_account,
+		ClubhousePDA.get_nft_metadata_pda(player_nft),
+		"rewardMint",
+		"rewardVault",
+		"playerRewardTokenAccount",
+		SolanaService.wallet.get_kp(),
+		SolanaService.ATA_TOKEN_PID,
+		SolanaService.TOKEN_PID,
+		SystemProgram.get_pid()
+		],{
+			"amountWon":AnchorProgram.u64(reward_amount)
+		})
+	
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([claim_reward_ix])
+	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
+	return tx_data

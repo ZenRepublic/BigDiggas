@@ -15,8 +15,11 @@ func _ready() -> void:
 	token_value_label.text = ""
 	
 
-func setup(bill_creator:BillCreator,item_data:InventoryItem, unit_token_price:float) -> void:
+func setup(bill_creator:BillCreator,item_data:InventoryItem, unit_token_price:float,token_texture:Texture2D=null) -> void:
 	visual.texture = item_data.icon
+	if token_texture!=null:
+		token_visual.texture = token_texture
+		
 	quantity_label.text = "x %s" % str(item_data.quantity)
 	
 	animation_player.play("Show")

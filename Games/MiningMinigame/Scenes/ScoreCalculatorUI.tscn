@@ -1,7 +1,8 @@
-[gd_scene load_steps=23 format=3 uid="uid://bd2lr00a7wwps"]
+[gd_scene load_steps=24 format=3 uid="uid://bd2lr00a7wwps"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_3jlna"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/score_calculator_ui.gd" id="1_s1cof"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_reward_claimer.gd" id="2_fnqac"]
 [ext_resource type="Texture2D" uid="uid://cw85bwvi0gc2y" path="res://Games/MiningMinigame/textures/TransitionPatterns/7b3e59e05e95ba4773523f830a0c5c6e.jpg" id="2_x0k25"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/item_pedestal.gd" id="3_ued32"]
 [ext_resource type="PackedScene" uid="uid://bg6rqhp24pucy" path="res://Games/MiningMinigame/Assets/ShowcaseGem.tscn" id="4_687vs"]
@@ -281,6 +282,9 @@ _data = {
 layer = 5
 script = ExtResource("1_s1cof")
 
+[node name="MineRewardClaimer" type="Node" parent="."]
+script = ExtResource("2_fnqac")
+
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -415,7 +419,7 @@ libraries = {
 "": SubResource("AnimationLibrary_isylm")
 }
 
-[node name="BillCreator" type="VBoxContainer" parent="."]
+[node name="BillCreator" type="VBoxContainer" parent="." node_paths=PackedStringArray("mine_reward_claimer")]
 offset_left = 784.0
 offset_top = 52.0
 offset_right = 1236.0
@@ -424,6 +428,7 @@ theme_override_constants/separation = 15
 alignment = 1
 script = ExtResource("8_8sjun")
 bill_slot_scn = ExtResource("9_153da")
+mine_reward_claimer = NodePath("../MineRewardClaimer")
 
 [node name="BillContainer" type="VBoxContainer" parent="BillCreator"]
 layout_mode = 2

@@ -29,7 +29,7 @@ func refresh_mines_list() -> void:
 func load_mine_card(mine_data:Dictionary) -> void:
 	screen_manager.switch_active_panel(0)
 	await mine_card.set_mine_data(mine_data)
-	screen_manager.switch_active_panel(3)
+	screen_manager.switch_active_panel(2)
 	
 func enter_mine() -> void:
 	var selected_nft:Pubkey = mine_card.get_selected_digga_nft()
