@@ -17,6 +17,7 @@ var campaign_pda:Pubkey
 var is_locked:bool=false
 
 func _ready() -> void:
+	campaign_timer.on_timer_finished.connect(disable_mine)
 	player_display_system.on_asset_selected.connect(select_digga)
 		
 # Called when the node enters the scene tree for the first time.
@@ -46,8 +47,6 @@ func set_mine_data(data:Dictionary) -> void:
 	campaign_timer.start_timer(data["timeSpan"]["endTime"])
 	if campaign_timer.is_finished():
 		disable_mine()
-	else:
-		campaign_timer.on_timer_finished.connect(disable_mine)
 	
 func disable_mine() -> void:
 	digga_overview.lock_selection(true)

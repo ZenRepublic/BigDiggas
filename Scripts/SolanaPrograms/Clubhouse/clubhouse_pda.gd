@@ -22,7 +22,7 @@ static func get_campaign_vault_pda(campaign_pda:Pubkey) -> Pubkey:
 	return Pubkey.new_pda_bytes([name_bytes,campaign_pda.to_bytes()],PROGRAM_ID)
 	
 static func get_campaign_player_pda(campaign_pda:Pubkey,player_mint:Pubkey) -> Pubkey:
-	var name_bytes = "campaign_player_stats".to_utf8_buffer()
+	var name_bytes = "player".to_utf8_buffer()
 	return Pubkey.new_pda_bytes([name_bytes,campaign_pda.to_bytes(),player_mint.to_bytes()],PROGRAM_ID)
 	
 static func get_nft_metadata_pda(nft:Pubkey) -> Pubkey:

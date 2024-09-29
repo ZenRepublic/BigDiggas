@@ -34,14 +34,18 @@ func load_mine_card(mine_data:Dictionary) -> void:
 func enter_mine() -> void:
 	var selected_nft:Pubkey = mine_card.get_selected_digga_nft()
 	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(mine_card.curr_selected_mine_data["campaignName"],house_pda)
+	#
+	#var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager") as MenuManager
+	#menu_manager.load_game(mine_card.curr_selected_mine_data,{})
+	#
+	var tx_data:TransactionData = await ClubhouseProgram.start_game(house_pda,campaign_pda,selected_nft)
 	
-	var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager") as MenuManager
-	menu_manager.load_game(mine_card.curr_selected_mine_data,{})
-	#
-	#var tx_data:TransactionData = await ClubhouseProgram.start_game(house_pda,campaign_pda,selected_nft)
-	#
-	#if tx_data.is_successful():
-		#var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager") as MenuManager
-		#menu_manager.enter_mine(mine_card.curr_selected_mine_data,{})
+	if tx_data.is_successful():
+		#fetch player campaign account
+		var campaign_digga_pda:Pubkey = ClubhousePDA.get_campaign_player_pda(campaign_pda,selected_nft)
+		var digga_data:Dictionary = await ClubhouseProgram.fetch_account_of_type("CampaignPlayer",campaign_digga_pda)	
+			
+		var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager") as MenuManager
+		menu_manager.load_game(mine_card.curr_selected_mine_data,digga_data)
 	
 	

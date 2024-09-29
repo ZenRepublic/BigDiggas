@@ -119,6 +119,10 @@ func get_ata_balance(associated_token_account:String) -> float:
 	var response_dict:Dictionary = await client.http_response_received
 	client.queue_free()
 	
+	if response_dict.has("error"):
+		push_error("Failed to ata balance")
+		return 0
+		
 	var lamport_balance = response_dict["result"]["value"]["amount"]
 	var token_decimals = response_dict["result"]["value"]["decimals"]
 	return float(lamport_balance)/(10**token_decimals)	
@@ -129,6 +133,10 @@ func get_token_decimals(token_address:String)->int:
 	var response_dict:Dictionary = await client.http_response_received
 	client.queue_free()
 	
+	if response_dict.has("error"):
+		push_error("Failed to get token decimals")
+		return 0
+		
 	return response_dict["result"]["value"]["decimals"]
 	
 func get_associated_token_account(address_to_check:String,token_address:String) -> Pubkey:
@@ -140,6 +148,7 @@ func get_associated_token_account(address_to_check:String,token_address:String) 
 	var ata:String
 	
 	if response_dict.has("error"):
+		push_error("Failed to get fetch ATA")
 		return null
 
 	if response_dict["result"]["value"].size() == 0:
@@ -154,7 +163,9 @@ func get_asset_data(asset_id:Pubkey) -> Dictionary:
 	client.queue_free()
 
 	if response_dict.has("error"):
+		print("Failed to fetch asset data")
 		return {}
+		
 	return response_dict["result"]
 	
 func get_wallet_assets_data(wallet_to_check:Pubkey,asset_limit:int=1000) -> Array:
@@ -167,6 +178,7 @@ func get_wallet_assets_data(wallet_to_check:Pubkey,asset_limit:int=1000) -> Arra
 		var response_dict:Dictionary = await client.http_response_received
 		client.queue_free()
 		if response_dict.has("error"):
+			push_error("Error fetching DAS assets data, stopping paging operation")
 			break
 			
 		var loaded_page_assets:Array = response_dict["result"]["items"]
@@ -189,6 +201,7 @@ func get_collection_assets_data(nft_owner:Pubkey,collection_mint:Pubkey,asset_li
 		var response_dict:Dictionary = await client.http_response_received
 		client.queue_free()
 		if response_dict.has("error"):
+			push_error("Error fetching DAS collection assets data, stopping paging operation")
 			break
 			
 		var loaded_page_assets:Array = response_dict["result"]["items"]
@@ -203,6 +216,10 @@ func get_token_accounts(wallet_to_check:Pubkey) -> Array[Dictionary]:
 	client.get_token_accounts_by_owner(wallet_to_check.to_string(),"",TOKEN_PID)
 	var response_dict:Dictionary = await client.http_response_received
 	client.queue_free()
+	
+	if response_dict.has("error"):
+		push_error("Failed to fetch token accounts")
+		return []
 	
 	var wallet_tokens:Array[Dictionary]
 	for token in response_dict["result"]["value"]:

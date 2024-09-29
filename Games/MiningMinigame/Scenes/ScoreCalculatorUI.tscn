@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bd2lr00a7wwps"]
+[gd_scene load_steps=26 format=3 uid="uid://bd2lr00a7wwps"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_3jlna"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/score_calculator_ui.gd" id="1_s1cof"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://crkoovodnwd7g" path="res://Games/MiningMinigame/textures/GUI/collectible_coin_big_idle_1.png" id="10_svpuf"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/Input/number_label.gd" id="12_rcagu"]
 [ext_resource type="AudioStream" uid="uid://gia20kjit3e0" path="res://Games/MiningMinigame/Sounds/UI/calculatepoints.mp3" id="12_ytlle"]
+[ext_resource type="PackedScene" uid="uid://cyrmlhn128s53" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/TransactionOverlay.tscn" id="15_7lbm6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0jn3"]
 shader = ExtResource("1_3jlna")
@@ -498,3 +499,5 @@ bus = &"SFX"
 libraries = {
 "": SubResource("AnimationLibrary_q2hq4")
 }
+
+[node name="TransactionOverlay" parent="." instance=ExtResource("15_7lbm6")]

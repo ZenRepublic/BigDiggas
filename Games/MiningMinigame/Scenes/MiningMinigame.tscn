@@ -185,6 +185,8 @@ _data = {
 "ToolbeltAppear": SubResource("Animation_fsn4f")
 }
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3w0fe"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xiyhv"]
 bg_color = Color(0.223529, 0.0352941, 0.278431, 0.745098)
 
@@ -194,8 +196,6 @@ shader_parameter/scroll_speed = 0.3
 shader_parameter/angle_degrees = 90.0
 shader_parameter/tiling = Vector2(1, 1)
 shader_parameter/tint = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3w0fe"]
 
 [node name="MiningMinigame" type="Node2D" node_paths=PackedStringArray("map_manager", "shockwave_manager", "panel_popper")]
 script = ExtResource("1_h8t7s")
@@ -581,6 +581,131 @@ libraries = {
 "": SubResource("AnimationLibrary_1brrf")
 }
 
+[node name="Toolbelt" type="Control" parent="GUI" node_paths=PackedStringArray("tool_buttons")]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = -428.0
+offset_right = 104.0
+offset_bottom = 6.0
+grow_vertical = 0
+script = ExtResource("31_gdb18")
+tool_buttons = [NodePath("ToolContainer/HBoxContainer/ChiselButton"), NodePath("ToolContainer/HBoxContainer/PickaxeButton"), NodePath("ToolContainer/HBoxContainer/HammerButton")]
+normal_tool_color = Color(1, 1, 1, 1)
+selected_tool_color = Color(0.670588, 0.866667, 0.392157, 1)
+
+[node name="TextureRect" type="TextureRect" parent="GUI/Toolbelt"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = -47.0
+offset_right = 223.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+pivot_offset = Vector2(223, 47)
+mouse_filter = 2
+texture = ExtResource("52_phoc1")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="ToolContainer" type="PanelContainer" parent="GUI/Toolbelt"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("36_lgwgq")
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3w0fe")
+
+[node name="HBoxContainer" type="VBoxContainer" parent="GUI/Toolbelt/ToolContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="ChiselButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("53_fwtgn")
+stretch_mode = 5
+
+[node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/ChiselButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0637
+offset_top = -19.5
+offset_right = 19.9363
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("25_mrug7")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PickaxeButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("53_fwtgn")
+stretch_mode = 5
+
+[node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/PickaxeButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0637
+offset_top = -19.5
+offset_right = 20.9363
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("24_7rlxl")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="HammerButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
+custom_minimum_size = Vector2(72, 72)
+layout_mode = 2
+size_flags_horizontal = 4
+texture_normal = ExtResource("53_fwtgn")
+stretch_mode = 5
+
+[node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/HammerButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0637
+offset_top = -19.5
+offset_right = 19.9363
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("23_862k3")
+expand_mode = 3
+stretch_mode = 5
+
 [node name="PauseUI" type="Control" parent="GUI"]
 layout_mode = 3
 anchors_preset = 15
@@ -817,132 +942,7 @@ texture = ExtResource("50_mui0o")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="Toolbelt" type="Control" parent="GUI" node_paths=PackedStringArray("tool_buttons")]
-layout_mode = 3
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 17.0
-offset_top = -428.0
-offset_right = 104.0
-offset_bottom = 6.0
-grow_vertical = 0
-script = ExtResource("31_gdb18")
-tool_buttons = [NodePath("ToolContainer/HBoxContainer/ChiselButton"), NodePath("ToolContainer/HBoxContainer/PickaxeButton"), NodePath("ToolContainer/HBoxContainer/HammerButton")]
-normal_tool_color = Color(1, 1, 1, 1)
-selected_tool_color = Color(0.670588, 0.866667, 0.392157, 1)
-
-[node name="TextureRect" type="TextureRect" parent="GUI/Toolbelt"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -223.0
-offset_top = -47.0
-offset_right = 223.0
-offset_bottom = 47.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 1.5708
-pivot_offset = Vector2(223, 47)
-mouse_filter = 2
-texture = ExtResource("52_phoc1")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="ToolContainer" type="PanelContainer" parent="GUI/Toolbelt"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("36_lgwgq")
-theme_override_styles/panel = SubResource("StyleBoxEmpty_3w0fe")
-
-[node name="HBoxContainer" type="VBoxContainer" parent="GUI/Toolbelt/ToolContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="ChiselButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 2
-size_flags_horizontal = 4
-texture_normal = ExtResource("53_fwtgn")
-stretch_mode = 5
-
-[node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/ChiselButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0637
-offset_top = -19.5
-offset_right = 19.9363
-offset_bottom = 20.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("25_mrug7")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="PickaxeButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 2
-size_flags_horizontal = 4
-texture_normal = ExtResource("53_fwtgn")
-stretch_mode = 5
-
-[node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/PickaxeButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -19.0637
-offset_top = -19.5
-offset_right = 20.9363
-offset_bottom = 20.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("24_7rlxl")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="HammerButton" type="TextureButton" parent="GUI/Toolbelt/ToolContainer/HBoxContainer"]
-custom_minimum_size = Vector2(72, 72)
-layout_mode = 2
-size_flags_horizontal = 4
-texture_normal = ExtResource("53_fwtgn")
-stretch_mode = 5
-
-[node name="ToolTex" type="TextureRect" parent="GUI/Toolbelt/ToolContainer/HBoxContainer/HammerButton"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0637
-offset_top = -19.5
-offset_right = 19.9363
-offset_bottom = 20.5
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("23_862k3")
-expand_mode = 3
-stretch_mode = 5
-
-[connection signal="pressed" from="GUI/PauseUI/Content/HBoxContainer/Content/Buttons/ResumeButton" to="GUI/PauseUI" method="resume_game"]
-[connection signal="pressed" from="GUI/PauseUI/Content/HBoxContainer/Content/Buttons/EndRunButton" to="GUI/PauseUI" method="end_run"]
 [connection signal="mouse_entered" from="GUI/Toolbelt/ToolContainer" to="GUI/Toolbelt" method="on_mouse_entered"]
 [connection signal="mouse_exited" from="GUI/Toolbelt/ToolContainer" to="GUI/Toolbelt" method="on_mouse_exited"]
+[connection signal="pressed" from="GUI/PauseUI/Content/HBoxContainer/Content/Buttons/ResumeButton" to="GUI/PauseUI" method="resume_game"]
+[connection signal="pressed" from="GUI/PauseUI/Content/HBoxContainer/Content/Buttons/EndRunButton" to="GUI/PauseUI" method="end_run"]

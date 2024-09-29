@@ -14,7 +14,7 @@ class_name BillCreator
 @onready var audio_player:AudioStreamPlayer = $AudioStreamPlayer
 var bill_slots:Array[BillSlot]
 
-var final_score:int
+var final_score:float
 
 func _ready() -> void:
 	spacer.visible=false
@@ -29,6 +29,7 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 	
 	if game_mode == GameManager.GameMode.MINING:
 		token_unit_price = mine_reward_claimer.get_token_unit_price(false)
+		print(token_unit_price)
 		token_texture = mine_reward_claimer.get_reward_token_texture()
 		
 	final_price_visual.texture = token_texture
@@ -53,10 +54,7 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 	
 	for slot in bill_slots:
 		final_score += slot.get_total_value()
-		
-	#gotta clamp the reward so user doesn't get more than maximum allowed	
-	if game_mode == GameManager.GameMode.MINING:
-		final_score = mine_reward_claimer.get_token_value(final_score,false)
+		print(final_score)
 		
 	var final_claim_amount:float
 	for slot in bill_slots:

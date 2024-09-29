@@ -6,25 +6,29 @@ class_name HouseDisplay
 @export var total_campaigns_label:Label
 @export var unique_players_label:NumberLabel
 
-@export var creation_fees_label:Label
 @export var house_fees_label:Label
+@export var sol_fees_label:Label
 
 @export var house_edit_input_system:HouseInputSystem
 
 var curr_selected_house_data:Dictionary
 var decimals:int
+var house_pda:Pubkey
 # Called when the node enters the scene tree for the first time.
 func set_house_data(data:Dictionary) -> void:
 	curr_selected_house_data = data
 
 	house_name_label.text = data["houseName"]
+	house_pda = ClubhousePDA.get_house_pda(data["houseName"])
 	
-	active_campaigns_label.text = str(data["activeCampaigns"])
+	active_campaigns_label.text = str(data["openCampaigns"])
 	total_campaigns_label.text = str(data["totalCampaigns"])
 	unique_players_label.set_value(data["uniquePlayers"])
 	
-	creation_fees_label.text = "%s SOL" % str(data["unclaimedCreationFees"])
-	house_fees_label.text = "%s SOL" % str(data["unclaimedHouseFees"])
+	var house_vault_balance:float = data["unclaimedHouseFees"]/pow(10,data["houseCurrencyDecimals"])
+	house_fees_label.text = "%s SOL" % str(house_vault_balance)
+	var house_sol_fee_balance:float = data["unclaimedSolFees"]/pow(10,9)
+	sol_fees_label.text = "%s SOL" % str(house_sol_fee_balance)
 	
 	await set_input_system_fields(data)
 	

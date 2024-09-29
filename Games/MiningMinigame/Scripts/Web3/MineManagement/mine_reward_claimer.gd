@@ -43,13 +43,14 @@ func get_reward_token_texture() -> Texture2D:
 	return campaign_token.image
 		
 
-func claim_reward(score:int) -> TransactionData:
-	var reward_amount_lamports:int = get_token_value(score)
-	var house_pda:Pubkey = ClubhousePDA.get_house_pda(mine_data["house"])
+func claim_reward(claim_amount:float) -> TransactionData:
+	var reward_amount_lamports:int = clampi(claim_amount*pow(10,reward_mint_decimals),0,max_reward_lamports)
+	var house_pda:Pubkey = mine_data["house"]
 	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(mine_data["campaignName"],house_pda)
 	var reward_mint:Pubkey = mine_data["rewardMint"]
+	var digga_mint:Pubkey = digga_data["mint"]
 	
-	var tx_data:TransactionData = await ClubhouseProgram.claim_reward(house_pda,campaign_pda,Pubkey.new_random(),reward_mint,score)
+	var tx_data:TransactionData = await ClubhouseProgram.claim_reward(house_pda,campaign_pda,digga_mint,reward_mint,reward_amount_lamports)
 	return tx_data
 	
 	

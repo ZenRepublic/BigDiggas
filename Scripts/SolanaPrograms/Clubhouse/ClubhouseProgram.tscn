@@ -138,9 +138,12 @@ idl = {
 }
 }
 }, {
+"name": "unclaimedSolFees",
+"type": "u64"
+}, {
 "name": "reservedForNft",
 "type": {
-"array": ["u64", 8.0]
+"array": ["u64", 7.0]
 }
 }, {
 "name": "tokenConfig",
@@ -246,12 +249,12 @@ idl = {
 "name": "houseCurrencyDecimals",
 "type": "u8"
 }, {
-"docs": ["currently active campaigns"],
+"docs": ["total campaigns created"],
 "name": "totalCampaigns",
 "type": "u32"
 }, {
-"docs": ["currently active campaigns"],
-"name": "activeCampaigns",
+"docs": ["open campaigns"],
+"name": "openCampaigns",
 "type": "u16"
 }, {
 "docs": ["unique players in house"],
@@ -263,7 +266,7 @@ idl = {
 "type": "u32"
 }, {
 "docs": ["creation fees collected total"],
-"name": "unclaimedCreationFees",
+"name": "unclaimedSolFees",
 "type": "u64"
 }, {
 "docs": ["house fees pending withdrawal"],
@@ -470,6 +473,10 @@ idl = {
 "code": 6027.0,
 "msg": "Campaign is expired",
 "name": "CampaignExpired"
+}, {
+"code": 6028.0,
+"msg": "Player is already in a game",
+"name": "PlayerInGame"
 }],
 "instructions": [{
 "accounts": [{
@@ -535,7 +542,7 @@ idl = {
 "name": "updateHouse"
 }, {
 "accounts": [{
-"isMut": false,
+"isMut": true,
 "isSigner": false,
 "name": "house"
 }, {

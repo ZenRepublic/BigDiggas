@@ -2961,7 +2961,7 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButton"
 text = "Create House"
 
-[node name="HouseDetailsContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement" node_paths=PackedStringArray("house_name_label", "active_campaigns_label", "total_campaigns_label", "unique_players_label", "creation_fees_label", "house_fees_label", "house_edit_input_system")]
+[node name="HouseDetailsContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement" node_paths=PackedStringArray("house_name_label", "active_campaigns_label", "total_campaigns_label", "unique_players_label", "house_fees_label", "sol_fees_label", "house_edit_input_system")]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10
@@ -2970,8 +2970,8 @@ house_name_label = NodePath("HouseName")
 active_campaigns_label = NodePath("HouseStatsContainer/MarginContainer/HBoxContainer/ActiveCampaigns/Campaigns")
 total_campaigns_label = NodePath("HouseStatsContainer/MarginContainer/HBoxContainer/TotalCampaigns/TotalCampaigns")
 unique_players_label = NodePath("HouseStatsContainer/MarginContainer/HBoxContainer/UniquePlayers/TokensLabel2")
-creation_fees_label = NodePath("FeeClaimer/CreationFees/FeesCollected")
-house_fees_label = NodePath("FeeClaimer/HouseFees/FeesCollected")
+house_fees_label = NodePath("FeeClaimer/CollectedFees/HouseFees/HouseFeesCollected")
+sol_fees_label = NodePath("FeeClaimer/CollectedFees/SolFees/SolFeesCollected")
 house_edit_input_system = NodePath("EditableSettings/HouseEditInputSystem")
 
 [node name="HouseName" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer"]
@@ -3071,24 +3071,27 @@ script = ExtResource("47_tnhgc")
 format_mode = 1
 decimal_amount = 1
 
-[node name="FeeClaimer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer"]
+[node name="FeeClaimer" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer"]
 layout_mode = 2
 
-[node name="CreationFees" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer"]
+[node name="CollectedFees" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer"]
+layout_mode = 2
+
+[node name="HouseFees" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CollectedFees"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees"]
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CollectedFees/HouseFees"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 28
-text = "Creation Fees:"
+text = "House Fees:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="FeesCollected" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees"]
+[node name="HouseFeesCollected" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CollectedFees/HouseFees"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
@@ -3098,45 +3101,37 @@ text = "2.8 SOL"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ClaimFeesButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 10
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"SimpleButton"
-text = "Claim"
-
-[node name="HouseFees" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer"]
+[node name="SolFees" type="HBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CollectedFees"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
-[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/HouseFees"]
+[node name="Label" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CollectedFees/SolFees"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 28
-text = "House Fees:"
+text = "SOL Fees:"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="FeesCollected" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/HouseFees"]
+[node name="SolFeesCollected" type="Label" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CollectedFees/SolFees"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_colors/font_color = Color(0.419608, 0.788235, 0.423529, 1)
 theme_override_font_sizes/font_size = 25
-text = "15.942 SOL"
+text = "0.3 SOL"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="ClaimFeesButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/HouseFees"]
+[node name="ClaimFeesButton" type="Button" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButton"
-text = "Claim"
+text = "Claim All"
 
 [node name="EditableSettings" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer"]
 layout_mode = 2
@@ -3517,8 +3512,7 @@ vertical_alignment = 1
 [connection signal="pressed" from="HouseAdminScreen/MenuBanner/HBoxContainer/MarginContainer/BackButton" to="ScreenManager" method="switch_active_panel" binds= [0]]
 [connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/YourHousesContainer/HouseDisplaySystem/MarginContainer/ScrollContainer/HousesList/CreateNewButton" to="HouseAdminScreen" method="show_create_house"]
 [connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseCreateContainer/CreateHouseButton" to="HouseAdminScreen" method="create_new_house"]
-[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/CreationFees/ClaimFeesButton" to="HouseAdminScreen" method="claim_house_fees"]
-[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/HouseFees/ClaimFeesButton" to="HouseAdminScreen" method="claim_house_tax_fees"]
+[connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/FeeClaimer/ClaimFeesButton" to="HouseAdminScreen" method="claim_collected_fees"]
 [connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/Buttons/CloseHouseButton" to="HouseAdminScreen" method="close_selected_house"]
 [connection signal="pressed" from="HouseAdminScreen/MainContent/HouseManagement/HouseDetailsContainer/EditableSettings/Buttons/EditMineButton" to="HouseAdminScreen" method="edit_selected_house"]
 [connection signal="pressed" from="TokenDisplaySystem/TokenPanel/Exit/CloseButton" to="TokenDisplaySystem" method="close"]

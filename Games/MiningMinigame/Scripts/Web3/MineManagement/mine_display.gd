@@ -14,7 +14,6 @@ class_name MineDisplay
 @export var close_button:TimedButton
 var curr_selected_mine_data:Dictionary		
 
-		
 # Called when the node enters the scene tree for the first time.
 func set_mine_data(data:Dictionary) -> void:
 	curr_selected_mine_data = data
@@ -39,5 +38,6 @@ func set_mine_data(data:Dictionary) -> void:
 	unique_players_label.text = str(data["playerCount"])
 	max_reward_label.set_value(data["maxRewardsPerGame"]/pow(10,data["rewardMintDecimals"]))
 	
-	#fees_collected.text = str(data["collectedFees"])
+	fees_collected.text = "%s SOL" % str(data["unclaimedSolFees"]/pow(10,9))
+	
 	close_button.start_timer(data["timeSpan"]["endTime"])

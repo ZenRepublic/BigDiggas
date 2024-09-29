@@ -163,8 +163,6 @@ func close_campaign(house_pda:Pubkey,campaign_name:String,reward_mint:Pubkey) ->
 func start_game(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey) -> TransactionData:
 	var campaign_player_pda:Pubkey = ClubhousePDA.get_campaign_player_pda(campaign_pda,player_nft)
 	var player_nft_token_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),player_nft)
-	print(player_nft_token_account.to_string())
-	print(ClubhousePDA.get_nft_metadata_pda(player_nft).to_string())
 	
 	var start_game_ix:Instruction = program.build_instruction("startGameWithNft",[
 		house_pda,	
@@ -185,8 +183,8 @@ func start_game(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey) -> Trans
 func claim_reward(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey,reward_mint:Pubkey,reward_amount:int) -> TransactionData:
 	var campaign_player_pda:Pubkey = ClubhousePDA.get_campaign_player_pda(campaign_pda,player_nft)
 	var player_nft_token_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),player_nft)
-	print(player_nft_token_account.to_string())
-	print(ClubhousePDA.get_nft_metadata_pda(player_nft).to_string())
+
+	var player_reward_token_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),reward_mint)
 	
 	var claim_reward_ix:Instruction = program.build_instruction("endGameWithNft",[
 		house_pda,	
@@ -194,9 +192,9 @@ func claim_reward(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey,reward_
 		campaign_player_pda,
 		player_nft_token_account,
 		ClubhousePDA.get_nft_metadata_pda(player_nft),
-		"rewardMint",
-		"rewardVault",
-		"playerRewardTokenAccount",
+		reward_mint,
+		ClubhousePDA.get_campaign_vault_pda(campaign_pda),
+		player_reward_token_account,
 		SolanaService.wallet.get_kp(),
 		SolanaService.ATA_TOKEN_PID,
 		SolanaService.TOKEN_PID,

@@ -88,7 +88,7 @@
 			"accounts": [
 				{
 					"name": "house",
-					"isMut": false,
+					"isMut": true,
 					"isSigner": false
 				},
 				{
@@ -663,11 +663,15 @@
 						}
 					},
 					{
+						"name": "unclaimedSolFees",
+						"type": "u64"
+					},
+					{
 						"name": "reservedForNft",
 						"type": {
 							"array": [
 								"u64",
-								8
+								7
 							]
 						}
 					},
@@ -819,14 +823,14 @@
 					{
 						"name": "totalCampaigns",
 						"docs": [
-							"currently active campaigns"
+							"total campaigns created"
 						],
 						"type": "u32"
 					},
 					{
-						"name": "activeCampaigns",
+						"name": "openCampaigns",
 						"docs": [
-							"currently active campaigns"
+							"open campaigns"
 						],
 						"type": "u16"
 					},
@@ -845,7 +849,7 @@
 						"type": "u32"
 					},
 					{
-						"name": "unclaimedCreationFees",
+						"name": "unclaimedSolFees",
 						"docs": [
 							"creation fees collected total"
 						],
@@ -1315,6 +1319,11 @@
 			"code": 6027,
 			"name": "CampaignExpired",
 			"msg": "Campaign is expired"
+		},
+		{
+			"code": 6028,
+			"name": "PlayerInGame",
+			"msg": "Player is already in a game"
 		}
 	]
 }
