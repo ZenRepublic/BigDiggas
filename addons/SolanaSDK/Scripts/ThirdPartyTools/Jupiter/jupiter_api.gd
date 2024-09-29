@@ -20,9 +20,11 @@ func _ready() -> void:
 	#print(tx)
 	pass
 	
-func get_swap_quote(token_to_send:Pubkey,token_to_receive:Pubkey,amount_to_send:float,slippage_percentage:float,fee_account:Pubkey=null,fee_percentage:float=0) -> Dictionary:
+func get_swap_quote(token_to_send:Pubkey,token_to_receive:Pubkey,amount_to_send:float,slippage_percentage:float,fee_account:Pubkey=null,fee_percentage:float=0):
 	var input_mint:String = "inputMint="+token_to_send.to_string()
 	var mint_data:Dictionary = await get_token_data(token_to_send)
+	if mint_data.size() == 0:
+		return null
 	
 	var output_mint:String = "outputMint="+token_to_receive.to_string()
 	
@@ -45,7 +47,7 @@ func swap_token(payer:Pubkey,swap_quote:Dictionary) -> TransactionData:
 	var serialized_tx_data:PackedByteArray = SolanaUtils.bs64_decode(response["swapTransaction"])
 	var priority_fee:float = response["prioritizationFeeLamports"]
 	#return null
-	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_serialized_transaction(SolanaService.wallet.get_kp(),serialized_tx_data,TransactionManager.Commitment.CONFIRMED,priority_fee)
+	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_serialized_transaction([SolanaService.wallet.get_kp()],serialized_tx_data,TransactionManager.Commitment.CONFIRMED,priority_fee)
 	return tx_data
 
 func get_token_data(token_mint:Pubkey) -> Dictionary:

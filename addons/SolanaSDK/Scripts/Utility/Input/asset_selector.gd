@@ -48,4 +48,11 @@ func is_valid() -> bool:
 		return is_optional
 	
 	return selected_asset != null
+	
+func clear_selection() -> void:
+	if selected_asset == null:
+		return
+	select_asset(null)
+		
+	
 		

@@ -22,6 +22,7 @@ func _ready() -> void:
 		input_submit_button.disabled=true
 		on_fields_updated.connect(handle_fields_updated)
 	
+func force_input_update() -> void: notify_change()
 func handle_asset_select(selected_asset:WalletAsset) -> void: notify_change()
 func notify_change(_new_field_value:String="") -> void:
 	on_fields_updated.emit()
@@ -62,6 +63,10 @@ func reset_all_fields() -> void:
 	for key in input_fields.keys():
 		var field = get_node(input_fields[key]) as InputField
 		field.clear()
+		
+	for key in asset_selectors.keys():
+		var selector = get_node(asset_selectors[key]) as AssetSelector
+		selector.clear_selection()
 	
 	
 #Input Fields specific functions:
@@ -73,4 +78,5 @@ func set_input_fields_data(premade_data:Dictionary) -> void:
 		
 func get_input_field(name:String) -> InputField:
 	return get_node(input_fields[name]) as InputField
+	
 	

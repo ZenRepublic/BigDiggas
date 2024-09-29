@@ -19,9 +19,10 @@ script = ExtResource("1_isrdy")
 select_button = NodePath("SelectButton")
 visual = NodePath("TokenContent/Visual")
 image_size = 64
-name_label = NodePath("TokenContent/TokenSymbol")
+name_label = NodePath("TokenContent/TokenName")
 symbol_label = NodePath("TokenContent/TokenSymbol")
 balance_label = NodePath("TokenContent/TokenBalance")
+auto_load_balance = true
 
 [node name="TokenContent" type="HBoxContainer" parent="."]
 layout_mode = 2

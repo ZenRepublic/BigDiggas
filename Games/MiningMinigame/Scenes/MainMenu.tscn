@@ -2752,7 +2752,6 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="HouseCreateContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 30
@@ -2792,6 +2791,7 @@ layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
 theme_override_font_sizes/font_size = 24
+text = "uthm9E1kt14ZGnMhT6SD16cfXhCRuBCqeHfLo1T7M9s"
 placeholder_text = "Provide Oracle Key..."
 max_length = 44
 script = ExtResource("15_cwt4b")
@@ -2962,6 +2962,7 @@ theme_type_variation = &"SimpleButton"
 text = "Create House"
 
 [node name="HouseDetailsContainer" type="VBoxContainer" parent="HouseAdminScreen/MainContent/HouseManagement" node_paths=PackedStringArray("house_name_label", "active_campaigns_label", "total_campaigns_label", "unique_players_label", "house_fees_label", "sol_fees_label", "house_edit_input_system")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 10

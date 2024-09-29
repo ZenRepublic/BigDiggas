@@ -24,10 +24,10 @@ func _ready() -> void:
 	
 	var oracle = Pubkey.new_from_string("uthm9E1kt14ZGnMhT6SD16cfXhCRuBCqeHfLo1T7M9s")
 	var hunt_creator:Pubkey = Pubkey.new_from_string("84pL2GAuv8XGVPyZre2xcgUNSGz9csYHBt5AW4PUcEe9")
-	#var tx_data:TransactionData = await earn_tokens(get_hunt_pda("best hunt 2"),10)
+	var tx_data:TransactionData = await earn_tokens(get_hunt_pda("best hunt 2"),10)
 	
-	#var balance:float = await get_player_score("best hunt 2")
-	#print(balance)
+	var balance:float = await get_player_score("best hunt 2")
+	print(balance)
 	
 	#await create_hunt(hunt_name,oracle,hunt_token_metadata,hunt_prize_metadata,hunt_creator,1)
 	

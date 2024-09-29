@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://c7j3dt0k488vf"]
+[gd_scene load_steps=40 format=3 uid="uid://c7j3dt0k488vf"]
 
 [ext_resource type="Script" path="res://addons/SolanaSDK/Demos/7.Jupiter Swap/jupiter_swap_manager.gd" id="1_qd30h"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/Input/data_input_system.gd" id="5_d6p00"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/DisplaySystems/Assets/asset_display_system.gd" id="13_0nnuy"]
 [ext_resource type="PackedScene" uid="uid://blmw46he11fxs" path="res://addons/SolanaSDK/Scripts/TransactionManager/TransactionOverlayUI.tscn" id="13_bakiu"]
 [ext_resource type="PackedScene" uid="uid://d34k0q4mj2qqt" path="res://addons/SolanaSDK/Demos/7.Jupiter Swap/TokenDisplayEntry.tscn" id="13_edp1o"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/Input/number_label.gd" id="14_1n2ys"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Demos/_LoginDemo/scene_loader.gd" id="14_csqn1"]
 [ext_resource type="Texture2D" uid="uid://b3003ar1uxa77" path="res://addons/SolanaSDK/Textures/closebutton.jpg.png" id="15_v2818"]
 
@@ -177,7 +178,7 @@ token_selector = NodePath("TokenSelector")
 data_input_system = NodePath("DataInputSystem")
 sol_swap_value_label = NodePath("QuoteContainer/AmountDisplay")
 swap_button = NodePath("SwapButton")
-swap_slippage_percentage = 0.03
+swap_slippage_percentage = 0.5
 quote_refresh_seconds = 5.0
 verification_icon = NodePath("DisplayableToken/TokenContent/VerificationMark")
 verified_icon = ExtResource("8_ik51n")
@@ -193,12 +194,14 @@ asset_selectors = {
 }
 input_submit_button = NodePath("../SwapButton")
 
-[node name="TokenSelector" type="Node" parent="Content/SwapContainer" node_paths=PackedStringArray("displayable_asset", "display_system")]
+[node name="TokenSelector" type="Node" parent="Content/SwapContainer" node_paths=PackedStringArray("displayable_asset", "display_system", "asset_content", "select_label")]
 script = ExtResource("9_6q363")
 displayable_asset = NodePath("../DisplayableToken")
 display_system = NodePath("../../../TokenDisplaySystem")
+asset_content = NodePath("../DisplayableToken/TokenContent")
+select_label = NodePath("../DisplayableToken/SelectLabel")
 
-[node name="DisplayableToken" type="PanelContainer" parent="Content/SwapContainer" node_paths=PackedStringArray("select_button", "visual", "name_label")]
+[node name="DisplayableToken" type="PanelContainer" parent="Content/SwapContainer" node_paths=PackedStringArray("select_button", "visual", "symbol_label", "balance_label")]
 custom_minimum_size = Vector2(600, 50)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -206,7 +209,8 @@ script = ExtResource("9_qn513")
 select_button = NodePath("SelectButton")
 visual = NodePath("TokenContent/Visual")
 image_size = 32
-name_label = NodePath("TokenContent/TokenName")
+symbol_label = NodePath("TokenContent/TokenSymbol")
+balance_label = NodePath("TokenContent/TokenBalance")
 
 [node name="TokenContent" type="HBoxContainer" parent="Content/SwapContainer/DisplayableToken"]
 layout_mode = 2
@@ -214,25 +218,31 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="Visual" type="TextureRect" parent="Content/SwapContainer/DisplayableToken/TokenContent"]
-visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("10_mog8m")
 expand_mode = 4
 stretch_mode = 5
 
-[node name="TokenName" type="Label" parent="Content/SwapContainer/DisplayableToken/TokenContent"]
+[node name="TokenSymbol" type="Label" parent="Content/SwapContainer/DisplayableToken/TokenContent"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "SELECT TOKEN"
+text = "Token"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VerificationMark" type="TextureRect" parent="Content/SwapContainer/DisplayableToken/TokenContent"]
-visible = false
 layout_mode = 2
 expand_mode = 3
 stretch_mode = 5
+
+[node name="TokenBalance" type="Label" parent="Content/SwapContainer/DisplayableToken/TokenContent"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "-"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("14_1n2ys")
 
 [node name="SelectButton" type="Button" parent="Content/SwapContainer/DisplayableToken"]
 layout_mode = 2
@@ -241,6 +251,14 @@ theme_override_styles/disabled = SubResource("StyleBoxEmpty_a6u6e")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_jdp4d")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_3rfs2")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6u03q")
+
+[node name="SelectLabel" type="Label" parent="Content/SwapContainer/DisplayableToken"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 31
+text = "SELECT TOKEN"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="AmountInputField" type="LineEdit" parent="Content/SwapContainer"]
 custom_minimum_size = Vector2(600, 0)
@@ -298,6 +316,7 @@ no_asset_overlay = NodePath("TokenPanel/MarginContainer/NoAssetsOverlay")
 minimum_entry_size = Vector2(553, 30)
 display_type = 2
 display_entry_scn = ExtResource("13_edp1o")
+load_all_owned = true
 close_on_select = true
 
 [node name="BG" type="Panel" parent="TokenDisplaySystem"]

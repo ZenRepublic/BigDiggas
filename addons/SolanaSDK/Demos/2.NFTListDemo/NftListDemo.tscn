@@ -121,15 +121,16 @@ theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 60
 
-[node name="DisplaySystem" type="PanelContainer" parent="NFTContent/MarginContainer" node_paths=PackedStringArray("container", "no_nft_overlay")]
+[node name="DisplaySystem" type="PanelContainer" parent="NFTContent/MarginContainer" node_paths=PackedStringArray("container", "no_asset_overlay")]
 custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("10_m65q0")
-displayable_nft_scn = ExtResource("10_1bsb3")
 container = NodePath("MarginContainer/ScrollContainer/GridContainer")
-no_nft_overlay = NodePath("NoNFTsOverlay")
-load_all = true
+no_asset_overlay = NodePath("NoNFTsOverlay")
+display_type = 1
+display_entry_scn = ExtResource("10_1bsb3")
+load_all_owned = true
 
 [node name="MarginContainer" type="MarginContainer" parent="NFTContent/MarginContainer/DisplaySystem"]
 layout_mode = 2
