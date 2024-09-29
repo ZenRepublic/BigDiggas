@@ -28,12 +28,12 @@ func _process(delta: float) -> void:
 	if !refresh_quote:
 		return
 	
-	#if !swap_button.disabled:
-		#time_to_refresh_quote -= delta
-		#swap_button.text = "Swap (%s)" % str(ceil(time_to_refresh_quote))
-		#if time_to_refresh_quote <= 0:
-			#await refresh_swap_quote()
-			#return
+	if !swap_button.disabled:
+		time_to_refresh_quote -= delta
+		swap_button.text = "Swap (%s)" % str(ceil(time_to_refresh_quote))
+		if time_to_refresh_quote <= 0:
+			await refresh_swap_quote()
+			return
 
 func handle_token_select(selected_asset:Token) -> void:
 	verification_icon.visible=false
