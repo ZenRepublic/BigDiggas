@@ -10,31 +10,11 @@ extends Node
 
 @onready var program:AnchorProgram = $AnchorProgram
 
+func get_program() -> AnchorProgram:
+	return program
+	
 func get_pid() -> Pubkey:
 		return Pubkey.new_from_string(program.get_pid())
-		
-#for fetching, gotta create a separate instance because these calls may happen in parallel which is not allowed
-func spawn_program_instance()->AnchorProgram:
-	var program_instance:AnchorProgram = AnchorProgram.new()
-	program_instance.set_pid(program.get_pid())
-	program_instance.set_json_file(program.get_json_file())
-	program_instance.set_idl(program.get_idl())
-	add_child(program_instance)
-	return program_instance
-		
-func fetch_account_of_type(account_type:String,key:Pubkey) -> Dictionary:
-	var program_instance = spawn_program_instance()
-	program_instance.fetch_account(account_type,key)
-	var account:Dictionary = await program_instance.account_fetched
-	program_instance.queue_free()
-	return account
-	
-func fetch_all_accounts_of_type(account_type:String,filter:Array=[]) -> Dictionary:
-	var program_instance = spawn_program_instance()
-	program_instance.fetch_all_accounts(account_type,filter)
-	var accounts:Dictionary = await program_instance.accounts_fetched
-	program_instance.queue_free()
-	return accounts
 		
 func create_house(house_name:String,manager_collection:Pubkey,house_currency:Pubkey,house_config:Dictionary) -> TransactionData:
 	var house_pda:Pubkey = ClubhousePDA.get_house_pda(house_name)

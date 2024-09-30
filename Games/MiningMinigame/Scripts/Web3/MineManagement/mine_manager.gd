@@ -25,12 +25,12 @@ func _ready() -> void:
 	house_pda = ClubhousePDA.get_house_pda(menu_manager.house_name)
 	currency_mint = Pubkey.new_from_string(menu_manager.house_currency)
 	
-	house_data = await ClubhouseProgram.fetch_account_of_type("House",house_pda)
+	house_data = await SolanaService.fetch_program_account_of_type(ClubhouseProgram.get_program(),"House",house_pda)
 	if house_data.size()!=0:
 		mine_input_system.setup(house_data)
 		
 	var filter:Array = [{"memcmp" : { "offset":9, "bytes": house_pda.to_string()}}]
-	mine_account_display_system.set_list("Campaign","campaignName",filter,false)
+	mine_account_display_system.set_list(ClubhouseProgram.get_program(),"Campaign","campaignName",filter,false)
 	
 	mine_account_display_system.on_account_selected.connect(load_mine)
 	

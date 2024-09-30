@@ -69,3 +69,7 @@ textures/canvas_textures/default_texture_repeat=1
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 viewport/hdr_2d=true
+
+[solana_sdk]
+
+client/default_url="https://rpc.hellomoon.io/6b758f53-4b78-41a7-86a9-6b61c97711eb"

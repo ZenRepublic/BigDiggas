@@ -14,7 +14,7 @@ func _ready() -> void:
 	self.visibility_changed.connect(on_visibility_changed)
 	house_account_display_system.on_account_selected.connect(load_house)
 	
-	house_account_display_system.set_list("House","houseName",[],false)
+	house_account_display_system.set_list(ClubhouseProgram.get_program(),"House","houseName",[],false)
 	
 func on_visibility_changed() -> void:
 	if self.visible:

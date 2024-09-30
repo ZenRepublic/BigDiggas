@@ -13,7 +13,7 @@ func _ready() -> void:
 	house_pda = ClubhousePDA.get_house_pda(menu_manager.house_name)
 	
 	var filter:Array = [{"memcmp" : { "offset":9, "bytes": house_pda.to_string()}}]
-	mine_account_display.set_list("Campaign","campaignName",filter)
+	mine_account_display.set_list(ClubhouseProgram.get_program(),"Campaign","campaignName",filter)
 	
 	self.visibility_changed.connect(on_visibility_changed)
 	mine_account_display.on_account_selected.connect(load_mine_card)
@@ -43,7 +43,7 @@ func enter_mine() -> void:
 	if tx_data.is_successful():
 		#fetch player campaign account
 		var campaign_digga_pda:Pubkey = ClubhousePDA.get_campaign_player_pda(campaign_pda,selected_nft)
-		var digga_data:Dictionary = await ClubhouseProgram.fetch_account_of_type("CampaignPlayer",campaign_digga_pda)	
+		var digga_data:Dictionary =  await SolanaService.fetch_program_account_of_type(ClubhouseProgram.get_program(),"CampaignPlayer",campaign_digga_pda)	
 			
 		var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager") as MenuManager
 		menu_manager.load_game(mine_card.curr_selected_mine_data,digga_data)

@@ -20,8 +20,9 @@ func _ready() -> void:
 	if refresh_button!=null:
 		refresh_button.pressed.connect(refresh_account_list)
 		
-func set_list(account_keyword:String, identifier_keyword:String,filter:Array=[], spawn_accounts:bool=true) -> void:
+func set_list(program:AnchorProgram,account_keyword:String, identifier_keyword:String,filter:Array=[], spawn_accounts:bool=true) -> void:
 	list_data = {
+		"program":program,
 		"acc_key": account_keyword,
 		"id_key":identifier_keyword,
 		"filter":filter
@@ -39,7 +40,7 @@ func refresh_account_list() -> void:
 		refresh_button.disabled=true
 		
 	clear_display()
-	var accounts:Dictionary = await ClubhouseProgram.fetch_all_accounts_of_type(list_data["acc_key"],list_data["filter"])
+	var accounts:Dictionary = await SolanaService.fetch_all_program_accounts_of_type(list_data["program"],list_data["acc_key"],list_data["filter"])
 	for key in accounts.keys():
 		var data:Dictionary = accounts[key]
 		var identifier = data[list_data["id_key"]]

@@ -91,6 +91,14 @@ func spawn_mpl_candy_machine_client() -> MplCandyMachine:
 	add_child(candy_machine)
 	return candy_machine
 	
+func spawn_program_instance(original_program:AnchorProgram)->AnchorProgram:
+	var program_instance:AnchorProgram = AnchorProgram.new()
+	program_instance.set_pid(original_program.get_pid())
+	program_instance.set_json_file(original_program.get_json_file())
+	program_instance.set_idl(original_program.get_idl())
+	add_child(program_instance)
+	return program_instance
+	
 func get_account_info(account:Pubkey) -> Dictionary:
 	var client:SolanaClient = spawn_client_instance()
 	client.get_account_info(account.to_string())
@@ -155,6 +163,22 @@ func get_associated_token_account(address_to_check:String,token_address:String) 
 		return null
 	
 	return Pubkey.new_from_string(response_dict["result"]["value"][0]["pubkey"])
+	
+func fetch_program_account_of_type(program:AnchorProgram,account_type:String,key:Pubkey) -> Dictionary:
+	var program_instance:AnchorProgram = spawn_program_instance(program)
+	
+	program_instance.fetch_account(account_type,key)
+	var account:Dictionary = await program_instance.account_fetched
+	program_instance.queue_free()
+	return account
+	
+func fetch_all_program_accounts_of_type(program:AnchorProgram,account_type:String,filter:Array=[]) -> Dictionary:
+	var program_instance:AnchorProgram = spawn_program_instance(program)
+	
+	program_instance.fetch_all_accounts(account_type,filter)
+	var accounts:Dictionary = await program_instance.accounts_fetched
+	program_instance.queue_free()
+	return accounts
 	
 func get_asset_data(asset_id:Pubkey) -> Dictionary:
 	var client:SolanaClient = spawn_client_instance()

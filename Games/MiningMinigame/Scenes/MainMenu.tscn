@@ -267,7 +267,6 @@ texture = ExtResource("2_whdnv")
 stretch_mode = 1
 
 [node name="MainScreen" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2547,6 +2546,7 @@ script = ExtResource("38_ykcbo")
 button_locks = [NodePath("../MainScreen/MenuPanel/AdminButton")]
 
 [node name="HouseAdminScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("house_screen_manager", "house_display", "house_create_input_system", "house_edit_input_system", "house_account_display_system")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
