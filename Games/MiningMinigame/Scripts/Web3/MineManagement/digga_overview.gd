@@ -8,7 +8,8 @@ class_name DiggaOverview
 
 @export var enter_mine_button:BaseButton
 
-var digga_nft:Nft;
+var digga_data:Dictionary
+var digga_nft:Nft
 
 var selection_locked:bool=false
 # Called when the node enters the scene tree for the first time.
@@ -16,6 +17,7 @@ var selection_locked:bool=false
 func set_digga(nft:Nft, mine_data:Dictionary, player_data:Dictionary) -> void:
 	screen_manager.switch_active_panel(2)
 	digga_nft = nft
+	digga_data = player_data
 	var max_energy:int = mine_data["nftConfig"]["maxPlayerEnergy"]
 	await displayable_digga.set_data(nft)
 	
@@ -44,3 +46,14 @@ func lock_selection(lock:bool) -> void:
 		
 	
 func is_locked() -> bool: return selection_locked
+
+func get_data() -> Dictionary:
+	if digga_data.size()>0:
+		return digga_data
+	
+	#if there's no data, means fresh account	
+	var data:Dictionary = {
+		"mint": get_digga_nft(),
+		"inGame":false
+	}
+	return data

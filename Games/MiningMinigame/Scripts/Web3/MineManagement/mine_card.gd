@@ -22,6 +22,7 @@ func _ready() -> void:
 		
 # Called when the node enters the scene tree for the first time.
 func set_mine_data(data:Dictionary) -> void:
+	disable_mine(false)
 	curr_selected_mine_data = data
 	campaign_pda = ClubhousePDA.get_campaign_pda(data["campaignName"],data["house"])
 	
@@ -48,9 +49,9 @@ func set_mine_data(data:Dictionary) -> void:
 	if campaign_timer.is_finished():
 		disable_mine()
 	
-func disable_mine() -> void:
-	digga_overview.lock_selection(true)
-	is_locked=true
+func disable_mine(disable:bool=true) -> void:
+	digga_overview.lock_selection(disable)
+	is_locked=disable
 	pass
 	
 
@@ -62,5 +63,5 @@ func select_digga(nft:Nft) -> void:
 	var player_data:Dictionary =  await SolanaService.fetch_program_account_of_type(ClubhouseProgram.get_program(),"CampaignPlayer",campaign_player_pda)
 	digga_overview.set_digga(nft,curr_selected_mine_data,player_data)
 	
-func get_selected_digga_nft() -> Pubkey:
-	return digga_overview.digga_nft.mint
+func get_selected_digga_data() -> Dictionary:
+	return digga_overview.get_data()

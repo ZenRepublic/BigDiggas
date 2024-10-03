@@ -3,11 +3,12 @@ class_name MenuManager
 
 @export_file(".tscn") var game_scene_path:String
 
-@export var house_name:String
-@export var house_currency:String
+@export var house_id:String
+var house_data:Dictionary
 
 @onready var screen_manager:ScreenManager = $ScreenManager
 
+signal on_house_data_loaded(data:Dictionary)
 # Called when the node enters the scene tree for the first time.
 
 func _init() -> void:
@@ -15,9 +16,16 @@ func _init() -> void:
 	
 func _ready() -> void:
 	MusicManager.play_song("Menu")	
+	load_house_data()
 	#var data:Dictionary = await SolanaService.get_asset_data(Pubkey.new_from_string("2JcEwPap98iwPG9oAhbNZYkpmDYs996veyAXAHzqfH1o"))
 	#var signer = Keypair.new_from_file("res://uthm9E1kt14ZGnMhT6SD16cfXhCRuBCqeHfLo1T7M9s.json")
 	#var tx_data:TransactionData = await SolanaService.transaction_manager.transfer_sol("84pL2GAuv8XGVPyZre2xcgUNSGz9csYHBt5AW4PUcEe9",0.01,TransactionManager.Commitment.CONFIRMED,0.0,signer)
+	
+func load_house_data() -> void:
+	var house_key:Pubkey = Pubkey.new_from_string(house_id)
+	house_data = await SolanaService.fetch_program_account_of_type(ClubhouseProgram.get_program(),"House",house_key)
+	on_house_data_loaded.emit(house_data)
+	print(house_data)
 	
 func play_ui_sound(sound_name:String) -> void:
 	MusicManager.play_sound(sound_name)
@@ -42,6 +50,7 @@ func load_game(mine_data:Dictionary,digga_data:Dictionary) -> void:
 	MusicManager.play_sound("ButtonSimple")
 	SceneManager.load_scene(game_scene_path,true,-1,{
 		"GameMode":GameManager.GameMode.MINING,
+		"HouseData":house_data,
 		"MineData":mine_data,
 		"DiggaData":digga_data
 		})

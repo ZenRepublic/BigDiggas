@@ -477,6 +477,14 @@ idl = {
 "code": 6028.0,
 "msg": "Player is already in a game",
 "name": "PlayerInGame"
+}, {
+"code": 6029.0,
+"msg": "Oracle required",
+"name": "OracleRequired"
+}, {
+"code": 6030.0,
+"msg": "Oracle mismatch",
+"name": "OracleMismatch"
 }],
 "instructions": [{
 "accounts": [{
@@ -832,6 +840,11 @@ idl = {
 "name": "user"
 }, {
 "isMut": false,
+"isOptional": true,
+"isSigner": true,
+"name": "oracle"
+}, {
+"isMut": false,
 "isSigner": false,
 "name": "associatedTokenProgram"
 }, {
@@ -849,6 +862,9 @@ idl = {
 }],
 "name": "endGameWithNft"
 }],
+"metadata": {
+"address": "C1ubv5AC5w7Eh3iHpEt2BXZ1g3eARQtMRgmE2AXfznSg"
+},
 "name": "clubhouse",
 "types": [{
 "name": "NftCampaignConfig",

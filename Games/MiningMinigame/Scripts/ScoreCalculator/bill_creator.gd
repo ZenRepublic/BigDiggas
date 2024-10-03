@@ -29,7 +29,6 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 	
 	if game_mode == GameManager.GameMode.MINING:
 		token_unit_price = mine_reward_claimer.get_token_unit_price(false)
-		print(token_unit_price)
 		token_texture = mine_reward_claimer.get_reward_token_texture()
 		
 	final_price_visual.texture = token_texture
@@ -54,21 +53,21 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 	
 	for slot in bill_slots:
 		final_score += slot.get_total_value()
-		print(final_score)
+	print(final_score)
 		
-	var final_claim_amount:float
+	var final_claim_display_amount:float
 	for slot in bill_slots:
-		var transfer_rate:float = slot.total_value/10
+		var transfer_tick_count:int = 5
+		var transfer_rate:float = slot.total_value/transfer_tick_count
 		var slot_value:float = slot.get_total_value()
-		while slot_value>0:
+		for i in range(transfer_tick_count):
 			slot_value -= transfer_rate
-			if slot_value < 0:
-				slot_value=0
-			slot.token_value_label.text = str(slot_value)
-			final_claim_amount += transfer_rate
-			final_price_label.set_value(final_claim_amount)
-			play_increment_sound(lerp(1.0,1.4,final_claim_amount/total_value))
-			await get_tree().create_timer(0.05).timeout
+			slot_value = clamp(slot_value,0,INF)
+			slot.token_value_label.set_value(slot_value)
+			final_claim_display_amount += transfer_rate
+			final_price_label.set_value(final_claim_display_amount)
+			play_increment_sound(lerp(1.0,1.4,final_claim_display_amount/total_value))
+			await get_tree().create_timer(0.07).timeout
 			
 	await get_tree().create_timer(0.3).timeout
 	action_button.visible=true

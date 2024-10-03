@@ -22,21 +22,30 @@ func _ready() -> void:
 	self.visibility_changed.connect(on_visibility_changed)
 	
 	var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager")
-	house_pda = ClubhousePDA.get_house_pda(menu_manager.house_name)
-	currency_mint = Pubkey.new_from_string(menu_manager.house_currency)
+	menu_manager.on_house_data_loaded.connect(setup_mines)
+	
+func on_visibility_changed() -> void:
+	if self.visible:
+		mine_account_display_system.refresh_account_list()
+		
+func setup_mines(house_data:Dictionary) -> void:
+	house_pda = ClubhousePDA.get_house_pda(house_data["houseName"])
+	currency_mint = house_data["houseCurrency"]
 	
 	house_data = await SolanaService.fetch_program_account_of_type(ClubhouseProgram.get_program(),"House",house_pda)
 	if house_data.size()!=0:
 		mine_input_system.setup(house_data)
 		
-	var filter:Array = [{"memcmp" : { "offset":9, "bytes": house_pda.to_string()}}]
+#	offset 9 because house is second parameter, going after bump u8, which is 8 bytes
+# 	another filter is get all by creator. offset 41, because third parameter after house 32 bytes
+	var filter:Array = [
+		{"memcmp" : { "offset":9, "bytes": house_pda.to_string()}},
+		{"memcmp" : { "offset":41, "bytes": SolanaService.wallet.get_pubkey().to_string()}}
+	]	
 	mine_account_display_system.set_list(ClubhouseProgram.get_program(),"Campaign","campaignName",filter,false)
 	
 	mine_account_display_system.on_account_selected.connect(load_mine)
 	
-func on_visibility_changed() -> void:
-	if self.visible:
-		mine_account_display_system.refresh_account_list()
 
 		
 func show_create_mine() -> void:

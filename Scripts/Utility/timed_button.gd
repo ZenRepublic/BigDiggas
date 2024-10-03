@@ -20,7 +20,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if finish_time == 0:
+	if !is_active:
 		return
 	
 	time_elapsed+=delta
@@ -28,12 +28,11 @@ func _process(delta: float) -> void:
 		return
 	
 	if is_finished():
-		if disabled:
-			if enable_on_activation:
-				disabled=false
-			text = activated_text
-			on_timer_finished.emit()
-			is_active=false
+		if enable_on_activation:
+			disabled=false
+		text = activated_text
+		on_timer_finished.emit()
+		is_active=false
 		return
 			
 	#disabled=true

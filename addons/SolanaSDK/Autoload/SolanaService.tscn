@@ -44,7 +44,3 @@ script = ExtResource("9_pob61")
 
 [node name="ShdwDriveCreator" type="Node" parent="."]
 script = ExtResource("9_m6qd0")
-path_to_keypair = "C:\\Users\\thoma\\Desktop\\kp\\dev2gUnXyMLh6WyV9NTBaXeNfo1DTn2R4b69VTGNidF.json"
-storage_name = "test storage 1"
-storage_size = 128
-file_path = "res://lmeow.txt"

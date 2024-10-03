@@ -465,6 +465,12 @@
 					"isSigner": true
 				},
 				{
+					"name": "oracle",
+					"isMut": false,
+					"isSigner": true,
+					"isOptional": true
+				},
+				{
 					"name": "associatedTokenProgram",
 					"isMut": false,
 					"isSigner": false
@@ -1324,6 +1330,19 @@
 			"code": 6028,
 			"name": "PlayerInGame",
 			"msg": "Player is already in a game"
+		},
+		{
+			"code": 6029,
+			"name": "OracleRequired",
+			"msg": "Oracle required"
+		},
+		{
+			"code": 6030,
+			"name": "OracleMismatch",
+			"msg": "Oracle mismatch"
 		}
-	]
+	],
+	"metadata": {
+		"address": "C1ubv5AC5w7Eh3iHpEt2BXZ1g3eARQtMRgmE2AXfznSg"
+	}
 }

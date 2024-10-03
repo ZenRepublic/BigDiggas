@@ -238,8 +238,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yvyci")
 game_scene_path = "res://Games/MiningMinigame/Scenes/MiningMinigame.tscn"
-house_name = "BIG DEVNET"
-house_currency = "2JcEwPap98iwPG9oAhbNZYkpmDYs996veyAXAHzqfH1o"
+house_id = "J47qa2T2yFAMYkjLw2DQ5P7iTLEG19SmJs7EgPGxZCk9"
 
 [node name="ScreenManager" type="Node" parent="." node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
