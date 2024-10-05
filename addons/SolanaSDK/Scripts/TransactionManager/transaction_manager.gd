@@ -43,14 +43,8 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 	#
 	#transaction.set_unit_limit(0.0)
 	#transaction.set_unit_price(0.0)
-	#transaction.sign()
+	transaction.sign()
 	print("SIGNED!")
-	#await transaction.fully_signed
-	
-	#var double_signed_tx:Transaction = await RubianServer.get_oracle_signature(transaction)
-	#print(double_signed_tx.get_signers())
-	#return
-	
 	on_tx_signed.emit()
 	var tx_data:TransactionData = await send_transaction(transaction,tx_commitment)
 	
@@ -64,7 +58,8 @@ func sign_serialized_transaction(signers:Array,transaction_bytes:PackedByteArray
 	add_child(transaction)
 	
 	transaction.set_signers(signers)
-	transaction.sign()
+	transaction.partially_sign([SolanaService.wallet.get_kp()])
+	print(transaction.serialize())
 	#transaction.set_unit_limit(priority_fee)
 	#transaction.set_unit_price(priority_fee)
 

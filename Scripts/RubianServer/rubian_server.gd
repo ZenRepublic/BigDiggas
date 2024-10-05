@@ -24,7 +24,7 @@ func get_mine_manager_data() -> Dictionary:
 	var response:Dictionary = await send_get_request(SERVER_LINK+"minemanager")
 	return response["collections"]
 	
-func get_oracle_signature(transaction:Transaction) -> Transaction:
+func get_oracle_signature(transaction:Transaction) -> PackedByteArray:
 	var serialized_tx:PackedByteArray = transaction.serialize()
 	print(serialized_tx)
 	var headers:Array = ["Content-type: application/json"]
@@ -33,8 +33,7 @@ func get_oracle_signature(transaction:Transaction) -> Transaction:
 	}
 	var response:Dictionary = await send_post_request(JSON.stringify(body),headers,SERVER_LINK+"transactions/sign")
 	print(response)
-	var signed_tx:Transaction = Transaction.new_from_bytes(response["transaction"])
-	return signed_tx
+	return response["transaction"]
 
 func send_get_request(request_link:String) -> Dictionary:
 	var http_request = HTTPRequest.new()
