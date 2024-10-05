@@ -43,7 +43,7 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 	#
 	#transaction.set_unit_limit(0.0)
 	#transaction.set_unit_price(0.0)
-	transaction.sign()
+	#transaction.sign()
 	print("SIGNED!")
 	#await transaction.fully_signed
 	

@@ -52,22 +52,23 @@ func enter_mine() -> void:
 	var menu_manager:MenuManager = get_tree().get_first_node_in_group("MenuManager") as MenuManager
 	var oracle:Pubkey = menu_manager.house_data["config"]["oracleKey"]
 	
-	#var instructions:Array[Instruction]
-	#if force_end_previous_game:
-		#var end_game_ix:Instruction = ClubhouseProgram.get_claim_reward_instruction(house_pda,oracle,campaign_pda,digga_nft,reward_mint,0)
-		#instructions.append(end_game_ix)
-		#
-	#var start_game_ix:Instruction = ClubhouseProgram.get_start_game_instruction(house_pda,campaign_pda,digga_nft)
-	#instructions.append(start_game_ix)
-	#
-	#var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
-	#transaction.set_payer(SolanaService.wallet.get_kp())
-	#transaction.set_signers([SolanaService.wallet.get_kp(),oracle])
+	var instructions:Array[Instruction]
+	var end_game_ix:Instruction = ClubhouseProgram.get_claim_reward_instruction(house_pda,oracle,campaign_pda,digga_nft,reward_mint,0)
+	instructions.append(end_game_ix)
+		
+	var start_game_ix:Instruction = ClubhouseProgram.get_start_game_instruction(house_pda,campaign_pda,digga_nft)
+	instructions.append(start_game_ix)
+	
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+	transaction.set_payer(SolanaService.wallet.get_kp())
+	transaction.set_signers([SolanaService.wallet.get_kp(),Keypair.new_from_file("res://uthm9E1kt14ZGnMhT6SD16cfXhCRuBCqeHfLo1T7M9s.json")])
+	transaction.partially_sign([SolanaService.wallet.get_kp(),Keypair.new_from_file("res://uthm9E1kt14ZGnMhT6SD16cfXhCRuBCqeHfLo1T7M9s.json")])
+	#transaction.partially_sign(Keypair.new_from_file("res://uthm9E1kt14ZGnMhT6SD16cfXhCRuBCqeHfLo1T7M9s.json"))
 	#var oracle_signed_tx:Transaction = await RubianServer.get_oracle_signature(transaction)
 	#print(oracle_signed_tx.serialize())
-	#var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
+	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
 	
-	var tx_data:TransactionData = await ClubhouseProgram.start_game(house_pda,oracle,campaign_pda,digga_nft,reward_mint,force_end_previous_game)
+	#var tx_data:TransactionData = await ClubhouseProgram.start_game(house_pda,oracle,campaign_pda,digga_nft,reward_mint,force_end_previous_game)
 	
 	if tx_data.is_successful():
 		menu_manager.load_game(mine_card.curr_selected_mine_data,digga_data)
