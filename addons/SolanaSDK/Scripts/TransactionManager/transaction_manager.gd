@@ -110,9 +110,6 @@ func transfer_sol(receiver:String,amount:float,tx_commitment=Commitment.CONFIRME
 	instructions.append(sol_transfer_ix)
 	
 	var transaction:Transaction = await create_transaction(instructions,priority_fee)
-	#var double_signed_tx:Transaction = await RubianServer.get_oracle_signature(transaction)
-	#print(double_signed_tx.get_signers())
-	#return
 	
 	if custom_sender!=null:
 		var tx_data:TransactionData = await sign_transaction(transaction,tx_commitment,custom_sender)
