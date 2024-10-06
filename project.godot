@@ -28,8 +28,8 @@ SolanaService="*res://addons/SolanaSDK/Autoload/SolanaService.tscn"
 OpenAI="*res://Scripts/OpenAI/OpenAI.tscn"
 SceneManager="*res://Scripts/SceneManagement/SceneManager.tscn"
 MusicManager="*res://Scripts/SoundManagement/MusicManager.tscn"
-RubianServer="*res://Scripts/RubianServer/RubianServer.tscn"
 ClubhouseProgram="*res://Scripts/SolanaPrograms/Clubhouse/ClubhouseProgram.tscn"
+RubianServer="*res://Scripts/RubianServer/RubianServer.tscn"
 
 [display]
 

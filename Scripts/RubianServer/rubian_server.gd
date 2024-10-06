@@ -32,8 +32,10 @@ func get_oracle_signature(transaction:Transaction) -> PackedByteArray:
 		"transaction":serialized_tx
 	}
 	var response:Dictionary = await send_post_request(JSON.stringify(body),headers,SERVER_LINK+"transactions/sign")
-	print(response)
-	return response["transaction"]
+	if response.has("error"):
+		print("failed to receive signature by the server")
+		return []
+	return response["transaction"]["data"]
 
 func send_get_request(request_link:String) -> Dictionary:
 	var http_request = HTTPRequest.new()

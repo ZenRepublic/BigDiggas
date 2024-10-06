@@ -9,6 +9,7 @@ extends Node
 #if the variable is a class, pass it in as dictionary
 
 @onready var program:AnchorProgram = $AnchorProgram
+@export var oracle_signer:OracleSigner
 
 func get_program() -> AnchorProgram:
 	return program
@@ -16,9 +17,27 @@ func get_program() -> AnchorProgram:
 func get_pid() -> Pubkey:
 		return Pubkey.new_from_string(program.get_pid())
 		
-func send_transaction(instructions:Array[Instruction]) -> TransactionData:
-	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
-	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
+func send_transaction(instructions:Array[Instruction], oracle:Pubkey=null) -> TransactionData:
+	var tx_data:TransactionData
+	
+	if oracle!=null and oracle.to_string() != SystemProgram.get_pid().to_string():
+		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+		transaction.set_payer(SolanaService.wallet.get_kp())
+		if oracle_signer == null:
+			push_error("Oracle Signer is needed for this transaction, but the reference is missing!")
+			return TransactionData.new({})
+		var tx_bytes:PackedByteArray = await oracle_signer.add_oracle_signature(transaction)
+		if tx_bytes.size()==0:
+			push_error("Failed to sign with the oracle keypair!")
+			return TransactionData.new({})
+		transaction.queue_free()
+	
+		var signers:Array = [SolanaService.wallet.get_kp(),oracle]
+		tx_data = await SolanaService.transaction_manager.sign_serialized_transaction(signers,tx_bytes)
+	else:
+		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+		tx_data = await SolanaService.transaction_manager.sign_transaction(transaction)
+		
 	return tx_data
 		
 func create_house(house_name:String,manager_collection:Pubkey,house_currency:Pubkey,house_config:Dictionary) -> TransactionData:
@@ -157,14 +176,19 @@ func get_close_campaign_instruction(house_pda:Pubkey,campaign_name:String,reward
 	
 func start_game(house_pda:Pubkey,oracle:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey,reward_mint:Pubkey,force_end_previous_game:bool) -> TransactionData:
 	var instructions:Array[Instruction]
-	if force_end_previous_game:
-		var end_game_ix:Instruction = get_claim_reward_instruction(house_pda,oracle,campaign_pda,player_nft,reward_mint,0)
-		instructions.append(end_game_ix)
-		
+	
 	var start_game_ix:Instruction = get_start_game_instruction(house_pda,campaign_pda,player_nft)
 	instructions.append(start_game_ix)
 	
-	var tx_data:TransactionData = await send_transaction(instructions)
+	var tx_data:TransactionData
+	
+	if force_end_previous_game:
+		var end_game_ix:Instruction = get_claim_reward_instruction(house_pda,oracle,campaign_pda,player_nft,reward_mint,0)
+		instructions.insert(0,end_game_ix)
+		tx_data = await send_transaction(instructions,oracle)
+	else:
+		tx_data = await send_transaction(instructions)
+		
 	return tx_data
 	
 func get_start_game_instruction(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey) -> Instruction:
@@ -186,7 +210,7 @@ func get_start_game_instruction(house_pda:Pubkey,campaign_pda:Pubkey,player_nft:
 	
 func claim_reward(house_pda:Pubkey,oracle:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey,reward_mint:Pubkey,reward_amount:int) -> TransactionData:
 	var claim_reward_ix:Instruction = get_claim_reward_instruction(house_pda,oracle,campaign_pda,player_nft,reward_mint,reward_amount)
-	var tx_data:TransactionData = await send_transaction([claim_reward_ix])
+	var tx_data:TransactionData = await send_transaction([claim_reward_ix],oracle)
 	return tx_data
 
 func get_claim_reward_instruction(house_pda:Pubkey,oracle:Pubkey,campaign_pda:Pubkey,player_nft:Pubkey,reward_mint:Pubkey,reward_amount:int) -> Instruction:
@@ -196,7 +220,7 @@ func get_claim_reward_instruction(house_pda:Pubkey,oracle:Pubkey,campaign_pda:Pu
 	var player_reward_token_account:Pubkey = Pubkey.new_associated_token_address(SolanaService.wallet.get_pubkey(),reward_mint)
 	
 	#if oracle is not set, it is defaulted to SystemProgram. We set it to null then to not need a signer	
-	if oracle.to_string() == SystemProgram.get_pid().to_string():
+	if oracle!=null and oracle.to_string() == SystemProgram.get_pid().to_string():
 		oracle = null
 		
 	var ix:Instruction = program.build_instruction("endGameWithNft",[

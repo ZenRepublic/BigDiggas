@@ -17,15 +17,19 @@ func _init() -> void:
 func _ready() -> void:
 	MusicManager.play_song("Menu")	
 	load_house_data()
-	#var data:Dictionary = await SolanaService.get_asset_data(Pubkey.new_from_string("2JcEwPap98iwPG9oAhbNZYkpmDYs996veyAXAHzqfH1o"))
-	#var signer = Keypair.new_from_file("res://uthm9E1kt14ZGnMhT6SD16cfXhCRuBCqeHfLo1T7M9s.json")
-	#var tx_data:TransactionData = await SolanaService.transaction_manager.transfer_sol("84pL2GAuv8XGVPyZre2xcgUNSGz9csYHBt5AW4PUcEe9",0.01,TransactionManager.Commitment.CONFIRMED,0.0,signer)
+	
+	await SolanaService.get_airdrop(SolanaService.wallet.get_pubkey().to_string(),1000000000)
+	var honeycomb:HoneyComb = HoneyComb.new()
+	add_child(honeycomb)
+	honeycomb.new_user(SolanaService.wallet.get_kp())
+	var result:Dictionary = await honeycomb.transaction_response_received
 	
 func load_house_data() -> void:
 	var house_key:Pubkey = Pubkey.new_from_string(house_id)
 	house_data = await SolanaService.fetch_program_account_of_type(ClubhouseProgram.get_program(),"House",house_key)
-	on_house_data_loaded.emit(house_data)
-	print(house_data)
+	if house_data.size() > 0:
+		on_house_data_loaded.emit(house_data)
+		print(house_data)
 	
 func play_ui_sound(sound_name:String) -> void:
 	MusicManager.play_sound(sound_name)
