@@ -3,4 +3,4 @@
 Developed during Radar hackathon by Colosseum
 Play it here: https://bigdiggas.rubians.lol
 
-by Rubians
+by Rubians and Zen Republic
