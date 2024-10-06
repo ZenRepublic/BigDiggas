@@ -37,33 +37,33 @@ func _ready() -> void:
 	manager_selector.on_selected.connect(update_manager_selection)
 	
 	max_fund_button.pressed.connect(set_max_fund)	
-	
-	self.visibility_changed.connect(fetch_server_data)
+	#
+	#self.visibility_changed.connect(fetch_server_data)
 	pass # Replace with function body.
 	
-func fetch_server_data() -> void:
-	if self.visible and !server_data_loaded:
-		await fill_option_fields()
-		server_data_loaded = true
-	
-func fill_option_fields() -> void:
-	var data:Dictionary = await RubianServer.get_mine_manager_data()
-	
-	var token_idx:int=token_selection.item_count
-	for token in data["verified_tokens"]:
-		var mint:Pubkey = Pubkey.new_from_string(token["token_id"])
-		#var token_data:Token = await SolanaService.asset_manager.get_asset_from_mint(mint)
-		token_selection.add_item(token["name"],token_idx)
-		token_selection.set_item_metadata(token_idx,mint)
-		token_idx+=1
-	
-	var collection_idx:int=collection_selection.item_count
-	for collection in data["verified_collections"]:
-		var mint:Pubkey = Pubkey.new_from_string(collection["collection_id"])
-		#var token_data:Token = await SolanaService.asset_manager.get_asset_from_mint(mint)
-		collection_selection.add_item(collection["name"],collection_idx)
-		collection_selection.set_item_metadata(collection_idx,mint)
-		collection_idx+=1
+#func fetch_server_data() -> void:
+	#if self.visible and !server_data_loaded:
+		#await fill_option_fields()
+		#server_data_loaded = true
+	#
+#func fill_option_fields() -> void:
+	#var data:Dictionary = await RubianServer.get_mine_manager_data()
+	#
+	#var token_idx:int=token_selection.item_count
+	#for token in data["verified_tokens"]:
+		#var mint:Pubkey = Pubkey.new_from_string(token["token_id"])
+		##var token_data:Token = await SolanaService.asset_manager.get_asset_from_mint(mint)
+		#token_selection.add_item(token["name"],token_idx)
+		#token_selection.set_item_metadata(token_idx,mint)
+		#token_idx+=1
+	#
+	#var collection_idx:int=collection_selection.item_count
+	#for collection in data["verified_collections"]:
+		#var mint:Pubkey = Pubkey.new_from_string(collection["collection_id"])
+		##var token_data:Token = await SolanaService.asset_manager.get_asset_from_mint(mint)
+		#collection_selection.add_item(collection["name"],collection_idx)
+		#collection_selection.set_item_metadata(collection_idx,mint)
+		#collection_idx+=1
 		
 func select_token(selected_idx:int) -> void:
 	var new_token:Pubkey = token_selection.get_item_metadata(selected_idx)
