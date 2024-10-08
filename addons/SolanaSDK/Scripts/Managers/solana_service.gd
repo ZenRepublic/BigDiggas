@@ -191,8 +191,11 @@ func fetch_all_program_accounts_of_type(program:AnchorProgram,account_type:Strin
 	program_instance.queue_free()
 	return accounts
 	
-func get_asset_data(asset_id:Pubkey) -> Dictionary:
+func get_asset_data(asset_id:Pubkey, override_rpc_url:String) -> Dictionary:
 	var client:SolanaClient = spawn_client_instance()
+	if override_rpc_url!="":
+			client.url_override = override_rpc_url
+			
 	client.get_asset(asset_id)
 	var response_dict:Dictionary = await client.http_response_received
 	client.queue_free()
@@ -226,7 +229,7 @@ func get_wallet_assets_data(wallet_to_check:Pubkey,asset_limit:int=1000, overrid
 		if loaded_page_assets.size() < asset_limit:
 			break
 		page_id+=1
-	
+
 	return wallet_assets
 	
 func get_collection_assets_data(nft_owner:Pubkey,collection_mint:Pubkey,asset_limit:int=1000,override_rpc_url:String="") -> Array:
@@ -249,7 +252,6 @@ func get_collection_assets_data(nft_owner:Pubkey,collection_mint:Pubkey,asset_li
 		if loaded_page_assets.size() < asset_limit:
 			break
 		page_id+=1
-
 	return owned_collection_assets
 	
 func get_token_accounts(wallet_to_check:Pubkey) -> Array[Dictionary]:

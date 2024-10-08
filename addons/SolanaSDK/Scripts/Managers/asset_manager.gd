@@ -76,8 +76,8 @@ func load_assets()->void:
 			await load_das_assets(assets_data)
 			#this only fetches NFTs, so gotta additionally load tokens as well
 			#no need to adjust anything, because NFTs will be in cache and will be skipped
-			#var wallet_token_accounts:Array[Dictionary] = await SolanaService.get_token_accounts(wallet_to_load)
-			#await load_user_assets_og(wallet_token_accounts)
+			var wallet_token_accounts:Array[Dictionary] = await SolanaService.get_token_accounts(wallet_to_load)
+			await load_user_assets_og(wallet_token_accounts)
 		
 	on_asset_load_finished.emit(owned_assets)
 	assets_loaded=true
@@ -146,7 +146,7 @@ func get_asset_from_mint(asset_mint:Pubkey, load_texture:bool=false, try_load_fr
 	var metadata:MetaData = await fetch_asset_metadata(asset_mint)
 	if metadata==null:
 		return null
-		
+
 	var asset:WalletAsset = await create_asset(asset_mint,metadata,{},load_texture,try_load_from_cache)
 	return asset
 	
@@ -160,7 +160,7 @@ func fetch_asset_metadata(asset_mint:Pubkey) -> MetaData:
 			metadata = await mpl_metadata.metadata_fetched
 			mpl_metadata.queue_free()
 		AssetFetchMode.DAS:
-			var asset_data:Dictionary = await SolanaService.get_asset_data(asset_mint)
+			var asset_data:Dictionary = await SolanaService.get_asset_data(asset_mint,override_rpc_url)
 			metadata = MetaData.new()
 			metadata.copy_from_dict(asset_data)
 			

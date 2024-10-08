@@ -7,6 +7,7 @@
 [node name="ClubhouseProgram" type="Node" node_paths=PackedStringArray("oracle_signer")]
 script = ExtResource("1_ga3ja")
 oracle_signer = NodePath("OracleSigner")
+priority_fee_lamports = 300000
 
 [node name="AnchorProgram" type="AnchorProgram" parent="."]
 pid = "C1ubv5AC5w7Eh3iHpEt2BXZ1g3eARQtMRgmE2AXfznSg"

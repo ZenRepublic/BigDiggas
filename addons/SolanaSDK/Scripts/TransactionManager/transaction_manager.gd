@@ -7,7 +7,7 @@ signal on_tx_init
 signal on_tx_signed
 signal on_tx_finish(tx_data:TransactionData)
 
-func create_transaction(instructions:Array[Instruction],priority_fee:float=0.0) -> Transaction:
+func create_transaction(instructions:Array[Instruction],priority_fee:int=0.0) -> Transaction:
 	var transaction:Transaction = Transaction.new()	
 	add_child(transaction)
 	
@@ -17,8 +17,9 @@ func create_transaction(instructions:Array[Instruction],priority_fee:float=0.0) 
 			return null
 		transaction.add_instruction(instructions[idx])
 		
-	#transaction.set_unit_limit(priority_fee)
-	#transaction.set_unit_price(priority_fee)
+	if priority_fee > 0:
+		transaction.set_unit_limit(priority_fee)
+		transaction.set_unit_price(priority_fee)
 	
 	transaction.update_latest_blockhash()
 	await transaction.blockhash_updated
@@ -38,12 +39,12 @@ func sign_transaction(transaction:Transaction,tx_commitment:Commitment=Commitmen
 	else:
 		wallet = SolanaService.wallet.get_kp()
 		
-		
 	transaction.set_payer(wallet)
-	#
-	#transaction.set_unit_limit(0.0)
-	#transaction.set_unit_price(0.0)
 	transaction.sign()
+	
+	if wallet is WalletAdapter:
+		await transaction.fully_signed
+	
 	print("SIGNED!")
 	on_tx_signed.emit()
 	var tx_data:TransactionData = await send_transaction(transaction,tx_commitment)
@@ -59,14 +60,14 @@ func sign_serialized_transaction(signers:Array,transaction_bytes:PackedByteArray
 	
 	transaction.set_signers(signers)
 	transaction.partially_sign([SolanaService.wallet.get_kp()])
-	print(transaction.serialize())
-	#transaction.set_unit_limit(priority_fee)
-	#transaction.set_unit_price(priority_fee)
+	
+	if SolanaService.wallet.get_kp() is WalletAdapter:
+		await transaction.signer_state_changed
+	print("SIGNED!")
 
 	var tx_data:TransactionData = await send_transaction(transaction,tx_commitment)
 	
 	on_tx_finish.emit(tx_data)
-	
 	return tx_data
 	
 func send_transaction(tx:Transaction,tx_commitment:Commitment=Commitment.CONFIRMED) -> TransactionData:
@@ -77,6 +78,8 @@ func send_transaction(tx:Transaction,tx_commitment:Commitment=Commitment.CONFIRM
 	if !tx_data.is_successful():
 		print(tx_data.get_error_message())
 		return tx_data
+		
+	print("Transaction %s is sent! \nAwaiting confirmation..." % tx_data.data["result"])
 
 	match tx_commitment:
 		Commitment.PROCESSED:

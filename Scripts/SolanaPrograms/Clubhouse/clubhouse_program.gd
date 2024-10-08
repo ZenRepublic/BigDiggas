@@ -10,6 +10,7 @@ extends Node
 
 @onready var program:AnchorProgram = $AnchorProgram
 @export var oracle_signer:OracleSigner
+@export var priority_fee_lamports:int
 
 func get_program() -> AnchorProgram:
 	return program
@@ -21,7 +22,7 @@ func send_transaction(instructions:Array[Instruction], oracle:Pubkey=null) -> Tr
 	var tx_data:TransactionData
 	
 	if oracle!=null and oracle.to_string() != SystemProgram.get_pid().to_string():
-		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,priority_fee_lamports)
 		transaction.set_payer(SolanaService.wallet.get_kp())
 		if oracle_signer == null:
 			push_error("Oracle Signer is needed for this transaction, but the reference is missing!")
@@ -35,7 +36,7 @@ func send_transaction(instructions:Array[Instruction], oracle:Pubkey=null) -> Tr
 		var signers:Array = [SolanaService.wallet.get_kp(),oracle]
 		tx_data = await SolanaService.transaction_manager.sign_serialized_transaction(signers,tx_bytes)
 	else:
-		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,priority_fee_lamports)
 		tx_data = await SolanaService.transaction_manager.sign_transaction(transaction)
 		
 	return tx_data

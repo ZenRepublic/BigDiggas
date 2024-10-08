@@ -50,7 +50,7 @@ func load_scene(scene_path:String,fade_between_scenes:bool=true,transition_id:in
 		for key in scene_data.keys():
 			#if !interscene_data.has(key):
 			interscene_data[key] = scene_data[key]
-	print(interscene_data)
+	#print(interscene_data)
 	
 	scene_to_load_path = scene_path
 	scene_transition_started.emit()
