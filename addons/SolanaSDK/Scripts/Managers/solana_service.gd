@@ -203,12 +203,15 @@ func get_asset_data(asset_id:Pubkey) -> Dictionary:
 		
 	return response_dict["result"]
 	
-func get_wallet_assets_data(wallet_to_check:Pubkey,asset_limit:int=1000) -> Array:
+func get_wallet_assets_data(wallet_to_check:Pubkey,asset_limit:int=1000, override_rpc_url:String="") -> Array:
 	var page_id:int=1
 	var wallet_assets:Array
 	
 	while true:
 		var client:SolanaClient = spawn_client_instance()
+		if override_rpc_url!="":
+			client.url_override = override_rpc_url
+			
 		client.get_assets_by_owner(wallet_to_check,page_id,asset_limit)
 		var response_dict:Dictionary = await client.http_response_received
 		client.queue_free()
@@ -226,12 +229,15 @@ func get_wallet_assets_data(wallet_to_check:Pubkey,asset_limit:int=1000) -> Arra
 	
 	return wallet_assets
 	
-func get_collection_assets_data(nft_owner:Pubkey,collection_mint:Pubkey,asset_limit:int=1000) -> Array:
+func get_collection_assets_data(nft_owner:Pubkey,collection_mint:Pubkey,asset_limit:int=1000,override_rpc_url:String="") -> Array:
 	var page_id:int=1
 	var owned_collection_assets:Array
 	
 	while true:
 		var client:SolanaClient = spawn_client_instance()
+		if override_rpc_url!="":
+			client.url_override = override_rpc_url
+			
 		client.get_assets_by_group("collection_id",collection_mint,page_id,asset_limit)
 		var response_dict:Dictionary = await client.http_response_received
 		client.queue_free()

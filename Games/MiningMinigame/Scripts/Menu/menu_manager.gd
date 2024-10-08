@@ -16,13 +16,9 @@ func _init() -> void:
 	
 func _ready() -> void:
 	MusicManager.play_song("Menu")	
+	#var result:Dictionary = await SolanaService.fetch_all_program_accounts_of_type(ClubhouseProgram.get_program(),"House",[])
+	#print(result)
 	load_house_data()
-	
-	await SolanaService.get_airdrop(SolanaService.wallet.get_pubkey().to_string(),1000000000)
-	var honeycomb:HoneyComb = HoneyComb.new()
-	add_child(honeycomb)
-	honeycomb.new_user(SolanaService.wallet.get_kp())
-	var result:Dictionary = await honeycomb.transaction_response_received
 	
 func load_house_data() -> void:
 	var house_key:Pubkey = Pubkey.new_from_string(house_id)
@@ -30,6 +26,8 @@ func load_house_data() -> void:
 	if house_data.size() > 0:
 		on_house_data_loaded.emit(house_data)
 		print(house_data)
+	else:
+		print("FAILED TO FETCH HOUSE DATA!!")
 	
 func play_ui_sound(sound_name:String) -> void:
 	MusicManager.play_sound(sound_name)

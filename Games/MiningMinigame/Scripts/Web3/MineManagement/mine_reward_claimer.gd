@@ -2,9 +2,9 @@ extends Node
 class_name MineRewardClaimer
 
 @export var score_to_max_reward:float = 300
-var house_data:Dictionary
-var mine_data:Dictionary
-var digga_data:Dictionary
+var house_data
+var mine_data
+var digga_data
 var campaign_pda:Pubkey
 
 var reward_mint_decimals:int

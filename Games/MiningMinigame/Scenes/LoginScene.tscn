@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://ba0qpa3313x78"]
+[gd_scene load_steps=21 format=3 uid="uid://ba0qpa3313x78"]
 
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/Login/login_manager.gd" id="1_iqda5"]
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="2_ohxcb"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://dhda75lpyjtjg" path="res://Games/MiningMinigame/Scripts/Menu/Login/WalletAdapter.tscn" id="7_5waap"]
 [ext_resource type="Texture2D" uid="uid://bcc0delvuoilo" path="res://Games/MiningMinigame/textures/Art/Logos/Logo small transparent.png" id="7_kwc2t"]
 [ext_resource type="Script" path="res://Scripts/Utility/secret_code_input.gd" id="10_ymbvl"]
+[ext_resource type="Script" path="res://Scripts/Utility/linked_button.gd" id="11_sriph"]
+[ext_resource type="AudioStream" uid="uid://bta85g154ui34" path="res://Games/MiningMinigame/Sounds/UI/button_press_rich.mp3" id="12_ts4qe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_twphi"]
 shader = ExtResource("2_ohxcb")
@@ -214,6 +216,29 @@ _data = {
 "login_zoom": SubResource("Animation_886ag")
 }
 
+[sub_resource type="GDScript" id="GDScript_larcq"]
+script/source = "extends Control
+
+@export var about_content:Control
+
+func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton:
+		if event.is_pressed():
+			close()
+	
+	
+func show_about() -> void:
+	MusicManager.play_sound(\"ButtonSimple\")
+	about_content.visible = true		
+
+func close() -> void:
+	MusicManager.play_sound(\"Return\")
+	about_content.visible = false
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb6yp"]
+bg_color = Color(0.121569, 0.0627451, 0.164706, 0.745098)
+
 [node name="LoginScene" type="Control" node_paths=PackedStringArray("wallet_adapter_ui")]
 clip_contents = true
 layout_mode = 3
@@ -313,7 +338,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -898.0
 offset_top = -539.0
-offset_right = 92.2577
+offset_right = 92.2574
 offset_bottom = 136.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -354,16 +379,6 @@ offset_bottom = 33.1199
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="ConnectButton" type="Button" parent="ButtonContainer"]
-layout_mode = 0
-offset_left = 51.0
-offset_top = 211.0
-offset_right = 534.0
-offset_bottom = 293.0
-theme = ExtResource("6_2oe7d")
-theme_override_font_sizes/font_size = 71
-text = "CONNECT!"
-
 [node name="AboutButton" type="Button" parent="ButtonContainer"]
 layout_mode = 0
 offset_left = 234.0
@@ -373,6 +388,16 @@ offset_bottom = 184.0
 theme = ExtResource("6_2oe7d")
 theme_override_font_sizes/font_size = 46
 text = "ABOUT"
+
+[node name="ConnectButton" type="Button" parent="ButtonContainer"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 211.0
+offset_right = 534.0
+offset_bottom = 293.0
+theme = ExtResource("6_2oe7d")
+theme_override_font_sizes/font_size = 71
+text = "CONNECT!"
 
 [node name="WalletAdapterUI" parent="." instance=ExtResource("7_5waap")]
 visible = false
@@ -410,4 +435,115 @@ script = ExtResource("10_ymbvl")
 available_codes = Array[String](["axelgoat", "bigdig"])
 disable_on_solved = false
 
+[node name="AboutSection" type="Control" parent="." node_paths=PackedStringArray("about_content")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = SubResource("GDScript_larcq")
+about_content = NodePath("AboutPanel")
+
+[node name="AboutPanel" type="Panel" parent="AboutSection"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yb6yp")
+
+[node name="Content" type="VBoxContainer" parent="AboutSection/AboutPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="AboutContent" type="PanelContainer" parent="AboutSection/AboutPanel/Content"]
+custom_minimum_size = Vector2(600, 420)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_2oe7d")
+
+[node name="MarginContainer" type="MarginContainer" parent="AboutSection/AboutPanel/Content/AboutContent"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AboutSection/AboutPanel/Content/AboutContent/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="Title" type="Label" parent="AboutSection/AboutPanel/Content/AboutContent/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme = ExtResource("6_2oe7d")
+theme_type_variation = &"HeaderLarge"
+theme_override_font_sizes/font_size = 35
+text = "First ever Gamified Airdrop Platform"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Para1" type="Label" parent="AboutSection/AboutPanel/Content/AboutContent/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "Big Diggas is a mining game, where each mine has a different Solana token as a reward, gated to holders of chosen NFT collection.
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Para2" type="Label" parent="AboutSection/AboutPanel/Content/AboutContent/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
+theme_override_font_sizes/font_size = 26
+text = "Airdrops will never be the same!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Para3" type="Label" parent="AboutSection/AboutPanel/Content/AboutContent/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "If you would like to be our early partner, please submit the form:"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="AboutSection/AboutPanel/Content/AboutContent/MarginContainer/VBoxContainer" node_paths=PackedStringArray("button")]
+layout_mode = 2
+theme = ExtResource("6_2oe7d")
+theme_type_variation = &"SimpleButtonAlt"
+text = "LET'S CO-op!"
+script = ExtResource("11_sriph")
+button = NodePath(".")
+link = "https://form.jotform.com/242543798732366"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AboutSection/AboutPanel/Content/AboutContent/MarginContainer/VBoxContainer/Button"]
+stream = ExtResource("12_ts4qe")
+
+[node name="CloseLabel" type="Label" parent="AboutSection/AboutPanel/Content"]
+layout_mode = 2
+theme = ExtResource("6_2oe7d")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 26
+text = "Click anywhere to close..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="ButtonContainer/AboutButton" to="AboutSection" method="show_about"]
 [connection signal="pressed" from="ButtonContainer/ConnectButton" to="." method="_on_connect_button_pressed"]
+[connection signal="gui_input" from="AboutSection/AboutPanel" to="AboutSection" method="_on_gui_input"]

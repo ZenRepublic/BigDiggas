@@ -49,6 +49,7 @@ func get_create_house_instruction(house_name:String,manager_collection:Pubkey,ho
 	var house_pda:Pubkey = ClubhousePDA.get_house_pda(house_name)
 	var ix:Instruction = program.build_instruction("createHouse",[
 		SolanaService.wallet.get_kp(),
+		ClubhousePDA.get_program_admin_pda(SolanaService.wallet.get_pubkey()),
 		house_pda,
 		ClubhousePDA.get_house_currency_vault(house_pda),
 		SolanaService.wallet.get_pubkey(),

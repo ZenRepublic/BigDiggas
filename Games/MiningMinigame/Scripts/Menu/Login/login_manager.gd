@@ -24,7 +24,7 @@ func _ready() -> void:
 	wallet_adapter_ui.on_adapter_cancel.connect(cancel_login)
 	
 	secret_code_input.on_code_entered.connect(launch_game_secret)
-
+	
 
 func _on_connect_button_pressed() -> void:
 	#if generated wallet option, it will just login, if not, it will trigger on_login_begin

@@ -42,8 +42,8 @@
 [ext_resource type="Texture2D" uid="uid://bk67w02eegc4j" path="res://Games/MiningMinigame/textures/GUI/solscanlogo.png" id="28_cm551"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/digga_overview.gd" id="30_ubfxe"]
 [ext_resource type="Texture2D" uid="uid://gct6yxwxfabu" path="res://Textures/BrandingAssets/Twt banner 2rubies.PNG" id="30_vx2kd"]
-[ext_resource type="CandyGuardAccessList" uid="uid://cmkeb8th70j6r" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/GuardSettings/rubians_mainnet.tres" id="31_k7knv"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_display.gd" id="33_brjtb"]
+[ext_resource type="CandyGuardAccessList" uid="uid://6rvo7wp77i8i" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/GuardSettings/rubians_devnet.tres" id="34_ofevl"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/button_lock_manager.gd" id="38_ykcbo"]
 [ext_resource type="AudioStream" uid="uid://bta85g154ui34" path="res://Games/MiningMinigame/Sounds/UI/button_press_rich.mp3" id="40_7n6mh"]
 [ext_resource type="PackedScene" uid="uid://lgukfb417wvu" path="res://Games/MiningMinigame/Assets/UI/NFTSelectionDisplay.tscn" id="40_chyj7"]
@@ -238,7 +238,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yvyci")
 game_scene_path = "res://Games/MiningMinigame/Scenes/MiningMinigame.tscn"
-house_id = "J47qa2T2yFAMYkjLw2DQ5P7iTLEG19SmJs7EgPGxZCk9"
+house_id = "FcxGPktM2MJJ9qTxwiEVKJxHTpvatoFawKGq46SJxviG"
 
 [node name="ScreenManager" type="Node" parent="." node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
@@ -1149,12 +1149,12 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 0
 script = ExtResource("20_1cknd")
-candy_machine_id = "CiAnxgxAtM1pTdNoeZ8nqeTYBM5mPEdQHdwhXfqeS3Th"
-candy_guard_id = "9JinvCj9dAESDfErBHLuybEBxy3gpZgEdw72sBS6VJf6"
+candy_machine_id = "EPDMTLPBkidL1fXamZUXG9Yp4ZSVsg4QpWdPsKuVUx32"
+candy_guard_id = "HSrVZzrTDa1HGeAFgWMehR37he4iPBVEriAozUhEA6xh"
 minted_amount = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/AmountMinted")
 progress_bar = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/MintedProgressBar")
 price_label = NodePath("ContentContainer/MintContainer/MintDetails/PriceContainer/PriceLabel")
-guard_settings = ExtResource("31_k7knv")
+guard_settings = ExtResource("34_ofevl")
 start_mint_group = "open"
 mint_button = NodePath("ContentContainer/MintContainer/MintDetails/MintButton")
 checkbox_locks = [NodePath("ContentContainer/MintContainer/MintDetails/CouponContainer/CheckboxContainer/Checkbox"), NodePath("ContentContainer/MintContainer/MintDetails/VoucherContainer/CheckboxContainer/Checkbox")]
@@ -1265,9 +1265,8 @@ theme_override_constants/separation = 0
 custom_minimum_size = Vector2(300, 115)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
-theme_override_font_sizes/font_size = 28
-text = "Mint a Rubian and join our ranks as a Mine Manager. Free Creation of campaigns and more cool utilities soon!"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 24
+text = "Become a real digga by joining Rubian ranks. Soon we will open up Mine Manager to the public, and rubians will be able to create them for free!"
 autowrap_mode = 2
 
 [node name="BannerMargin" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro"]
@@ -1482,10 +1481,11 @@ libraries = {
 "": SubResource("AnimationLibrary_5wofc")
 }
 
-[node name="MintSuccessScreen" type="VBoxContainer" parent="RubianMintScreen/ContentContainer" node_paths=PackedStringArray("inspect_button", "screen_manager")]
+[node name="MintSuccessScreen" type="VBoxContainer" parent="RubianMintScreen/ContentContainer" node_paths=PackedStringArray("asset_displayer", "inspect_button", "screen_manager")]
 visible = false
 layout_mode = 2
 script = ExtResource("27_a1nqh")
+asset_displayer = NodePath("RubianDetails")
 inspect_button = NodePath("RubianDetails/Body/RubianName/InspectButton")
 screen_manager = NodePath("../../ScreenManager")
 
@@ -1582,7 +1582,7 @@ custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "Looking good, legend! as a rubian, you will soon be able to create your very own toil mine."
+text = "Looking good, legend! as a rubian, you will soon be able to create your very own mine for free!"
 autowrap_mode = 2
 
 [node name="CreateMine" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintSuccessScreen/RubianDetails/Body"]
@@ -2111,7 +2111,7 @@ layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
 theme_override_font_sizes/font_size = 16
-text = "EE1XTVRxVX5UtTLKRg7Y5bFQEKm2wm2nao9SGF27fypH"
+text = "9pg23GZKceX1pfVCwG1cfWXG2qJknbhejWGqkuH8hYY8"
 placeholder_text = "Enter Collection ID..."
 max_length = 44
 script = ExtResource("15_cwt4b")
@@ -2790,7 +2790,7 @@ layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
 theme_override_font_sizes/font_size = 24
-text = "uthm9E1kt14ZGnMhT6SD16cfXhCRuBCqeHfLo1T7M9s"
+text = "rCLEETVnSTqAUU9nC1GDktfyNuhza9Y9tHgdiCeZ12h"
 placeholder_text = "Provide Oracle Key..."
 max_length = 44
 script = ExtResource("15_cwt4b")
@@ -2803,7 +2803,7 @@ layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_outline_color = Color(0.788235, 0.45098, 0.45098, 1)
 theme_override_font_sizes/font_size = 24
-text = "EE1XTVRxVX5UtTLKRg7Y5bFQEKm2wm2nao9SGF27fypH"
+text = "9pg23GZKceX1pfVCwG1cfWXG2qJknbhejWGqkuH8hYY8"
 placeholder_text = "Enter Manager Collection Key..."
 max_length = 44
 script = ExtResource("15_cwt4b")

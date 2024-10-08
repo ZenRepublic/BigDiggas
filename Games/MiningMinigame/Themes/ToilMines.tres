@@ -368,6 +368,7 @@ CheckBox/font_sizes/font_size = 14
 CheckBox/icons/checked = ExtResource("2_7ut3y")
 CheckBox/icons/checked_disabled = ExtResource("3_ighw4")
 CheckBox/icons/unchecked = ExtResource("3_ighw4")
+CheckBox/icons/unchecked_disabled = ExtResource("3_ighw4")
 CheckBox/styles/disabled = SubResource("StyleBoxEmpty_qvsre")
 CheckBox/styles/focus = SubResource("StyleBoxEmpty_gaxmn")
 CheckBox/styles/hover = SubResource("StyleBoxEmpty_d8kad")

@@ -17,10 +17,8 @@ idl = {
 "name": "ProgramAdminProof",
 "type": {
 "fields": [{
-"name": "admin",
-"type": {
-"option": "publicKey"
-}
+"name": "programAdmin",
+"type": "publicKey"
 }],
 "kind": "struct"
 }
@@ -493,6 +491,10 @@ idl = {
 "isMut": true,
 "isSigner": true,
 "name": "programAdmin"
+}, {
+"isMut": false,
+"isSigner": false,
+"name": "programAdminProof"
 }, {
 "isMut": true,
 "isSigner": false,
@@ -1016,4 +1018,3 @@ idl = {
 script = ExtResource("3_wrk35")
 server_link = "https://rubians-server-625d2ae63a81.herokuapp.com/"
 link_slug = "transactions/sign"
-use_localhost = true
