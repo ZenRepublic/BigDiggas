@@ -25,7 +25,6 @@ custom_wallet_path = "C:\\Users\\thoma\\Desktop\\kp\\dev2gUnXyMLh6WyV9NTBaXeNfo1
 
 [node name="AssetManager" type="Node" parent="."]
 script = ExtResource("8_4oy84")
-override_rpc_url = "https://mainnet.helius-rpc.com/?api-key=45143f32-3c29-4d77-ba93-2005b017e7a5"
 load_on_login = true
 load_token_balances = true
 missing_texture_visual = ExtResource("9_oi842")
