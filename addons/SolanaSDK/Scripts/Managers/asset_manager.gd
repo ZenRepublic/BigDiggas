@@ -12,6 +12,7 @@ enum AssetType {NONE,NFT, TOKEN}
 @export var load_on_login:bool
 @export var load_asset_textures:bool
 @export var load_token_balances:bool
+@export var log_loaded_assets:bool=false
 
 var owned_assets:Array[WalletAsset]
 var asset_cache:Array[WalletAsset]
@@ -95,7 +96,8 @@ func load_user_assets_og(token_accounts:Array[Dictionary]) -> void:
 			token.decimals = await SolanaService.get_token_decimals(asset_mint.to_string())
 			token.balance = token_accounts[i]["amount"] / pow(10,token.decimals)
 			
-		print("Loaded: ",asset.asset_name," ",asset.mint.to_string())
+		if log_loaded_assets:
+			print("Loaded: ",asset.asset_name," ",asset.mint.to_string())
 		owned_assets.append(asset)
 		on_asset_loaded.emit(asset)
 		
@@ -105,12 +107,14 @@ func load_das_assets(assets_data:Array) -> void:
 		var metadata = MetaData.new()
 		metadata.copy_from_dict(asset_data)
 		var offchain_metadata:Dictionary = asset_data["content"]["metadata"]
-		offchain_metadata["image"] = asset_data["content"]["links"]["image"]
+		if asset_data["content"]["links"].has("image"):
+			offchain_metadata["image"] = asset_data["content"]["links"]["image"]
 		var asset:WalletAsset = await create_asset(metadata.get_mint(),metadata,offchain_metadata,load_asset_textures,true)
 		if asset == null or asset in owned_assets:
 			continue
 		
-		print("Loaded: ",asset.asset_name," ",asset.mint.to_string())
+		if log_loaded_assets:
+			print("Loaded: ",asset.asset_name," ",asset.mint.to_string())
 		owned_assets.append(asset)
 		on_asset_loaded.emit(asset)
 		
@@ -230,6 +234,8 @@ func get_owned_nfts_from_collection_key(collection_id:Pubkey) -> Array[WalletAss
 	var collection_nfts:Array[WalletAsset]
 	var owned_nfts:Array[WalletAsset] = get_owned_nfts()
 	for nft in owned_nfts:
+		if nft.metadata.get_collection() == null:
+			continue
 		if nft.metadata.get_collection().key.to_string() == collection_id.to_string():
 			collection_nfts.append(nft)
 			

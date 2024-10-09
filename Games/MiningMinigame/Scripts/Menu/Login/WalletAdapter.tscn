@@ -11,7 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://xoio1puhisej" path="res://Games/MiningMinigame/Sounds/UI/errorsound.mp3" id="8_1aesg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vj7hp"]
-bg_color = Color(0.682353, 0.886275, 1, 1)
+bg_color = Color(0.65098, 0.521569, 0.623529, 1)
 
 [node name="WalletAdapterUI" type="Control" node_paths=PackedStringArray("cancel_button", "selection_spawn")]
 layout_mode = 3

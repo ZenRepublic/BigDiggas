@@ -76,7 +76,7 @@ func create_hunt(hunt_name:String,oracle:Pubkey,hunt_token_data:Dictionary, hunt
 		"endTime":end_time
 	})
 	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([create_hunt_ix])
-	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
+	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_and_send(transaction)
 	return tx_data
 	
 func earn_tokens(hunt_pda:Pubkey,amount:float) -> TransactionData:
@@ -102,7 +102,7 @@ func earn_tokens(hunt_pda:Pubkey,amount:float) -> TransactionData:
 	})
 	
 	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction([earn_token_ix])
-	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_transaction(transaction)
+	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_and_send(transaction)
 	return tx_data
 	
 	

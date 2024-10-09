@@ -22,22 +22,30 @@ func send_transaction(instructions:Array[Instruction], oracle:Pubkey=null) -> Tr
 	var tx_data:TransactionData
 	
 	if oracle!=null and oracle.to_string() != SystemProgram.get_pid().to_string():
-		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,priority_fee_lamports)
-		transaction.set_payer(SolanaService.wallet.get_kp())
 		if oracle_signer == null:
 			push_error("Oracle Signer is needed for this transaction, but the reference is missing!")
 			return TransactionData.new({})
+		
+		#First we sign with the user		
+		var signers:Array = [SolanaService.wallet.get_kp(),oracle]
+		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,priority_fee_lamports)
+		transaction = await SolanaService.transaction_manager.sign_transaction_normal(transaction,signers)
+		
+		#get the signature from oracle. it returns tx_bytes. so turn to transaction again 		
 		var tx_bytes:PackedByteArray = await oracle_signer.add_oracle_signature(transaction)
+		transaction.queue_free()
+
 		if tx_bytes.size()==0:
 			push_error("Failed to sign with the oracle keypair!")
 			return TransactionData.new({})
-		transaction.queue_free()
-	
-		var signers:Array = [SolanaService.wallet.get_kp(),oracle]
-		tx_data = await SolanaService.transaction_manager.sign_serialized_transaction(signers,tx_bytes)
+			
+		var signed_transaction:Transaction = Transaction.new_from_bytes(tx_bytes)
+		add_child(signed_transaction)
+		signed_transaction.set_signers(signers)
+		tx_data = await SolanaService.transaction_manager.send_transaction(signed_transaction,TransactionManager.Commitment.PROCESSED)
 	else:
 		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,priority_fee_lamports)
-		tx_data = await SolanaService.transaction_manager.sign_transaction(transaction)
+		tx_data = await SolanaService.transaction_manager.sign_and_send(transaction)
 		
 	return tx_data
 		

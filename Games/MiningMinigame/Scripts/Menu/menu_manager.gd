@@ -16,6 +16,7 @@ func _init() -> void:
 	
 func _ready() -> void:
 	MusicManager.play_song("Menu")	
+	#C:\Users\thomas\Desktop\kp\dev2gUnXyMLh6WyV9NTBaXeNfo1DTn2R4b69VTGNidF.json
 	#var result:Dictionary = await SolanaService.fetch_all_program_accounts_of_type(ClubhouseProgram.get_program(),"House",[])
 	#print(result)
 	load_house_data()

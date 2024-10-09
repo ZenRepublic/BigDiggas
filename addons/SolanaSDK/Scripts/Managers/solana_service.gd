@@ -153,7 +153,7 @@ func get_token_decimals(token_address:String)->int:
 	client.queue_free()
 	
 	if response_dict.has("error"):
-		push_error("Failed to get token decimals")
+		push_error("Failed to get token decimals for token %s" % token_address)
 		return 0
 		
 	return response_dict["result"]["value"]["decimals"]
