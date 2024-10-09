@@ -5,11 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://evy6pj2whj1e" path="res://Games/MiningMinigame/textures/Treasures/inventory_versions/Tryptichite_inv.png" id="2_k3wxu"]
 [ext_resource type="Texture2D" uid="uid://dh64nfeho1u0o" path="res://Games/MiningMinigame/textures/Treasures/Triptychite 2x2.PNG" id="4_u0kwj"]
 
-
 [resource]
 script = ExtResource("1_5yy30")
 item_name = "Tryptichite"
-market_value = 10
+market_value = 25
 icon = ExtResource("2_k3wxu")
 visual = ExtResource("4_u0kwj")
 quantity = 1

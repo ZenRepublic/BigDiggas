@@ -5,11 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://cr5ehat2hpun" path="res://Games/MiningMinigame/textures/Treasures/inventory_versions/nurplite_inv.png" id="2_12wrx"]
 [ext_resource type="Texture2D" uid="uid://bmhygy50nb342" path="res://Games/MiningMinigame/textures/Treasures/Nurplite 2x3.PNG" id="4_ht2q3"]
 
-
 [resource]
 script = ExtResource("1_vbkg8")
 item_name = "Nurplite"
-market_value = 60
+market_value = 100
 icon = ExtResource("2_12wrx")
 visual = ExtResource("4_ht2q3")
 quantity = 1
