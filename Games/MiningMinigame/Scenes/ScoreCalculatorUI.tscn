@@ -481,7 +481,7 @@ expand_mode = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="BillCreator"]
 stream = ExtResource("12_ytlle")
-max_polyphony = 4
+max_polyphony = 20
 bus = &"SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

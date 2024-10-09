@@ -112,7 +112,7 @@ func update_mint_group(selected_checkbox:CheckboxLock) -> void:
 	if curr_checkbox!=null:
 		curr_checkbox.deselect()
 		
-	if !selected_checkbox.checkbox.button_pressed:
+	if !selected_checkbox.button_pressed:
 		curr_checkbox=null
 		mint_group = start_mint_group
 	else:

@@ -43,7 +43,7 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/digga_overview.gd" id="30_ubfxe"]
 [ext_resource type="Texture2D" uid="uid://gct6yxwxfabu" path="res://Textures/BrandingAssets/Twt banner 2rubies.PNG" id="30_vx2kd"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_display.gd" id="33_brjtb"]
-[ext_resource type="CandyGuardAccessList" uid="uid://6rvo7wp77i8i" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/GuardSettings/rubians_devnet.tres" id="34_ofevl"]
+[ext_resource type="CandyGuardAccessList" uid="uid://cmkeb8th70j6r" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/GuardSettings/rubians_mainnet.tres" id="34_8g1fu"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/button_lock_manager.gd" id="38_ykcbo"]
 [ext_resource type="AudioStream" uid="uid://bta85g154ui34" path="res://Games/MiningMinigame/Sounds/UI/button_press_rich.mp3" id="40_7n6mh"]
 [ext_resource type="PackedScene" uid="uid://lgukfb417wvu" path="res://Games/MiningMinigame/Assets/UI/NFTSelectionDisplay.tscn" id="40_chyj7"]
@@ -266,6 +266,7 @@ texture = ExtResource("2_whdnv")
 stretch_mode = 1
 
 [node name="MainScreen" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1139,7 +1140,6 @@ text = "ENTER
 MINE!"
 
 [node name="RubianMintScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("minted_amount", "progress_bar", "price_label", "mint_button", "checkbox_locks")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1154,7 +1154,7 @@ candy_guard_id = "9JinvCj9dAESDfErBHLuybEBxy3gpZgEdw72sBS6VJf6"
 minted_amount = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/AmountMinted")
 progress_bar = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/MintedProgressBar")
 price_label = NodePath("ContentContainer/MintContainer/MintDetails/PriceContainer/PriceLabel")
-guard_settings = ExtResource("34_ofevl")
+guard_settings = ExtResource("34_8g1fu")
 start_mint_group = "open"
 mint_button = NodePath("ContentContainer/MintContainer/MintDetails/MintButton")
 checkbox_locks = [NodePath("ContentContainer/MintContainer/MintDetails/CouponContainer/CheckboxContainer/Checkbox"), NodePath("ContentContainer/MintContainer/MintDetails/VoucherContainer/CheckboxContainer/Checkbox")]
@@ -1253,16 +1253,17 @@ vertical_alignment = 1
 
 [node name="MintContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 40
 alignment = 1
 
 [node name="Intro" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/separation = 0
+theme_override_constants/separation = 10
 
 [node name="Rubians" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/Intro"]
-custom_minimum_size = Vector2(300, 115)
+custom_minimum_size = Vector2(600, 115)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 24

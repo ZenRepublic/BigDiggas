@@ -49,8 +49,6 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 	final_price_label.set_value(0)
 	claim_container.visible = true
 	
-	var total_value:float=0.0
-	
 	for slot in bill_slots:
 		final_score += slot.get_total_value()
 	print(final_score)
@@ -66,13 +64,15 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 			slot.token_value_label.set_value(slot_value)
 			final_claim_display_amount += transfer_rate
 			final_price_label.set_value(final_claim_display_amount)
-			play_increment_sound(lerp(1.0,1.4,final_claim_display_amount/total_value))
+			play_increment_sound(lerp(1.0,1.4,final_claim_display_amount/final_score))
 			await get_tree().create_timer(0.07).timeout
 			
 	await get_tree().create_timer(0.3).timeout
 	action_button.visible=true
 	
 func play_increment_sound(pitch:float) -> void:
+	if audio_player.stream == null:
+		return
 	audio_player.pitch_scale = pitch
 	audio_player.play()
 	
