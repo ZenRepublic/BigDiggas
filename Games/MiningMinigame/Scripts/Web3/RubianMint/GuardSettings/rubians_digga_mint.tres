@@ -1,0 +1,56 @@
+[gd_resource type="CandyGuardAccessList" load_steps=9 format=3 uid="uid://yxvgd8qus88u"]
+
+[sub_resource type="Pubkey" id="Pubkey_ui0vc"]
+type = "CUSTOM"
+value = "rbyDXhzsM2xXtV3t9aayYR3md9rY6gyBxbQBeLThtSC"
+bytes = PackedByteArray(12, 180, 255, 222, 188, 141, 204, 151, 145, 150, 177, 82, 38, 50, 225, 82, 227, 44, 35, 231, 190, 105, 164, 74, 5, 182, 151, 79, 31, 147, 143, 225)
+
+[sub_resource type="Pubkey" id="Pubkey_2iwa1"]
+type = "CUSTOM"
+value = "6bantNkQp9Ba9FUhE9LoGfBsEY8iXhztYVnED3t6J859"
+bytes = PackedByteArray(83, 38, 99, 208, 80, 237, 79, 175, 169, 3, 157, 254, 151, 71, 12, 255, 206, 110, 247, 252, 33, 188, 223, 87, 231, 75, 196, 23, 103, 134, 139, 68)
+
+[sub_resource type="CandyGuardAccessList" id="CandyGuardAccessList_bbcca"]
+top_level = false
+label = "tier1"
+enable_sol_payment = true
+sol_payment_lamports = 2000000000
+sol_payment_destination = SubResource("Pubkey_ui0vc")
+enable_token_burn = true
+token_burn_amount = 300000
+token_burn_mint = SubResource("Pubkey_2iwa1")
+
+[sub_resource type="Pubkey" id="Pubkey_5uwg0"]
+type = "CUSTOM"
+value = "rbyDXhzsM2xXtV3t9aayYR3md9rY6gyBxbQBeLThtSC"
+bytes = PackedByteArray(12, 180, 255, 222, 188, 141, 204, 151, 145, 150, 177, 82, 38, 50, 225, 82, 227, 44, 35, 231, 190, 105, 164, 74, 5, 182, 151, 79, 31, 147, 143, 225)
+
+[sub_resource type="Pubkey" id="Pubkey_1gxrw"]
+type = "CUSTOM"
+value = "6bantNkQp9Ba9FUhE9LoGfBsEY8iXhztYVnED3t6J859"
+bytes = PackedByteArray(83, 38, 99, 208, 80, 237, 79, 175, 169, 3, 157, 254, 151, 71, 12, 255, 206, 110, 247, 252, 33, 188, 223, 87, 231, 75, 196, 23, 103, 134, 139, 68)
+
+[sub_resource type="CandyGuardAccessList" id="CandyGuardAccessList_ox8mq"]
+top_level = false
+label = "tier2"
+enable_sol_payment = true
+sol_payment_lamports = 1000000000
+sol_payment_destination = SubResource("Pubkey_5uwg0")
+enable_token_burn = true
+token_burn_amount = 700000
+token_burn_mint = SubResource("Pubkey_1gxrw")
+
+[sub_resource type="Pubkey" id="Pubkey_wq0tn"]
+type = "CUSTOM"
+value = "6bantNkQp9Ba9FUhE9LoGfBsEY8iXhztYVnED3t6J859"
+bytes = PackedByteArray(83, 38, 99, 208, 80, 237, 79, 175, 169, 3, 157, 254, 151, 71, 12, 255, 206, 110, 247, 252, 33, 188, 223, 87, 231, 75, 196, 23, 103, 134, 139, 68)
+
+[sub_resource type="CandyGuardAccessList" id="CandyGuardAccessList_jpai2"]
+top_level = false
+label = "tier3"
+enable_token_burn = true
+token_burn_amount = 1000000
+token_burn_mint = SubResource("Pubkey_wq0tn")
+
+[resource]
+groups = Array[CandyGuardAccessList]([SubResource("CandyGuardAccessList_bbcca"), SubResource("CandyGuardAccessList_ox8mq"), SubResource("CandyGuardAccessList_jpai2")])

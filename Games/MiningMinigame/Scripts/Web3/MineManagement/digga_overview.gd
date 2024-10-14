@@ -30,7 +30,6 @@ func set_digga(nft:Nft, mine_data:Dictionary, player_data:Dictionary) -> void:
 	await displayable_digga.set_data(nft)
 
 	display_digga_energy()
-	enter_mine_button.disabled = (energy_bar.value <= 0)
 	
 func display_digga_energy() -> void:
 	#data may be empty if going to mine for the first time
@@ -54,6 +53,7 @@ func display_digga_energy() -> void:
 			recharge_timed_button.start_timer(Time.get_unix_time_from_system() + time_to_next_energy)
 			
 	energy_bar_label.text = "%s/%s" % [energy_bar.value,energy_bar.max_value]
+	enter_mine_button.disabled = (energy_bar.value <= 0)
 	
 func get_digga_nft() -> Pubkey:
 	return digga_nft.mint

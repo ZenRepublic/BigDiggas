@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://dmdb8dbmov2cl"]
+[gd_scene load_steps=93 format=3 uid="uid://dmdb8dbmov2cl"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_b88w7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_manager.gd" id="1_yvyci"]
@@ -43,9 +43,10 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/digga_overview.gd" id="30_ubfxe"]
 [ext_resource type="Texture2D" uid="uid://gct6yxwxfabu" path="res://Textures/BrandingAssets/Twt banner 2rubies.PNG" id="30_vx2kd"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_display.gd" id="33_brjtb"]
-[ext_resource type="CandyGuardAccessList" uid="uid://cmkeb8th70j6r" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/GuardSettings/rubians_mainnet.tres" id="34_8g1fu"]
+[ext_resource type="CandyGuardAccessList" uid="uid://yxvgd8qus88u" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/GuardSettings/rubians_digga_mint.tres" id="34_ba7lw"]
+[ext_resource type="Texture2D" uid="uid://bgrgwou6ri1su" path="res://Games/MiningMinigame/textures/Art/Digga Token.png" id="36_uia2t"]
 [ext_resource type="Texture2D" uid="uid://cqimlp1q7wcb" path="res://Textures/MiscIcons/arrow.png" id="37_vku8x"]
-[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/mint_tier_painter.gd" id="38_oad4h"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/mint_tier_selector.gd" id="38_oad4h"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/button_lock_manager.gd" id="38_ykcbo"]
 [ext_resource type="AudioStream" uid="uid://bta85g154ui34" path="res://Games/MiningMinigame/Sounds/UI/button_press_rich.mp3" id="40_7n6mh"]
 [ext_resource type="PackedScene" uid="uid://lgukfb417wvu" path="res://Games/MiningMinigame/Assets/UI/NFTSelectionDisplay.tscn" id="40_chyj7"]
@@ -245,7 +246,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yvyci")
 game_scene_path = "res://Games/MiningMinigame/Scenes/MiningMinigame.tscn"
-house_id = "2p41ueUZtCKWXPdbMVVKr3aJMSnVWzQDczZFiaV9PXmf"
+house_id = "FcxGPktM2MJJ9qTxwiEVKJxHTpvatoFawKGq46SJxviG"
 
 [node name="ScreenManager" type="Node" parent="." node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
@@ -1162,7 +1163,7 @@ theme_type_variation = &"SimpleButton"
 text = "ENTER 
 MINE!"
 
-[node name="RubianMintScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("minted_amount", "progress_bar", "mint_button", "checkbox_locks")]
+[node name="RubianMintScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("minted_amount", "progress_bar", "mint_tier_selector", "displayable_token", "mint_button")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1176,11 +1177,12 @@ candy_machine_id = "CiAnxgxAtM1pTdNoeZ8nqeTYBM5mPEdQHdwhXfqeS3Th"
 candy_guard_id = "9JinvCj9dAESDfErBHLuybEBxy3gpZgEdw72sBS6VJf6"
 minted_amount = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/AmountMinted")
 progress_bar = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/MintedProgressBar")
-guard_settings = ExtResource("34_8g1fu")
+guard_settings = ExtResource("34_ba7lw")
+mint_tier_selector = NodePath("ContentContainer/MintContainer/MintDetails/MintTiers")
+mint_token_address = "6bantNkQp9Ba9FUhE9LoGfBsEY8iXhztYVnED3t6J859"
+displayable_token = NodePath("ContentContainer/MintContainer/MintDetails/TokenBalance")
 start_mint_group = "open"
 mint_button = NodePath("ContentContainer/MintContainer/MintDetails/MintButton")
-checkbox_locks = [NodePath("ContentContainer/MintContainer/MintDetails/CouponContainer/CheckboxContainer/Checkbox"), NodePath("ContentContainer/MintContainer/MintDetails/VoucherContainer/CheckboxContainer/Checkbox")]
-box_mint_groups = Array[String](["coupon", "token"])
 
 [node name="ScreenManager" type="Node" parent="RubianMintScreen" node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
@@ -1370,7 +1372,6 @@ visual = NodePath("TextureRect")
 image_size = 256
 default_icon_path = "res://addons/SolanaSDK/Textures/missingicon.png"
 balance_label = NodePath("PriceLabel")
-auto_load_balance = true
 
 [node name="Balance" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/TokenBalance"]
 layout_mode = 2
@@ -1381,7 +1382,7 @@ text = "Balance:"
 [node name="TextureRect" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/TokenBalance"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-texture = ExtResource("47_hdq1x")
+texture = ExtResource("36_uia2t")
 expand_mode = 3
 stretch_mode = 5
 
@@ -1393,6 +1394,8 @@ theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 35
 text = "5000"
 script = ExtResource("47_tnhgc")
+format_mode = 1
+decimal_amount = 2
 
 [node name="MintButton" type="Button" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
 custom_minimum_size = Vector2(0, 60)
@@ -1401,10 +1404,6 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButtonAlt"
 text = "MINT NOW!"
 script = ExtResource("23_i3ydu")
-token_gate_list = {
-"": 0,
-"6bantNkQp9Ba9FUhE9LoGfBsEY8iXhztYVnED3t6J859": 0
-}
 
 [node name="SpacerLine" type="Panel" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
 custom_minimum_size = Vector2(0, 5)
@@ -1422,7 +1421,7 @@ theme_override_constants/separation = 8
 script = ExtResource("38_oad4h")
 mint_token = NodePath("../TokenBalance")
 tier_containers = [NodePath("Tier1/Info"), NodePath("Tier2/Info"), NodePath("Tier3/Info")]
-tier_prices = [3000, 7000, 10000]
+tier_prices = Array[int]([3000, 7000, 10000])
 curr_tier_color = Color(0.988235, 0.937255, 0.552941, 1)
 
 [node name="Tier1" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers"]
@@ -1432,7 +1431,7 @@ theme_override_constants/separation = 20
 [node name="TokenIcon" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier1"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-texture = ExtResource("47_hdq1x")
+texture = ExtResource("36_uia2t")
 expand_mode = 3
 stretch_mode = 5
 
@@ -1471,7 +1470,7 @@ theme_override_constants/separation = 20
 [node name="TokenIcon" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier2"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-texture = ExtResource("47_hdq1x")
+texture = ExtResource("36_uia2t")
 expand_mode = 3
 stretch_mode = 5
 
@@ -1510,7 +1509,7 @@ theme_override_constants/separation = 20
 [node name="TokenIcon" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier3"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-texture = ExtResource("47_hdq1x")
+texture = ExtResource("36_uia2t")
 expand_mode = 3
 stretch_mode = 5
 

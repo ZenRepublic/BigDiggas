@@ -10,10 +10,10 @@ func try_unlock() -> void:
 	for key in token_gate_list.keys():
 		var token_balance:float
 		var token_address:String = key
-		var unlock_amount:float = token_gate_list[key]
+		var unlock_amount = token_gate_list[key]
 		
 		if token_address.length()==0:
-				token_balance = await SolanaService.get_balance(account_address.to_string())
+			token_balance = await SolanaService.get_balance(account_address.to_string())
 		else:
 			token_balance = await SolanaService.get_balance(account_address.to_string(),token_address)
 

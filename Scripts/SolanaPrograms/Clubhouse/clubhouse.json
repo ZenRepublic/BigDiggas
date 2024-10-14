@@ -676,7 +676,7 @@
 			"type": "u64"
 		  },
 		  {
-			"name": "reservedForNft",
+			"name": "reservedConfig",
 			"type": {
 			  "array": [
 				"u64",
@@ -697,9 +697,13 @@
 			"type": {
 			  "array": [
 				"u64",
-				8
+				7
 			  ]
 			}
+		  },
+		  {
+			"name": "slotCreated",
+			"type": "u64"
 		  },
 		  {
 			"name": "campaignName",
@@ -983,11 +987,15 @@
 			}
 		  },
 		  {
+			"name": "campaignSlot",
+			"type": "u64"
+		  },
+		  {
 			"name": "reserved",
 			"type": {
 			  "array": [
 				"u8",
-				32
+				24
 			  ]
 			}
 		  }
