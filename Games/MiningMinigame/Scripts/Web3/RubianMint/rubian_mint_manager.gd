@@ -6,7 +6,6 @@ class_name MintManager
 
 @export var minted_amount:Label
 @export var progress_bar:ProgressBar
-@export var price_label:Label
 
 @export var guard_settings:CandyGuardAccessList
 
@@ -133,7 +132,5 @@ func update_mint_price() -> void:
 	var mint_price:float = group_settings.sol_payment_lamports / pow(10,9)
 	mint_button.unlock_amount = mint_price
 	mint_button.try_unlock()
-	
-	price_label.text = "%s SOL" % str(mint_price)
 
 	

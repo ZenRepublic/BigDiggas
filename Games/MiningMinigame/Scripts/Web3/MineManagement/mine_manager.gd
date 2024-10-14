@@ -61,7 +61,6 @@ func create_new_mine() -> void:
 	
 	var max_reward_lamports:int = floori(mine_data["maxReward"]*pow(10,reward_mint_decimals))
 	var player_claim_fee: int = floori(mine_data["rewardsTax"]*pow(10,9))
-	
 	var timespan:Dictionary = {
 		"startTime":Time.get_unix_time_from_system(),
 		"endTime":get_campaign_end_timestamp(mine_data["campaignDuration"])
@@ -70,7 +69,7 @@ func create_new_mine() -> void:
 	var nft_config:Dictionary = {
 		"collection": mine_data["collection"],
 		"maxPlayerEnergy":AnchorProgram.u8(mine_data["maxEnergy"]),
-		"energyRechargeMinutes":AnchorProgram.option(null)
+		"energyRechargeMinutes":AnchorProgram.option(mine_data["rechargeRate"])
 	}
 
 	var tx_data:TransactionData = await ClubhouseProgram.create_campaign(house_pda,currency_mint,mine_name,reward_mint,fund_amount_lamports,max_reward_lamports,player_claim_fee,timespan,nft_config)

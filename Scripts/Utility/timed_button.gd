@@ -31,8 +31,8 @@ func _process(delta: float) -> void:
 		if enable_on_activation:
 			disabled=false
 		text = activated_text
-		on_timer_finished.emit()
 		is_active=false
+		on_timer_finished.emit()
 		return
 			
 	#disabled=true

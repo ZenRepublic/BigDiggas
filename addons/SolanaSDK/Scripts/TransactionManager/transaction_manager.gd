@@ -34,10 +34,10 @@ func sign_and_send(transaction:Transaction,tx_commitment:Commitment=Commitment.C
 		
 	var needed_signers:Array
 	if custom_signer!= null:
-		needed_signers == [custom_signer]
+		needed_signers = [custom_signer]
 	else:
 		needed_signers = [SolanaService.wallet.get_kp()]
-	
+
 	transaction = await sign_transaction_normal(transaction,needed_signers,custom_signer)
 	
 	on_tx_signed.emit()
@@ -56,7 +56,7 @@ func send_transaction(tx:Transaction,tx_commitment:Commitment=Commitment.CONFIRM
 		return tx_data
 		
 	print("Transaction %s is sent! \nAwaiting confirmation..." % tx_data.data["result"])
-
+	
 	match tx_commitment:
 		Commitment.PROCESSED:
 			await tx.processed
@@ -78,7 +78,6 @@ func sign_transaction_normal(transaction:Transaction, all_needed_signers:Array,c
 		wallet = SolanaService.wallet.get_kp()
 		
 	transaction.set_payer(wallet)
-	
 	await add_signature(transaction,wallet,all_needed_signers)
 	return transaction
 

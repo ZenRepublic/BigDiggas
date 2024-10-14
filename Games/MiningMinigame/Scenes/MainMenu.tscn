@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://dmdb8dbmov2cl"]
+[gd_scene load_steps=92 format=3 uid="uid://dmdb8dbmov2cl"]
 
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="1_b88w7"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_manager.gd" id="1_yvyci"]
@@ -44,6 +44,8 @@
 [ext_resource type="Texture2D" uid="uid://gct6yxwxfabu" path="res://Textures/BrandingAssets/Twt banner 2rubies.PNG" id="30_vx2kd"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_display.gd" id="33_brjtb"]
 [ext_resource type="CandyGuardAccessList" uid="uid://cmkeb8th70j6r" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/GuardSettings/rubians_mainnet.tres" id="34_8g1fu"]
+[ext_resource type="Texture2D" uid="uid://cqimlp1q7wcb" path="res://Textures/MiscIcons/arrow.png" id="37_vku8x"]
+[ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/RubianMint/mint_tier_painter.gd" id="38_oad4h"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTGating/button_lock_manager.gd" id="38_ykcbo"]
 [ext_resource type="AudioStream" uid="uid://bta85g154ui34" path="res://Games/MiningMinigame/Sounds/UI/button_press_rich.mp3" id="40_7n6mh"]
 [ext_resource type="PackedScene" uid="uid://lgukfb417wvu" path="res://Games/MiningMinigame/Assets/UI/NFTSelectionDisplay.tscn" id="40_chyj7"]
@@ -143,6 +145,11 @@ func _on_rubian_mint_screen_on_nft_mint_failed() -> void:
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w0os1"]
 bg_color = Color(0.639216, 0.156863, 0.345098, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i4ce7"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3hu8g"]
+
 [sub_resource type="GDScript" id="GDScript_28bmg"]
 script/source = "extends PanelContainer
 
@@ -238,7 +245,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yvyci")
 game_scene_path = "res://Games/MiningMinigame/Scenes/MiningMinigame.tscn"
-house_id = "FcxGPktM2MJJ9qTxwiEVKJxHTpvatoFawKGq46SJxviG"
+house_id = "2p41ueUZtCKWXPdbMVVKr3aJMSnVWzQDczZFiaV9PXmf"
 
 [node name="ScreenManager" type="Node" parent="." node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
@@ -1012,7 +1019,7 @@ theme_override_font_sizes/font_size = 30
 text = "Digga Overview"
 vertical_alignment = 1
 
-[node name="DiggaOverview" type="PanelContainer" parent="MainScreen/MineInteractor/MineDetails" node_paths=PackedStringArray("displayable_digga", "energy_bar", "energy_bar_label", "enter_mine_button")]
+[node name="DiggaOverview" type="PanelContainer" parent="MainScreen/MineInteractor/MineDetails" node_paths=PackedStringArray("displayable_digga", "energy_bar", "energy_bar_label", "recharge_timed_button", "enter_mine_button")]
 layout_mode = 0
 offset_left = 166.0
 offset_top = 520.0
@@ -1023,6 +1030,7 @@ script = ExtResource("30_ubfxe")
 displayable_digga = NodePath("MarginContainer/SelectedDiggaContainer")
 energy_bar = NodePath("MarginContainer/SelectedDiggaContainer/MinerDetails/EnergyBar")
 energy_bar_label = NodePath("MarginContainer/SelectedDiggaContainer/MinerDetails/EnergyBar/Label")
+recharge_timed_button = NodePath("MarginContainer/SelectedDiggaContainer/MinerDetails/RechargeTimeDisplay")
 enter_mine_button = NodePath("MarginContainer/SelectedDiggaContainer/MarginContainer/EnterMineButton")
 
 [node name="ScreenManager" type="Node" parent="MainScreen/MineInteractor/MineDetails/DiggaOverview" node_paths=PackedStringArray("starting_panel", "screens")]
@@ -1087,12 +1095,14 @@ size_flags_vertical = 4
 alignment = 1
 
 [node name="NFTNameLabel" type="Label" parent="MainScreen/MineInteractor/MineDetails/DiggaOverview/MarginContainer/SelectedDiggaContainer/MinerDetails"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_font_sizes/font_size = 16
 text = "Rubian #123"
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="EnergyBar" type="ProgressBar" parent="MainScreen/MineInteractor/MineDetails/DiggaOverview/MarginContainer/SelectedDiggaContainer/MinerDetails"]
 custom_minimum_size = Vector2(0, 43.72)
@@ -1127,6 +1137,19 @@ text = "5/5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="RechargeTimeDisplay" type="Button" parent="MainScreen/MineInteractor/MineDetails/DiggaOverview/MarginContainer/SelectedDiggaContainer/MinerDetails"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"InvisibleButton"
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+disabled = true
+text = "Next in: 20h 48Min 25SeC"
+alignment = 0
+script = ExtResource("52_bt0ds")
+time_left_prefix = "Next in:"
+enable_on_activation = false
+
 [node name="MarginContainer" type="MarginContainer" parent="MainScreen/MineInteractor/MineDetails/DiggaOverview/MarginContainer/SelectedDiggaContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 40
@@ -1139,7 +1162,7 @@ theme_type_variation = &"SimpleButton"
 text = "ENTER 
 MINE!"
 
-[node name="RubianMintScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("minted_amount", "progress_bar", "price_label", "mint_button", "checkbox_locks")]
+[node name="RubianMintScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("minted_amount", "progress_bar", "mint_button", "checkbox_locks")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1153,7 +1176,6 @@ candy_machine_id = "CiAnxgxAtM1pTdNoeZ8nqeTYBM5mPEdQHdwhXfqeS3Th"
 candy_guard_id = "9JinvCj9dAESDfErBHLuybEBxy3gpZgEdw72sBS6VJf6"
 minted_amount = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/AmountMinted")
 progress_bar = NodePath("ContentContainer/MintContainer/Intro/Actions/MintDetails/MintedProgressBar")
-price_label = NodePath("ContentContainer/MintContainer/MintDetails/PriceContainer/PriceLabel")
 guard_settings = ExtResource("34_8g1fu")
 start_mint_group = "open"
 mint_button = NodePath("ContentContainer/MintContainer/MintDetails/MintButton")
@@ -1267,7 +1289,7 @@ custom_minimum_size = Vector2(600, 115)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 24
-text = "Become a real digga by joining Rubian ranks. Soon we will open up Mine Manager to the public, and rubians will be able to create them for free!"
+text = "Rubians are the devs with the power to create web3 games instantly, at will. Join us and let's shape the new age of entertainment!"
 autowrap_mode = 2
 
 [node name="BannerMargin" type="MarginContainer" parent="RubianMintScreen/ContentContainer/MintContainer/Intro"]
@@ -1339,16 +1361,29 @@ value = 1.0
 [node name="MintDetails" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
-alignment = 1
 
-[node name="PriceContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+[node name="PriceContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails" node_paths=PackedStringArray("visual", "balance_label")]
 layout_mode = 2
+theme_override_constants/separation = 20
+script = ExtResource("28_6k1tr")
+visual = NodePath("TextureRect")
+image_size = 256
+default_icon_path = "res://addons/SolanaSDK/Textures/missingicon.png"
+balance_label = NodePath("PriceLabel")
+auto_load_balance = true
 
-[node name="MintPrice" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/PriceContainer"]
+[node name="Balance" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/PriceContainer"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 30
-text = "MINT PRICE:"
+text = "Balance:"
+
+[node name="TextureRect" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/PriceContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("47_hdq1x")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="PriceLabel" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/PriceContainer"]
 layout_mode = 2
@@ -1356,9 +1391,154 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
 theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 35
+text = "5000"
+script = ExtResource("47_tnhgc")
+
+[node name="MintButton" type="Button" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButtonAlt"
+text = "MINT NOW!"
+script = ExtResource("23_i3ydu")
+
+[node name="SpacerLine" type="Panel" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_i4ce7")
+
+[node name="Label" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+text = "Mint Tiers"
+
+[node name="MintTiers" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails" node_paths=PackedStringArray("tier_containers")]
+layout_mode = 2
+theme_override_constants/separation = 8
+script = ExtResource("38_oad4h")
+tier_containers = [NodePath("Tier1/Info"), NodePath("Tier2/Info"), NodePath("Tier3/Info")]
+tier_prices = [3000, 7000, 10000]
+curr_tier_color = Color(0.988235, 0.937255, 0.552941, 1)
+
+[node name="Tier1" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TokenIcon" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier1"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("47_hdq1x")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Info" type="PanelContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier1"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3hu8g")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier1/Info"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PriceLabel" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier1/Info/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 25
+text = "3,000"
+
+[node name="TextureRect2" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier1/Info/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("37_vku8x")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Balance" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier1/Info/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 35
 text = "2 SOL"
 
+[node name="Tier2" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TokenIcon" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier2"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("47_hdq1x")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Info" type="PanelContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier2"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3hu8g")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier2/Info"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PriceLabel" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier2/Info/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 25
+text = "7,000"
+
+[node name="TextureRect2" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier2/Info/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("37_vku8x")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Balance" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier2/Info/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 35
+text = "1 SOL"
+
+[node name="Tier3" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="TokenIcon" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier3"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("47_hdq1x")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Info" type="PanelContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier3"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_3hu8g")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier3/Info"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PriceLabel" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier3/Info/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 25
+text = "10,000"
+
+[node name="TextureRect2" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier3/Info/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("37_vku8x")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Balance" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/MintTiers/Tier3/Info/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 35
+text = "FREE"
+
 [node name="CouponContainer" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+visible = false
 layout_mode = 2
 
 [node name="CheckboxContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/CouponContainer"]
@@ -1395,6 +1575,7 @@ text = "3 available"
 vertical_alignment = 1
 
 [node name="VoucherContainer" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
+visible = false
 layout_mode = 2
 
 [node name="CheckboxContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/VoucherContainer"]
@@ -1429,14 +1610,6 @@ theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
 theme_override_font_sizes/font_size = 22
 text = "3 available"
 vertical_alignment = 1
-
-[node name="MintButton" type="Button" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-theme = ExtResource("4_d1tk4")
-theme_type_variation = &"SimpleButtonAlt"
-text = "MINT NOW!"
-script = ExtResource("23_i3ydu")
 
 [node name="MintingInProgress" type="PanelContainer" parent="RubianMintScreen/ContentContainer"]
 visible = false
@@ -1865,7 +2038,7 @@ token_selector = NodePath("../MineDetailsContainer/TokenSettings/RewardTokenSele
 manager_selector = NodePath("../PaymentSettings/ManagerSelection")
 fund_input_field = NodePath("../MineDetailsContainer/TokenSettings/FundAmountContainer/FundInputField")
 max_fund_button = NodePath("../MineDetailsContainer/TokenSettings/FundAmountContainer/MaxFundButton")
-token_visuals = [NodePath("../MineDetailsContainer/TokenSettings/FundAmountContainer/FundTokenVisual"), NodePath("../MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer/TokenVisual")]
+token_visuals = [NodePath("../MineDetailsContainer/TokenSettings/FundAmountContainer/FundTokenVisual"), NodePath("../MineDetailsContainer/TokenSettings/PayoutLimitContainer/TokenVisual")]
 fee_explanation = NodePath("../PaymentSettings/RewardClaimFee/FeeExplanation")
 creation_fee_label = NodePath("../PaymentSettings/PriceContainer/ClubCreationFee")
 input_fields = {
@@ -1874,7 +2047,8 @@ input_fields = {
 "collection": NodePath("../MineDetailsContainer/NFTMinerSettings/CollectionInputField"),
 "fundAmount": NodePath("../MineDetailsContainer/TokenSettings/FundAmountContainer/FundInputField"),
 "maxEnergy": NodePath("../MineDetailsContainer/NFTMinerSettings/CustomizationSettings/MinerEnergyContainer/EnergyCapInputField"),
-"maxReward": NodePath("../MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer/PayoutLimitInputField"),
+"maxReward": NodePath("../MineDetailsContainer/TokenSettings/PayoutLimitContainer/PayoutLimitInputField"),
+"rechargeRate": NodePath("../MineDetailsContainer/NFTMinerSettings/CustomizationSettings/EnergyRecharge/RerchargeTimeInputField"),
 "rewardsTax": NodePath("../PaymentSettings/RewardClaimFee/RewardFeeInputField")
 }
 asset_selectors = {
@@ -1933,6 +2107,7 @@ vertical_alignment = 1
 
 [node name="TokenSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
 layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="MineToken" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings"]
 custom_minimum_size = Vector2(400, 0)
@@ -2060,6 +2235,35 @@ theme_type_variation = &"SimpleButton"
 theme_override_font_sizes/font_size = 20
 text = "max"
 
+[node name="PayoutLimitContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings"]
+layout_mode = 2
+
+[node name="PayoutLimit" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings/PayoutLimitContainer"]
+layout_mode = 2
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+text = "MAX GAME REWARD"
+
+[node name="TokenVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings/PayoutLimitContainer"]
+layout_mode = 2
+texture = ExtResource("49_d0a0l")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PayoutLimitInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/TokenSettings/PayoutLimitContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+theme_override_font_sizes/font_size = 22
+placeholder_text = "Enter amount..."
+alignment = 1
+max_length = 12
+script = ExtResource("15_cwt4b")
+input_type = 2
+max_value = -1.0
+allow_zero = false
+
 [node name="MinerTypeSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer"]
 layout_mode = 2
 
@@ -2144,35 +2348,27 @@ input_type = 1
 min_value = 3.0
 max_value = 10.0
 
-[node name="PayoutLimitContainer" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings"]
+[node name="EnergyRecharge" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings"]
 layout_mode = 2
 
-[node name="PayoutLimit" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer"]
+[node name="PayoutLimit" type="Label" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/EnergyRecharge"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-text = "MAX REWARD PER RUN"
+text = "RECHARGE TIME (MIN)"
 
-[node name="PayoutLimitContainer" type="HBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer"]
-layout_mode = 2
-
-[node name="TokenVisual" type="TextureRect" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer"]
-layout_mode = 2
-texture = ExtResource("49_d0a0l")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="PayoutLimitInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/PayoutLimitContainer/PayoutLimitContainer"]
+[node name="RerchargeTimeInputField" type="LineEdit" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings/EnergyRecharge"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 22
-placeholder_text = "Enter amount..."
+text = "60"
+placeholder_text = "Enter value..."
 alignment = 1
-max_length = 12
+max_length = 4
 script = ExtResource("15_cwt4b")
-input_type = 2
-max_value = -1.0
+input_type = 1
+max_value = 1440.0
 allow_zero = false
 
 [node name="PaymentSettings" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer"]
