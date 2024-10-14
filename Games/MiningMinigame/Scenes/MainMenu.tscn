@@ -1362,7 +1362,7 @@ value = 1.0
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="PriceContainer" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails" node_paths=PackedStringArray("visual", "balance_label")]
+[node name="TokenBalance" type="HBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails" node_paths=PackedStringArray("visual", "balance_label")]
 layout_mode = 2
 theme_override_constants/separation = 20
 script = ExtResource("28_6k1tr")
@@ -1372,20 +1372,20 @@ default_icon_path = "res://addons/SolanaSDK/Textures/missingicon.png"
 balance_label = NodePath("PriceLabel")
 auto_load_balance = true
 
-[node name="Balance" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/PriceContainer"]
+[node name="Balance" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/TokenBalance"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 30
 text = "Balance:"
 
-[node name="TextureRect" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/PriceContainer"]
+[node name="TextureRect" type="TextureRect" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/TokenBalance"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 texture = ExtResource("47_hdq1x")
 expand_mode = 3
 stretch_mode = 5
 
-[node name="PriceLabel" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/PriceContainer"]
+[node name="PriceLabel" type="Label" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails/TokenBalance"]
 layout_mode = 2
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"HeaderMedium"
@@ -1401,6 +1401,10 @@ theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButtonAlt"
 text = "MINT NOW!"
 script = ExtResource("23_i3ydu")
+token_gate_list = {
+"": 0,
+"6bantNkQp9Ba9FUhE9LoGfBsEY8iXhztYVnED3t6J859": 0
+}
 
 [node name="SpacerLine" type="Panel" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails"]
 custom_minimum_size = Vector2(0, 5)
@@ -1412,10 +1416,11 @@ layout_mode = 2
 theme = ExtResource("4_d1tk4")
 text = "Mint Tiers"
 
-[node name="MintTiers" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails" node_paths=PackedStringArray("tier_containers")]
+[node name="MintTiers" type="VBoxContainer" parent="RubianMintScreen/ContentContainer/MintContainer/MintDetails" node_paths=PackedStringArray("mint_token", "tier_containers")]
 layout_mode = 2
 theme_override_constants/separation = 8
 script = ExtResource("38_oad4h")
+mint_token = NodePath("../TokenBalance")
 tier_containers = [NodePath("Tier1/Info"), NodePath("Tier2/Info"), NodePath("Tier3/Info")]
 tier_prices = [3000, 7000, 10000]
 curr_tier_color = Color(0.988235, 0.937255, 0.552941, 1)
