@@ -32,6 +32,7 @@ signal on_rpc_cluster_changed
 
 ## Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	wallet.on_login_finish.connect(handle_login)
 	asset_manager.setup()
 	
 	if mainnet_rpc=="":
@@ -40,6 +41,11 @@ func _ready() -> void:
 		devnet_rpc=default_devnet
 		
 	set_rpc_cluster(rpc_cluster)
+	
+func handle_login(success:bool)->void:
+	if !success:
+		return
+	transaction_manager.setup()
 	
 	
 func set_rpc_cluster(new_cluster:RpcCluster)->void:
@@ -158,6 +164,20 @@ func get_token_decimals(token_address:String)->int:
 		
 	return response_dict["result"]["value"]["decimals"]
 	
+func simulate_transaction(transaction:Transaction) -> Dictionary:
+	var client:SolanaClient = spawn_client_instance()
+	var serialized_tx:String = SolanaUtils.bs64_encode(transaction.serialize())
+	client.simulate_transaction(serialized_tx,false,false,[],"base64")
+	var result = await client.http_response_received
+	client.queue_free()
+	
+	if result.size() == 0 or result.has("error"):
+		push_error("Failed to simulate transaction")
+		print(result)
+		return {}
+		
+	return result
+	
 func get_associated_token_account(address_to_check:String,token_address:String) -> Pubkey:
 	var client:SolanaClient = spawn_client_instance()
 	client.get_token_accounts_by_owner(address_to_check,token_address,ATA_TOKEN_PID)
@@ -191,7 +211,7 @@ func fetch_all_program_accounts_of_type(program:AnchorProgram,account_type:Strin
 	program_instance.queue_free()
 	return accounts
 	
-func get_asset_data(asset_id:Pubkey, override_rpc_url:String) -> Dictionary:
+func get_asset_data(asset_id:Pubkey, override_rpc_url:String="") -> Dictionary:
 	var client:SolanaClient = spawn_client_instance()
 	if override_rpc_url!="":
 			client.url_override = override_rpc_url

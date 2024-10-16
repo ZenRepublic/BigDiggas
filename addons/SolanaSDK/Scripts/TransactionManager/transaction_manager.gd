@@ -1,15 +1,31 @@
 extends Node
 class_name TransactionManager
 
+## wallet adapters automatically add unit limit of 800000 and unit price of 8000
+@export var use_custom_priority_fee:bool
+## used to fetch estimated unit price. if you don't configure it with your own rpc key, fallback value will be used
+@export var helius_api:HeliusAPI
+@export var fallback_compute_unit_limit = 800000
+@export var fallback_compute_unit_price = 8000
+
 enum Commitment{PROCESSED,CONFIRMED,FINALIZED}
 
+signal on_tx_create_start
 signal on_tx_sign_start
 signal on_tx_signed
 signal on_tx_finish(tx_data:TransactionData)
 
-func create_transaction(instructions:Array[Instruction],priority_fee:int=0.0) -> Transaction:
+func setup() -> void:
+#	temporary solution. Don't use custom fees if using phantom
+	var selected_provider_id:int = SolanaService.wallet.get_wallet_provider_id()
+	if selected_provider_id == 0:
+		use_custom_priority_fee=false
+
+func create_transaction(instructions:Array[Instruction],payer) -> Transaction:
+	on_tx_create_start.emit()
 	var transaction:Transaction = Transaction.new()	
 	add_child(transaction)
+	transaction.set_payer(payer)
 	
 	for idx in range(instructions.size()):
 		if instructions[idx] == null:
@@ -17,12 +33,17 @@ func create_transaction(instructions:Array[Instruction],priority_fee:int=0.0) ->
 			return null
 		transaction.add_instruction(instructions[idx])
 		
-	if priority_fee > 0:
-		transaction.set_unit_limit(priority_fee)
-		transaction.set_unit_price(priority_fee)
-	
 	transaction.update_latest_blockhash()
 	await transaction.blockhash_updated
+		
+	if use_custom_priority_fee:
+		var consumed_units:int = await get_compute_units_used(transaction,20)
+		transaction.set_unit_limit(consumed_units)
+		var estimated_fee = await get_needed_unit_price(transaction)
+		transaction.set_unit_price(estimated_fee)
+		print("Using custom priority fee with following values:")
+		print("Compute Unit Limit: ",consumed_units)
+		print("Microlamports fee per Compute Unit: ",estimated_fee)
 	
 	return transaction
 	
@@ -37,7 +58,7 @@ func sign_and_send(transaction:Transaction,tx_commitment:Commitment=Commitment.C
 		needed_signers = [custom_signer]
 	else:
 		needed_signers = [SolanaService.wallet.get_kp()]
-
+	
 	transaction = await sign_transaction_normal(transaction,needed_signers,custom_signer)
 	
 	on_tx_signed.emit()
@@ -78,6 +99,10 @@ func sign_transaction_normal(transaction:Transaction, all_needed_signers:Array,c
 		wallet = SolanaService.wallet.get_kp()
 		
 	transaction.set_payer(wallet)
+	
+	transaction.update_latest_blockhash()
+	await transaction.blockhash_updated
+	
 	await add_signature(transaction,wallet,all_needed_signers)
 	return transaction
 
@@ -117,7 +142,29 @@ func add_signature(transaction:Transaction,signer,all_needed_signers:Array) -> T
 	on_tx_signed.emit()
 	return transaction
 	
-func transfer_sol(receiver:String,amount:float,tx_commitment=Commitment.CONFIRMED,priority_fee:float=0.0, custom_sender:Keypair=null) -> TransactionData:
+func get_compute_units_used(transaction:Transaction, inflate_percentage:int=0) -> int:
+	var simulated_tx_data:Dictionary = await SolanaService.simulate_transaction(transaction)
+	var consumed_units:int
+	if simulated_tx_data.size() == 0:
+		consumed_units = fallback_compute_unit_limit
+		return consumed_units
+		
+	consumed_units = int(simulated_tx_data["result"]["value"]["unitsConsumed"])
+	if inflate_percentage > 0:
+		var inflate_amount:float = inflate_percentage/float(100)
+		consumed_units += consumed_units*inflate_amount
+		
+	return consumed_units
+	
+func get_needed_unit_price(transaction:Transaction) -> int:
+	var estimated_unit_price = await helius_api.get_estimated_priority_fee(transaction,false)
+	if estimated_unit_price == 0:
+		estimated_unit_price = fallback_compute_unit_price
+		
+	return estimated_unit_price
+	
+	
+func transfer_sol(receiver:String,amount:float,tx_commitment=Commitment.CONFIRMED, custom_sender:Keypair=null) -> TransactionData:
 	var instructions:Array[Instruction]
 	
 	var sender_keypair = SolanaService.wallet.get_kp()
@@ -133,7 +180,7 @@ func transfer_sol(receiver:String,amount:float,tx_commitment=Commitment.CONFIRME
 	var sol_transfer_ix:Instruction = SystemProgram.transfer(sender_keypair,receiver_account,amount_in_lamports)
 	instructions.append(sol_transfer_ix)
 	
-	var transaction:Transaction = await create_transaction(instructions,priority_fee)
+	var transaction:Transaction = await create_transaction(instructions,sender_keypair)
 	
 	if custom_sender!=null:
 		var tx_data:TransactionData = await sign_and_send(transaction,tx_commitment,custom_sender)
@@ -142,7 +189,7 @@ func transfer_sol(receiver:String,amount:float,tx_commitment=Commitment.CONFIRME
 		var tx_data:TransactionData = await sign_and_send(transaction)
 		return tx_data
 
-func transfer_token(token_address:String,receiver:String,amount:float,tx_commitment=Commitment.CONFIRMED,priority_fee:float=0.0,custom_sender:Keypair=null) -> TransactionData:
+func transfer_token(token_address:String,receiver:String,amount:float,tx_commitment=Commitment.CONFIRMED,custom_sender:Keypair=null) -> TransactionData:
 	var instructions:Array[Instruction]
 	
 	var sender_keypair = SolanaService.wallet.get_kp()
@@ -174,7 +221,7 @@ func transfer_token(token_address:String,receiver:String,amount:float,tx_commitm
 	var transfer_ix:Instruction = TokenProgram.transfer_checked(sender_ata,token_mint,receiver_ata,sender_keypair,decimal_amount,token_decimals)
 	instructions.append(transfer_ix)
 	
-	var transaction:Transaction = await create_transaction(instructions,priority_fee)
+	var transaction:Transaction = await create_transaction(instructions,sender_keypair)
 	
 	if custom_sender!=null:
 		var tx_data:TransactionData = await sign_and_send(transaction,tx_commitment,custom_sender)

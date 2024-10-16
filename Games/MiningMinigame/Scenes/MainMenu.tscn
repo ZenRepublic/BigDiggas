@@ -236,7 +236,7 @@ bg_color = Color(0.121569, 0.0627451, 0.164706, 0.901961)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3qac5"]
 bg_color = Color(0.65098, 0.521569, 0.623529, 1)
 
-[node name="Menu" type="Control"]
+[node name="Menu" type="Control" node_paths=PackedStringArray("priority_fee_option")]
 clip_contents = true
 layout_mode = 3
 anchors_preset = 15
@@ -247,6 +247,7 @@ grow_vertical = 2
 script = ExtResource("1_yvyci")
 game_scene_path = "res://Games/MiningMinigame/Scenes/MiningMinigame.tscn"
 house_id = "FcxGPktM2MJJ9qTxwiEVKJxHTpvatoFawKGq46SJxviG"
+priority_fee_option = NodePath("MainScreen/MenuPanel/PriorityFee/FeeLevel")
 
 [node name="ScreenManager" type="Node" parent="." node_paths=PackedStringArray("starting_panel", "screens")]
 script = ExtResource("2_xsafj")
@@ -274,7 +275,6 @@ texture = ExtResource("2_whdnv")
 stretch_mode = 1
 
 [node name="MainScreen" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -341,8 +341,8 @@ stretch_mode = 1
 layout_mode = 0
 offset_left = 14.0
 offset_top = 6.0
-offset_right = 190.0
-offset_bottom = 115.0
+offset_right = 214.0
+offset_bottom = 130.0
 texture = ExtResource("8_wgjy1")
 expand_mode = 2
 stretch_mode = 5
@@ -352,10 +352,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -200.0
-offset_top = 119.0
-offset_right = -55.0
-offset_bottom = 160.0
+offset_left = -22.0
+offset_top = 21.0
+offset_right = 123.0
+offset_bottom = 62.0
 grow_horizontal = 2
 theme = ExtResource("4_d1tk4")
 theme_override_font_sizes/font_size = 25
@@ -367,10 +367,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -67.0
-offset_top = 116.0
-offset_right = 149.0
-offset_bottom = 160.0
+offset_left = -9.99998
+offset_top = 57.0
+offset_right = 206.0
+offset_bottom = 101.0
 grow_horizontal = 2
 theme = ExtResource("4_d1tk4")
 theme_override_colors/font_color = Color(0.988235, 0.937255, 0.552941, 1)
@@ -381,10 +381,10 @@ vertical_alignment = 1
 
 [node name="ManageButton" type="Button" parent="MainScreen/MenuPanel"]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 189.0
-offset_right = 380.0
-offset_bottom = 252.0
+offset_left = 42.0
+offset_top = 146.0
+offset_right = 374.0
+offset_bottom = 209.0
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButton"
 theme_override_font_sizes/font_size = 30
@@ -392,10 +392,10 @@ text = "Mine Manager"
 
 [node name="TrainingButton" type="Button" parent="MainScreen/MenuPanel"]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 282.0
-offset_right = 312.0
-offset_bottom = 345.0
+offset_left = 42.0
+offset_top = 239.0
+offset_right = 306.0
+offset_bottom = 302.0
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButton"
 theme_override_font_sizes/font_size = 30
@@ -403,28 +403,35 @@ text = "TRAINING"
 
 [node name="MintButton" type="Button" parent="MainScreen/MenuPanel"]
 layout_mode = 0
-offset_left = 48.0
-offset_top = 371.0
-offset_right = 193.0
-offset_bottom = 434.0
+offset_left = 42.0
+offset_top = 328.0
+offset_right = 187.0
+offset_bottom = 391.0
 theme = ExtResource("4_d1tk4")
 theme_type_variation = &"SimpleButtonAlt"
 theme_override_font_sizes/font_size = 30
 text = "mint"
 
-[node name="AdminButton" type="Button" parent="MainScreen/MenuPanel"]
+[node name="PriorityFee" type="HBoxContainer" parent="MainScreen/MenuPanel"]
 layout_mode = 0
-offset_left = 267.0
-offset_top = 26.0
-offset_right = 412.0
-offset_bottom = 89.0
+offset_left = 31.0
+offset_top = 406.0
+offset_right = 340.0
+offset_bottom = 446.0
+theme_override_constants/separation = 15
+
+[node name="Fee" type="Label" parent="MainScreen/MenuPanel/PriorityFee"]
+layout_mode = 2
 theme = ExtResource("4_d1tk4")
-theme_type_variation = &"SimpleButtonAlt"
-theme_override_font_sizes/font_size = 30
-text = "ADMIN"
-script = ExtResource("10_c1ty1")
-wallet_snapshot_path = "res://Scripts/SolanaPrograms/Clubhouse/house_admin_wallets.json"
-hide_if_locked = true
+theme_override_font_sizes/font_size = 25
+text = "Priority Fees:"
+vertical_alignment = 1
+
+[node name="FeeLevel" type="OptionButton" parent="MainScreen/MenuPanel/PriorityFee"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("4_d1tk4")
+alignment = 1
 
 [node name="Settings" type="Control" parent="MainScreen/MenuPanel" node_paths=PackedStringArray("music_slider", "sfx_slider")]
 anchors_preset = 0
@@ -585,6 +592,20 @@ theme_override_font_sizes/font_size = 26
 text = "v0.0.0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AdminButton" type="Button" parent="MainScreen/MenuPanel"]
+layout_mode = 0
+offset_left = 402.0
+offset_top = 639.0
+offset_right = 547.0
+offset_bottom = 702.0
+theme = ExtResource("4_d1tk4")
+theme_type_variation = &"SimpleButtonAlt"
+theme_override_font_sizes/font_size = 30
+text = "ADMIN"
+script = ExtResource("10_c1ty1")
+wallet_snapshot_path = "res://Scripts/SolanaPrograms/Clubhouse/house_admin_wallets.json"
+hide_if_locked = true
 
 [node name="MineInteractor" type="Control" parent="MainScreen" node_paths=PackedStringArray("mine_account_display", "mine_card")]
 layout_mode = 1
@@ -1164,6 +1185,7 @@ text = "ENTER
 MINE!"
 
 [node name="RubianMintScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("minted_amount", "progress_bar", "mint_tier_selector", "displayable_token", "mint_button")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

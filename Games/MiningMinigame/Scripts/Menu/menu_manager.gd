@@ -6,6 +6,9 @@ class_name MenuManager
 @export var house_id:String
 var house_data:Dictionary
 
+@export var priority_fee_option:OptionButton
+@export var default_fee_id:int = 3
+
 @onready var screen_manager:ScreenManager = $ScreenManager
 
 signal on_house_data_loaded(data:Dictionary)
@@ -19,7 +22,21 @@ func _ready() -> void:
 	#C:\Users\thomas\Desktop\kp\dev2gUnXyMLh6WyV9NTBaXeNfo1DTn2R4b69VTGNidF.json
 	#var result:Dictionary = await SolanaService.fetch_all_program_accounts_of_type(ClubhouseProgram.get_program(),"House",[])
 	#print(result)
+	set_priority_fee_options()
 	load_house_data()
+	
+func set_priority_fee_options() -> void:
+	var options:Array = HeliusAPI.PriorityFeeLevel.keys()
+	for i in range(options.size()):
+		priority_fee_option.add_item(options[i],i)
+	
+	priority_fee_option.select(default_fee_id)
+	change_fee_level(default_fee_id)
+	priority_fee_option.item_selected.connect(change_fee_level)
+	
+func change_fee_level(index_selected:int) -> void:
+	var selected_level:HeliusAPI.PriorityFeeLevel = HeliusAPI.PriorityFeeLevel.values()[index_selected]
+	SolanaService.transaction_manager.helius_api.priority_fee_level = selected_level
 	
 func load_house_data() -> void:
 	var house_key:Pubkey = Pubkey.new_from_string(house_id)

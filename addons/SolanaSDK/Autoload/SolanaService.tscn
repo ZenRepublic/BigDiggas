@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2dmsrk6j12y4"]
+[gd_scene load_steps=11 format=3 uid="uid://b2dmsrk6j12y4"]
 
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Managers/solana_service.gd" id="1_hwc3u"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/TransactionManager/transaction_manager.gd" id="2_v3adq"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Managers/wallet_service.gd" id="5_f327g"]
+[ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/ThirdPartyTools/Helius/helius_api.gd" id="6_jo0rl"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/account_inspector.gd" id="6_mv3j8"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/file_loader.gd" id="7_4sv1b"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Managers/asset_manager.gd" id="8_4oy84"]
@@ -19,20 +20,26 @@ honeycomb_rpc = "https://rpc.test.honeycombprotocol.com/"
 
 [node name="WalletService" type="Node" parent="."]
 script = ExtResource("5_f327g")
-use_generated = true
-custom_wallet_path = "C:\\Users\\thoma\\Desktop\\kp\\dev2gUnXyMLh6WyV9NTBaXeNfo1DTn2R4b69VTGNidF.json"
+custom_wallet_path = "C:\\Users\\thomas\\Desktop\\kp\\dev2gUnXyMLh6WyV9NTBaXeNfo1DTn2R4b69VTGNidF.json"
 
 [node name="WalletAdapter" type="WalletAdapter" parent="WalletService"]
 
 [node name="AssetManager" type="Node" parent="."]
 script = ExtResource("8_4oy84")
-override_rpc_url = "https://mainnet.helius-rpc.com/?api-key=45143f32-3c29-4d77-ba93-2005b017e7a5"
+override_rpc_url = "https://mainnet.helius-rpc.com/?api-key=14091e35-f13b-4071-9578-410522205b40"
 load_on_login = true
 load_token_balances = true
 missing_texture_visual = ExtResource("9_oi842")
 
-[node name="TransactionManager" type="Node" parent="."]
+[node name="TransactionManager" type="Node" parent="." node_paths=PackedStringArray("helius_api")]
 script = ExtResource("2_v3adq")
+use_custom_priority_fee = true
+helius_api = NodePath("HeliusAPI")
+
+[node name="HeliusAPI" type="Node" parent="TransactionManager"]
+script = ExtResource("6_jo0rl")
+helius_rpc = "https://mainnet.helius-rpc.com/?api-key=14091e35-f13b-4071-9578-410522205b40"
+priority_fee_level = 3
 
 [node name="FileLoader" type="Node" parent="."]
 script = ExtResource("7_4sv1b")

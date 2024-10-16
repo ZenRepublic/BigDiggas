@@ -17,7 +17,6 @@ class_name MintManager
 #first one is default
 @export var mint_button:ButtonLock
 
-@export var priority_fee:float=0.0005
 @export var fetch_data_on_become_visible:bool=true
 
 @onready var screen_manager:ScreenManager = $ScreenManager
@@ -82,7 +81,6 @@ func try_mint() -> void:
 		guard_settings,
 		mint_group,
 		TransactionManager.Commitment.FINALIZED,
-		priority_fee,
 		mint_account
 	)
 	

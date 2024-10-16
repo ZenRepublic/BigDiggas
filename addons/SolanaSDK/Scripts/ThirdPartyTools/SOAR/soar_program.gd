@@ -63,7 +63,7 @@ func init_game(game_attributes:SoarUtils.GameAttributes) -> TransactionData:
 	
 	print("Creating Game Account with ID: %s"%game_account.get_public_string())
 	instructions.append(init_game_ix)
-	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,SolanaService.wallet.get_kp())
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_and_send(transaction)
 	return tx_data
 		
@@ -95,7 +95,7 @@ func add_leaderboard(game_address:String,leaderboard_data:SoarUtils.LeaderboardD
 	print("Creating Leaderboard with ID: %s"%leaderboard.get_value())
 	
 	instructions.append(add_leaderboard_ix)
-	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,SolanaService.wallet.get_kp())
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_and_send(transaction)
 	return tx_data
 	
@@ -123,7 +123,7 @@ func update_leaderboard(game_address:String,leaderboard_address:String,leaderboa
 	print("Updating Leaderboard with ID: %s"%leaderboard_account.get_value())
 	
 	instructions.append(update_leaderboard_ix)
-	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,SolanaService.wallet.get_kp())
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_and_send(transaction)
 	return tx_data
 	
@@ -143,7 +143,7 @@ func initialize_player(username:String, user_nft:Pubkey) -> TransactionData:
 	
 	print("Initializing Player account with ID: %s"%player_account.get_value())
 	instructions.append(init_player_ix)
-	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,SolanaService.wallet.get_kp())
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_and_send(transaction)
 	return tx_data
 	
@@ -162,7 +162,7 @@ func update_player(username:String, user_nft:Pubkey) -> TransactionData:
 	
 	print("Updating Player account with ID: %s"%player_account.get_value())
 	instructions.append(update_player_ix)
-	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,SolanaService.wallet.get_kp())
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_and_send(transaction)
 	return tx_data
 		
@@ -209,7 +209,7 @@ func submit_score_to_leaderboard(game_account:Pubkey,leaderboard_account:Pubkey,
 		})
 		
 	instructions.append(submit_score_ix)
-	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions)
+	var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,SolanaService.wallet.get_kp())
 	var tx_data:TransactionData = await SolanaService.transaction_manager.sign_and_send(transaction)
 	return tx_data
 	

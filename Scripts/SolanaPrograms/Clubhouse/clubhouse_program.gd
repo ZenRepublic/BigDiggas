@@ -10,7 +10,6 @@ extends Node
 
 @onready var program:AnchorProgram = $AnchorProgram
 @export var oracle_signer:OracleSigner
-@export var priority_fee_lamports:int
 
 func get_program() -> AnchorProgram:
 	return program
@@ -28,7 +27,7 @@ func send_transaction(instructions:Array[Instruction], oracle:Pubkey=null) -> Tr
 		
 		#First we sign with the user		
 		var signers:Array = [SolanaService.wallet.get_kp(),oracle]
-		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,priority_fee_lamports)
+		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,SolanaService.wallet.get_kp())
 		transaction = await SolanaService.transaction_manager.sign_transaction_normal(transaction,signers)
 		
 		#get the signature from oracle. it returns tx_bytes. so turn to transaction again 		
@@ -44,7 +43,7 @@ func send_transaction(instructions:Array[Instruction], oracle:Pubkey=null) -> Tr
 		signed_transaction.set_signers(signers)
 		tx_data = await SolanaService.transaction_manager.send_transaction(signed_transaction,TransactionManager.Commitment.PROCESSED)
 	else:
-		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,priority_fee_lamports)
+		var transaction:Transaction = await SolanaService.transaction_manager.create_transaction(instructions,SolanaService.wallet.get_kp())
 		tx_data = await SolanaService.transaction_manager.sign_and_send(transaction)
 		
 	return tx_data

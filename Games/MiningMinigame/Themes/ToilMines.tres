@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=57 format=3 uid="uid://ds48g7imsbnvb"]
+[gd_resource type="Theme" load_steps=60 format=3 uid="uid://ds48g7imsbnvb"]
 
 [ext_resource type="FontFile" uid="uid://wg54cqgbfnj6" path="res://Fonts/ZeroCool.ttf" id="1_r1x44"]
 [ext_resource type="Texture2D" uid="uid://b2pa4cnrwjuii" path="res://Games/MiningMinigame/textures/Icons/TickBoxChecked.png" id="2_7ut3y"]
@@ -244,6 +244,30 @@ corner_radius_top_left = 20
 corner_radius_bottom_right = 20
 corner_detail = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aud4b"]
+bg_color = Color(0.552941, 0.717647, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dl6sm"]
+bg_color = Color(0.427451, 0.501961, 0.980392, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fbvid"]
+bg_color = Color(0.682353, 0.886275, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 2
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x67s7"]
 bg_color = Color(0.65098, 0.521569, 0.623529, 1)
 border_width_left = 6
@@ -443,6 +467,14 @@ ListEntryButton/styles/disabled = SubResource("StyleBoxFlat_lntmu")
 ListEntryButton/styles/hover = SubResource("StyleBoxFlat_sqd2w")
 ListEntryButton/styles/normal = SubResource("StyleBoxFlat_ih23r")
 ListEntryButton/styles/pressed = SubResource("StyleBoxFlat_qrg8j")
+OptionButton/font_sizes/font_size = 20
+OptionButton/styles/focus = null
+OptionButton/styles/hover = SubResource("StyleBoxFlat_aud4b")
+OptionButton/styles/hover_mirrored = null
+OptionButton/styles/normal = SubResource("StyleBoxFlat_dl6sm")
+OptionButton/styles/normal_mirrored = null
+OptionButton/styles/pressed = SubResource("StyleBoxFlat_fbvid")
+OptionButton/styles/pressed_mirrored = null
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_x67s7")
 ProgressBar/fonts/font = ExtResource("2_71xjw")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_avxuh")

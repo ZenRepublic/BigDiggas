@@ -22,7 +22,10 @@ func set_mine_data(data:Dictionary) -> void:
 	
 	
 	var collection_asset:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["nftConfig"]["collection"],true)
-	collection_displayable.set_data(collection_asset)
+	if collection_asset!=null:
+		collection_displayable.set_data(collection_asset)
+	else:
+		push_error("Collection NFT Failed to load...")
 	
 	if data["managerMint"] != null:
 		var mine_manager:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["managerMint"])
