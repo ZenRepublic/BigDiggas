@@ -40,7 +40,7 @@
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/wave_progress.gdshader" id="32_j6xqt"]
 [ext_resource type="PackedScene" uid="uid://bsvw53lakv2lb" path="res://Games/MiningMinigame/Assets/InventorySlot.tscn" id="32_jit1v"]
 [ext_resource type="Texture2D" uid="uid://kvai085crm7c" path="res://Games/MiningMinigame/textures/GUI/PowerBank.PNG" id="34_w2hqv"]
-[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="36_lgwgq"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="36_lgwgq"]
 [ext_resource type="Texture2D" uid="uid://c0a2xkqrpbp22" path="res://Games/MiningMinigame/textures/GUI/StoreCoreBot.png" id="37_wgp6g"]
 [ext_resource type="Texture2D" uid="uid://l8q6otup8pp2" path="res://Games/MiningMinigame/textures/GUI/StoreCoreTop.png" id="38_uwq7y"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/quickbelt.gd" id="40_vabo6"]

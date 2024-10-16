@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/transaction_ui_overlay.gd" id="1_f1p7i"]
 [ext_resource type="Script" path="res://Scripts/Utility/screen_manager.gd" id="2_nf61e"]
 [ext_resource type="Shader" path="res://Games/MiningMinigame/Shaders/scrolling_background.gdshader" id="3_by8ct"]
-[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="3_qp2q8"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="3_qp2q8"]
 [ext_resource type="Texture2D" uid="uid://duj7xntofu70d" path="res://Games/MiningMinigame/textures/GUI/treasure_pattern.png" id="4_u3hst"]
+
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjeht"]
 bg_color = Color(0.121569, 0.0627451, 0.164706, 1)

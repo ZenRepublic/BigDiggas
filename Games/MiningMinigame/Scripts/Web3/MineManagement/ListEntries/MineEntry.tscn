@@ -3,7 +3,8 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Web3/MineManagement/mine_account_select.gd" id="2_w5oyl"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/DisplaySystems/Assets/displayable_asset.gd" id="3_c34kt"]
 [ext_resource type="Texture2D" uid="uid://dkyfoudbohuqq" path="res://addons/SolanaSDK/Textures/missingicon.png" id="4_viqwm"]
-[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="5_p8jhh"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="5_p8jhh"]
+
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ej5u4"]
 

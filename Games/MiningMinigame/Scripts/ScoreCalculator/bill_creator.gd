@@ -10,7 +10,7 @@ class_name BillCreator
 @onready var claim_container:Control = $ClaimContainer
 @onready var final_price_label:NumberLabel = $ClaimContainer/FinalPrice
 @onready var final_price_visual:TextureRect = $ClaimContainer/Visual
-@onready var max_label:Label = $ClaimContainer/MaxLabel
+@onready var max_label:Control = $ClaimContainer/MaxLabel
 @onready var action_button:Button = $ClaimContainer/ActionButton
 @onready var audio_player:AudioStreamPlayer = $AudioStreamPlayer
 var bill_slots:Array[BillSlot]
@@ -51,7 +51,10 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 	final_price_label.set_value(0)
 	claim_container.visible = true
 	
-	var max_allowed_reward:float = mine_reward_claimer.get_max_reward()
+	var max_allowed_reward:float = mine_reward_claimer.score_to_max_reward
+	if game_mode == GameManager.GameMode.MINING:
+		max_allowed_reward = mine_reward_claimer.get_max_reward()
+		
 	for slot in bill_slots:
 		final_score += slot.get_total_value()
 	final_score = clamp(final_score,0,max_allowed_reward)

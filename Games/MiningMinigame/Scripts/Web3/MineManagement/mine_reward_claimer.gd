@@ -43,6 +43,8 @@ func get_token_value(score:int, in_lamports:bool=true) -> float:
 		return float(token_value_in_lamports)/pow(10,reward_mint_decimals)
 		
 func get_reward_token_texture() -> Texture2D:
+	if campaign_token == null:
+		return null
 	return campaign_token.image
 	
 func get_max_reward() -> float:

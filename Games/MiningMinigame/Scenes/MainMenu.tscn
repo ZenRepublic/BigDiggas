@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b8i1obr6qaasa" path="res://Games/MiningMinigame/textures/GUI/BoxPattern.png" id="2_whdnv"]
 [ext_resource type="Script" path="res://Scripts/Utility/screen_manager.gd" id="2_xsafj"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Menu/menu_panel.gd" id="4_0qwoq"]
-[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="4_d1tk4"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="4_d1tk4"]
 [ext_resource type="Texture2D" uid="uid://dm7iln4hubqck" path="res://Games/MiningMinigame/textures/GUI/MenuSidePanel.png" id="5_dl1ut"]
 [ext_resource type="Texture2D" uid="uid://duj7xntofu70d" path="res://Games/MiningMinigame/textures/GUI/treasure_pattern.png" id="6_de3vm"]
 [ext_resource type="Texture2D" uid="uid://bouy62vdktsrh" path="res://Textures/Socials/Twittericon.png" id="8_d52xv"]

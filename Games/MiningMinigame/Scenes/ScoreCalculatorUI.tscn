@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/item_pedestal.gd" id="3_ued32"]
 [ext_resource type="PackedScene" uid="uid://bg6rqhp24pucy" path="res://Games/MiningMinigame/Assets/ShowcaseGem.tscn" id="4_687vs"]
 [ext_resource type="Texture2D" uid="uid://d372tpo1l0sxm" path="res://Games/MiningMinigame/textures/GUI/ItemPedestal.png" id="5_ggqo1"]
-[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="7_x3axi"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="7_x3axi"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/bill_creator.gd" id="8_8sjun"]
 [ext_resource type="Texture2D" uid="uid://bkp8seyanymvs" path="res://Games/MiningMinigame/textures/GUI/Your loot panel.png" id="8_30qxq"]
 [ext_resource type="PackedScene" uid="uid://cq2b8v1v3u2fm" path="res://Games/MiningMinigame/Assets/BillSlot.tscn" id="9_153da"]

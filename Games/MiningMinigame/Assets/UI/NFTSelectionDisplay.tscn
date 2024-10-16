@@ -4,11 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://btmj6a3kagg46" path="res://Games/MiningMinigame/Assets/UI/DisplayableNFTButton.tscn" id="2_xmhd2"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/NFTCollection/nft_collection.gd" id="3_rk1ve"]
 [ext_resource type="Resource" uid="uid://yts1i1o0c345" path="res://Games/MiningMinigame/Scripts/Web3/RubiansNFTCollection.tres" id="4_vmypy"]
-[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="5_6o7rc"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="5_6o7rc"]
 [ext_resource type="Texture2D" uid="uid://cq285gbck81as" path="res://Games/MiningMinigame/textures/Icons/AddIcon.png" id="6_mhrye"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/DisplaySystems/Assets/displayable_asset.gd" id="6_ujc3t"]
 [ext_resource type="Script" path="res://addons/texture_button_colored/texture_button_colored.gd" id="7_jinrh"]
 [ext_resource type="Texture2D" uid="uid://b3003ar1uxa77" path="res://addons/SolanaSDK/Textures/closebutton.jpg.png" id="8_pli40"]
+
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xyly"]
 bg_color = Color(0.121569, 0.0627451, 0.164706, 0.870588)

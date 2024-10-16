@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://0x1jjxnmbchx" path="res://Textures/WalletProviderLogos/phantomlogo.jpg" id="3_rep2s"]
 [ext_resource type="Texture2D" uid="uid://17u8fpx30rv3" path="res://Textures/WalletProviderLogos/solflarelogo.jpg" id="4_gc7nh"]
 [ext_resource type="Texture2D" uid="uid://du7duuvlwpqlj" path="res://Textures/WalletProviderLogos/backpacklogo.jpg" id="5_bkarm"]
-[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="7_0gt5q"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="7_0gt5q"]
 [ext_resource type="AudioStream" uid="uid://cojs82uu73ctv" path="res://Games/MiningMinigame/Sounds/UI/buttonpress.mp3" id="7_557yc"]
 [ext_resource type="Texture2D" uid="uid://b3003ar1uxa77" path="res://addons/SolanaSDK/Textures/closebutton.jpg.png" id="7_d0naq"]
 [ext_resource type="AudioStream" uid="uid://xoio1puhisej" path="res://Games/MiningMinigame/Sounds/UI/errorsound.mp3" id="8_1aesg"]

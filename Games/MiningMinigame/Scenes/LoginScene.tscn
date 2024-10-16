@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b8i1obr6qaasa" path="res://Games/MiningMinigame/textures/GUI/BoxPattern.png" id="3_utv5g"]
 [ext_resource type="Texture2D" uid="uid://dndirqodqfen6" path="res://Games/MiningMinigame/textures/GUI/CaveEntrance.png" id="4_yb0vn"]
 [ext_resource type="Texture2D" uid="uid://d2a6hpyej5k7c" path="res://Games/MiningMinigame/textures/GUI/rockformation.png" id="5_gwrkc"]
-[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="6_2oe7d"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="6_2oe7d"]
 [ext_resource type="PackedScene" uid="uid://dhda75lpyjtjg" path="res://Games/MiningMinigame/Scripts/Menu/Login/WalletAdapter.tscn" id="7_5waap"]
 [ext_resource type="Texture2D" uid="uid://bcc0delvuoilo" path="res://Games/MiningMinigame/textures/Art/Logos/Logo small transparent.png" id="7_kwc2t"]
 [ext_resource type="Script" path="res://Scripts/Utility/secret_code_input.gd" id="10_ymbvl"]

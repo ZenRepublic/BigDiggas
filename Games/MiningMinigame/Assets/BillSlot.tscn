@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/ScoreCalculator/bill_slot.gd" id="1_p0sv3"]
 [ext_resource type="Texture2D" uid="uid://evy6pj2whj1e" path="res://Games/MiningMinigame/textures/Treasures/inventory_versions/Tryptichite_inv.png" id="2_ilwlw"]
-[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://Games/MiningMinigame/Themes/ToilMines.tres" id="3_m86rc"]
+[ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="3_m86rc"]
 [ext_resource type="Texture2D" uid="uid://crkoovodnwd7g" path="res://Games/MiningMinigame/textures/GUI/collectible_coin_big_idle_1.png" id="3_off5y"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/Input/number_label.gd" id="4_6gxx5"]
+
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7p82j"]
 
