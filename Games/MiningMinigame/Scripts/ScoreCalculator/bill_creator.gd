@@ -10,6 +10,7 @@ class_name BillCreator
 @onready var claim_container:Control = $ClaimContainer
 @onready var final_price_label:NumberLabel = $ClaimContainer/FinalPrice
 @onready var final_price_visual:TextureRect = $ClaimContainer/Visual
+@onready var max_label:Label = $ClaimContainer/MaxLabel
 @onready var action_button:Button = $ClaimContainer/ActionButton
 @onready var audio_player:AudioStreamPlayer = $AudioStreamPlayer
 var bill_slots:Array[BillSlot]
@@ -20,6 +21,7 @@ func _ready() -> void:
 	spacer.visible=false
 	action_button.visible=false
 	claim_container.visible = false
+	max_label.visible = false
 	
 func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) -> void:
 	setup_action_button(game_mode)
@@ -49,9 +51,10 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 	final_price_label.set_value(0)
 	claim_container.visible = true
 	
+	var max_allowed_reward:float = mine_reward_claimer.get_max_reward()
 	for slot in bill_slots:
 		final_score += slot.get_total_value()
-	print(final_score)
+	final_score = clamp(final_score,0,max_allowed_reward)
 		
 	var final_claim_display_amount:float
 	for slot in bill_slots:
@@ -63,10 +66,14 @@ func generate_bill(collected_items:Dictionary,game_mode:GameManager.GameMode) ->
 			slot_value = clamp(slot_value,0,INF)
 			slot.token_value_label.set_value(slot_value)
 			final_claim_display_amount += transfer_rate
+			final_claim_display_amount = clamp(final_claim_display_amount,0,max_allowed_reward)
 			final_price_label.set_value(final_claim_display_amount)
 			play_increment_sound(lerp(1.0,1.4,final_claim_display_amount/final_score))
 			await get_tree().create_timer(0.07).timeout
 			
+	if final_score == max_allowed_reward:
+		max_label.visible = true
+		
 	await get_tree().create_timer(0.3).timeout
 	action_button.visible=true
 	

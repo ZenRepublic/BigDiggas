@@ -68,6 +68,7 @@ func sign_and_send(transaction:Transaction,tx_commitment:Commitment=Commitment.C
 	return tx_data
 	
 func send_transaction(tx:Transaction,tx_commitment:Commitment=Commitment.CONFIRMED) -> TransactionData:
+	#tx.set_url_override(helius_api.helius_rpc)
 	tx.send()
 	var response:Dictionary = await tx.transaction_response_received
 	var tx_data:TransactionData = TransactionData.new(response)
