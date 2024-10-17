@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_5yy30")
 item_name = "Tryptichite"
-market_value = 25
+market_value = 20
 icon = ExtResource("2_k3wxu")
 visual = ExtResource("4_u0kwj")
 quantity = 1

@@ -1,7 +1,6 @@
 extends MineItem
 class_name Gem
 
-@export var price:int
 @export var particles:GPUParticles2D
 @export var inventory_item:InventoryItem
 

@@ -15,7 +15,7 @@ func _ready() -> void:
 func update_energy_bar(curr_energy:int) -> void:
 	var tween = get_tree().create_tween();
 	var prev_value:float = energy_meter.material.get_shader_parameter("progress")
-	var new_value:float = lerp(0.0,1.0,curr_energy/100.0)
+	var new_value:float = lerp(0.0,1.0,curr_energy/float(player_manager.stats.base_energy))
 	tween.tween_method(animate_energy, prev_value, new_value, 0.3); # args are: (method to call / start value / end value / duration of animation)
 	
 func animate_energy(value:float) -> void:

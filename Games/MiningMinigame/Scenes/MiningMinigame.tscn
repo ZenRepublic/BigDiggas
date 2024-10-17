@@ -259,6 +259,7 @@ cursor_hotspot = Vector2(5, 13)
 
 [node name="Stats" type="Node" parent="Player"]
 script = ExtResource("14_8axdo")
+base_energy = 120
 
 [node name="HUD" type="Node" parent="Player" node_paths=PackedStringArray("quickbelt", "toolbelt", "powerbank", "inventory")]
 script = ExtResource("11_lf0ou")

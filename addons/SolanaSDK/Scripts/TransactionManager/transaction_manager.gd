@@ -17,9 +17,10 @@ signal on_tx_finish(tx_data:TransactionData)
 
 func setup() -> void:
 #	temporary solution. Don't use custom fees if using phantom
-	var selected_provider_id:int = SolanaService.wallet.get_wallet_provider_id()
-	if selected_provider_id == 0:
-		use_custom_priority_fee=false
+	#var selected_provider_id:int = SolanaService.wallet.get_wallet_provider_id()
+	#if selected_provider_id == 0:
+		#use_custom_priority_fee=false
+	pass
 
 func create_transaction(instructions:Array[Instruction],payer) -> Transaction:
 	on_tx_create_start.emit()
@@ -68,7 +69,8 @@ func sign_and_send(transaction:Transaction,tx_commitment:Commitment=Commitment.C
 	return tx_data
 	
 func send_transaction(tx:Transaction,tx_commitment:Commitment=Commitment.CONFIRMED) -> TransactionData:
-	#tx.set_url_override(helius_api.helius_rpc)
+	tx.set_url_override(helius_api.helius_rpc)
+	print(tx.serialize())
 	tx.send()
 	var response:Dictionary = await tx.transaction_response_received
 	var tx_data:TransactionData = TransactionData.new(response)

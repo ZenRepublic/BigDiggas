@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_vbkg8")
 item_name = "Nurplite"
-market_value = 100
+market_value = 80
 icon = ExtResource("2_12wrx")
 visual = ExtResource("4_ht2q3")
 quantity = 1
