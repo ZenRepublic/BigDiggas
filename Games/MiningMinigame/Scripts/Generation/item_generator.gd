@@ -12,7 +12,6 @@ func _ready():
 	floor_generator = get_parent()
 	
 func spawn_obstacles(possible_obstacles:Dictionary) -> void:
-	
 	var obstacles_parent:Node2D = Node2D.new()
 	obstacles_parent.name = "Obstacles"
 	add_child(obstacles_parent)
@@ -36,13 +35,11 @@ func spawn_obstacles(possible_obstacles:Dictionary) -> void:
 			var obstacle_instance:MineItem = spawn(obstacle_resource.scene,[tile],obstacles_parent)
 			spawned_obstacles.append(obstacle_instance)
 	#print(spawned_obstacles.size())
-	
-func remap_range(value, InputA, InputB, OutputA, OutputB) -> float:
-	return(value - InputA) / (InputB - InputA) * (OutputB - OutputA) + OutputA
 
-func spawn_items(possible_items:Dictionary,spawn_density:int) -> void:
+
+func spawn_utility(possible_items:Dictionary,spawn_density:int) -> void:
 	var items_parent:Node2D = Node2D.new()
-	items_parent.name = "Items"
+	items_parent.name = "Utility"
 	add_child(items_parent)
 	
 	var spawn_amount:int = calculate_spawn_amount(floor_generator.get_tile_density(),spawn_density)
@@ -63,6 +60,37 @@ func spawn_items(possible_items:Dictionary,spawn_density:int) -> void:
 			var item_instance:MineItem = spawn(item_resource.scene,tiles_to_occupy,items_parent)
 			spawned_items.append(item_instance)
 			break
+			
+func spawn_items(possible_items:Dictionary,max_value:int) -> void:
+	var items_parent:Node2D = Node2D.new()
+	items_parent.name = "Items"
+	add_child(items_parent)
+	
+	var remaining_budget:int = ceili(max_value*floor_generator.get_tile_density())
+	
+	while remaining_budget > 0:
+		var affordable_items:Dictionary = filter_affordable_items(possible_items,remaining_budget)
+		if affordable_items.size() == 0:
+			remaining_budget = 0
+			break
+			
+		var item_resource:ItemResource = select_random_item(affordable_items)
+		for i in range(MAX_SPAWN_ATTEMPTS):
+			var random_tile:MineTile = floor_generator.get_random_tile()
+			
+			#all tiles have got to be free
+			var tiles_to_occupy:Array[MineTile] = get_tiles_to_occupy(item_resource.dimensions,random_tile)
+			if tiles_to_occupy.size()==0:
+				continue
+			
+			if !can_place_on_tiles(tiles_to_occupy):
+				continue
+			
+			var item_instance:MineItem = spawn(item_resource.scene,tiles_to_occupy,items_parent)
+			spawned_items.append(item_instance)
+			break
+		
+		remaining_budget -= item_resource.weight
 	
 	
 func spawn(item_scn:PackedScene,tiles_to_occupy:Array[MineTile],custom_parent:Node2D=null) -> MineItem:
@@ -82,6 +110,14 @@ func spawn(item_scn:PackedScene,tiles_to_occupy:Array[MineTile],custom_parent:No
 	item_instance.on_uncover_finished.connect(remove_item,CONNECT_ONE_SHOT)
 	return item_instance
 		
+func filter_affordable_items(possible_items:Dictionary,remaining_budget:int) -> Dictionary:
+	var affordable_items:Dictionary
+	for item in possible_items.keys():
+		var item_resource:ItemResource = item as ItemResource
+		if item_resource.weight <= remaining_budget:
+			affordable_items[item] = possible_items[item]
+	return affordable_items
+	
 			
 func select_random_item(possible_items:Dictionary) -> ItemResource:
 	var total_weight = 0
@@ -100,10 +136,10 @@ func select_random_item(possible_items:Dictionary) -> ItemResource:
 	
 func calculate_spawn_amount(tile_density:float,spawn_density:int) -> int:
 	var spawn_amount:int = ceil(lerp(0,spawn_density,tile_density))
-	var random_offset:int = ceili(spawn_density/3.0)
-	
-	var min_spawn:int = clamp(spawn_amount-random_offset,0,spawn_amount+random_offset)
-	var max_spawn:int = clamp(spawn_amount+random_offset,0,spawn_amount+random_offset)
+	var random_offset:int = 1
+
+	var min_spawn:int = clamp(spawn_amount-random_offset,0,INF)
+	var max_spawn:int = clamp(spawn_amount+random_offset,0,INF)
 	var final_spawn_amount:int = randi_range(min_spawn,max_spawn)
 	
 	return final_spawn_amount
@@ -162,4 +198,7 @@ func get_active_items_of_type(type:MineItem.ItemType) -> Array[MineItem]:
 		if item.type == type:
 			active_items.append(item)
 	return active_items
+	
+func remap_range(value, InputA, InputB, OutputA, OutputB) -> float:
+	return(value - InputA) / (InputB - InputA) * (OutputB - OutputA) + OutputA
 				

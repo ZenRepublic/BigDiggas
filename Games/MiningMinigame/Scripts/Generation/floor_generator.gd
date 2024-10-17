@@ -10,6 +10,7 @@ var map_boundaries:Rect2
 var map_manager:MapManager
 
 var floor_data:FloorData
+var max_items_value:int
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,9 +38,9 @@ func generate_tiles(data:FloorData,noise:FastNoiseLite) -> void:
 	if floor_data.possible_obstacles.keys().size() >0:
 		item_generator.spawn_obstacles(floor_data.possible_obstacles)
 	if floor_data.possible_treasures.keys().size() > 0:
-		item_generator.spawn_items(floor_data.possible_treasures,floor_data.treasure_spawn_density)
+		item_generator.spawn_items(floor_data.possible_treasures,max_items_value)
 	if floor_data.possible_utilities.keys().size() > 0:
-		item_generator.spawn_items(floor_data.possible_utilities,floor_data.utility_spawn_density)	
+		item_generator.spawn_utility(floor_data.possible_utilities,floor_data.utility_spawn_density)	
 	
 func get_tile_by_pos(grid_pos:Vector2) -> MineTile:
 	if !is_in_bounds(grid_pos):

@@ -6,7 +6,6 @@
 [ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="3_qp2q8"]
 [ext_resource type="Texture2D" uid="uid://duj7xntofu70d" path="res://Games/MiningMinigame/textures/GUI/treasure_pattern.png" id="4_u3hst"]
 
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qjeht"]
 bg_color = Color(0.121569, 0.0627451, 0.164706, 1)
 
@@ -61,7 +60,7 @@ shader_parameter/tint = Color(0.8, 0.258824, 0.368627, 1)
 [node name="TransactionOverlay" type="CanvasLayer" node_paths=PackedStringArray("error_text_label")]
 layer = 99
 script = ExtResource("1_f1p7i")
-time_to_close = 1.5
+time_to_close = 1.0
 auto_close_fail = false
 error_text_label = NodePath("FailPanel/VBoxContainer/ErrorText/ErrorData")
 

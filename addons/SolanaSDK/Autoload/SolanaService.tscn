@@ -26,7 +26,7 @@ custom_wallet_path = "C:\\Users\\thomas\\Desktop\\kp\\dev2gUnXyMLh6WyV9NTBaXeNfo
 
 [node name="AssetManager" type="Node" parent="."]
 script = ExtResource("8_4oy84")
-override_rpc_url = "https://mainnet.helius-rpc.com/?api-key=d7e7fb14-d317-415e-958c-92a3843b74de"
+override_rpc_url = "https://staked.helius-rpc.com?api-key=14091e35-f13b-4071-9578-410522205b40"
 load_on_login = true
 load_token_balances = true
 missing_texture_visual = ExtResource("9_oi842")
@@ -38,7 +38,7 @@ helius_api = NodePath("HeliusAPI")
 
 [node name="HeliusAPI" type="Node" parent="TransactionManager"]
 script = ExtResource("6_jo0rl")
-helius_rpc = "https://mainnet.helius-rpc.com/?api-key=d7e7fb14-d317-415e-958c-92a3843b74de"
+helius_rpc = "https://staked.helius-rpc.com?api-key=14091e35-f13b-4071-9578-410522205b40"
 priority_fee_level = 3
 
 [node name="FileLoader" type="Node" parent="."]

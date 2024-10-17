@@ -4,6 +4,13 @@ class_name MapManager
 @export var map_width:int = 13
 @export var map_height:int = 10
 
+@export_category("Item Value Settings")
+@export var total_item_value_curve:Curve
+@export var floor_value_weights:Array[float]
+@export var weight_randomize_factor:float = 0.5
+var total_reward_value:int
+var final_value_weights:Array[float]
+
 @export_category("Tile Noise Settings")
 @export var tile_noise:FastNoiseLite
 @export var tile_depth_offset_curve:Curve
@@ -16,13 +23,10 @@ var depth_offset:float
 @export var obs_threshold_curve:Curve
 
 @export_category("Map Resources")
-
 @export var floor_resources:Array[FloorData]
 @export var floor_scn:PackedScene
-
-@export var hover_indication_scn:PackedScene
-
 @export var border_scn:PackedScene
+@export var hover_indication_scn:PackedScene
 
 var floors:Array[FloorGenerator]
 var hover_indications:Dictionary
@@ -33,11 +37,16 @@ func _init():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for floor_resource in floor_resources:
+	total_reward_value = total_item_value_curve.sample(randf_range(0.0,1.0))
+	randomize_floor_value_weights()
+	
+	for i in range(floor_resources.size()):
 		var floor_generator:FloorGenerator = floor_scn.instantiate()
 		add_child(floor_generator)
 		move_child(floor_generator,0)
-		floor_generator.floor_data = floor_resource
+		floor_generator.floor_data = floor_resources[i]
+		var max_item_value:int = ceili(total_reward_value*final_value_weights[i])
+		floor_generator.max_items_value = max_item_value
 		floors.append(floor_generator)
 		
 	randomize_noise()
@@ -58,6 +67,26 @@ func _ready():
 	add_child(border_generator)
 	border_generator.generate_borders(map_width,map_height)
 	pass # Replace with function body.
+	
+func randomize_floor_value_weights() -> void:
+	var new_weights:Array[float]
+	var sum:float = 0.0
+	
+	for weight in floor_value_weights:
+		if weight == 0.0:
+			new_weights.append(0.0)
+			continue
+		var random_factor:float = randf_range(-weight_randomize_factor,weight_randomize_factor)
+		var new_weight:float = max(weight+random_factor,0)
+		new_weights.append(new_weight)
+		sum += new_weight
+	
+	for i in range(new_weights.size()):
+		if new_weights[i]>0.0:
+			new_weights[i] = new_weights[i]/sum
+	
+	final_value_weights = new_weights
+		
 	
 func randomize_noise() -> void:
 	tile_noise.seed = randi_range(0,65000)

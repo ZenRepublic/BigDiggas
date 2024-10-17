@@ -6,12 +6,11 @@
 [ext_resource type="AudioStream" uid="uid://bku770dgbthg0" path="res://Games/MiningMinigame/Sounds/transitiondiamond.mp3" id="4_qvxjf"]
 [ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="5_l2dac"]
 
-
 [sub_resource type="GDScript" id="GDScript_oirlt"]
 script/source = "extends TransitionScene
 
 @onready var texture:TextureRect = $TransitionTexture
-@onready var loading_panel:Control = $Label
+@onready var loading_panel:Control = $LoadingInfo
 @onready var audio_player:AudioStreamPlayer = $AudioStreamPlayer
 @export var fade_in_sound:AudioStreamMP3
 @export var fade_out_sound:AudioStreamMP3
@@ -68,25 +67,35 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_7gyyw")
 
-[node name="Label" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -326.0
-offset_top = -97.0
-offset_right = 326.0
-offset_bottom = 97.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("5_l2dac")
-theme_type_variation = &"HeaderMedium"
-theme_override_font_sizes/font_size = 46
-text = "Loading, hang on..."
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_qvxjf")
 bus = &"SFX"
+
+[node name="LoadingInfo" type="VBoxContainer" parent="."]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="LoadingInfo"]
+layout_mode = 2
+theme = ExtResource("5_l2dac")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 46
+text = "Loading, hang on!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FirstTime" type="Label" parent="LoadingInfo"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("5_l2dac")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 20
+text = "First time might take a while..."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

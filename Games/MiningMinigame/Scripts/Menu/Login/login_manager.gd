@@ -55,4 +55,4 @@ func confirm_login(login_success:bool) -> void:
 		SceneManager.load_scene(scene_path,false)
 
 func launch_game_secret(_code_entered:String)-> void:
-	SceneManager.load_scene(game_scene_path,true,-1,{"GameMode":GameManager.GameMode.REPLAYING})
+	SceneManager.load_scene(game_scene_path,true,-1,0.0,{"GameMode":GameManager.GameMode.REPLAYING})

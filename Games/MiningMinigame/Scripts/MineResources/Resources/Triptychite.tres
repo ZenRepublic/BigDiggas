@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="MineTreasure" load_steps=3 format=3 uid="uid://ccg4r8tvkubny"]
+[gd_resource type="Resource" script_class="ItemResource" load_steps=3 format=3 uid="uid://ccg4r8tvkubny"]
 
 [ext_resource type="PackedScene" uid="uid://v1hc4gayy4me" path="res://Games/MiningMinigame/Assets/Treasures/Triptychite.tscn" id="1_a4cyy"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/MineResources/item_resource.gd" id="1_vc1f7"]
-
 
 [resource]
 script = ExtResource("1_vc1f7")
 scene = ExtResource("1_a4cyy")
 dimensions = Vector2(2, 2)
+weight = 30

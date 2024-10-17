@@ -42,10 +42,12 @@ func _process(_delta: float) -> void:
 		
 func reload_scene(fade_between_scenes:bool=true,transition_id:int=-1,scene_data:Dictionary={}) -> void:
 	var curr_scene_path = get_tree().current_scene.scene_file_path
-	load_scene(curr_scene_path,fade_between_scenes,transition_id,scene_data)
+	load_scene(curr_scene_path,fade_between_scenes,transition_id,0.0,scene_data)
 
-func load_scene(scene_path:String,fade_between_scenes:bool=true,transition_id:int=-1,scene_data:Dictionary={}) -> void:
-	#await get_tree().create_timer(0.01).timeout
+func load_scene(scene_path:String,fade_between_scenes:bool=true,transition_id:int=-1,wait_time:float=0.0,scene_data:Dictionary={}) -> void:
+	if wait_time > 0.0:
+		await get_tree().create_timer(wait_time).timeout
+		
 	if scene_data.size()>0:
 		for key in scene_data.keys():
 			#if !interscene_data.has(key):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=3 uid="uid://bij2iptygj5u7"]
+[gd_scene load_steps=74 format=3 uid="uid://bij2iptygj5u7"]
 
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Gameplay/game_manager.gd" id="1_h8t7s"]
 [ext_resource type="Script" path="res://Games/MiningMinigame/Scripts/Generation/map_manager.gd" id="1_u2155"]
@@ -65,6 +65,12 @@ shader_parameter/scroll_speed = 0.02
 shader_parameter/angle_degrees = 60.0
 shader_parameter/tiling = Vector2(2, 1.6)
 shader_parameter/tint = Color(0.917647, 0.384314, 0.384314, 0.184314)
+
+[sub_resource type="Curve" id="Curve_uiwfl"]
+min_value = 200.0
+max_value = 350.0
+_data = [Vector2(1e-05, 200), 0.0, 0.0, 0, 0, Vector2(0.261111, 300.513), 165.835, 165.835, 0, 0, Vector2(0.388889, 320.518), 0.0, 0.0, 0, 0, Vector2(0.613889, 285.772), 0.0, 0.0, 0, 0, Vector2(0.75, 303.672), 94.7622, 94.7622, 0, 0, Vector2(0.936111, 350), 0.0, 0.0, 0, 0]
+point_count = 6
 
 [sub_resource type="Curve" id="Curve_synys"]
 min_value = 0.05
@@ -233,6 +239,9 @@ texture = ExtResource("5_tgysq")
 [node name="MapManager" type="Node2D" parent="."]
 script = ExtResource("1_u2155")
 map_width = 15
+total_item_value_curve = SubResource("Curve_uiwfl")
+floor_value_weights = Array[float]([0.2, 0.3, 0.5, 0.0])
+weight_randomize_factor = 0.1
 tile_noise = ExtResource("6_y2be6")
 tile_depth_offset_curve = SubResource("Curve_synys")
 tile_frequency_curve = SubResource("Curve_q122h")
@@ -241,8 +250,8 @@ obs_frequency_curve = SubResource("Curve_drkpc")
 obs_threshold_curve = SubResource("Curve_jeu03")
 floor_resources = Array[ExtResource("3_xe3v7")]([ExtResource("2_ffhpp"), ExtResource("4_g8tif"), ExtResource("3_gbrxm"), ExtResource("5_plwm5")])
 floor_scn = ExtResource("2_3bivc")
-hover_indication_scn = ExtResource("14_7nos0")
 border_scn = ExtResource("9_2kemc")
+hover_indication_scn = ExtResource("14_7nos0")
 
 [node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("input_handler", "tool_manager")]
 script = ExtResource("8_741nu")

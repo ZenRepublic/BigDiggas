@@ -20,9 +20,7 @@ func _init() -> void:
 func _ready() -> void:
 	MusicManager.play_song("Menu")	
 	var client:SolanaClient = SolanaService.spawn_client_instance()
-	print(client.timeout)
-	print(client.commitment)
-	print()
+
 	#C:\Users\thomas\Desktop\kp\dev2gUnXyMLh6WyV9NTBaXeNfo1DTn2R4b69VTGNidF.json
 	#var result:Dictionary = await SolanaService.fetch_all_program_accounts_of_type(ClubhouseProgram.get_program(),"House",[])
 	#print(result)
@@ -56,7 +54,7 @@ func play_ui_sound(sound_name:String) -> void:
 	
 func _on_training_button_pressed() -> void:
 	MusicManager.play_sound("ButtonSimple")
-	SceneManager.load_scene(game_scene_path,true,-1,{"GameMode":GameManager.GameMode.TRAINING})
+	SceneManager.load_scene(game_scene_path,true,-1,0.0,{"GameMode":GameManager.GameMode.TRAINING})
 	
 func _on_mint_button_pressed() -> void:
 	MusicManager.play_sound("ButtonRich")
@@ -72,7 +70,7 @@ func _on_admin_button_pressed() -> void:
 	
 func load_game(mine_data:Dictionary,digga_data:Dictionary) -> void:
 	MusicManager.play_sound("ButtonSimple")
-	SceneManager.load_scene(game_scene_path,true,-1,{
+	SceneManager.load_scene(game_scene_path,true,-1,1.1,{
 		"GameMode":GameManager.GameMode.MINING,
 		"HouseData":house_data,
 		"MineData":mine_data,

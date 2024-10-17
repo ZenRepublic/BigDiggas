@@ -70,7 +70,6 @@ func send_post_request(body, headers:Array,endpoint:String) -> Dictionary:
 	var raw_response = await http_request.request_completed
 	http_request.queue_free()
 	var response_dict = parse_http_response(raw_response,true)
-	print(response_dict)
 
 	if response_dict["response_code"] != 200:
 		print(response_dict)

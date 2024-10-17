@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_msnsh")
 item_name = "Aquatearite"
-market_value = 40
+market_value = 50
 icon = ExtResource("2_gvxhm")
 visual = ExtResource("4_bjm31")
 quantity = 1

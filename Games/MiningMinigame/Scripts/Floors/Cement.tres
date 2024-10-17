@@ -27,8 +27,8 @@ ExtResource("13_au3cv"): 100
 possible_treasures = {
 ExtResource("4_huwpd"): 30,
 ExtResource("5_ptehp"): 10,
-ExtResource("6_incq6"): 30,
-ExtResource("7_gbg44"): 30
+ExtResource("6_incq6"): 20,
+ExtResource("7_gbg44"): 40
 }
 treasure_spawn_density = 3
 possible_utilities = {
@@ -38,5 +38,5 @@ ExtResource("10_vye2b"): 30,
 ExtResource("11_x8t2i"): 30,
 ExtResource("12_1pqnk"): 0
 }
-utility_spawn_density = 5
+utility_spawn_density = 4
 is_destroyable = true

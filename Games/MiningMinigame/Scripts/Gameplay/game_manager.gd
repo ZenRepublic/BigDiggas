@@ -26,7 +26,7 @@ func _ready():
 	
 func end_game() -> void:
 #	register player to database as alpha user for mystery reward
-	RubianServer.register_user(SolanaService.wallet.get_pubkey())
+	#RubianServer.register_user(SolanaService.wallet.get_pubkey())
 	
 	var inventory:Dictionary = player.inventory.get_collected_items()
 	player.input_handler.show_mouse(true)
