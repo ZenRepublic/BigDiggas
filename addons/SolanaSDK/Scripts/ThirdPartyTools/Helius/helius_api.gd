@@ -30,7 +30,8 @@ func get_estimated_priority_fee(transaction:Transaction, use_recommended_fee:boo
 	}
 	var response:Dictionary = await send_post_request(JSON.stringify(body),headers,helius_rpc)
 	if response.size() == 0 or response.has("error"):
-		push_error("failed to receive signature by the server")
+		push_error("Failed to calculate Estimated priority fee")
+		push_error(response)
 		return 0
 	
 	var fee_estimate:int

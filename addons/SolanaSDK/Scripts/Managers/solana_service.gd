@@ -240,6 +240,7 @@ func get_wallet_assets_data(wallet_to_check:Pubkey,asset_limit:int=1000, overrid
 		client.queue_free()
 		if response_dict.has("error"):
 			push_error("Error fetching DAS assets data, stopping paging operation")
+			push_error(response_dict)
 			break
 			
 		var loaded_page_assets:Array = response_dict["result"]["items"]
