@@ -1,6 +1,7 @@
 extends Node
 class_name TransactionManager
 
+@export var override_rpc_url:String
 ## wallet adapters automatically add unit limit of 800000 and unit price of 8000
 @export var use_custom_priority_fee:bool
 ## used to fetch estimated unit price. if you don't configure it with your own rpc key, fallback value will be used
@@ -69,7 +70,14 @@ func sign_and_send(transaction:Transaction,tx_commitment:Commitment=Commitment.C
 	return tx_data
 	
 func send_transaction(tx:Transaction,tx_commitment:Commitment=Commitment.CONFIRMED) -> TransactionData:
-	#tx.set_url_override(helius_api.helius_rpc)
+	#trying to force a staked connection if network is considered congested	
+	if helius_api!=null:
+		if helius_api.is_network_congested(tx.get_unit_price()):
+			var staked_url = helius_api.get_rpc_url(true)
+			if staked_url != "":
+				print("CONGESTION IDENTIFIED, USING STAKED CONNECTION RPC!")
+				tx.set_url_override(staked_url)
+		
 	tx.send()
 	var response:Dictionary = await tx.transaction_response_received
 	var tx_data:TransactionData = TransactionData.new(response)
@@ -80,6 +88,29 @@ func send_transaction(tx:Transaction,tx_commitment:Commitment=Commitment.CONFIRM
 		
 	print("Transaction %s is sent! \nAwaiting confirmation..." % tx_data.data["result"])
 	
+##	1 - processed
+##	2 - confirmed
+##	3 - finalized
+##	4 - failed
+	#var tx_status:int
+	#while true:
+		#tx_status = await tx.confirmation_status_changed
+		#print(tx_status)
+		#if tx_status == 4:
+			#break
+		#
+		#match tx_commitment:
+			#Commitment.PROCESSED:
+				#if tx_status == 1:
+					#break
+			#Commitment.CONFIRMED:
+				#if tx_status == 2:
+					#break
+			#Commitment.FINALIZED:
+				#if tx_status == 3:
+					#break
+		#print(tx_status)
+		
 	match tx_commitment:
 		Commitment.PROCESSED:
 			await tx.processed
@@ -89,6 +120,10 @@ func send_transaction(tx:Transaction,tx_commitment:Commitment=Commitment.CONFIRM
 			await tx.finalized  
 		
 	tx.queue_free()	
+	
+	#if tx_status == 4:
+		#return TransactionData.new({})
+
 	print_rich("[url]%s[/url]" % tx_data.get_link())
 	return tx_data
 		
@@ -144,6 +179,7 @@ func add_signature(transaction:Transaction,signer,all_needed_signers:Array) -> T
 	on_tx_signed.emit()
 	return transaction
 	
+	
 func get_compute_units_used(transaction:Transaction, inflate_percentage:int=0) -> int:
 	var simulated_tx_data:Dictionary = await SolanaService.simulate_transaction(transaction)
 	var consumed_units:int
@@ -159,8 +195,12 @@ func get_compute_units_used(transaction:Transaction, inflate_percentage:int=0) -
 	return consumed_units
 	
 func get_needed_unit_price(transaction:Transaction) -> int:
-	var estimated_unit_price = await helius_api.get_estimated_priority_fee(transaction,false)
+	var estimated_unit_price:int = 0
+	if helius_api!=null:
+		estimated_unit_price = await helius_api.get_estimated_priority_fee(transaction)
+		
 	if estimated_unit_price == 0:
+		print("Failed to fetch estimated priority fee, using default value...")
 		estimated_unit_price = fallback_compute_unit_price
 		
 	return estimated_unit_price

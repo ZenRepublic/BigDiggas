@@ -17,7 +17,7 @@ enable_sol_payment = true
 sol_payment_lamports = 2000000000
 sol_payment_destination = SubResource("Pubkey_ui0vc")
 enable_token_burn = true
-token_burn_amount = 300000
+token_burn_amount = 200000
 token_burn_mint = SubResource("Pubkey_2iwa1")
 
 [sub_resource type="Pubkey" id="Pubkey_5uwg0"]
@@ -37,7 +37,7 @@ enable_sol_payment = true
 sol_payment_lamports = 1000000000
 sol_payment_destination = SubResource("Pubkey_5uwg0")
 enable_token_burn = true
-token_burn_amount = 700000
+token_burn_amount = 500000
 token_burn_mint = SubResource("Pubkey_1gxrw")
 
 [sub_resource type="Pubkey" id="Pubkey_wq0tn"]

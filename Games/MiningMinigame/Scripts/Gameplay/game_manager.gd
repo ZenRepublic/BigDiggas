@@ -95,5 +95,8 @@ func remove_active_item_from_queue(item:MineItem) -> void:
 	try_handle_next_item()
 	
 func return_to_menu() -> void:
-	SceneManager.load_scene(menu_scene_path)
+	var wait_time:float = 0.0
+	if game_mode == GameMode.MINING:
+		wait_time = 1.0
+	SceneManager.load_scene(menu_scene_path,true,-1,wait_time)
 	

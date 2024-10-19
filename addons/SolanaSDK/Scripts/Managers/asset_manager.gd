@@ -28,7 +28,6 @@ signal on_asset_load_started(asset_keys:Array[Pubkey])
 signal on_asset_loaded(asset:WalletAsset)
 signal on_asset_load_finished(assets:Array[WalletAsset])
 
-# Called when the node enters the scene tree for the first time.
 func setup() -> void:
 	set_asset_fetch_mode()
 	SolanaService.on_rpc_cluster_changed.connect(set_asset_fetch_mode)

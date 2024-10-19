@@ -73,3 +73,4 @@ viewport/hdr_2d=true
 [solana_sdk]
 
 client/default_url="https://rpc.hellomoon.io/6b758f53-4b78-41a7-86a9-6b61c97711eb"
+client/default_ws_port=443

@@ -30,8 +30,14 @@ func set_mine_data(data:Dictionary) -> void:
 	
 	var collection_asset:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["nftConfig"]["collection"],true)
 	await collection_displayable.set_data(collection_asset)
-	var owned_collection_nfts:Array[WalletAsset] = SolanaService.asset_manager.get_owned_nfts_from_collection_key(collection_asset.mint)
-	player_display_system.setup(owned_collection_nfts,true)
+	#var owned_collection_nfts:Array[WalletAsset] = SolanaService.asset_manager.get_owned_nfts_from_collection_key(collection_asset.mint)
+	
+	var collection_filter:NFTCollection = NFTCollection.new()
+	collection_filter.mainnet_collection_id = collection_asset.mint.to_string()
+	player_display_system.collection_filter = [collection_filter]
+	
+	player_display_system.load_all_owned_assets()
+	#player_display_system.setup(owned_collection_nfts,true)
 	
 	if data["managerMint"] != null:
 		var mine_manager:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["managerMint"])

@@ -3,12 +3,53 @@ class_name HeliusAPI
 #can add unsafeMax as well
 enum PriorityFeeLevel {min,low,medium,high,veryHigh}
 
-@export var helius_rpc:String
-@export var priority_fee_level:PriorityFeeLevel
+@export var helius_api_key:String
+## this is important to know whether we can force a staked connection to send a transaction in case of congestion
+@export var using_paid_plan:bool
 
-func get_estimated_priority_fee(transaction:Transaction, use_recommended_fee:bool=true) -> int:
-	if helius_rpc == "":
-		push_error("Helius RPC not provided!")
+@export var priority_fee_level:PriorityFeeLevel
+@export var use_recommended_fee:bool = true
+@export var fee_to_consider_congested:int = 10000
+@export var use_rpc_as_override:bool=false
+
+func _ready() -> void:
+	if use_rpc_as_override:
+		SolanaService.asset_manager.override_rpc_url = get_rpc_url()
+	
+
+func get_rpc_url(staked:bool=false) -> String:
+	if helius_api_key == "":
+		print("Couldn't get a helius RPC because the API key is missing")	
+		return ""
+		
+	var url_type:String = ""
+	if staked:
+		if using_paid_plan:
+			url_type = "staked"
+		else:
+			print("Can't use a staked connection without a paid helius plan")
+			return ""
+	else:
+		match SolanaService.rpc_cluster:
+			SolanaService.RpcCluster.MAINNET:
+				url_type = "mainnet"
+			SolanaService.RpcCluster.DEVNET:
+				url_type = "devnet"
+	
+	if url_type == "":
+		print("Couldn't get a helius RPC from selected RPC cluster")	
+		return ""
+		
+	var rpc_url:String = "https://%s.helius-rpc.com/?api-key=%s" % [url_type,helius_api_key]
+	return rpc_url
+	
+func is_network_congested(calculated_fee:int) -> bool:
+	return calculated_fee > fee_to_consider_congested
+	
+
+func get_estimated_priority_fee(transaction:Transaction) -> int:
+	var rpc_url = get_rpc_url()
+	if rpc_url == "":
 		return 0
 		
 	var options:Dictionary
@@ -28,9 +69,8 @@ func get_estimated_priority_fee(transaction:Transaction, use_recommended_fee:boo
 			"options": options
 		}]
 	}
-	var response:Dictionary = await send_post_request(JSON.stringify(body),headers,helius_rpc)
+	var response:Dictionary = await send_post_request(JSON.stringify(body),headers,rpc_url)
 	if response.size() == 0 or response.has("error"):
-		push_error("Failed to calculate Estimated priority fee")
 		push_error(response)
 		return 0
 	

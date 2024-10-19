@@ -20,7 +20,6 @@ func set_mine_data(data:Dictionary) -> void:
 	var campaign_pda:Pubkey = ClubhousePDA.get_campaign_pda(data["campaignName"],data["house"])
 	mine_name_label.text = data["campaignName"]
 	
-	
 	var collection_asset:Nft = await SolanaService.asset_manager.get_asset_from_mint(data["nftConfig"]["collection"],true)
 	if collection_asset!=null:
 		collection_displayable.set_data(collection_asset)
