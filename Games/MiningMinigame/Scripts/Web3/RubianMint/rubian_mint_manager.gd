@@ -46,7 +46,7 @@ func _ready() -> void:
 func on_visibility_changed() -> void:
 	if self.visible:
 		screen_manager.switch_active_panel(0)
-		var token_asset:WalletAsset = await SolanaService.asset_manager.get_asset_from_mint(Pubkey.new_from_string(mint_token_address),true,true)
+		var token_asset:WalletAsset = await SolanaService.asset_manager.get_asset_from_mint(Pubkey.new_from_string(mint_token_address),true)
 		await displayable_token.set_data(token_asset)
 		await fetch_candy_machine_data()
 		screen_manager.switch_active_panel(1)

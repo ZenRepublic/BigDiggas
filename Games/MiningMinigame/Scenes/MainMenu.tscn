@@ -1183,7 +1183,6 @@ text = "ENTER
 MINE!"
 
 [node name="RubianMintScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("minted_amount", "progress_bar", "mint_tier_selector", "displayable_token", "mint_button")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1822,6 +1821,7 @@ link = "https://discord.gg/ZfBrN3GA5F"
 stream = ExtResource("40_7n6mh")
 
 [node name="MineManagerScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("mine_screen_manager", "mine_account_display_system", "mine_input_system", "mine_create_handler", "mine_display", "mines_list", "mine_creator")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
