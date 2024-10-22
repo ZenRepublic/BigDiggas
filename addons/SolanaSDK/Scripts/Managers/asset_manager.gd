@@ -50,6 +50,7 @@ func load_assets()->void:
 	assets_loaded=false
 	
 	var wallet_to_load:Pubkey = SolanaService.wallet.get_pubkey()
+	#var wallet_to_load:Pubkey = Pubkey.new_from_string("")
 	
 	owned_assets.clear()
 	

@@ -1,12 +1,31 @@
 extends Node
 class_name FileLoader
 
+@export_file("*.json") var path_to_metadata_whitelist:String
+
 var image_cache:Dictionary
 var metadata_cache:Dictionary
+
+var whitelist:Array
+
+func _ready() -> void:
+	var json_as_text = FileAccess.get_file_as_string(path_to_metadata_whitelist)
+	var json_as_array:Array = JSON.parse_string(json_as_text)
+	if json_as_array:
+		whitelist = json_as_array
+
+func is_whitelisted(url:String) -> bool:
+	for whitelisted_link in whitelist:
+		if url.contains(whitelisted_link):
+			return true
+	return false
 	
 func load_token_metadata(uri:String) -> Dictionary:
 	if metadata_cache.has(uri):
 		return metadata_cache[uri]
+		
+	if !is_whitelisted(uri):
+		return {}
 		
 	var http_request = HTTPRequest.new()
 	add_child(http_request)
@@ -22,7 +41,7 @@ func load_token_metadata(uri:String) -> Dictionary:
 	
 	if response_dict["response_code"] != 200:
 		print(response_dict)
-		push_error("Failed to fetch Token Metadata")
+		push_error("Failed to fetch Token Metadata for %s" % uri)
 		return {}
 	
 	if response_dict["body"] == null:
@@ -35,6 +54,9 @@ func load_token_metadata(uri:String) -> Dictionary:
 func load_token_image(image_link:String,size:int=512) -> Texture2D:
 	if image_cache.has(image_link):
 		return image_cache[image_link]
+		
+	if !is_whitelisted(image_link):
+		return null
 		
 	var http_request = HTTPRequest.new()
 	add_child(http_request)

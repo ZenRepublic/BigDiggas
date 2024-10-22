@@ -37,6 +37,7 @@ fallback_compute_unit_price = 80000
 
 [node name="FileLoader" type="Node" parent="."]
 script = ExtResource("7_4sv1b")
+path_to_metadata_whitelist = "res://addons/SolanaSDK/Scripts/Utility/metadata_whitelist.json"
 
 [node name="AccountInspector" type="Node" parent="."]
 script = ExtResource("6_mv3j8")
@@ -53,5 +54,5 @@ script = ExtResource("6_jo0rl")
 helius_api_key = "14091e35-f13b-4071-9578-410522205b40"
 using_paid_plan = true
 priority_fee_level = 3
-fee_to_consider_congested = 10001
+fee_to_consider_congested = 0
 override_das_rpc = true
