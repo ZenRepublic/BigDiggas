@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://dkyfoudbohuqq" path="res://addons/SolanaSDK/Textures/missingicon.png" id="4_viqwm"]
 [ext_resource type="Theme" uid="uid://ds48g7imsbnvb" path="res://ToilMines.tres" id="5_p8jhh"]
 
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ej5u4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yce1"]

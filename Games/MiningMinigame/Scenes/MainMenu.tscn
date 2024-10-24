@@ -275,7 +275,6 @@ texture = ExtResource("2_whdnv")
 stretch_mode = 1
 
 [node name="MainScreen" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1183,6 +1182,7 @@ text = "ENTER
 MINE!"
 
 [node name="RubianMintScreen" type="VBoxContainer" parent="." node_paths=PackedStringArray("minted_amount", "progress_bar", "mint_tier_selector", "displayable_token", "mint_button")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -2368,7 +2368,7 @@ alignment = 1
 max_length = 2
 script = ExtResource("15_cwt4b")
 input_type = 1
-min_value = 3.0
+min_value = 1.0
 max_value = 10.0
 
 [node name="EnergyRecharge" type="VBoxContainer" parent="MineManagerScreen/MainContent/MineManagement/CreateMineContainer/MineDetailsContainer/NFTMinerSettings/CustomizationSettings"]
@@ -2391,6 +2391,7 @@ alignment = 1
 max_length = 4
 script = ExtResource("15_cwt4b")
 input_type = 1
+is_optional = true
 max_value = 1440.0
 allow_zero = false
 

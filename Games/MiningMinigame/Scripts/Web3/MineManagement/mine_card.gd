@@ -22,6 +22,7 @@ func _ready() -> void:
 		
 # Called when the node enters the scene tree for the first time.
 func set_mine_data(data:Dictionary) -> void:
+	print(data)
 	disable_mine(false)
 	curr_selected_mine_data = data
 	campaign_pda = ClubhousePDA.get_campaign_pda(data["campaignName"],data["house"])
@@ -33,7 +34,7 @@ func set_mine_data(data:Dictionary) -> void:
 	#var owned_collection_nfts:Array[WalletAsset] = SolanaService.asset_manager.get_owned_nfts_from_collection_key(collection_asset.mint)
 	
 	var collection_filter:NFTCollection = NFTCollection.new()
-	collection_filter.mainnet_collection_id = collection_asset.mint.to_string()
+	collection_filter.collection_mint = collection_asset.mint
 	player_display_system.collection_filter = [collection_filter]
 	
 	player_display_system.load_all_owned_assets()
@@ -51,6 +52,11 @@ func set_mine_data(data:Dictionary) -> void:
 	
 	max_reward_label.set_value(data["maxRewardsPerGame"]/pow(10,data["rewardMintDecimals"]))
 	
+	var reserved_amount:float = max_reward_label.get_number_value() * data["activeGames"]
+	if mine_token_displayable.asset.get_balance() < (max_reward_label.get_number_value()+reserved_amount):
+		mine_token_displayable.balance_label.set_value(0)
+		disable_mine()
+		
 	campaign_timer.start_timer(data["timeSpan"]["endTime"])
 	if campaign_timer.is_finished():
 		disable_mine()

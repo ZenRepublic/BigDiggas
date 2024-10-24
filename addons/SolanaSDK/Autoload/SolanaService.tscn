@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Managers/solana_service.gd" id="1_hwc3u"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/TransactionManager/transaction_manager.gd" id="2_v3adq"]
+[ext_resource type="Texture2D" uid="uid://ednyuqv4m5yq" path="res://Textures/Tokens/erop3bfg_400x400 (1).jpg" id="4_1d27m"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Managers/wallet_service.gd" id="5_f327g"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/ThirdPartyTools/Helius/helius_api.gd" id="6_jo0rl"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/account_inspector.gd" id="6_mv3j8"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/file_loader.gd" id="7_4sv1b"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Managers/asset_manager.gd" id="8_4oy84"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Utility/shdwdrive_creator.gd" id="9_m6qd0"]
-[ext_resource type="Texture2D" uid="uid://dkyfoudbohuqq" path="res://addons/SolanaSDK/Textures/missingicon.png" id="9_oi842"]
 [ext_resource type="Script" path="res://addons/SolanaSDK/Scripts/Managers/candy_machine_manager.gd" id="9_pob61"]
 
 [node name="SolanaService" type="Node"]
@@ -27,7 +27,7 @@ custom_wallet_path = "C:\\Users\\thoma\\Desktop\\kp\\dev2gUnXyMLh6WyV9NTBaXeNfo1
 [node name="AssetManager" type="Node" parent="."]
 script = ExtResource("8_4oy84")
 load_token_balances = true
-missing_texture_visual = ExtResource("9_oi842")
+missing_texture_visual = ExtResource("4_1d27m")
 
 [node name="TransactionManager" type="Node" parent="." node_paths=PackedStringArray("helius_api")]
 script = ExtResource("2_v3adq")

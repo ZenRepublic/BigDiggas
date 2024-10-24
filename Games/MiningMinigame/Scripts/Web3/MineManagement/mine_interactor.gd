@@ -39,7 +39,9 @@ func load_mine_card(mine_data:Dictionary) -> void:
 func handle_mine_active(mine_entry:AccountDisplayEntry) -> void:
 	var mine_end_timestamp:float = mine_entry.data["timeSpan"]["endTime"]
 	var utc_timestamp:float = Time.get_unix_time_from_system()
+
 	mine_entry.button.disabled = utc_timestamp>mine_end_timestamp
+	
 
 func enter_mine() -> void:
 	var digga_data:Dictionary = mine_card.get_selected_digga_data()

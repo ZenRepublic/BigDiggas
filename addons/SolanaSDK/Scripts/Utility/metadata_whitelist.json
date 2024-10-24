@@ -1,11 +1,12 @@
 [
-	"https://shdw-drive.genesysgo.net/",
-	"https://arweave.net/",
-	"https://updg8.com/",
-	"https://nftstorage.link/",
+	"shdw-drive.genesysgo.net",
+	"arweave.net",
+	"updg8.com",
+	"nftstorage.link",
 	"ipfs.nftstorage.link",
-	"https://gateway.pinit.io/",
-	"https://ipfs.io/",
-	"https://bigbrainleague.",
-	"https://tribe.run"
+	"gateway.pinit.io",
+	"ipfs.io",
+	"bigbrainleague",
+	"tribe.run",
+	"superteam-nft-generator.vercel.app"
 ]

@@ -34,6 +34,7 @@ func set_data(mint_address:Pubkey,token_metadata:MetaData,token_offchain_metadat
 		
 func try_load_image(size:int=256) -> void:
 	if offchain_metadata.size()==0:
+		image = SolanaService.asset_manager.missing_texture_visual
 		return
 		
 	if !offchain_metadata.has("image"):
